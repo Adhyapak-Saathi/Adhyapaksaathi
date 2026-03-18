@@ -38,6 +38,30 @@
     .quiz-panel { border-top: 5px solid var(--gold); }
     .question-text { font-size: 1.25rem; font-weight: 700; color: var(--navy-dark); line-height: 1.6; margin-bottom: 2rem; }
     
+    /* Live Score Badge */
+    .live-score-badge {
+      background: var(--gold-bg);
+      border: 2px solid var(--gold);
+      color: var(--navy);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 8px rgba(184,134,11,0.15);
+      transition: all 0.3s ease;
+    }
+    .score-bump {
+      animation: popScore 0.5s ease;
+    }
+    @keyframes popScore {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); background: var(--green); color: white; border-color: var(--green); }
+      100% { transform: scale(1); }
+    }
+
     /* 3. The 4 Beautiful Buttons */
     .opt-btn {
       font-size: 1.05rem;
@@ -86,6 +110,16 @@
       font-size: 0.9rem;
       letter-spacing: 0.5px;
       box-shadow: 0 4px 10px rgba(29,52,97,0.2);
+    }
+
+    /* 6. Final Scorecard Card */
+    .final-scorecard {
+      background: linear-gradient(135deg, #fdfaf3 0%, #ffffff 100%);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg);
     }
 
     @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
@@ -185,8 +219,14 @@
       <div id="quizScreen" style="display:none">
         <div class="quiz-panel">
           <div class="quiz-header">
-            <span class="quiz-subject-tag" id="quizSubLabel">TAT (S) &amp; (HS)</span>
-            <span class="quiz-counter">Question <span id="qNum">1</span> of <span id="qTotal">10</span></span>
+            <div style="display:flex; align-items:center; gap: 15px; flex-wrap:wrap;">
+              <span class="quiz-subject-tag" id="quizSubLabel">TAT (S) &amp; (HS)</span>
+              <span class="quiz-counter">Question <span id="qNum">1</span> of <span id="qTotal">10</span></span>
+            </div>
+            <!-- LIVE SCORE SECTION -->
+            <div class="live-score-badge" id="liveScoreBadge">
+              🏆 Score: <span id="liveScoreNum">0</span> &nbsp;/&nbsp; <span id="liveScoreTotal">10</span>
+            </div>
           </div>
           <div class="progress-wrap">
             <div class="progress-fill" id="progBar" style="width:10%"></div>
@@ -217,12 +257,16 @@
       <div id="resultScreen" style="display:none">
         <div class="quiz-panel">
           <div class="quiz-result-body">
-            <div class="score-circle">
-              <span class="score-num" id="scoreNum">0</span>
-              <span class="score-of">out of <span id="scoreTotal">10</span></span>
+            
+            <div class="final-scorecard">
+              <div class="score-circle">
+                <span class="score-num" id="scoreNum">0</span>
+                <span class="score-of">out of <span id="scoreTotal">10</span></span>
+              </div>
+              <h2 style="font-family:var(--font-serif);font-size:2.2rem;color:var(--navy);margin-bottom:0.5rem" id="resultTitle">Test Complete</h2>
+              <p style="font-size:1.15rem;color:var(--text-mid);margin-bottom:0;font-weight:600" id="resultMsg"></p>
             </div>
-            <h2 style="font-family:var(--font-serif);font-size:2rem;color:var(--navy);margin-bottom:0.5rem" id="resultTitle">Test Complete</h2>
-            <p style="font-size:1.1rem;color:var(--text-muted);margin-bottom:2.5rem;font-weight:600" id="resultMsg"></p>
+
             <div id="solutionsBox" style="text-align:left;margin-bottom:2rem"></div>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
               <button class="btn btn-navy" onclick="startQuiz()">🔄 Retake This Test</button>
@@ -298,7 +342,6 @@ function toggleNav() { document.getElementById('navLinks').classList.toggle('ope
 
 // QUIZ DATA
 const bank = {
-  // 20 Questions extracted from Gujarati TAT Exam Images
   tat: [
     { q: "વિકાસની પ્રક્રિયા વિશે નીચેનામાંથી કયું વિધાન સાચું નથી?", opts: ["તે સતત ચાલતી પ્રક્રિયા છે.", "તે માત્ર શારીરિક વૃદ્ધિ પૂરતી સીમિત છે.", "તેમાં ગુણાત્મક અને જથ્થાત્મક બંને ફેરફારો થાય છે.", "તે આનુવંશિકતા અને પર્યાવરણ બંને દ્વારા પ્રભાવિત થાય છે."], ans: 1, exp: "વિકાસ એ માત્ર શારીરિક વૃદ્ધિ નથી, પરંતુ માનસિક, સામાજિક અને સંવેગાત્મક ફેરફારોનો પણ સમાવેશ કરે છે." },
     { q: "અધ્યયન (Learning) એટલે શું?", opts: ["ફક્ત શાળામાં મેળવેલું જ્ઞાન", "જન્મજાત વૃત્તિઓ", "અનુભવ અને મહાવરા દ્વારા વર્તનમાં થતો પ્રમાણમાં કાયમી ફેરફાર", "બીમારીને કારણે થતા વર્તનના ફેરફારો"], ans: 2, exp: "અધ્યયન એટલે અનુભવ અને મહાવરાના પરિણામે વર્તનમાં થતો કાયમી ફેરફાર." },
@@ -334,8 +377,8 @@ const meta = {
 };
 
 // Motivational arrays for dynamic feedback
-const correctMotivations = ["Excellent! 🌟", "Spot on! 🎯", "Great job! 🎉", "Perfect! ✔️", "You got it! 👏", "Brilliant! 🧠"];
-const wrongMotivations = ["Oops! ❌", "Keep trying! 💪", "Not quite! 😅", "Learn from this! 📚", "Next time! 🚀"];
+const correctMotivations = ["Excellent! 🌟", "Spot on! 🎯", "Great job! 🎉", "Perfect! ✔️", "You got it! 👏", "Brilliant! 🧠", "Way to go! 🚀"];
+const wrongMotivations = ["Oops! ❌", "Keep trying! 💪", "Not quite! 😅", "Learn from this! 📚", "Next time! 🚀", "Don't give up! ✨"];
 
 let cur = 'tat', qi = 0, score = 0, done = false, qs = [];
 let totalQuestions = 0;
@@ -397,6 +440,11 @@ function startQuiz() {
   document.getElementById('qTotal').textContent = totalQuestions;
   document.getElementById('scoreTotal').textContent = totalQuestions;
   
+  // Reset Live Score
+  document.getElementById('liveScoreTotal').textContent = totalQuestions;
+  document.getElementById('liveScoreNum').textContent = 0;
+  document.getElementById('liveScoreBadge').classList.remove('score-bump');
+  
   document.getElementById('introScreen').style.display = 'none';
   document.getElementById('quizScreen').style.display = '';
   document.getElementById('resultScreen').style.display = 'none';
@@ -435,15 +483,24 @@ function pick(i) {
   const fb = document.getElementById('feedbackMsg');
   const reasonBox = document.getElementById('reasonBox');
   const reasonText = document.getElementById('reasonText');
+  const liveScoreBadge = document.getElementById('liveScoreBadge');
+  const liveScoreNum = document.getElementById('liveScoreNum');
   
   // Logic for correct/incorrect feedback & MARKS
   if (i === q.ans) {
     score++;
+    
+    // Update live score with animation
+    liveScoreNum.textContent = score;
+    liveScoreBadge.classList.remove('score-bump');
+    void liveScoreBadge.offsetWidth; // trigger reflow for animation
+    liveScoreBadge.classList.add('score-bump');
+
     let randomMotiv = correctMotivations[Math.floor(Math.random() * correctMotivations.length)];
     fb.innerHTML = `<span style="color:var(--green)">${randomMotiv}</span> <span class="mark-badge" style="background:var(--green);color:#fff">+1 Mark 🌟</span>`;
   } else {
     let randomMotiv = wrongMotivations[Math.floor(Math.random() * wrongMotivations.length)];
-    fb.innerHTML = `<span style="color:var(--red)">${randomMotiv}</span> <span class="mark-badge" style="background:#fef2f2;color:var(--red);border:1px solid var(--red)">0 Marks ❌</span>`;
+    fb.innerHTML = `<span style="color:var(--red)">${randomMotiv}</span> <span class="mark-badge" style="background:#fef2f2;color:var(--red);border:1px solid var(--red)">+0 Marks ❌</span>`;
   }
   
   // Show the Reason Box!
