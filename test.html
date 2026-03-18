@@ -4,9 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Practice Test — Adhyapak Saathi</title>
+  
+  <!-- SEO & Social Media Preview Tags (Open Graph) -->
   <meta name="description" content="Practice tests for TAT, TET, UGC NET, GSET and CTET — Child Development, Pedagogy, Language and Subject Knowledge."/>
+  <meta property="og:title" content="Adhyapak Saathi Practice Tests" />
+  <meta property="og:description" content="Take free, syllabus-aligned practice tests for TAT, TET, UGC NET, GSET, and CTET. Instantly see detailed explanations!" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80" />
+  <meta property="og:url" content="https://adhyapak-saathi.github.io/Adhyapaksaathi/test.html" />
+  <meta property="og:type" content="website" />
+
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  
   <style>
     /* ==================================================
        UPGRADED QUIZ UI ENHANCEMENTS 
@@ -38,8 +47,8 @@
     .quiz-panel { border-top: 5px solid var(--gold); }
     .question-text { font-size: 1.25rem; font-weight: 700; color: var(--navy-dark); line-height: 1.6; margin-bottom: 2rem; }
     
-    /* Live Score Badge */
-    .live-score-badge {
+    /* Live Score Badge & Timer Badge */
+    .live-score-badge, .timer-badge {
       background: var(--gold-bg);
       border: 2px solid var(--gold);
       color: var(--navy);
@@ -53,9 +62,9 @@
       box-shadow: 0 3px 8px rgba(184,134,11,0.15);
       transition: all 0.3s ease;
     }
-    .score-bump {
-      animation: popScore 0.5s ease;
-    }
+    .timer-badge { border-color: var(--red); color: var(--red); background: #fef2f2; display: none; }
+    
+    .score-bump { animation: popScore 0.5s ease; }
     @keyframes popScore {
       0% { transform: scale(1); }
       50% { transform: scale(1.15); background: var(--green); color: white; border-color: var(--green); }
@@ -77,7 +86,6 @@
     .opt-btn:hover { border-color: var(--gold-light); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(184,134,11,0.15); }
     .opt-btn.correct { border-color: var(--green); background: #f0fdf4; box-shadow: 0 0 0 2px var(--green); color: var(--green); }
     .opt-btn.wrong { border-color: var(--red); background: #fef2f2; box-shadow: 0 0 0 2px var(--red); color: var(--red); opacity: 0.8; }
-    
     .opt-letter { font-size: 0.85rem; width: 34px; height: 34px; }
 
     /* 4. Special Line: Reason Behind Answer */
@@ -112,7 +120,7 @@
       box-shadow: 0 4px 10px rgba(29,52,97,0.2);
     }
 
-    /* 6. Final Scorecard Card */
+    /* 6. Final Scorecard Card & High Score */
     .final-scorecard {
       background: linear-gradient(135deg, #fdfaf3 0%, #ffffff 100%);
       border: 2px solid var(--gold);
@@ -121,6 +129,20 @@
       margin-bottom: 2.5rem;
       box-shadow: var(--shadow-lg);
     }
+    .high-score-display { font-size: 0.95rem; color: var(--gold-light); font-weight: 700; margin-bottom: 15px; display: none; }
+    .new-hs-badge { background: #ffeb3b; color: #b8860b; padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 800; display: none; margin-bottom: 15px; animation: popScore 0.5s ease; border: 2px solid var(--gold); }
+
+    /* 7. WhatsApp Share & Toggle Switch */
+    .btn-whatsapp { background: #25D366; color: white; border: none; }
+    .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); color: white; box-shadow: 0 4px 12px rgba(37,211,102,0.3); }
+    
+    .switch-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; margin: 15px auto; justify-content: center; background: var(--bg); padding: 10px 20px; border-radius: 8px; width: fit-content; border: 1px solid var(--border); }
+    .switch-wrap input { display: none; }
+    .switch-slider { width: 44px; height: 24px; background-color: var(--border-dark); border-radius: 24px; position: relative; transition: 0.3s; }
+    .switch-slider::before { content: ""; position: absolute; width: 18px; height: 18px; border-radius: 50%; background: white; top: 3px; left: 3px; transition: 0.3s; }
+    .switch-wrap input:checked + .switch-slider { background-color: var(--navy); }
+    .switch-wrap input:checked + .switch-slider::before { transform: translateX(20px); }
+    .switch-label { font-size: 0.95rem; font-weight: 700; color: var(--navy); font-family: var(--font-sans); }
 
     @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
@@ -180,7 +202,7 @@
 <section class="section" style="padding-top:0">
   <div class="wrapper">
 
-    <!-- EXAM TABS (Fixed Spacing & Design) -->
+    <!-- EXAM TABS -->
     <div class="tab-row" id="examTabs">
       <button id="tab-tat" class="tab-btn active" onclick="selectSub('tat',this)">TAT (S) &amp; (HS)</button>
       <button id="tab-tet1" class="tab-btn" onclick="selectSub('tet1',this)">TET I</button>
@@ -199,17 +221,26 @@
             <div class="intro-icon" id="introIcon">🎓</div>
             <h2 style="font-family:var(--font-serif);font-size:2rem;color:var(--navy);margin-bottom:0.5rem" id="introTitle">TAT (S) &amp; (HS) Practice Test</h2>
             <p style="color:var(--text-muted);font-size:1.1rem;margin-bottom:0.2rem" id="introDesc">Child Development &amp; Pedagogy (બાળવિકાસ અને શિક્ષણશાસ્ત્ર)</p>
-            <div class="quiz-meta-row">
+            
+            <!-- High Score Display -->
+            <div id="highScoreDisplay" class="high-score-display">🏆 Your Highest Score: 0</div>
+
+            <!-- Exam Mode Toggle -->
+            <label class="switch-wrap">
+              <input type="checkbox" id="examModeToggle">
+              <span class="switch-slider"></span>
+              <span class="switch-label">⏱️ Exam Mode (Timer)</span>
+            </label>
+
+            <div class="quiz-meta-row" style="margin-top: 1rem;">
               <div class="quiz-meta-item">
                 <span id="introCount">20</span><span>Questions</span>
               </div>
               <div class="quiz-meta-item">
                 <span>+1</span><span>Per Correct Answer</span>
               </div>
-              <div class="quiz-meta-item">
-                <span>Free</span><span>No Timer</span>
-              </div>
             </div>
+            
             <button id="startBtn" class="btn btn-navy" style="font-size:1.1rem;padding:15px 35px" onclick="startQuiz()">Begin Practice Test 🚀</button>
           </div>
         </div>
@@ -223,14 +254,21 @@
               <span class="quiz-subject-tag" id="quizSubLabel">TAT (S) &amp; (HS)</span>
               <span class="quiz-counter">Question <span id="qNum">1</span> of <span id="qTotal">10</span></span>
             </div>
-            <!-- LIVE SCORE SECTION -->
-            <div class="live-score-badge" id="liveScoreBadge">
-              🏆 Score: <span id="liveScoreNum">0</span> &nbsp;/&nbsp; <span id="liveScoreTotal">10</span>
+            
+            <div style="display:flex; gap: 10px; align-items: center;">
+              <!-- TIMER -->
+              <div class="timer-badge" id="timerDisplay">⏱️ 00:00</div>
+              <!-- LIVE SCORE SECTION -->
+              <div class="live-score-badge" id="liveScoreBadge">
+                🏆 Score: <span id="liveScoreNum">0</span> &nbsp;/&nbsp; <span id="liveScoreTotal">10</span>
+              </div>
             </div>
           </div>
+          
           <div class="progress-wrap">
             <div class="progress-fill" id="progBar" style="width:10%"></div>
           </div>
+          
           <div class="quiz-body">
             <div class="question-num" id="qNumLabel">QUESTION 1</div>
             <div class="question-text" id="questionText"></div>
@@ -259,6 +297,9 @@
           <div class="quiz-result-body">
             
             <div class="final-scorecard">
+              <!-- New High Score Badge -->
+              <div id="newHighScoreBadge" class="new-hs-badge">🎉 NEW HIGH SCORE! 🎉</div>
+
               <div class="score-circle">
                 <span class="score-num" id="scoreNum">0</span>
                 <span class="score-of">out of <span id="scoreTotal">10</span></span>
@@ -269,7 +310,8 @@
 
             <div id="solutionsBox" style="text-align:left;margin-bottom:2rem"></div>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-              <button class="btn btn-navy" onclick="startQuiz()">🔄 Retake This Test</button>
+              <button class="btn btn-whatsapp" onclick="shareWhatsApp()">📱 Share on WhatsApp</button>
+              <button class="btn btn-navy" onclick="startQuiz()">🔄 Retake Test</button>
               <a href="test.html" class="btn btn-outline">📚 Choose Another Exam</a>
             </div>
           </div>
@@ -383,6 +425,11 @@ const wrongMotivations = ["Oops! ❌", "Keep trying! 💪", "Not quite! 😅", "
 let cur = 'tat', qi = 0, score = 0, done = false, qs = [];
 let totalQuestions = 0;
 
+// Variables for Timer
+let timerInterval;
+let timeRemaining = 0; 
+let isExamMode = false;
+
 // Read URL parameters on load to show correct Exam tab
 window.onload = () => {
   const params = new URLSearchParams(window.location.search);
@@ -408,6 +455,16 @@ function selectSub(sub, btn) {
   document.getElementById('introTitle').textContent = m.title;
   document.getElementById('quizSubLabel').textContent = m.label;
   
+  // Fetch LocalStorage High Score
+  const savedScore = localStorage.getItem('adhyapak_hs_' + cur);
+  const hsDisplay = document.getElementById('highScoreDisplay');
+  if (savedScore) {
+      hsDisplay.textContent = `🏆 Your Highest Score: ${savedScore}`;
+      hsDisplay.style.display = 'block';
+  } else {
+      hsDisplay.style.display = 'none';
+  }
+
   const startBtn = document.getElementById('startBtn');
   
   if (bank[sub] && bank[sub].length > 0) {
@@ -445,10 +502,48 @@ function startQuiz() {
   document.getElementById('liveScoreNum').textContent = 0;
   document.getElementById('liveScoreBadge').classList.remove('score-bump');
   
+  // Timer Setup
+  isExamMode = document.getElementById('examModeToggle').checked;
+  const timerBadge = document.getElementById('timerDisplay');
+  
+  if (isExamMode) {
+      timeRemaining = totalQuestions * 60; // 60 seconds per question
+      timerBadge.style.display = 'inline-flex';
+      updateTimerDisplay();
+      
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+          timeRemaining--;
+          updateTimerDisplay();
+          
+          if (timeRemaining <= 0) {
+              clearInterval(timerInterval);
+              showResult(); // Time's up! Auto submit
+          }
+      }, 1000);
+  } else {
+      timerBadge.style.display = 'none';
+  }
+
   document.getElementById('introScreen').style.display = 'none';
   document.getElementById('quizScreen').style.display = '';
   document.getElementById('resultScreen').style.display = 'none';
   showQ();
+}
+
+function updateTimerDisplay() {
+    const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+    const s = (timeRemaining % 60).toString().padStart(2, '0');
+    document.getElementById('timerDisplay').textContent = `⏱️ ${m}:${s}`;
+    
+    // Turn red if less than 60 seconds
+    if (timeRemaining < 60) {
+        document.getElementById('timerDisplay').style.background = 'var(--red)';
+        document.getElementById('timerDisplay').style.color = '#fff';
+    } else {
+        document.getElementById('timerDisplay').style.background = '#fef2f2';
+        document.getElementById('timerDisplay').style.color = 'var(--red)';
+    }
 }
 
 function showQ() {
@@ -462,7 +557,7 @@ function showQ() {
   // Reset UI elements
   document.getElementById('feedbackMsg').innerHTML = '';
   document.getElementById('nextBtn').style.display = 'none';
-  document.getElementById('reasonBox').style.display = 'none'; // Hide reason initially
+  document.getElementById('reasonBox').style.display = 'none'; 
   
   const letters = ['A', 'B', 'C', 'D'];
   document.getElementById('optionsList').innerHTML = q.opts.map((o, i) =>
@@ -517,11 +612,23 @@ function nextQ() {
 }
 
 function showResult() {
+  clearInterval(timerInterval); // Stop timer
+  
   document.getElementById('quizScreen').style.display = 'none';
   document.getElementById('resultScreen').style.display = '';
   document.getElementById('scoreNum').textContent = score;
   
   const pct = score / totalQuestions;
+  
+  // Check High Score
+  const prevHs = parseInt(localStorage.getItem('adhyapak_hs_' + cur) || '0');
+  const newHsBadge = document.getElementById('newHighScoreBadge');
+  if (score > prevHs) {
+      localStorage.setItem('adhyapak_hs_' + cur, score);
+      newHsBadge.style.display = 'inline-block';
+  } else {
+      newHsBadge.style.display = 'none';
+  }
   
   // End Screen Motivational Messages based on Score
   let resultTitle, resultMsg;
@@ -551,6 +658,12 @@ function showResult() {
         <div style="font-size:0.88rem;color:var(--green);font-weight:700;margin-bottom:0.4rem">✔ Correct: ${q.opts[q.ans]}</div>
         <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.6"><strong>Reason:</strong> ${q.exp}</div>
       </div>`).join('');
+}
+
+function shareWhatsApp() {
+    const textMsg = `I just scored ${score}/${totalQuestions} on the ${meta[cur].title} test at Adhyapak Saathi! 🎓📚\n\nTry to beat my score here: https://adhyapak-saathi.github.io/Adhyapaksaathi/test.html?exam=${cur}`;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`;
+    window.open(url, '_blank');
 }
 </script>
 </body>
