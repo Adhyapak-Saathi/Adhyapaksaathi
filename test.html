@@ -7,6 +7,89 @@
   <meta name="description" content="Practice tests for TAT, TET, UGC NET, GSET and CTET — Child Development, Pedagogy, Language and Subject Knowledge."/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  <style>
+    /* ==================================================
+       UPGRADED QUIZ UI ENHANCEMENTS 
+       ================================================== */
+    
+    /* 1. Spaced & Colored Tabs */
+    #examTabs {
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 3px solid var(--navy);
+      padding-bottom: 0;
+      justify-content: center;
+    }
+    .tab-btn {
+      background: #e8edf6;
+      color: var(--navy);
+      border-radius: 8px 8px 0 0;
+      padding: 12px 24px;
+      border: 1px solid #d6dce8;
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+    .tab-btn:hover { background: #d0dbe8; transform: translateY(-2px); }
+    .tab-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+    /* 2. Enhanced Quiz Panel & Question Text */
+    .quiz-panel { border-top: 5px solid var(--gold); }
+    .question-text { font-size: 1.25rem; font-weight: 700; color: var(--navy-dark); line-height: 1.6; margin-bottom: 2rem; }
+    
+    /* 3. The 4 Beautiful Buttons */
+    .opt-btn {
+      font-size: 1.05rem;
+      padding: 16px 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(29,52,97,0.05);
+      background: #ffffff;
+      border: 2px solid #e8ecf4;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .opt-btn:hover { border-color: var(--gold-light); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(184,134,11,0.15); }
+    .opt-btn.correct { border-color: var(--green); background: #f0fdf4; box-shadow: 0 0 0 2px var(--green); color: var(--green); }
+    .opt-btn.wrong { border-color: var(--red); background: #fef2f2; box-shadow: 0 0 0 2px var(--red); color: var(--red); opacity: 0.8; }
+    
+    .opt-letter { font-size: 0.85rem; width: 34px; height: 34px; }
+
+    /* 4. Special Line: Reason Behind Answer */
+    .reason-box {
+      display: none;
+      margin-top: 25px;
+      padding: 18px 24px;
+      background: #fdfaf3;
+      border-left: 6px solid var(--gold);
+      border-radius: 8px;
+      font-size: 0.98rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      animation: slideDown 0.4s ease;
+      box-shadow: inset 0 0 10px rgba(184,134,11,0.05);
+    }
+    .reason-title { font-weight: 800; color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    /* 5. Marks Section & Motivation */
+    .quiz-footer { flex-wrap: wrap; gap: 15px; }
+    .feedback-msg { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 12px; flex: 1; }
+    .mark-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--navy);
+      color: var(--gold);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(29,52,97,0.2);
+    }
+
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
 </head>
 <body>
 
@@ -55,7 +138,7 @@
 <section class="section-sm">
   <div class="wrapper">
     <div class="notice notice-info">
-      <strong>Instructions:</strong> Each test contains multiple-choice questions. Select the best answer and click "Next" to proceed. Your score and detailed solutions are displayed at the end.
+      <strong>Instructions:</strong> Each test contains multiple-choice questions. Select the best answer to instantly see your marks, motivational feedback, and the reason behind the answer!
     </div>
   </div>
 </section>
@@ -63,7 +146,7 @@
 <section class="section" style="padding-top:0">
   <div class="wrapper">
 
-    <!-- TAB BAR (Now organized by Exams) -->
+    <!-- EXAM TABS (Fixed Spacing & Design) -->
     <div class="tab-row" id="examTabs">
       <button id="tab-tat" class="tab-btn active" onclick="selectSub('tat',this)">TAT (S) &amp; (HS)</button>
       <button id="tab-tet1" class="tab-btn" onclick="selectSub('tet1',this)">TET I</button>
@@ -75,30 +158,30 @@
 
     <div class="quiz-wrap">
 
-      <!-- INTRO -->
+      <!-- INTRO SCREEN -->
       <div id="introScreen">
         <div class="quiz-panel">
           <div class="quiz-intro-body">
             <div class="intro-icon" id="introIcon">🎓</div>
-            <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--navy);margin-bottom:0.5rem" id="introTitle">TAT (S) &amp; (HS) Practice Test</h2>
-            <p style="color:var(--text-muted);margin-bottom:0.2rem" id="introDesc">Child Development &amp; Pedagogy (બાળવિકાસ અને શિક્ષણશાસ્ત્ર)</p>
+            <h2 style="font-family:var(--font-serif);font-size:2rem;color:var(--navy);margin-bottom:0.5rem" id="introTitle">TAT (S) &amp; (HS) Practice Test</h2>
+            <p style="color:var(--text-muted);font-size:1.1rem;margin-bottom:0.2rem" id="introDesc">Child Development &amp; Pedagogy (બાળવિકાસ અને શિક્ષણશાસ્ત્ર)</p>
             <div class="quiz-meta-row">
               <div class="quiz-meta-item">
                 <span id="introCount">20</span><span>Questions</span>
               </div>
               <div class="quiz-meta-item">
-                <span>+1</span><span>Per Correct</span>
+                <span>+1</span><span>Per Correct Answer</span>
               </div>
               <div class="quiz-meta-item">
                 <span>Free</span><span>No Timer</span>
               </div>
             </div>
-            <button id="startBtn" class="btn btn-navy" onclick="startQuiz()">Begin Practice Test</button>
+            <button id="startBtn" class="btn btn-navy" style="font-size:1.1rem;padding:15px 35px" onclick="startQuiz()">Begin Practice Test 🚀</button>
           </div>
         </div>
       </div>
 
-      <!-- QUIZ -->
+      <!-- QUIZ SCREEN -->
       <div id="quizScreen" style="display:none">
         <div class="quiz-panel">
           <div class="quiz-header">
@@ -111,16 +194,26 @@
           <div class="quiz-body">
             <div class="question-num" id="qNumLabel">QUESTION 1</div>
             <div class="question-text" id="questionText"></div>
+            
+            <!-- The 4 Beautiful Buttons -->
             <div class="options-list" id="optionsList"></div>
+            
+            <!-- SPECIAL LINE: Reason behind answer -->
+            <div class="reason-box" id="reasonBox">
+              <div class="reason-title">💡 Reason / Explanation</div>
+              <div id="reasonText"></div>
+            </div>
+
           </div>
           <div class="quiz-footer">
+            <!-- Motivation and Marks will appear here -->
             <span class="feedback-msg" id="feedbackMsg"></span>
-            <button class="btn btn-navy btn-sm" id="nextBtn" style="display:none" onclick="nextQ()">Next Question →</button>
+            <button class="btn btn-navy btn-sm" id="nextBtn" style="display:none;font-size:1rem;padding:12px 25px" onclick="nextQ()">Next Question ➡️</button>
           </div>
         </div>
       </div>
 
-      <!-- RESULT -->
+      <!-- RESULT SCREEN -->
       <div id="resultScreen" style="display:none">
         <div class="quiz-panel">
           <div class="quiz-result-body">
@@ -128,12 +221,12 @@
               <span class="score-num" id="scoreNum">0</span>
               <span class="score-of">out of <span id="scoreTotal">10</span></span>
             </div>
-            <h2 style="font-family:var(--font-serif);font-size:1.7rem;color:var(--navy);margin-bottom:0.5rem" id="resultTitle">Test Complete</h2>
-            <p style="color:var(--text-muted);margin-bottom:2.5rem" id="resultMsg"></p>
+            <h2 style="font-family:var(--font-serif);font-size:2rem;color:var(--navy);margin-bottom:0.5rem" id="resultTitle">Test Complete</h2>
+            <p style="font-size:1.1rem;color:var(--text-muted);margin-bottom:2.5rem;font-weight:600" id="resultMsg"></p>
             <div id="solutionsBox" style="text-align:left;margin-bottom:2rem"></div>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-              <button class="btn btn-navy" onclick="startQuiz()">Retake This Test</button>
-              <a href="test.html" class="btn btn-outline">Choose Another Exam</a>
+              <button class="btn btn-navy" onclick="startQuiz()">🔄 Retake This Test</button>
+              <a href="test.html" class="btn btn-outline">📚 Choose Another Exam</a>
             </div>
           </div>
         </div>
@@ -205,13 +298,13 @@ function toggleNav() { document.getElementById('navLinks').classList.toggle('ope
 
 // QUIZ DATA
 const bank = {
-  // Exact 20 Questions extracted from the provided Gujarati TAT Exam Images
+  // 20 Questions extracted from Gujarati TAT Exam Images
   tat: [
     { q: "વિકાસની પ્રક્રિયા વિશે નીચેનામાંથી કયું વિધાન સાચું નથી?", opts: ["તે સતત ચાલતી પ્રક્રિયા છે.", "તે માત્ર શારીરિક વૃદ્ધિ પૂરતી સીમિત છે.", "તેમાં ગુણાત્મક અને જથ્થાત્મક બંને ફેરફારો થાય છે.", "તે આનુવંશિકતા અને પર્યાવરણ બંને દ્વારા પ્રભાવિત થાય છે."], ans: 1, exp: "વિકાસ એ માત્ર શારીરિક વૃદ્ધિ નથી, પરંતુ માનસિક, સામાજિક અને સંવેગાત્મક ફેરફારોનો પણ સમાવેશ કરે છે." },
     { q: "અધ્યયન (Learning) એટલે શું?", opts: ["ફક્ત શાળામાં મેળવેલું જ્ઞાન", "જન્મજાત વૃત્તિઓ", "અનુભવ અને મહાવરા દ્વારા વર્તનમાં થતો પ્રમાણમાં કાયમી ફેરફાર", "બીમારીને કારણે થતા વર્તનના ફેરફારો"], ans: 2, exp: "અધ્યયન એટલે અનુભવ અને મહાવરાના પરિણામે વર્તનમાં થતો કાયમી ફેરફાર." },
-    { q: "બાળક અમૂર્ત ખ્યાલો (Abstract Concepts) શીખવા માટે તૈયાર ન હોય ત્યાં સુધી તેને શીખવી શકાય નહીં. આ વિધાન વિકાસના કયા સિદ્ધાંત સાથે સંબંધિત છે?", opts: ["વ્યક્તિગત ભિન્નતા", "તત્પરતા", "સામાજિક વિકાસ", "ભાવનાત્મક વિકાસ"], ans: 1, exp: "આ વિધાન 'તત્પરતા' (Readiness) નો સિદ્ધાંત દર્શાવે છે." },
+    { q: "બાળક અમૂર્ત ખ્યાલો (Abstract Concepts) શીખવા માટે તૈયાર ન હોય ત્યાં સુધી તેને શીખવી શકાય નહીં. આ વિધાન વિકાસના કયા સિદ્ધાંત સાથે સંબંધિત છે?", opts: ["વ્યક્તિગત ભિન્નતા", "તત્પરતા", "સામાજિક વિકાસ", "ભાવનાત્મક વિકાસ"], ans: 1, exp: "આ વિધાન 'તત્પરતા' (Readiness) નો સિદ્ધાંત દર્શાવે છે. શારીરિક અને માનસિક તત્પરતા વગર શીખવું અશક્ય છે." },
     { q: "લેવ વાયગોત્સ્કીના મતે, અધ્યયન અને વિકાસ વચ્ચેનો સંબંધ કેવો છે?", opts: ["વિકાસ અધ્યયનથી સ્વતંત્ર છે.", "અધ્યયન વિકાસ કરતાં આગળ ચાલે છે.", "વિકાસ અધ્યયન કરતાં આગળ ચાલે છે.", "અધ્યયન અને વિકાસનો કોઈ સંબંધ નથી."], ans: 1, exp: "વાયગોત્સ્કીના મતે અધ્યયન સામાજિક આંતરક્રિયા દ્વારા થાય છે અને તે વિકાસને આગળ દોરે છે." },
-    { q: "'ઝોન ઓફ પ્રોક્સિમલ ડેવલપમેન્ટ' (ZPD) નો ખ્યાલ કયા મનોવૈજ્ઞાનિક સાથે સંકળાયેલો છે?", opts: ["જીન પિયાજે", "બી.એફ. સ્કિનર", "લેવ વાયગોત્સ્કી", "આલ્બર્ટ બાન્ડુરા"], ans: 2, exp: "ZPD (Zone of Proximal Development) લેવ વાયગોત્સ્કી દ્વારા આપવામાં આવેલ ખ્યાલ છે." },
+    { q: "'ઝોન ઓફ પ્રોક્સિમલ ડેવલપમેન્ટ' (ZPD) નો ખ્યાલ કયા મનોવૈજ્ઞાનિક સાથે સંકળાયેલો છે?", opts: ["જીન પિયાજે", "બી.એફ. સ્કિનર", "લેવ વાયગોત્સ્કી", "આલ્બર્ટ બાન્ડુરા"], ans: 2, exp: "ZPD (Zone of Proximal Development) લેવ વાયગોત્સ્કી દ્વારા આપવામાં આવેલ ખ્યાલ છે, જે માર્ગદર્શન હેઠળ શીખવાની ક્ષમતા દર્શાવે છે." },
     { q: "નીચેનામાંથી કયું અધ્યયનનું લક્ષણ નથી?", opts: ["તે વર્તનમાં ફેરફાર લાવે છે.", "તે હંમેશા અજાણતા થાય છે.", "તે અનુભવ અને મહાવરાનું પરિણામ છે.", "તે પ્રમાણમાં કાયમી ફેરફાર છે."], ans: 1, exp: "અધ્યયન હેતુપૂર્વક અને સભાનતાપૂર્વક પણ થાય છે, તે હંમેશા અજાણતા થતું નથી." },
     { q: "શારીરિક, માનસિક, સામાજિક અને ભાવનાત્મક વિકાસ કયા ખ્યાલના પાસાંઓ છે?", opts: ["વૃદ્ધિ", "અધ્યયન", "વિકાસ", "પરિપક્વતા"], ans: 2, exp: "આ તમામ પાસાઓ 'વિકાસ' (Development) ના મુખ્ય ભાગ છે." },
     { q: "જો કોઈ બાળક પોતાની લાગણીઓને યોગ્ય રીતે વ્યક્ત અને નિયંત્રિત કરી શકતું હોય, તો તે વિકાસના કયા પાસાને દર્શાવે છે?", opts: ["શારીરિક વિકાસ", "જ્ઞાનાત્મક વિકાસ", "ભાવનાત્મક વિકાસ", "નૈતિક વિકાસ"], ans: 2, exp: "લાગણીઓનું નિયંત્રણ એ ભાવનાત્મક વિકાસ (Emotional Development) દર્શાવે છે." },
@@ -228,12 +321,7 @@ const bank = {
     { q: "'તરુણાવસ્થા જીવનની વસંત છે.' આ વિધાન કોનું છે?", opts: ["ડૉ. પાંડે", "હરલોક", "વિનોબા ભાવે", "એટકિન્સન"], ans: 0, exp: "ડૉ. પાંડેએ તરુણાવસ્થાને જીવનની વસંત કહી છે." },
     { q: "વિકાસની અવસ્થાના ચોથા ક્રમે કઈ અવસ્થા આવશે?", opts: ["તરુણાવસ્થા", "યુવાવસ્થા", "કિશોરાવસ્થા", "પ્રૌઢાવસ્થા"], ans: 0, exp: "વિકાસની અવસ્થાઓનો સામાન્ય ક્રમ: ગર્ભાવસ્થા -> શૈશવ -> બાલાવસ્થા -> તરુણાવસ્થા." }
   ],
-  // Empty arrays so they show "Updating Soon"
-  tet1: [],
-  tet2: [],
-  ugcnet: [],
-  gset: [],
-  ctet: []
+  tet1: [], tet2: [], ugcnet: [], gset: [], ctet: []
 };
 
 const meta = {
@@ -244,6 +332,10 @@ const meta = {
   gset: { label: "GSET", icon: "🏛️", title: "Gujarat State Eligibility Test", desc: "Updating Soon..." },
   ctet: { label: "CTET", icon: "🌐", title: "Central Teacher Eligibility Test", desc: "Updating Soon..." }
 };
+
+// Motivational arrays for dynamic feedback
+const correctMotivations = ["Excellent! 🌟", "Spot on! 🎯", "Great job! 🎉", "Perfect! ✔️", "You got it! 👏", "Brilliant! 🧠"];
+const wrongMotivations = ["Oops! ❌", "Keep trying! 💪", "Not quite! 😅", "Learn from this! 📚", "Next time! 🚀"];
 
 let cur = 'tat', qi = 0, score = 0, done = false, qs = [];
 let totalQuestions = 0;
@@ -275,22 +367,20 @@ function selectSub(sub, btn) {
   
   const startBtn = document.getElementById('startBtn');
   
-  // Check if questions exist for this category
   if (bank[sub] && bank[sub].length > 0) {
     document.getElementById('introCount').textContent = bank[sub].length;
     document.getElementById('introDesc').textContent = m.desc;
     startBtn.disabled = false;
-    startBtn.textContent = 'Begin Practice Test';
+    startBtn.textContent = 'Begin Practice Test 🚀';
     startBtn.className = 'btn btn-navy';
   } else {
     document.getElementById('introCount').textContent = '0';
     document.getElementById('introDesc').textContent = 'We are currently updating the latest questions for this exam. Please check back soon!';
     startBtn.disabled = true;
-    startBtn.textContent = 'Content Updating Soon...';
+    startBtn.textContent = 'Content Updating Soon... ⏳';
     startBtn.className = 'btn btn-outline';
   }
 
-  // Show Intro Screen, hide others
   document.getElementById('introScreen').style.display = '';
   document.getElementById('quizScreen').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'none';
@@ -299,7 +389,7 @@ function selectSub(sub, btn) {
 function startQuiz() {
   if (!bank[cur] || bank[cur].length === 0) return;
   
-  qs = [...bank[cur]].sort(() => Math.random() - 0.5); // Randomize questions!
+  qs = [...bank[cur]].sort(() => Math.random() - 0.5); // Randomize
   qi = 0; 
   score = 0;
   totalQuestions = qs.length;
@@ -320,9 +410,11 @@ function showQ() {
   document.getElementById('qNumLabel').textContent = 'QUESTION ' + (qi + 1);
   document.getElementById('progBar').style.width = ((qi + 1) / totalQuestions * 100) + '%';
   document.getElementById('questionText').textContent = q.q;
-  document.getElementById('feedbackMsg').textContent = '';
-  document.getElementById('feedbackMsg').className = 'feedback-msg';
+  
+  // Reset UI elements
+  document.getElementById('feedbackMsg').innerHTML = '';
   document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('reasonBox').style.display = 'none'; // Hide reason initially
   
   const letters = ['A', 'B', 'C', 'D'];
   document.getElementById('optionsList').innerHTML = q.opts.map((o, i) =>
@@ -335,13 +427,29 @@ function pick(i) {
   done = true;
   const q = qs[qi];
   const btns = document.querySelectorAll('.opt-btn');
+  
+  // Highlight buttons
   btns[i].classList.add(i === q.ans ? 'correct' : 'wrong');
   if (i !== q.ans) btns[q.ans].classList.add('correct');
-  if (i === q.ans) score++;
   
   const fb = document.getElementById('feedbackMsg');
-  fb.textContent = i === q.ans ? '✔ Correct' : '✘ Incorrect';
-  fb.className = 'feedback-msg ' + (i === q.ans ? 'correct' : 'wrong');
+  const reasonBox = document.getElementById('reasonBox');
+  const reasonText = document.getElementById('reasonText');
+  
+  // Logic for correct/incorrect feedback & MARKS
+  if (i === q.ans) {
+    score++;
+    let randomMotiv = correctMotivations[Math.floor(Math.random() * correctMotivations.length)];
+    fb.innerHTML = `<span style="color:var(--green)">${randomMotiv}</span> <span class="mark-badge" style="background:var(--green);color:#fff">+1 Mark 🌟</span>`;
+  } else {
+    let randomMotiv = wrongMotivations[Math.floor(Math.random() * wrongMotivations.length)];
+    fb.innerHTML = `<span style="color:var(--red)">${randomMotiv}</span> <span class="mark-badge" style="background:#fef2f2;color:var(--red);border:1px solid var(--red)">0 Marks ❌</span>`;
+  }
+  
+  // Show the Reason Box!
+  reasonText.textContent = q.exp;
+  reasonBox.style.display = 'block';
+
   document.getElementById('nextBtn').style.display = '';
 }
 
@@ -357,16 +465,34 @@ function showResult() {
   document.getElementById('scoreNum').textContent = score;
   
   const pct = score / totalQuestions;
-  document.getElementById('resultTitle').textContent = pct >= 0.8 ? 'Excellent Performance' : pct >= 0.6 ? 'Good Attempt' : pct >= 0.4 ? 'Needs Improvement' : 'Requires More Practice';
-  document.getElementById('resultMsg').textContent = pct >= 0.8 ? 'Outstanding! You are well-prepared for this section.' : pct >= 0.6 ? 'Good effort. Review your mistakes and retake the test.' : 'Focus on the solutions below and retake the test.';
   
+  // End Screen Motivational Messages based on Score
+  let resultTitle, resultMsg;
+  if (pct >= 0.8) {
+    resultTitle = "Outstanding! 🏆🌟";
+    resultMsg = "You are a genius! You are incredibly well-prepared for this section. Keep it up! 🎉🔥";
+  } else if (pct >= 0.6) {
+    resultTitle = "Great work! 👍🔥";
+    resultMsg = "Good attempt! Just a little more practice and you will be perfect! 📚💪";
+  } else if (pct >= 0.4) {
+    resultTitle = "Good effort! 📚💪";
+    resultMsg = "You are getting there! Do more practice to boost your score! 🚀😊";
+  } else {
+    resultTitle = "Keep trying! 🚀😊";
+    resultMsg = "Needs improvement! Don't give up, review the solutions below and keep learning! 💪📚";
+  }
+  
+  document.getElementById('resultTitle').textContent = resultTitle;
+  document.getElementById('resultMsg').textContent = resultMsg;
+  
+  // Final Review List
   document.getElementById('solutionsBox').innerHTML =
-    '<div style="font-family:var(--font-sans);font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:0.5rem;margin-bottom:1rem">Detailed Solutions</div>' +
+    '<div style="font-family:var(--font-sans);font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:0.5rem;margin-bottom:1rem">Detailed Review</div>' +
     qs.map((q, i) => `
-      <div style="margin-bottom:1rem;padding:1rem 1.2rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius)">
-        <div style="font-size:0.88rem;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-family:var(--font-sans)">Q${i + 1}. ${q.q}</div>
-        <div style="font-size:0.83rem;color:var(--green);font-weight:600;margin-bottom:0.25rem">✔ ${q.opts[q.ans]}</div>
-        <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.6">${q.exp}</div>
+      <div style="margin-bottom:1rem;padding:1.2rem;background:#fdfaf3;border:1px solid #e8ecf4;border-left:4px solid var(--navy);border-radius:var(--radius)">
+        <div style="font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:0.6rem;font-family:var(--font-sans)">Q${i + 1}. ${q.q}</div>
+        <div style="font-size:0.88rem;color:var(--green);font-weight:700;margin-bottom:0.4rem">✔ Correct: ${q.opts[q.ans]}</div>
+        <div style="font-size:0.85rem;color:var(--text-mid);line-height:1.6"><strong>Reason:</strong> ${q.exp}</div>
       </div>`).join('');
 }
 </script>
