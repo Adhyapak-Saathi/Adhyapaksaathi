@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Practice Test — Adhyapak Saathi</title>
+  <meta name="description" content="Practice tests for TAT, TET, UGC NET, GSET and CTET — Child Development, Pedagogy, Language and Subject Knowledge."/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
+    <span>✉️ <a href="mailto:janijani431@yahoo.com">janijani431@yahoo.com</a></span>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-emblem">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="18" width="22" height="3" rx="1" fill="#1d3461"/>
+          <rect x="7" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
+          <rect x="18" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
+          <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
+        </svg>
+      </div>
+      <div class="nav-logo-text">
+        <span class="site-name">Adhyapak Saathi</span>
+        <span class="site-tagline">Teacher Exam Preparation Portal</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="test.html" class="active">Practice Test</a></li>
+      <li><a href="news.html">Exam News</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="page-banner">
+  <div class="wrapper">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Practice Test</div>
+    <h1>Practice <em>Tests</em></h1>
+    <p>Subject-wise practice MCQs for TAT (S), TAT (HS), TET I, TET II, UGC NET, GSET &amp; CTET — with detailed solutions.</p>
+  </div>
+</div>
+
+<section class="section-sm">
+  <div class="wrapper">
+    <div class="notice notice-info">
+      <strong>Instructions:</strong> Each test contains 10 multiple-choice questions. Select the best answer and click "Next" to proceed. Your score and detailed solutions are displayed at the end.
+    </div>
+    <div class="notice notice-gold">
+      Questions are drawn from official syllabi — Child Development &amp; Pedagogy, Language, Teaching Aptitude, Research Methodology, and subject content as applicable.
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrapper">
+
+    <!-- TAB BAR -->
+    <div class="tab-row" id="subjectTabs">
+      <button class="tab-btn active" onclick="selectSub('pedagogy',this)">Child Dev. &amp; Pedagogy</button>
+      <button class="tab-btn" onclick="selectSub('language',this)">Language &amp; Grammar</button>
+      <button class="tab-btn" onclick="selectSub('teaching',this)">Teaching Aptitude</button>
+      <button class="tab-btn" onclick="selectSub('research',this)">Research Aptitude</button>
+      <button class="tab-btn" onclick="selectSub('gk',this)">Gujarat GK</button>
+    </div>
+
+    <div class="quiz-wrap">
+
+      <!-- INTRO -->
+      <div id="introScreen">
+        <div class="quiz-panel">
+          <div class="quiz-intro-body">
+            <div class="intro-icon" id="introIcon">👶</div>
+            <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--navy);margin-bottom:0.5rem" id="introTitle">Child Development &amp; Pedagogy</h2>
+            <p style="color:var(--text-muted);margin-bottom:0.2rem" id="introDesc">Relevant for: TET I, TET II, CTET, TAT (S)</p>
+            <div class="quiz-meta-row">
+              <div class="quiz-meta-item">
+                <span>10</span><span>Questions</span>
+              </div>
+              <div class="quiz-meta-item">
+                <span>+1</span><span>Per Correct</span>
+              </div>
+              <div class="quiz-meta-item">
+                <span>Free</span><span>No Timer</span>
+              </div>
+            </div>
+            <button class="btn btn-navy" onclick="startQuiz()">Begin Practice Test</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUIZ -->
+      <div id="quizScreen" style="display:none">
+        <div class="quiz-panel">
+          <div class="quiz-header">
+            <span class="quiz-subject-tag" id="quizSubLabel">PEDAGOGY</span>
+            <span class="quiz-counter">Question <span id="qNum">1</span> of 10</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-fill" id="progBar" style="width:10%"></div>
+          </div>
+          <div class="quiz-body">
+            <div class="question-num" id="qNumLabel">QUESTION 1</div>
+            <div class="question-text" id="questionText"></div>
+            <div class="options-list" id="optionsList"></div>
+          </div>
+          <div class="quiz-footer">
+            <span class="feedback-msg" id="feedbackMsg"></span>
+            <button class="btn btn-navy btn-sm" id="nextBtn" style="display:none" onclick="nextQ()">Next Question →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="resultScreen" style="display:none">
+        <div class="quiz-panel">
+          <div class="quiz-result-body">
+            <div class="score-circle">
+              <span class="score-num" id="scoreNum">0</span>
+              <span class="score-of">out of 10</span>
+            </div>
+            <h2 style="font-family:var(--font-serif);font-size:1.7rem;color:var(--navy);margin-bottom:0.5rem" id="resultTitle">Test Complete</h2>
+            <p style="color:var(--text-muted);margin-bottom:2.5rem" id="resultMsg"></p>
+            <div id="solutionsBox" style="text-align:left;margin-bottom:2rem"></div>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+              <button class="btn btn-navy" onclick="startQuiz()">Retake This Test</button>
+              <a href="test.html" class="btn btn-outline">Choose Another Subject</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<hr class="divider"/>
+<section class="section">
+  <div class="wrapper">
+    <div class="section-header center">
+      <div class="section-label">Exam Resources</div>
+      <h2 class="section-title">Prepare by <em>Examination</em></h2>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=70" alt="TET Gujarat"/>
+        <div class="card-body">
+          <span class="card-tag">TET I · TET II</span>
+          <div class="card-title">Gujarat TET Preparation</div>
+          <div class="card-text">Child Development, Pedagogy, Language I &amp; II, and subject-specific content as per GSHSEB syllabus for TET I and TET II.</div>
+          <button class="btn btn-outline btn-sm" onclick="selectSub('pedagogy',document.querySelector('.tab-btn'));startQuiz()">Start Test →</button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=70" alt="TAT Gujarat"/>
+        <div class="card-body">
+          <span class="card-tag">TAT (S) · TAT (HS)</span>
+          <div class="card-title">Gujarat TAT Preparation</div>
+          <div class="card-text">Teaching aptitude, subject knowledge, and pedagogical content knowledge as per GSSB pattern for secondary and higher secondary.</div>
+          <button class="btn btn-outline btn-sm" onclick="selectSub('teaching',document.querySelectorAll('.tab-btn')[2]);startQuiz()">Start Test →</button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&q=70" alt="UGC NET GSET"/>
+        <div class="card-body">
+          <span class="card-tag">UGC NET · GSET</span>
+          <div class="card-title">UGC NET / GSET Preparation</div>
+          <div class="card-text">Teaching &amp; research aptitude, reasoning, comprehension, data interpretation, and communication as per Paper-I syllabus.</div>
+          <button class="btn btn-outline btn-sm" onclick="selectSub('research',document.querySelectorAll('.tab-btn')[3]);startQuiz()">Start Test →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-name">Adhyapak Saathi</div>
+      <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
+      <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
+    </div>
+    <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="test.html">Practice Test</a></li><li><a href="news.html">Exam News</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Examinations</div><ul class="footer-links"><li><a href="test.html">TAT (S) &amp; TAT (HS)</a></li><li><a href="test.html">TET I &amp; TET II</a></li><li><a href="test.html">UGC NET</a></li><li><a href="test.html">GSET</a></li><li><a href="test.html">CTET</a></li></ul></div>
+    <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:janijani431@yahoo.com">janijani431@yahoo.com</a></li><li><a href="contact.html">Send a Message</a></li><li><a href="contact.html">Suggestion Box</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span>Adhyapak Saathi</span>. All rights reserved.</p>
+    <p>Hosted on <span>GitHub Pages</span></p>
+  </div>
+</footer>
+
+<script>
+function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
+const bank = {
+  pedagogy: [
+    { q: "According to Piaget, the stage in which a child develops object permanence is:", opts: ["Preoperational", "Sensorimotor", "Concrete Operational", "Formal Operational"], ans: 1, exp: "Object permanence — knowing an object exists even when out of sight — develops during the Sensorimotor stage (0–2 years) according to Piaget." },
+    { q: "Zone of Proximal Development (ZPD) is a concept introduced by:", opts: ["Piaget", "Bruner", "Vygotsky", "Skinner"], ans: 2, exp: "Lev Vygotsky introduced ZPD — the gap between what a learner can do independently and what they can achieve with guidance." },
+    { q: "Which of the following is NOT a principle of child-centred education?", opts: ["Individual differences", "Learning by doing", "Rote memorisation", "Interest-based learning"], ans: 2, exp: "Child-centred education emphasises active participation, not rote memorisation which is a teacher-centred, passive approach." },
+    { q: "Formative assessment is primarily used to:", opts: ["Rank students at year end", "Monitor learning during instruction", "Select students for scholarships", "Award final grades"], ans: 1, exp: "Formative assessment provides ongoing feedback during the learning process to improve teaching and student understanding." },
+    { q: "Inclusive education refers to:", opts: ["Educating gifted students separately", "Integrating all students, including those with disabilities, in mainstream classrooms", "Education provided only in government schools", "Teaching only in the mother tongue"], ans: 1, exp: "Inclusive education places all learners, regardless of ability, disability, or background, in the same mainstream classroom." },
+    { q: "Gardner's theory of Multiple Intelligences identifies how many types of intelligence?", opts: ["5", "7", "8", "9"], ans: 2, exp: "Howard Gardner originally identified 8 types: Linguistic, Logical-Mathematical, Spatial, Musical, Bodily-Kinesthetic, Interpersonal, Intrapersonal, and Naturalist." },
+    { q: "The Right to Education Act (RTE) 2009 guarantees free and compulsory education for children aged:", opts: ["3–14 years", "6–14 years", "5–15 years", "6–18 years"], ans: 1, exp: "The RTE Act 2009 guarantees free and compulsory education for children aged 6 to 14 years under Article 21-A of the Indian Constitution." },
+    { q: "Which learning theory emphasises reinforcement and punishment?", opts: ["Cognitive Theory", "Constructivism", "Behaviourism", "Humanism"], ans: 2, exp: "Behaviourism (Skinner, Pavlov, Thorndike) focuses on observable behaviour, using reinforcement and punishment to shape learning." },
+    { q: "A teacher who adjusts instruction based on individual student needs is practising:", opts: ["Differentiated instruction", "Direct instruction", "Whole-class teaching", "Lecture method"], ans: 0, exp: "Differentiated instruction means tailoring teaching strategies, content, and assessment to meet the varied needs of individual learners." },
+    { q: "Dyslexia is a learning disability that primarily affects:", opts: ["Mathematical reasoning", "Reading and language processing", "Social interaction", "Motor coordination"], ans: 1, exp: "Dyslexia is a specific learning disability that affects reading, writing, and language processing, despite adequate intelligence and instruction." }
+  ],
+  language: [
+    { q: "Which method is most appropriate for teaching language to young children?", opts: ["Grammar-Translation Method", "Direct Method", "Communicative Language Teaching", "Audio-Lingual Method"], ans: 2, exp: "Communicative Language Teaching (CLT) focuses on real communication and interaction, which is most appropriate for young learners." },
+    { q: "The term 'phoneme' refers to:", opts: ["A written symbol", "The smallest unit of sound in a language", "A grammatical rule", "A paragraph structure"], ans: 1, exp: "A phoneme is the smallest unit of sound that distinguishes meaning in a language, e.g., /p/ and /b/ in 'pat' and 'bat'." },
+    { q: "In language acquisition, 'scaffolding' means:", opts: ["Learning grammar rules by rote", "Providing temporary support to a learner that is gradually withdrawn", "Teaching in the mother tongue only", "Using visual aids exclusively"], ans: 1, exp: "Scaffolding (Vygotsky) involves temporary teacher support that helps a student perform beyond their current ability, gradually removed as proficiency grows." },
+    { q: "Which of the following promotes reading comprehension in children?", opts: ["Silent reading only", "Vocabulary development and predicting content", "Skipping unknown words", "Reading only textbooks"], ans: 1, exp: "Building vocabulary and using prediction strategies before and during reading significantly enhances comprehension skills." },
+    { q: "Mother tongue influence on second language learning is called:", opts: ["Code-switching", "Language transfer", "Bilingualism", "Language attrition"], ans: 1, exp: "Language transfer refers to the influence of a learner's first language (L1) on their acquisition of a second language (L2), which can be positive or negative." },
+    { q: "The Four Skills of language are:", opts: ["Reading, Writing, Listening, Grammar", "Listening, Speaking, Reading, Writing", "Speaking, Writing, Vocabulary, Pronunciation", "Reading, Grammar, Translation, Writing"], ans: 1, exp: "The four language skills are Listening, Speaking, Reading, and Writing — the foundation of any communicative language curriculum." },
+    { q: "Which of these is an example of formative evaluation in language teaching?", opts: ["Annual examination", "Portfolio assessment during term", "Board exam", "Entrance test"], ans: 1, exp: "Portfolio assessment conducted during the term is formative — it provides ongoing, process-based feedback to improve learning." },
+    { q: "Content and Language Integrated Learning (CLIL) means:", opts: ["Teaching content subjects through a second language", "Learning two languages simultaneously", "Teaching grammar only", "Avoiding the mother tongue"], ans: 0, exp: "CLIL is an approach where a curriculum subject (like Science or History) is taught in a second or foreign language, integrating content and language goals." },
+    { q: "Error correction should primarily be:", opts: ["Done immediately for all errors", "Selective and focused on errors that impede communication", "Avoided completely", "Left to parents"], ans: 1, exp: "Effective language teachers use selective error correction — addressing errors that hinder communication rather than over-correcting every mistake." },
+    { q: "Which theorist proposed the Language Acquisition Device (LAD)?", opts: ["B.F. Skinner", "Noam Chomsky", "Jerome Bruner", "Stephen Krashen"], ans: 1, exp: "Noam Chomsky proposed the innate Language Acquisition Device (LAD) — a biological endowment that allows children to acquire language naturally." }
+  ],
+  teaching: [
+    { q: "The primary responsibility of a teacher in a student-centred classroom is to act as a:", opts: ["Lecturer and authority", "Facilitator and guide", "Disciplinarian", "Content deliverer"], ans: 1, exp: "In student-centred learning, the teacher's role shifts from authority to facilitator — guiding, supporting, and enabling student discovery." },
+    { q: "Which teaching method is BEST suited for developing critical thinking?", opts: ["Lecture method", "Rote learning", "Socratic method", "Dictation"], ans: 2, exp: "The Socratic method uses guided questioning to stimulate critical thinking, self-reflection, and reasoned discussion among students." },
+    { q: "Micro-teaching is a technique used to:", opts: ["Teach a large number of students at once", "Train teachers by practising specific skills in short sessions", "Assess students' academic performance", "Conduct parent-teacher meetings"], ans: 1, exp: "Micro-teaching is a teacher training technique where trainees practise one specific teaching skill with a small group in a condensed, controlled setting." },
+    { q: "Which of the following best describes 'Action Research' in teaching?", opts: ["Research conducted in a laboratory", "Practical research by teachers to improve their own classroom practice", "Research by the government on education policy", "Research conducted in universities only"], ans: 1, exp: "Action research is practitioner-led inquiry in which teachers investigate and reflect on their own classroom practices to improve outcomes." },
+    { q: "Professional ethics for a teacher includes:", opts: ["Favouritism among students", "Respecting student diversity and confidentiality", "Disclosing student personal information", "Focusing only on academically bright students"], ans: 1, exp: "Teaching ethics demands equal treatment, respect for all students, maintaining confidentiality, and upholding professional standards." },
+    { q: "Bloom's Taxonomy classifies educational objectives in which order (lowest to highest)?", opts: ["Remember, Understand, Apply, Analyse, Evaluate, Create", "Understand, Apply, Analyse, Remember, Evaluate, Create", "Create, Evaluate, Analyse, Apply, Understand, Remember", "Apply, Understand, Remember, Analyse, Evaluate, Create"], ans: 0, exp: "Bloom's Revised Taxonomy (2001): Remember → Understand → Apply → Analyse → Evaluate → Create, from lower to higher-order thinking." },
+    { q: "An effective question in the classroom should be:", opts: ["Closed and factual only", "Open-ended to promote thinking", "Addressed only to bright students", "Always answered by the teacher immediately"], ans: 1, exp: "Open-ended questions encourage students to think, reason, and articulate ideas — they promote higher-order thinking and classroom dialogue." },
+    { q: "The concept of 'hidden curriculum' refers to:", opts: ["Extra curriculum activities", "Unintended lessons, values, and norms students learn from the school environment", "Classified government syllabus", "Remedial classes for weak students"], ans: 1, exp: "The hidden curriculum encompasses informal learning — values, norms, and attitudes students absorb through the school's culture, not explicit instruction." },
+    { q: "Peer learning is MOST effective when:", opts: ["Only the brightest student teaches", "Students of mixed abilities collaborate and teach each other", "A teacher dictates notes for students to copy", "Students work in isolation"], ans: 1, exp: "Mixed-ability peer learning promotes collaborative thinking, strengthens understanding for all participants, and develops communication skills." },
+    { q: "Which principle should guide lesson planning?", opts: ["Content should be maximum and fast-paced", "From known to unknown, simple to complex", "Ignore individual differences", "Focus only on examinations"], ans: 1, exp: "Effective lesson planning follows pedagogical principles: from known to unknown, simple to complex, concrete to abstract, and local to general." }
+  ],
+  research: [
+    { q: "Which of the following is a characteristic of good research?", opts: ["Based on personal opinion", "Empirical, systematic, and replicable", "Conducted without any hypothesis", "Applicable only to one institution"], ans: 1, exp: "Good research is empirical (evidence-based), systematic (follows a process), objective, and replicable by other researchers." },
+    { q: "A hypothesis is defined as:", opts: ["A proven scientific fact", "A testable statement predicting the relationship between variables", "A summary of research findings", "A literature review"], ans: 1, exp: "A hypothesis is a tentative, testable proposition about the expected relationship between two or more variables, formulated before data collection." },
+    { q: "Which research method is BEST for establishing cause-and-effect relationships?", opts: ["Survey method", "Case study", "Experimental method", "Historical method"], ans: 2, exp: "Experimental research with random assignment and controlled variables is the gold standard for establishing causal (cause-and-effect) relationships." },
+    { q: "Plagiarism in research refers to:", opts: ["Citing sources properly", "Presenting others' work as your own without attribution", "Publishing original findings", "Conducting peer review"], ans: 1, exp: "Plagiarism is using another person's ideas, words, or data without proper attribution — a serious breach of academic integrity." },
+    { q: "The UGC NET Paper I tests which of the following?", opts: ["Only subject knowledge", "Teaching and research aptitude", "Language proficiency only", "General mathematics"], ans: 1, exp: "UGC NET Paper I assesses teaching and research aptitude, reasoning, comprehension, logical thinking, and data interpretation — not subject knowledge." },
+    { q: "Random sampling ensures:", opts: ["Every element of the population has an equal chance of being selected", "Selection of the most able participants", "Smaller sample size always", "Selection based on researcher's choice"], ans: 0, exp: "In random sampling, every member of the population has an equal and independent probability of being included in the sample, reducing selection bias." },
+    { q: "A literature review in research is used to:", opts: ["Present data collected by the researcher", "Summarise and critically evaluate existing research on the topic", "State the methodology", "Present conclusions only"], ans: 1, exp: "A literature review maps the existing body of knowledge on a topic, identifies gaps, and provides the theoretical framework for the current study." },
+    { q: "Which scale of measurement has both equal intervals AND a true zero?", opts: ["Nominal", "Ordinal", "Interval", "Ratio"], ans: 3, exp: "Ratio scale has equal intervals and a meaningful absolute zero (e.g., height, weight, income). Interval scale has equal intervals but no true zero (e.g., temperature in Celsius)." },
+    { q: "ICT stands for:", opts: ["Indian Communication Technology", "Information and Communication Technology", "Integrated Communication Training", "Instructional Content Technology"], ans: 1, exp: "ICT stands for Information and Communication Technology — a broad term for technologies used in the creation, processing, and sharing of information." },
+    { q: "The ethical principle of 'informed consent' in research means:", opts: ["Participants must be professors", "Participants are told the full purpose and freely agree to participate", "Data must be published publicly", "Research must be government approved"], ans: 1, exp: "Informed consent requires that participants receive complete information about the study, understand it, and voluntarily agree to participate without coercion." }
+  ],
+  gk: [
+    { q: "Which article of the Indian Constitution deals with Right to Education?", opts: ["Article 14", "Article 19", "Article 21-A", "Article 45"], ans: 2, exp: "Article 21-A, inserted by the 86th Constitutional Amendment (2002), makes elementary education a Fundamental Right for children aged 6–14." },
+    { q: "GSET (Gujarat State Eligibility Test) is currently conducted by:", opts: ["Gujarat University", "Saurashtra University", "GSHSEB", "UGC"], ans: 1, exp: "GSET is currently organised by Saurashtra University, Rajkot on behalf of the UGC as the state-level NET equivalent for Gujarat." },
+    { q: "The full form of GSSB, which conducts TAT in Gujarat, is:", opts: ["Gujarat Secondary Service Board", "Gujarat Secondary Service Bureau", "Gujarat Secondary and Service Board", "Gujarat Staff Selection Board"], ans: 0, exp: "GSSB stands for Gujarat Secondary Service Board — it is responsible for recruitment of secondary and higher secondary teachers in Gujarat." },
+    { q: "Which national policy replaced the NPE 1986 and was adopted in 2020?", opts: ["National Curriculum Framework", "New Education Policy 2020", "Right to Education Act", "Sarva Shiksha Abhiyan"], ans: 1, exp: "The National Education Policy (NEP) 2020 replaced the previous National Policy on Education of 1986 and introduced the 5+3+3+4 school structure." },
+    { q: "NCTE stands for:", opts: ["National Council for Teacher Education", "National Centre for Technical Education", "National Commission for Teacher Evaluation", "National Curriculum for Teacher Excellence"], ans: 0, exp: "NCTE — National Council for Teacher Education — is a statutory body that regulates teacher education institutions and standards across India." },
+    { q: "The minimum qualification for teaching at primary level in Gujarat under the RTE Act requires passing:", opts: ["B.Ed.", "TET and D.El.Ed. (or B.El.Ed.)", "M.Ed.", "Only graduation"], ans: 1, exp: "As per RTE Act and NCTE norms, primary teachers must pass the Teacher Eligibility Test (TET) and hold a D.El.Ed. (Diploma in Elementary Education) or equivalent." },
+    { q: "Sardar Vallabhbhai Patel was born in which district of Gujarat?", opts: ["Surat", "Rajkot", "Anand (Nadiad)", "Vadodara"], ans: 2, exp: "Sardar Vallabhbhai Patel was born on 31 October 1875 in Nadiad, Kheda district (now Anand district), Gujarat." },
+    { q: "Gujarat was established as a separate state on:", opts: ["15 August 1947", "26 January 1950", "1 May 1960", "1 November 1956"], ans: 2, exp: "Gujarat was carved out of Bombay State and established as a separate state on 1 May 1960, a date celebrated as Gujarat Day (Sthapana Divas)." },
+    { q: "Which city is home to the National Institute of Design (NID) India?", opts: ["Mumbai", "Bangalore", "Ahmedabad", "Pune"], ans: 2, exp: "The National Institute of Design (NID) is located in Ahmedabad, Gujarat and is among the world's premier design institutions." },
+    { q: "The Somnath Temple, one of the 12 Jyotirlingas, is located in which district of Gujarat?", opts: ["Junagadh (Gir Somnath)", "Amreli", "Porbandar", "Bhavnagar"], ans: 0, exp: "Somnath Temple is located in Prabhas Patan, Veraval, in Gir Somnath district, Gujarat — it is one of the most revered pilgrimage sites in India." }
+  ]
+};
+
+const meta = {
+  pedagogy: { label: "CHILD DEV. & PEDAGOGY", icon: "👶", title: "Child Development & Pedagogy", desc: "Relevant for: TET I, TET II, CTET, TAT (S)" },
+  language:  { label: "LANGUAGE & GRAMMAR", icon: "📖", title: "Language & Grammar", desc: "Relevant for: TET I, TET II, CTET" },
+  teaching:  { label: "TEACHING APTITUDE", icon: "🏫", title: "Teaching Aptitude", desc: "Relevant for: TAT (S), TAT (HS), CTET, UGC NET" },
+  research:  { label: "RESEARCH APTITUDE", icon: "🔬", title: "Research Aptitude (Paper I)", desc: "Relevant for: UGC NET, GSET" },
+  gk:        { label: "GUJARAT GK", icon: "🗺️", title: "Gujarat General Knowledge", desc: "Relevant for: TAT (S), TAT (HS), TET I, TET II" }
+};
+
+let cur = 'pedagogy', qi = 0, score = 0, done = false, qs = [];
+
+function selectSub(sub, btn) {
+  cur = sub;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const m = meta[sub];
+  document.getElementById('introIcon').textContent = m.icon;
+  document.getElementById('introTitle').textContent = m.title;
+  document.getElementById('introDesc').textContent = m.desc;
+  document.getElementById('introScreen').style.display = '';
+  document.getElementById('quizScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'none';
+}
+
+function startQuiz() {
+  qs = [...bank[cur]].sort(() => Math.random() - 0.5);
+  qi = 0; score = 0;
+  document.getElementById('introScreen').style.display = 'none';
+  document.getElementById('quizScreen').style.display = '';
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('quizSubLabel').textContent = meta[cur].label;
+  showQ();
+}
+
+function showQ() {
+  done = false;
+  const q = qs[qi];
+  document.getElementById('qNum').textContent = qi + 1;
+  document.getElementById('qNumLabel').textContent = 'QUESTION ' + (qi + 1);
+  document.getElementById('progBar').style.width = ((qi + 1) / 10 * 100) + '%';
+  document.getElementById('questionText').textContent = q.q;
+  document.getElementById('feedbackMsg').textContent = '';
+  document.getElementById('feedbackMsg').className = 'feedback-msg';
+  document.getElementById('nextBtn').style.display = 'none';
+  const letters = ['A', 'B', 'C', 'D'];
+  document.getElementById('optionsList').innerHTML = q.opts.map((o, i) =>
+    `<button class="opt-btn" onclick="pick(${i})"><span class="opt-letter">${letters[i]}</span>${o}</button>`
+  ).join('');
+}
+
+function pick(i) {
+  if (done) return;
+  done = true;
+  const q = qs[qi];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns[i].classList.add(i === q.ans ? 'correct' : 'wrong');
+  if (i !== q.ans) btns[q.ans].classList.add('correct');
+  if (i === q.ans) score++;
+  const fb = document.getElementById('feedbackMsg');
+  fb.textContent = i === q.ans ? '✔ Correct' : '✘ Incorrect';
+  fb.className = 'feedback-msg ' + (i === q.ans ? 'correct' : 'wrong');
+  document.getElementById('nextBtn').style.display = '';
+}
+
+function nextQ() {
+  qi++;
+  if (qi >= 10) showResult();
+  else showQ();
+}
+
+function showResult() {
+  document.getElementById('quizScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = '';
+  document.getElementById('scoreNum').textContent = score;
+  const pct = score / 10;
+  document.getElementById('resultTitle').textContent = pct >= 0.8 ? 'Excellent Performance' : pct >= 0.6 ? 'Good Attempt' : pct >= 0.4 ? 'Needs Improvement' : 'Requires More Practice';
+  document.getElementById('resultMsg').textContent = pct >= 0.8 ? 'Outstanding! You are well-prepared for this section.' : pct >= 0.6 ? 'Good effort. Review your mistakes and retake the test.' : 'Focus on the solutions below and retake the test.';
+  document.getElementById('solutionsBox').innerHTML =
+    '<div style="font-family:var(--font-sans);font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:0.5rem;margin-bottom:1rem">Detailed Solutions</div>' +
+    qs.map((q, i) => `
+      <div style="margin-bottom:1rem;padding:1rem 1.2rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius)">
+        <div style="font-size:0.88rem;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-family:var(--font-sans)">Q${i + 1}. ${q.q}</div>
+        <div style="font-size:0.83rem;color:var(--green);font-weight:600;margin-bottom:0.25rem">✔ ${q.opts[q.ans]}</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.6">${q.exp}</div>
+      </div>`).join('');
+}
+</script>
+</body>
+</html>
