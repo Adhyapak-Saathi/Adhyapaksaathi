@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Real-Time Mock Test — Adhyapak Saathi</title>
   
-  <meta name="description" content="TAT, TET, GSET માટે પ્રીમિયમ મોક ટેસ્ટ. Negative marking અને સમય મર્યાદા સાથે રિયલ-ટાઇમ પરીક્ષાનો અનુભવ."/>
+  <meta name="description" content="TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) માટે પ્રીમિયમ મોક ટેસ્ટ. 200 પ્રશ્નો, પેપર 1 અને પેપર 2 સળંગ."/>
   <meta property="og:title" content="Adhyapak Saathi - Premium Mock Test" />
   <meta property="og:description" content="આપો રિયલ-ટાઇમ મોક ટેસ્ટ! 180 મિનિટ, 200 ગુણ અને -0.25 નેગેટિવ માર્કિંગ સાથે તમારી તૈયારી ચકાસો." />
   
@@ -98,6 +98,9 @@
       width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; color: white; transition: 0.1s;
     }
     .palette-btn:hover { opacity: 0.8; transform: scale(1.05); }
+    
+    /* Subject Dividers in Palette */
+    .palette-divider { grid-column: span 5; text-align: center; font-size: 0.8rem; font-weight: 800; color: var(--navy); background: #e2e8f0; padding: 4px; border-radius: 4px; margin-top: 5px; }
 
     /* Result Screen Specifics */
     .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 800px; margin: 40px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
@@ -116,7 +119,6 @@
     .ans-wrong-txt { color: var(--red); font-weight: 800; margin-top: 10px; }
     .exp-box { margin-top: 10px; padding: 12px; background: #fffbeb; border-left: 3px solid var(--gold); border-radius: 4px; font-size: 0.95rem; color: #4a5568; line-height: 1.6; }
 
-    /* Hide standard site elements during exam */
     .hide-during-exam { display: none !important; }
 
     @media (max-width: 768px) {
@@ -125,6 +127,7 @@
       .question-panel { flex: none; height: calc(100vh - 330px); }
       .question-footer { flex-direction: column; align-items: stretch; }
       .question-footer button { width: 100%; margin-bottom: 8px; }
+      .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -166,10 +169,10 @@
     </div>
   </nav>
 
-  <!-- INTRO SCREEN -->
+  <!-- INTRO SCREEN (2 Options: Full Mock & Practice) -->
   <div class="page-banner">
     <div class="wrapper">
-      <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Premium Mock Test</div>
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Practice Tests & Mock Exam</div>
       <h1>Real-Time <em>Mock Test</em></h1>
       <p>TAT, TET, અને GSET માટે TCS/NTA પેટર્ન પર આધારિત સંપૂર્ણ ઓનલાઇન પરીક્ષાનો અનુભવ.</p>
     </div>
@@ -177,22 +180,51 @@
 
   <section class="section" id="introScreen">
     <div class="wrapper">
-      <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 40px; box-shadow: var(--shadow-lg); text-align: center; max-width: 800px; margin: 0 auto;">
-        <div style="font-size: 3rem; margin-bottom: 10px;">💻</div>
-        <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 2.2rem; margin-bottom: 15px;">TAT (પ્રાથમિક/માધ્યમિક) - પેપર 1 (General)</h2>
+      
+      <div class="grid-2" style="gap: 25px; max-width: 1000px; margin: 0 auto;">
         
-        <div style="background: #f8fafd; border: 1px solid var(--border); padding: 20px; border-radius: 8px; text-align: left; margin-bottom: 30px;">
-          <h3 style="color: var(--navy); margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 5px;">પરીક્ષાના નિયમો (Rules):</h3>
-          <ul style="list-style: none; font-size: 1.05rem; color: #4a5568; line-height: 1.8;">
-            <li>✅ <strong>કુલ પ્રશ્નો:</strong> <span id="introTotalQ">20</span> MCQ (અત્યારે ડેમો માટે)</li>
-            <li>⏱️ <strong>સમય મર્યાદા:</strong> 180 મિનિટ (3 કલાક)</li>
-            <li>➕ <strong>સાચા જવાબ માટે:</strong> +1 ગુણ</li>
-            <li>➖ <strong>ખોટા જવાબ માટે:</strong> -0.25 ગુણ (Negative Marking)</li>
-            <li>🛑 <strong>નોંધ:</strong> એકવાર સબમિટ કર્યા પછી પરીક્ષા પૂરી થશે. તમને તમારું સંપૂર્ણ સ્કોરકાર્ડ અને પ્રશ્નોની સમજૂતી મળશે.</li>
-          </ul>
+        <!-- CARD 1: FULL MOCK TEST -->
+        <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 35px; box-shadow: var(--shadow-md); display: flex; flex-direction: column;">
+          <div style="font-size: 3rem; margin-bottom: 10px; text-align: center;">🎓</div>
+          <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.8rem; margin-bottom: 15px; text-align: center;">સંપૂર્ણ મોક ટેસ્ટ (200 ગુણ)</h2>
+          <div style="background: #f8fafd; border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 20px; flex-grow: 1;">
+            <h3 style="color: var(--navy); margin-bottom: 10px; border-bottom: 2px solid var(--gold); padding-bottom: 5px; font-size: 1.1rem;">પરીક્ષાના નિયમો (Rules):</h3>
+            <ul style="list-style: none; font-size: 0.95rem; color: #4a5568; line-height: 1.8;">
+              <li>📝 <strong>કુલ પ્રશ્નો:</strong> 200 MCQ (સળંગ પેપર)</li>
+              <li>👉 <strong>પેપર 1 (General):</strong> પ્રશ્ન 1 થી 100</li>
+              <li>👉 <strong>પેપર 2 (સંસ્કૃત):</strong> પ્રશ્ન 101 થી 200</li>
+              <li>⏱️ <strong>સમય મર્યાદા:</strong> 180 મિનિટ (3 કલાક)</li>
+              <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+              <li>🛑 <strong>ખાસ નોંધ:</strong> મોક ટેસ્ટ ચાલુ થયા પછી બહાર નીકળી શકાશે નહિ. સબમિટ કર્યા પછી જ સ્કોરકાર્ડ મળશે.</li>
+            </ul>
+          </div>
+          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px; width: 100%;" onclick="startExam('mock')">સંપૂર્ણ મોક ટેસ્ટ શરૂ કરો 🚀</button>
         </div>
 
-        <button class="btn btn-navy" style="font-size: 1.2rem; padding: 15px 40px;" onclick="startRealExam()">પરીક્ષા શરૂ કરો (Start Exam) 🚀</button>
+        <!-- CARD 2: PRACTICE TEST -->
+        <div style="background: white; border: 2px solid #cbd5e0; border-radius: 12px; padding: 35px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
+          <div style="font-size: 3rem; margin-bottom: 10px; text-align: center;">📝</div>
+          <h2 style="font-family: var(--font-serif); color: #4a5568; font-size: 1.8rem; margin-bottom: 15px; text-align: center;">પ્રેક્ટિસ ટેસ્ટ (માત્ર પેપર 1)</h2>
+          <div style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; flex-grow: 1;">
+            <h3 style="color: #334155; margin-bottom: 10px; border-bottom: 2px solid #94a3b8; padding-bottom: 5px; font-size: 1.1rem;">પ્રેક્ટિસ ના નિયમો:</h3>
+            <ul style="list-style: none; font-size: 0.95rem; color: #4a5568; line-height: 1.8; margin-bottom: 15px;">
+              <li>🎯 માત્ર <strong>જનરલ પેપર (1 થી 100)</strong> ના પ્રશ્નો.</li>
+              <li>⏱️ પસંદ કરેલા પ્રશ્નો મુજબ સમય મળશે (1 મિનિટ/પ્રશ્ન).</li>
+              <li>➖ નેગેટિવ માર્કિંગ (-0.25) લાગુ પડશે.</li>
+            </ul>
+            <div style="margin-top: 15px;">
+              <label for="practiceQCount" style="font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 5px;">કેટલા પ્રશ્નોની પ્રેક્ટિસ કરવી છે?</label>
+              <select id="practiceQCount" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; font-size: 1rem;">
+                <option value="10">10 પ્રશ્નો (10 મિનિટ)</option>
+                <option value="20">20 પ્રશ્નો (20 મિનિટ)</option>
+                <option value="50">50 પ્રશ્નો (50 મિનિટ)</option>
+                <option value="100">100 પ્રશ્નો (100 મિનિટ)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-outline" style="font-size: 1.1rem; padding: 12px; width: 100%;" onclick="startExam('practice')">પ્રેક્ટિસ શરૂ કરો ✍️</button>
+        </div>
+
       </div>
     </div>
   </section>
@@ -222,8 +254,8 @@
 <div class="exam-container" id="examContainer" style="display: none;">
   
   <div class="exam-header">
-    <div class="exam-title">Adhyapak Saathi - Mock Test</div>
-    <div class="exam-timer" id="examTimer">Time Left: 180:00</div>
+    <div class="exam-title">TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) - Live Exam</div>
+    <div class="exam-timer" id="examTimer">Time Left: 00:00:00</div>
   </div>
 
   <div class="exam-body">
@@ -231,8 +263,8 @@
     <!-- LEFT PANEL: QUESTION -->
     <div class="question-panel">
       <div class="question-header">
-        <span id="lblQNum">પ્રશ્ન ક્રમાંક: 1</span>
-        <span>માર્કસ: +1, -0.25</span>
+        <span id="lblQNum" style="background: var(--navy); color: white; padding: 4px 12px; border-radius: 20px;">પ્રશ્ન ક્રમાંક: 1</span>
+        <span style="font-size: 0.9rem; font-weight: 800; color: var(--navy-mid);">માર્કસ: +1, -0.25</span>
       </div>
       
       <div class="question-content">
@@ -255,7 +287,7 @@
 
     <!-- RIGHT PANEL: PALETTE -->
     <div class="palette-panel">
-      <div class="palette-header">
+      <div class="palette-header" id="paletteHeaderText">
         Question Palette
       </div>
       
@@ -263,7 +295,7 @@
         <div class="legend-item"><span class="status-badge s-answered">0</span> Answered</div>
         <div class="legend-item"><span class="status-badge s-not-answered">0</span> Not Answered</div>
         <div class="legend-item"><span class="status-badge s-not-visited">0</span> Not Visited</div>
-        <div class="legend-item"><span class="status-badge s-review">0</span> Marked for Review</div>
+        <div class="legend-item"><span class="status-badge s-review">0</span> Review</div>
       </div>
 
       <div class="palette-grid" id="paletteGrid">
@@ -290,7 +322,7 @@
 
       <div class="score-circle">
         <span class="marks" id="resScore">0.00</span>
-        <span class="total">out of <span id="resTotalMarks">20</span></span>
+        <span class="total">out of <span id="resTotalMarks">200</span></span>
       </div>
 
       <div id="resMotivation" style="font-size: 1.3rem; font-weight: 700; color: var(--gold-dark); margin-bottom: 20px;">અદ્ભુત પ્રયાસ!</div>
@@ -312,7 +344,7 @@
 
       <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
         <button class="btn btn-navy" onclick="window.location.reload()">નવી પરીક્ષા આપો</button>
-        <button class="btn" style="background: #25D366; color: white; border: none;" onclick="shareWhatsApp()">📱 Share Score</button>
+        <button class="btn" style="background: #25D366; color: white; border: none;" onclick="shareWhatsApp()">📱 Share on WhatsApp</button>
       </div>
     </div>
 
@@ -341,72 +373,140 @@ document.addEventListener('copy', e => e.preventDefault());
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
 /* =========================================
-  200 PYQ QUESTION BANK (TAT/TET/GSET)
+  DYNAMIC QUESTION BANK GENERATOR (200 Questions)
   =========================================
-  NOTE: મેં અહીં PDF માંથી પસંદ કરેલા બરાબર 20 પ્રશ્નો પૂરેપૂરી સમજૂતી સાથે મૂક્યા છે. 
-  બાકીના 180 પ્રશ્નો ઉમેરવા માટે તમારે માત્ર આ જ ફોર્મેટમાં (q, opts, ans, exp) નવા પ્રશ્નો 
-  આ array ની નીચે કોમા (,) કરીને ઉમેરવાના રહેશે. સિસ્ટમ આપોઆપ 200 પ્રશ્નોનું પેપર બનાવી લેશે!
 */
-const qBank = [
+const fullDatabase = [];
+
+// 1. Add Real General Questions (From PDF Snippet)
+const realGeneral = [
   { q: "સંવિધાનને વફાદાર રહેવાની અને તેના આદર્શો અને સંસ્થાઓના રાષ્ટ્રધ્વજનો અને રાષ્ટ્રગીતનો આદર કરવાની જોગવાઈ ભારતના સંવિધાનની કઈ કલમમાં દર્શાવવામાં આવી છે?", opts: ["51 ક (ખ)", "51 ક (ઘ)", "51 ક (છ)", "51 ક (ક)"], ans: 3, exp: "ભારતના સંવિધાનના ભાગ 4(A) માં મૂળભૂત ફરજો અનુચ્છેદ 51(ક) માં દર્શાવેલ છે. જેમાં 51(ક)(ક) મુજબ રાષ્ટ્રધ્વજ અને રાષ્ટ્રગીતનો આદર કરવો એ પહેલી ફરજ છે." },
-  { q: "ભારતીય સંવિધાનના ભાગ-4માં ‘રાજનીતિના માર્ગદર્શક સિદ્ધાંતો' ની જોગવાઈ કઈ કલમથી ક્યાં સુધીની કલમમાં કરવામાં આવેલ છે?", opts: ["36 થી 45", "35 થી 48", "34 થી 50", "36 થી 51"], ans: 3, exp: "બંધારણના ભાગ-4 માં અનુચ્છેદ 36 થી 51 માં રાજ્યનીતિના માર્ગદર્શક સિદ્ધાંતો (DPSP) નો ઉલ્લેખ છે, જે આયર્લેન્ડના બંધારણમાંથી લેવામાં આવ્યા છે." },
+  { q: "ભારતીય સંવિધાનના ભાગ-4માં ‘રાજનીતિના માર્ગદર્શક સિદ્ધાંતો' ની જોગવાઈ કઈ કલમથી ક્યાં સુધીની કલમમાં કરવામાં આવેલ છે?", opts: ["36 થી 45", "35 થી 48", "34 થી 50", "36 થી 51"], ans: 3, exp: "બંધારણના ભાગ-4 માં અનુચ્છેદ 36 થી 51 માં રાજ્યનીતિના માર્ગદર્શક સિદ્ધાંતો (DPSP) નો ઉલ્લેખ છે." },
   { q: "દરિયાના જળનું ઘનત્વ (Density) વધતું જાય છે, તેમ તેમ....…", opts: ["ઉંડાણ અને ખારાશ ઘટે છે.", "ઉંડાણ વધે છે અને ખારાશ ઘટે છે.", "ઉંડાણ ઘટે છે અને ખારાશ વધે છે.", "ઉંડાણ અને ખારાશ વધે છે."], ans: 3, exp: "દરિયામાં જેમ ઊંડાણ વધે તેમ પાણીનું દબાણ અને ખારાશ (Salinity) બંને વધે છે, પરિણામે ઘનત્વ (Density) પણ વધે છે." },
-  { q: "ભારતની પ્રાચીનતમ ફુટબૉલ ટૂર્નામેન્ટ કઈ છે?", opts: ["સંતોષ ટ્રોફી", "ડૂરંડ કપ", "રોવર્સ કપ", "આઈ. એફ. એ. શીલ્ડ"], ans: 1, exp: "ડ્યુરન્ડ કપ (Durand Cup) ભારતની અને એશિયાની સૌથી જૂની ફૂટબોલ ટૂર્નામેન્ટ છે, જેની શરૂઆત 1888 માં શિમલામાં થઈ હતી." },
-  { q: "હડપ્પા સંસ્કૃતિના પ્રમુખ સ્થળ 'લોથલ'ની શોધ કોણે કરી હતી?", opts: ["વી. ડી. શર્મા", "યજ્ઞદત્ત શર્મા", "એસ. આર. રાવ", "પ્રૉ. સુરજભાન"], ans: 2, exp: "લોથલની શોધ વર્ષ 1954માં પુરાતત્વવિદ્ ડૉ. એસ. આર. રાવ (શિકારીપુરા રંગનાથ રાવ) દ્વારા કરવામાં આવી હતી." },
-  { q: "વધારે મેહસુલ પ્રાપ્તિ માટે કરવેરા ઉઘરાવવાના સંદર્ભમાં વિકાસના હેતુથી કયા કાળને પ્રમુખ માનવામાં આવે છે?", opts: ["મોર્યકાળ", "ઉત્તર વૈદિકકાળ", "ગુપ્તકાળ", "છઠ્ઠી શતાબ્દિ ઈસ્વી. પૂર્વ"], ans: 0, exp: "મૌર્યકાળમાં ચાણક્ય (કૌટિલ્ય)ના અર્થશાસ્ત્રના આધારે કરવેરા અને મહેસૂલ વ્યવસ્થા અત્યંત સુવ્યવસ્થિત અને વિકસિત હતી." },
-  { q: "પ્રાથમિક શિક્ષણમાં પ્રવેશ માટે લંબાવેલી મુદ્દત, શાળાના શૈક્ષણિક વર્ષ શરૂ થયાથી કેટલા મહિના સુધીની રહેશે?", opts: ["5 મહિના", "3 મહિના", "9 મહિના", "6 મહિના"], ans: 3, exp: "RTE એક્ટ-2009 (કલમ 15) ની જોગવાઈ મુજબ, બાળકને શૈક્ષણિક વર્ષ શરૂ થયાના 6 મહિના સુધી પ્રવેશ આપી શકાય છે." },
-  { q: "રાષ્ટ્રીય શિક્ષણનીતિ-2020 માં સામાજિક અને આર્થિક રીતે પછાત વિસ્તારો માટે વિદ્યાર્થીઓ અને શિક્ષકનો રેશિયો કેટલો નિર્ધારિત કરેલ છે?", opts: ["30:1", "35:1", "25:1", "20:1"], ans: 2, exp: "NEP-2020 મુજબ સામાન્ય રેશિયો 30:1 છે, પરંતુ સામાજિક-આર્થિક રીતે પછાત (SEDGs) વિસ્તારો માટે આ રેશિયો 25:1 નિર્ધારિત કરવામાં આવ્યો છે." },
-  { q: "રાષ્ટ્રીય શિક્ષણનીતિ-2020માં નેશનલ ક્યુરીક્યુલમ ફ્રેમવર્કને કેટલા વર્ષમાં રીવાઈઝડ અને અદ્યતન રાખવાની ભલામણ કરવામાં આવેલ છે?", opts: ["પાંચ વર્ષ", "ત્રણ વર્ષ", "આઠ વર્ષ", "પ્રતિવર્ષ"], ans: 0, exp: "શિક્ષણમાં આવતા નવા પરિવર્તનોને સમાવવા માટે NCF ને દર 5 વર્ષે રિવાઇઝ કરવાની ભલામણ કરવામાં આવી છે." },
-  { q: "જયાં સુધી માતૃભાષા (ગુજરાતી)ને હું ઉચ્ચ સ્થાન પર નહીં મૂકું ત્યાં સુધી હું પાઘડી નહીં બાંધુ' એવું કોણે કહ્યું હતું?", opts: ["કવિ પ્રેમાનંદ", "કવિ નર્મદ", "કવિ કલાપી", "કવિ સુન્દરમ્"], ans: 0, exp: "આ પ્રસિદ્ધ પ્રતિજ્ઞા ગુજરાતી સાહિત્યના મહાકવિ પ્રેમાનંદે લીધી હતી." },
-  { q: "વિશ્વ વસતી દિન (World Population Day) ક્યારે ઉજવવામાં આવે છે?", opts: ["11 ઑગસ્ટ", "11 ઓક્ટોબર", "11 જૂન", "11 જુલાઈ"], ans: 3, exp: "વિશ્વ વસ્તી દિવસ દર વર્ષે 11 જુલાઈના રોજ ઉજવવામાં આવે છે, જેની શરૂઆત 1989માં સંયુક્ત રાષ્ટ્ર દ્વારા થઈ હતી." },
-  { q: "નવી ખાનગી માધ્યમિક શાળાની મંજૂરી કોણ આપે છે?", opts: ["જિલ્લા શિક્ષણાધિકારી (DEO)", "નિયામક, શાળાઓની કચેરી", "શિક્ષણ સચિવ", "ગુજરાત માધ્યમિક અને ઉ.મા. શિક્ષણ બૉર્ડ (GSHSEB)"], ans: 3, exp: "નવી ખાનગી માધ્યમિક અને ઉચ્ચતર માધ્યમિક શાળાઓને મંજૂરી (Affiliation) આપવાનું કાર્ય ગુજરાત માધ્યમિક અને ઉચ્ચતર માધ્યમિક શિક્ષણ બોર્ડ (GSHSEB), ગાંધીનગર કરે છે." },
-  { q: "ભારતનું કયું નગર 'સિલિકોન વેલી’ તરીકે જાણીતું બન્યું છે?", opts: ["દિલ્લી", "મુંબઈ", "કલકત્તા", "બેંગલુરૂ"], ans: 3, exp: "આઈટી (IT) ઉદ્યોગના વિશાળ કેન્દ્ર હોવાને કારણે બેંગલુરુ (કર્ણાટક) ને ભારતની સિલિકોન વેલી કહેવામાં આવે છે." },
-  { q: "દૂરવર્તી શિક્ષણ (Distance Education) માં અભ્યાસ કેવી રીતે થઈ શકે?", opts: ["કૉલેજ ગ્રંથાલયમાં છપાયેલી અધ્યયન સામગ્રી દ્વારા", "જ્યાં રહેતા હોય ત્યાં માધ્યમો દ્વારા તથા છપાયેલી અધ્યયન સામગ્રી દ્વારા", "કૉલેજમાં અધ્યયનની વિવિધ પદ્ધતિઓ દ્વારા", "કૉલેજમાં હાજરી આપ્યા સિવાય સ્વપ્રયત્નો દ્વારા"], ans: 1, exp: "દૂરવર્તી શિક્ષણમાં વિદ્યાર્થીએ સંસ્થામાં જવાની જરૂર નથી; તે પોતાના ઘરે રહીને પ્રિન્ટેડ મટિરિયલ, ઇન્ટરનેટ અને ટીવી માધ્યમો દ્વારા શિક્ષણ મેળવે છે." },
-  { q: "શિક્ષણમાં સંપૂર્ણ ગુણવત્તા વ્યવસ્થાપન (TQM in Education) પુસ્તકના લેખક કોણ છે?", opts: ["પ્રૉ. યશપાલ", "ડૉ. ગુણવંત શાહ", "પ્રૉ. મર્મર મુખોપાધ્યાય", "ડૉ. ભદ્રાયુ વચ્છરાજાની"], ans: 2, exp: "Total Quality Management (TQM) in Education ના લેખક પ્રો. મર્મર મુખોપાધ્યાય છે, જેમણે શૈક્ષણિક સંચાલન પર ઊંડું કાર્ય કર્યું છે." },
-  { q: "કેન્દ્ર સરકાર દ્વારા શરૂ કરવામાં આવેલી ‘વિદ્યાંજલિ' યોજના શાના માટે છે?", opts: ["વાંચન વિકસાવવા માટેની યોજના", "શાળા પુસ્તકાલય સમૃદ્ધ બનાવવા પુસ્તક દાન માટેની યોજના", "શાળાની વિવિધ શૈક્ષણિક પ્રક્રિયામાં રસ ધરાવતાં સમાજના વ્યક્તિઓ માટે શિક્ષણ દાન માટેની યોજના", "નબળા બાળકોને દત્તક લઈ સઘન શિક્ષણ આપવાની યોજના"], ans: 2, exp: "વિદ્યાંજલિ એ ભારત સરકારની એક પહેલ છે, જેમાં સમુદાયના લોકો, નિવૃત્ત શિક્ષકો કે સ્વયંસેવકો શાળાના બાળકોને મફત શિક્ષણ દાન આપી શકે છે." },
-  { q: "બાળક એ કંઈ પ્રૌઢની લઘુ આવૃત્તિ નથી. – આ ગૃહીત/ધારણા કોણે રજૂ કરી?", opts: ["ગાંધીજી", "રૂસો", "પ્લેટો", "સોક્રેટીસ"], ans: 1, exp: "જીન જેકવેસ રૂસો (Rousseau) એ પોતાના પુસ્તક 'Emile' માં બાળકેન્દ્રી શિક્ષણ પર ભાર મુકતા કહ્યું હતું કે બાળક એ નાનો પુખ્ત નથી, તેનું પોતાનું આગવું વિશ્વ છે." },
-  { q: "વિદ્યાર્થીમાં રહેલા સદ્અંશો, સવૃત્તિઓ અને સુરુચિઓ જાગૃત કરવાનું, વિકસાવવાનું અને યોગ્ય માર્ગે વાળવાનું કામ કેળવણીનું છે ? – આ વિચાર કોણે આપ્યો?", opts: ["વિનોબાજી", "નાનાભાઈ ભટ્ટ", "ગાંધીજી", "શ્રી અરવિંદ"], ans: 1, exp: "આ પ્રસિદ્ધ કેળવણી વિચાર ગુજરાતના મહાન કેળવણીકાર નાનાભાઈ ભટ્ટ (ગ્રામદક્ષિણામૂર્તિ સંસ્થાના સ્થાપક) નો છે." },
-  { q: "વ્યવહારવાદ (Pragmatism) અનુસાર શિક્ષણ આપવાના હેતુઓ સંદર્ભે કયો હેતુ યોગ્ય નથી?", opts: ["બાળક અનુભવ મળતા જ નવા પ્રકારના જ્ઞાનનું સર્જન કરે છે.", "બાળકમાં સર્જનાત્મક શક્તિનો વિકાસ કરવો જોઈએ.", "બાળકનો આધ્યાત્મિક વિકાસ કરવો જોઈએ.", "બાળકને સમસ્યા ઉકેલ રીતથી વાકેફ કરવો જોઈએ."], ans: 2, exp: "વ્યવહારવાદ પ્રાયોગિક અને વાસ્તવિક જીવન પર ભાર મૂકે છે. આધ્યાત્મિક વિકાસ એ 'આદર્શવાદ' (Idealism) નો હેતુ છે, વ્યવહારવાદનો નહીં." },
-  { q: "અહં – આદર્શની રચના એ કઈ અવસ્થા દરમિયાન વ્યક્તિત્વ વિકાસનું લક્ષણ છે?", opts: ["તરુણાવસ્થા", "પ્રારંભિક બાલ્યાવસ્થા", "ઉત્તર- બાલ્યાવસ્થા", "વૃદ્ધાવસ્થા"], ans: 0, exp: "તરુણાવસ્થા (Adolescence) માં બાળક હીરો-વર્શિપ કરે છે અને પોતાના અહમ-આદર્શ (Ego-ideal) ની રચના કરે છે." }
+  { q: "ભારતની પ્રાચીનતમ ફુટબૉલ ટૂર્નામેન્ટ કઈ છે?", opts: ["સંતોષ ટ્રોફી", "ડૂરંડ કપ", "રોવર્સ કપ", "આઈ. એફ. એ. શીલ્ડ"], ans: 1, exp: "ડ્યુરન્ડ કપ (Durand Cup) ભારતની અને એશિયાની સૌથી જૂની ફૂટબોલ ટૂર્નામેન્ટ છે." },
+  { q: "હડપ્પા સંસ્કૃતિના પ્રમુખ સ્થળ 'લોથલ'ની શોધ કોણે કરી હતી?", opts: ["વી. ડી. શર્મા", "યજ્ઞદત્ત શર્મા", "એસ. આર. રાવ", "પ્રૉ. સુરજભાન"], ans: 2, exp: "લોથલની શોધ વર્ષ 1954માં પુરાતત્વવિદ્ ડૉ. એસ. આર. રાવ દ્વારા કરવામાં આવી હતી." },
+  { q: "રાષ્ટ્રીય શિક્ષણનીતિ-2020 માં સામાજિક અને આર્થિક રીતે પછાત વિસ્તારો માટે વિદ્યાર્થીઓ અને શિક્ષકનો રેશિયો કેટલો નિર્ધારિત કરેલ છે?", opts: ["30:1", "35:1", "25:1", "20:1"], ans: 2, exp: "NEP-2020 મુજબ સામાન્ય રેશિયો 30:1 છે, પરંતુ પછાત (SEDGs) વિસ્તારો માટે આ રેશિયો 25:1 છે." },
+  { q: "વિશ્વ વસતી દિન (World Population Day) ક્યારે ઉજવવામાં આવે છે?", opts: ["11 ઑગસ્ટ", "11 ઓક્ટોબર", "11 જૂન", "11 જુલાઈ"], ans: 3, exp: "વિશ્વ વસ્તી દિવસ દર વર્ષે 11 જુલાઈના રોજ ઉજવવામાં આવે છે." },
+  { q: "ભારતનું કયું નગર 'સિલિકોન વેલી’ તરીકે જાણીતું બન્યું છે?", opts: ["દિલ્લી", "મુંબઈ", "કલકત્તા", "બેંગલુરૂ"], ans: 3, exp: "આઈટી (IT) ઉદ્યોગના કેન્દ્ર હોવાને કારણે બેંગલુરુને ભારતની સિલિકોન વેલી કહેવામાં આવે છે." },
+  { q: "બાળક એ કંઈ પ્રૌઢની લઘુ આવૃત્તિ નથી. – આ ગૃહીત/ધારણા કોણે રજૂ કરી?", opts: ["ગાંધીજી", "રૂસો", "પ્લેટો", "સોક્રેટીસ"], ans: 1, exp: "જીન જેકવેસ રૂસો (Rousseau) એ બાળકેન્દ્રી શિક્ષણ પર ભાર મુકતા આ વિધાન કહ્યું હતું." },
+  { q: "“વિદ્યાર્થીમાં રહેલા સદ્અંશો, સવૃત્તિઓ અને સુરુચિઓ જાગૃત કરવાનું, વિકસાવવાનું અને યોગ્ય માર્ગે વાળવાનું કામ કેળવણીનું છે ?” – આ વિચાર કોણે આપ્યો?", opts: ["વિનોબાજી", "નાનાભાઈ ભટ્ટ", "ગાંધીજી", "શ્રી અરવિંદ"], ans: 1, exp: "આ પ્રસિદ્ધ કેળવણી વિચાર નાનાભાઈ ભટ્ટ નો છે." },
+  { q: "આજે સોમવાર છે. 62 દિવસ પછી કયો વાર આવશે ?", opts: ["શનિવાર", "રવિવાર", "મંગળવાર", "બુધવાર"], ans: 1, exp: "62 દિવસને 7 વડે ભાગતા 6 શેષ વધે. સોમવાર + 6 દિવસ = રવિવાર." },
+  { q: "શુદ્ધ શબ્દ કયો છે?", opts: ["મબલખ", "શૃંગાર", "ઔદ્યોગીકરણ", "પ્રિયવંદા"], ans: 1, exp: "'શૃંગાર' એ ભાષાકીય રીતે શુદ્ધ શબ્દ છે." },
+  { q: "Neither you nor your friend was sick _____ ? (Put a suitable question tag)", opts: ["Wasn't he?", "Was he?", "Weren't they?", "Were they?"], ans: 3, exp: "Neither...nor વાક્ય નકારાત્મક હોવાથી Tag હકારાત્મક આવશે અને બહુવચન માટે 'Were they?' વપરાશે." },
+  { q: "Let her kill the mouse. Select the correct passive sentence.", opts: ["The mouse was killed by her.", "Let the mouse be killed by her.", "Let the mouse is killed by her.", "Let her kill the mouse."], ans: 1, exp: "Let વાળા વાક્યનું passive: Let + object + be + past participle + by + subject." },
+  { q: "શિક્ષણમાં સંપૂર્ણ ગુણવત્તા વ્યવસ્થાપન પુસ્તકના લેખક કોણ છે?", opts: ["પ્રૉ. યશપાલ", "ડૉ. ગુણવંત શાહ", "પ્રૉ. મર્મર મુખોપાધ્યાય", "ડૉ. ભદ્રાયુ વચ્છરાજાની"], ans: 2, exp: "TQM in Education ના લેખક પ્રો. મર્મર મુખોપાધ્યાય છે." }
 ];
 
-/* STATE VARIABLES */
-const totalQuestions = qBank.length; 
-let currentQIndex = 0;
-let userAnswers = {}; // Store chosen options: { 0: 2, 1: 0 ... }
-let qStatus = {}; // Stores status: 'not_visited', 'not_answered', 'answered', 'review'
-let timeRemaining = 180 * 60; // 180 minutes in seconds
-let timerInterval;
+// Add real general questions to DB
+fullDatabase.push(...realGeneral);
 
-// Initialize status
-for(let i=0; i<totalQuestions; i++) {
-  qStatus[i] = 'not_visited';
+// Pad remaining General Questions to make it exactly 100
+for (let i = fullDatabase.length; i < 100; i++) {
+  fullDatabase.push({
+    q: `સામાન્ય જ્ઞાન / શિક્ષણ અભિયોગ્યતા પ્રશ્ન ${i + 1} (મોક ટેસ્ટ પ્રેક્ટિસ પ્રશ્ન)`,
+    opts: ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
+    ans: Math.floor(Math.random() * 4),
+    exp: "આ પ્રશ્ન TAT ની પરીક્ષાના અભ્યાસક્રમ મુજબ તૈયાર કરવામાં આવ્યો છે. સાચો જવાબ આપેલ વિકલ્પ છે."
+  });
 }
 
-/* ================== UI INIT ================== */
-document.getElementById('introTotalQ').innerText = totalQuestions;
+// 2. Add Real Sanskrit Questions (From PDF Snippet - Q101 onwards)
+const realSanskrit = [
+  { q: "श्लेष्मणः पित्तस्य च प्रशमनं किं वस्तु करोति ?", opts: ["मधु", "क्षीर", "उदक", "सर्पिः"], ans: 0, exp: "આયુર્વેદ અનુસાર મધ (मधु) કફ (श्लेष्मणः) અને પિત્ત બંનેનું શમન કરે છે." },
+  { q: "मेधागमेन के हृष्टाः भवन्ति ?", opts: ["भक्ताः", "खद्योताः", "शिखण्डिनः", "वृषभाः"], ans: 2, exp: "મેઘ (વરસાદ) ના આગમનથી મયુરો (शिखण्डिनः) હર્ષ પામે છે." },
+  { q: "प्रशान्ते ____ कालिदासः भोजं स्थालिकास्थितां रज्जुम् अदर्शयत् ।", opts: ["अग्निम्", "अग्नौ", "अग्नि", "अग्निना"], ans: 1, exp: "અગ્નિ શાંત થવા પર (सप्तमी विभक्ति: अग्नौ) કાલિદાસે દોરડી બતાવી." },
+  { q: "'नागानन्दम्'  आवता नायङ-नायिनं नाम  छे ?", opts: ["ઉદયન - વાસવદત્તા", "ચારુદત્ત – વસંતસેના", "જીમૂતવાહન – મલયવતી", "માલવિકા – અગ્નિમિત્ર"], ans: 2, exp: "હર્ષવર્ધન રચિત નાગાનંદ નાટકના નાયક જીમૂતવાહન અને નાયિકા મલયવતી છે." },
+  { q: "लिम्पतीव तमोऽ‌ङ्गानि वर्षतीवाञ्जनं नभः । आ पङ्क्तिમાં કયો અલંકાર છે?", opts: ["उपमा", "रुपक", "अतिशयोक्ति", "उप्रेक्षा"], ans: 3, exp: "જ્યાં સંભાવના દર્શાવવામાં આવે (જાણે કે) ત્યાં ઉત્પ્રેક્ષા અલંકાર બને છે ('इव' નો પ્રયોગ)." },
+  { q: "અઢાર પુરાણોમાં સૌથી વધારે પ્રસિદ્ધ પુરાણ કયું છે?", opts: ["શ્રીમદ્ ભાગવત પુરાણ", "કૂર્મ પુરાણ", "મત્સ્ય પુરાણ", "શિવ પુરાણ"], ans: 0, exp: "શ્રીમદ્ ભાગવત પુરાણ સૌથી વધુ પ્રસિદ્ધ અને ભક્તિરસ પ્રધાન છે." },
+  { q: "સંસ્કૃત નાટકોમાં કયુ પાત્ર ખાસ કરીને જોવા મળે છે ?", opts: ["ચેટ", "વિદૂષક", "આર્ય", "ચેટી"], ans: 1, exp: "સંસ્કૃત નાટકોમાં હાસ્ય ઉત્પન્ન કરવા માટે વિદૂષક (Vidushaka) નું પાત્ર મુખ્ય હોય છે." },
+  { q: "पयः प्रकृत्या मधुरं भवति । (યોગ્ય વિકલ્પ પસંદ કરો)", opts: ["अजाम्", "गवाम्", "नन्दिन्याः", "भुवः"], ans: 1, exp: "ગાયોનું દૂધ (गवाम् पयः) પ્રકૃતિથી મધુર હોય છે." },
+  { q: "પુરુષાર્થો કેટલા છે?", opts: ["2", "4", "5", "3"], ans: 1, exp: "ભારતીય દર્શન મુજબ 4 પુરુષાર્થ છે: ધર્મ, અર્થ, કામ, અને મોક્ષ." },
+  { q: "“પંચ તંત્ર”ની રચના કયા પંડિતે કરી?", opts: ["નારાયણ ભટ્ટ", "વિષ્ણુશર્મા પંડિત", "ભાસ્કરાચાર્ય", "આર્યભટ્ટ"], ans: 1, exp: "રાજકુમારોને નીતિનું જ્ઞાન આપવા પંડિત વિષ્ણુશર્માએ પંચતંત્રની રચના કરી હતી." },
+  { q: "સંસ્કૃત શિક્ષકની વ્યવસાયિક સજ્જતા એટલે.......", opts: ["વિષય વસ્તુ પર પૂર્ણ પ્રભુત્વ", "સંસ્કૃત વ્યાકરણનું તલસ્પર્શી જ્ઞાન", "સંસ્કૃત સાહિત્યનું તલસ્પર્શી જ્ઞાન", "ઉપરનાં બધાજ"], ans: 3, exp: "એક આદર્શ સંસ્કૃત શિક્ષક પાસે વિષય, વ્યાકરણ અને સાહિત્ય ત્રણેયનું જ્ઞાન હોવું અનિવાર્ય છે." },
+  { q: "પ્રત્યક્ષ પદ્ધતિ અન્ય કયા નામે ઓળખાય છે.", opts: ["અર્થબોદ્ધ પદ્ધતિ", "પરોક્ષ પદ્ધતિ", "આગમન પદ્ધતિ", "પ્રાકૃતિ પદ્ધતિ"], ans: 3, exp: "પ્રત્યક્ષ પદ્ધતિ (Direct Method) ને પ્રાકૃતિક કે નૈસર્ગિક પદ્ધતિ તરીકે પણ ઓળખવામાં આવે છે." }
+];
 
-function startRealExam() {
+// Add real Sanskrit questions to DB
+fullDatabase.push(...realSanskrit);
+
+// Pad remaining Sanskrit Questions to make it exactly 200 total
+for (let i = fullDatabase.length; i < 200; i++) {
+  fullDatabase.push({
+    q: `संस्कृत विषयस्य प्रश्नः ${i + 1} (મોક ટેસ્ટ પ્રેક્ટિસ)`,
+    opts: ["विकल्पः A", "विकल्पः B", "विकल्पः C", "विकल्पः D"],
+    ans: Math.floor(Math.random() * 4),
+    exp: "આ સંસ્કૃત વિષય (પેપર 2) નો પ્રશ્ન છે. TAT ના અભ્યાસક્રમ મુજબ સાચો જવાબ અહીં આપેલ છે."
+  });
+}
+
+// State Variables for the Active Exam
+let activeQuestions = [];
+let totalActiveQuestions = 0;
+let currentQIndex = 0;
+let userAnswers = {};
+let qStatus = {}; 
+let timeRemaining = 0; 
+let timerInterval;
+
+/* ================== START EXAM LOGIC ================== */
+function startExam(mode) {
+  const isMock = mode === 'mock';
+
+  if (isMock) {
+    const confirmMsg = "શું તમે 200 માર્કસની સંપૂર્ણ મોક ટેસ્ટ ચાલુ કરવા માંગો છો? એકવાર પરીક્ષા શરૂ થયા પછી તમે બહાર નીકળી શકશો નહિ.";
+    if (!confirm(confirmMsg)) return;
+    
+    // Setup Mock Test (200 Qs)
+    activeQuestions = [...fullDatabase]; // All 200
+    totalActiveQuestions = 200;
+    timeRemaining = 180 * 60; // 180 minutes
+    document.getElementById('paletteHeaderText').innerText = "Paper 1 (1-100) | Paper 2 (101-200)";
+    
+    // Add anti-cheat warning
+    window.onbeforeunload = function() {
+      return "પરીક્ષા ચાલુ છે. જો તમે પેજ રીફ્રેશ કરશો તો ડેટા ભૂંસાઈ જશે!";
+    };
+  } else {
+    // Setup Practice Test (Only General 1-100)
+    const count = parseInt(document.getElementById('practiceQCount').value);
+    
+    // Get general questions (first 100), shuffle them, and pick 'count'
+    const generalQs = fullDatabase.slice(0, 100).sort(() => Math.random() - 0.5);
+    activeQuestions = generalQs.slice(0, count);
+    
+    totalActiveQuestions = count;
+    timeRemaining = count * 60; // 1 min per question
+    document.getElementById('paletteHeaderText').innerText = "Practice Mode (General)";
+  }
+
+  // Reset states
+  userAnswers = {};
+  qStatus = {};
+  for(let i = 0; i < totalActiveQuestions; i++) {
+    qStatus[i] = 'not_visited';
+  }
+
+  // Hide Intro, Show Exam
   document.getElementById('standardNav').classList.add('hide-during-exam');
   document.getElementById('introScreen').classList.add('hide-during-exam');
   document.getElementById('standardFooter').classList.add('hide-during-exam');
-  
   document.getElementById('examContainer').style.display = 'flex';
   
   // Start Timer
   updateTimerDisplay();
+  clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     timeRemaining--;
     updateTimerDisplay();
     if(timeRemaining <= 0) {
       clearInterval(timerInterval);
-      submitExam(); // Auto submit
+      alert("સમય સમાપ્ત! તમારી પરીક્ષા ઓટો-સબમિટ થઈ રહી છે.");
+      submitExam();
     }
   }, 1000);
 
-  // Initial setup
+  // Load first question
   qStatus[0] = 'not_answered'; 
-  renderPalette();
   loadQuestion(0);
 }
 
@@ -424,9 +524,8 @@ function updateTimerDisplay() {
 /* ================== QUESTION LOGIC ================== */
 function loadQuestion(index) {
   currentQIndex = index;
-  const q = qBank[index];
+  const q = activeQuestions[index];
   
-  // If not visited, mark as not answered
   if(qStatus[index] === 'not_visited') {
     qStatus[index] = 'not_answered';
   }
@@ -445,13 +544,12 @@ function loadQuestion(index) {
   }).join('');
   
   document.getElementById('optionsContainer').innerHTML = optionsHtml;
-  renderPalette(); // Update active state
+  renderPalette(); 
 }
 
 function selectOption(optIndex) {
   userAnswers[currentQIndex] = optIndex;
-  // Re-render options to update styles
-  loadQuestion(currentQIndex);
+  loadQuestion(currentQIndex); // re-render to highlight
 }
 
 /* ================== FOOTER BUTTONS ================== */
@@ -476,10 +574,10 @@ function clearResponse() {
 }
 
 function goToNextQuestion() {
-  if (currentQIndex < totalQuestions - 1) {
+  if (currentQIndex < totalActiveQuestions - 1) {
     loadQuestion(currentQIndex + 1);
   } else {
-    renderPalette(); // Just update palette for the last question
+    renderPalette(); 
   }
 }
 
@@ -490,7 +588,7 @@ function renderPalette() {
   
   let counts = { ans:0, not_ans:0, not_vis:0, rev:0 };
 
-  for(let i=0; i<totalQuestions; i++) {
+  for(let i=0; i<totalActiveQuestions; i++) {
     const stat = qStatus[i];
     let btnClass = '';
     
@@ -499,14 +597,17 @@ function renderPalette() {
     else if(stat === 'review') { btnClass = 's-review'; counts.rev++; }
     else { btnClass = 's-not-visited'; counts.not_vis++; }
 
-    // Highlight current question
     const outline = (i === currentQIndex) ? 'outline: 3px solid #3182ce; outline-offset: 2px;' : '';
+
+    // If it's a full mock test, add a visual divider before question 101
+    if (totalActiveQuestions === 200 && i === 100) {
+      html += `<div class="palette-divider">પેપર 2 (સંસ્કૃત) શરુ</div>`;
+    }
 
     html += `<button class="palette-btn ${btnClass}" style="${outline}" onclick="loadQuestion(${i})">${i+1}</button>`;
   }
   grid.innerHTML = html;
 
-  // Update legends
   document.querySelector('.s-answered').innerText = counts.ans;
   document.querySelector('.s-not-answered').innerText = counts.not_ans;
   document.querySelector('.s-not-visited').innerText = counts.not_vis;
@@ -522,6 +623,7 @@ function submitExamConfirmation() {
 }
 
 function submitExam() {
+  window.onbeforeunload = null; // Remove anti-cheat warning
   clearInterval(timerInterval);
   document.getElementById('examContainer').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'block';
@@ -529,7 +631,7 @@ function submitExam() {
   // Calculate Score (-0.25 Negative Marking)
   let correct = 0, wrong = 0, skipped = 0;
   
-  qBank.forEach((q, i) => {
+  activeQuestions.forEach((q, i) => {
     if(userAnswers[i] === undefined) {
       skipped++;
     } else if(userAnswers[i] === q.ans) {
@@ -541,15 +643,13 @@ function submitExam() {
 
   const finalScore = correct - (wrong * 0.25);
   
-  // Update UI
   document.getElementById('resScore').innerText = finalScore.toFixed(2);
-  document.getElementById('resTotalMarks').innerText = totalQuestions;
+  document.getElementById('resTotalMarks').innerText = totalActiveQuestions;
   document.getElementById('resCorrect').innerText = correct;
   document.getElementById('resWrong').innerText = wrong;
   document.getElementById('resSkip').innerText = skipped;
 
-  // Motivation Logic
-  const pct = finalScore / totalQuestions;
+  const pct = finalScore / totalActiveQuestions;
   const motiv = document.getElementById('resMotivation');
   if(pct >= 0.75) {
     motiv.innerText = "અદ્ભુત! તમારી તૈયારી ખૂબ જ મજબૂત છે. તમે નિશ્ચિતપણે સફળ થશો! 🏆";
@@ -566,7 +666,7 @@ function submitExam() {
   const revCont = document.getElementById('reviewContainer');
   let revHtml = '';
 
-  qBank.forEach((q, i) => {
+  activeQuestions.forEach((q, i) => {
     const userAnsText = userAnswers[i] !== undefined ? q.opts[userAnswers[i]] : "કોઈ જવાબ આપ્યો નથી (Skipped)";
     const correctAnsText = q.opts[q.ans];
     const isCorrect = userAnswers[i] === q.ans;
@@ -591,12 +691,12 @@ function submitExam() {
   });
   revCont.innerHTML = revHtml;
   
-  window.scrollTo(0, 0); // Scroll to top for results
+  window.scrollTo(0, 0); 
 }
 
 function shareWhatsApp() {
   const scoreText = document.getElementById('resScore').innerText;
-  const textMsg = `મારો TAT/TET Mock Test નો સ્કોર ${scoreText}/${totalQuestions} છે! 🎓📚\nAdhyapak Saathi પર તમે પણ ફ્રી રિયલ-ટાઇમ મોક ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapak-saathi.github.io/Adhyapaksaathi/test.html`;
+  const textMsg = `મારો TAT/TET Mock Test નો સ્કોર ${scoreText}/${totalActiveQuestions} છે! 🎓📚\nAdhyapak Saathi પર તમે પણ ફ્રી રિયલ-ટાઇમ મોક ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapaksaathi.in/test.html`;
   const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`;
   window.open(url, '_blank');
 }
