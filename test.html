@@ -63,31 +63,37 @@
     /* ==================================================
        NEW PRACTICE TEST UI
        ================================================== */
-    .p-topic-card { background: #fff; border: 2px solid var(--border); border-radius: var(--radius-lg); padding: 2.2rem 1.5rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 2.5rem 1.5rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
     .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
-    .p-topic-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
-    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.25rem; color: var(--navy); margin-bottom: 1.5rem; }
-    .btn-p-topic { width: 100%; padding: 12px; margin-bottom: 8px; background: #f4f7fb; border: 1px solid var(--border-dark); border-radius: 8px; font-weight: 700; color: var(--navy-dark); cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
-    .btn-p-topic:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
-    .btn-p-start { background: var(--navy); color: white; border-color: var(--navy); margin-bottom: 0; }
+    .p-topic-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy); margin-bottom: 1.5rem; }
+    .btn-p-start { width: 100%; padding: 14px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 1rem; margin-bottom: 0; }
     .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
     
-    .p-opt-btn { display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 1.8rem; background: #f8fafd; border: 2px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; font-size: 1.15rem; color: var(--text); font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+    .p-opt-btn { display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 1.8rem; background: #f8fafd; border: 2px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; font-size: 1.15rem; color: var(--navy-dark); font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
     .p-opt-btn:hover { border-color: var(--navy-light); background: #f0f4f8; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
     .p-opt-btn.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 2px var(--navy); color: var(--navy); }
     .p-opt-letter { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #fff; border: 2px solid var(--border-dark); border-radius: 50%; font-weight: 800; color: var(--navy-mid); font-size: 1rem; flex-shrink: 0; transition: all 0.2s; }
     .p-opt-btn.selected .p-opt-letter { background: var(--navy); border-color: var(--navy); color: #fff; }
 
+    /* Sticky Header for Practice Test */
+    .p-sticky-header {
+      position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 15px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; border-radius: 0 0 12px 12px;
+    }
+
     /* Result Screen Specifics */
-    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 800px; margin: 40px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 900px; margin: 40px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
     .score-circle { width: 150px; height: 150px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px auto; background: #f8fafd; }
     .score-circle .marks { font-size: 2.5rem; font-weight: 800; color: var(--navy); line-height: 1; }
     .score-circle .total { font-size: 1rem; color: var(--text-mid); font-weight: 600; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 30px 0; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 30px 0; }
     .stat-box { padding: 15px; border-radius: 8px; font-weight: 700; }
     .sb-correct { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
     .sb-wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
     .sb-unattempted { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
+    .sb-time { background: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; }
+    
     .review-item { text-align: left; padding: 20px; background: #fff; border: 1px solid var(--border); border-left: 5px solid var(--navy); margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
     .ans-correct-txt { color: var(--green); font-weight: 800; margin-top: 10px; }
     .ans-wrong-txt { color: var(--red); font-weight: 800; margin-top: 10px; }
@@ -101,6 +107,8 @@
       .question-panel { flex: none; height: calc(100vh - 330px); }
       .question-footer { flex-direction: column; align-items: stretch; }
       .question-footer button { width: 100%; margin-bottom: 8px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .p-sticky-header { flex-direction: column; gap: 10px; padding: 10px; text-align: center; }
     }
   </style>
 </head>
@@ -173,21 +181,19 @@
       <div class="section-header center" style="margin-bottom: 3rem;">
         <div class="section-label">Topic-wise Practice</div>
         <h2 class="section-title">વિષયવાર <em>પ્રેક્ટિસ ટેસ્ટ</em></h2>
-        <p class="section-desc">પીડીએફના અસલી પ્રશ્નો સાથે તમારી મનપસંદ કેટેગરીની પ્રેક્ટિસ કરો. (નવા અને આકર્ષક ફોર્મેટમાં)</p>
+        <p class="section-desc">નિયમિત મહાવરો જ સફળતાની ચાવી છે! તમારી મનપસંદ કેટેગરી પસંદ કરો અને તમારી તૈયારીને વધુ મજબૂત બનાવો.</p>
       </div>
 
-      <!-- 6 Main Boxes + 2 Extra Boxes Grid -->
+      <!-- 8 Balanced Grid Boxes (4 Columns) -->
       <div class="grid-4" style="gap: 2rem;">
         
         <!-- 1. ફિલસૂફી -->
-        <div class="p-topic-card" style="grid-column: span 2;">
-          <div class="p-topic-icon">🧘‍♂️</div>
-          <h3>1. શિક્ષણની ફિલસૂફી</h3>
-          <div style="display:flex; flex-direction:column; gap:5px;">
-            <button class="btn-p-topic" onclick="startPracticeTopic('aims', 'કેળવણીના હેતુઓ')">1.1 કેળવણીના હેતુઓ (3 Qs)</button>
-            <button class="btn-p-topic" onclick="startPracticeTopic('forms', 'કેળવણીના સ્વરૂપો')">1.2 કેળવણીના સ્વરૂપો (2 Qs)</button>
-            <button class="btn-p-topic" style="margin-bottom:0;" onclick="startPracticeTopic('ideologies', 'શિક્ષણની વિચારધારા')">1.3 શિક્ષણની વિચારધારા (7 Qs)</button>
+        <div class="p-topic-card">
+          <div>
+            <div class="p-topic-icon">🧘‍♂️</div>
+            <h3>1. શિક્ષણની ફિલસૂફી</h3>
           </div>
+          <button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી')">ટેસ્ટ શરૂ કરો (12 Qs)</button>
         </div>
 
         <!-- 2. મનોવિજ્ઞાન -->
@@ -196,7 +202,7 @@
             <div class="p-topic-icon">🧠</div>
             <h3>2. શૈક્ષણિક મનોવિજ્ઞાન</h3>
           </div>
-          <button class="btn-p-topic btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન')">ટેસ્ટ શરૂ કરો (16 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન')">ટેસ્ટ શરૂ કરો (16 Qs)</button>
         </div>
 
         <!-- 3. વર્ગવ્યવહાર -->
@@ -205,7 +211,7 @@
             <div class="p-topic-icon">🏫</div>
             <h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3>
           </div>
-          <button class="btn-p-topic btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">ટેસ્ટ શરૂ કરો (10 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">ટેસ્ટ શરૂ કરો (10 Qs)</button>
         </div>
 
         <!-- 4. તાર્કિક -->
@@ -214,7 +220,7 @@
             <div class="p-topic-icon">🧩</div>
             <h3>4. તાર્કિક અભિયોગ્યતા</h3>
           </div>
-          <button class="btn-p-topic btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
         </div>
 
         <!-- 5. ગુજરાતી -->
@@ -223,7 +229,7 @@
             <div class="p-topic-icon">📝</div>
             <h3>5. ગુજરાતી ભાષા</h3>
           </div>
-          <button class="btn-p-topic btn-p-start" onclick="startPracticeTopic('gujarati', 'ગુજરાતી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('gujarati', 'ગુજરાતી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
         </div>
 
         <!-- 6. અંગ્રેજી -->
@@ -232,24 +238,25 @@
             <div class="p-topic-icon">🅰️</div>
             <h3>6. અંગ્રેજી ભાષા</h3>
           </div>
-          <button class="btn-p-topic btn-p-start" onclick="startPracticeTopic('english', 'અંગ્રેજી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('english', 'અંગ્રેજી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
         </div>
         
         <!-- 7. GK -->
         <div class="p-topic-card">
           <div>
             <div class="p-topic-icon">🌍</div>
-            <h3>7. સામાન્ય જ્ઞાન અને યોજનાઓ</h3>
+            <h3>7. સામાન્ય જ્ઞાન</h3>
           </div>
-          <button class="btn-p-topic btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન')">ટેસ્ટ શરૂ કરો (17 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન')">ટેસ્ટ શરૂ કરો (17 Qs)</button>
         </div>
 
         <!-- 8. સંસ્કૃત -->
-        <div class="p-topic-card" style="grid-column: span 2;">
-          <div class="p-topic-icon">🕉️</div>
-          <h3>8. સંસ્કૃત ભાષા (પેપર 2)</h3>
-          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">પીડીએફના પેપર 2 ના તમામ પ્રશ્નો.</p>
-          <button class="btn-p-topic btn-p-start" onclick="startPracticeTopic('sanskrit', 'સંસ્કૃત ભાષા')">ટેસ્ટ શરૂ કરો (100 Qs)</button>
+        <div class="p-topic-card">
+          <div>
+            <div class="p-topic-icon">🕉️</div>
+            <h3>8. સંસ્કૃત ભાષા</h3>
+          </div>
+          <button class="btn-p-start" onclick="startPracticeTopic('sanskrit', 'સંસ્કૃત ભાષા (પેપર 2)')">ટેસ્ટ શરૂ કરો (100 Qs)</button>
         </div>
 
       </div>
@@ -276,7 +283,7 @@
 </div>
 
 <!-- ==================================================
-     MOCK TEST INTERFACE (OLD STYLE)
+     MOCK TEST INTERFACE (TCS iON STYLE)
      ================================================== -->
 <div class="exam-container" id="examContainer" style="display: none;">
   <div class="exam-header">
@@ -322,24 +329,24 @@
 <!-- ==================================================
      NEW PRACTICE TEST INTERFACE (MODERN UI)
      ================================================== -->
-<div id="practiceContainer" style="display:none; min-height: 100vh; background: linear-gradient(135deg, #f4f7fb 0%, #e2e8f0 100%); padding: 3rem 1rem;">
-  <div class="wrapper-narrow">
-    
-    <!-- Header -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; background:white; padding:15px 25px; border-radius:12px; box-shadow:var(--shadow-sm); border-bottom:4px solid var(--gold);">
-      <div style="font-weight:800; font-size:1.25rem; color:var(--navy);">
-        📝 <span id="pTopicName">Topic Name</span>
-      </div>
-      <div style="display:flex; gap:15px; align-items:center;">
-         <div style="background:#eaf5ef; color:var(--green); padding:6px 15px; border-radius:20px; font-weight:700; font-size:0.95rem; border:1px solid #bbf7d0;">
-           ✔ આપેલા જવાબો: <span id="pAttempted">0</span>
-         </div>
-         <div style="background:#fdf0ee; color:var(--red); padding:6px 15px; border-radius:20px; font-weight:800; font-size:1rem; border:2px solid var(--red);">
-           ⏱️ <span id="pTimer">00:00</span>
-         </div>
-      </div>
+<div id="practiceContainer" style="display:none; min-height: 100vh; background: linear-gradient(135deg, #f4f7fb 0%, #e2e8f0 100%);">
+  
+  <!-- STICKY HEADER WITH TIMER -->
+  <div class="p-sticky-header">
+    <div style="font-weight:800; font-size:1.25rem; color:var(--navy);">
+      📝 <span id="pTopicName">Topic Name</span>
     </div>
+    <div style="display:flex; gap:15px; align-items:center;">
+       <div style="background:#eaf5ef; color:var(--green); padding:6px 15px; border-radius:20px; font-weight:700; font-size:0.95rem; border:1px solid #bbf7d0;">
+         ✔ આપેલા જવાબો: <span id="pAttempted">0</span>
+       </div>
+       <div style="background:#fdf0ee; color:var(--red); padding:6px 15px; border-radius:20px; font-weight:800; font-size:1rem; border:2px solid var(--red);">
+         ⏱️ <span id="pTimer">00:00</span>
+       </div>
+    </div>
+  </div>
 
+  <div class="wrapper-narrow" style="padding: 0 1rem 3rem;">
     <!-- Progress Bar -->
     <div style="background:white; height:12px; border-radius:6px; margin-bottom:2.5rem; overflow:hidden; box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);">
       <div id="pProgressBar" style="background:linear-gradient(90deg, var(--navy-mid) 0%, var(--navy) 100%); height:100%; width:0%; transition:width 0.4s ease;"></div>
@@ -387,7 +394,7 @@
         <span class="total">out of <span id="resTotalMarks">200</span></span>
       </div>
 
-      <div id="resMotivation" style="font-size: 1.3rem; font-weight: 700; color: var(--gold-dark); margin-bottom: 20px;">અદ્ભુત પ્રયાસ!</div>
+      <div id="resMotivation" style="font-size: 1.3rem; font-weight: 700; color: var(--gold-dark); margin-bottom: 20px; padding: 0 20px;">અદ્ભુત પ્રયાસ!</div>
 
       <div class="stats-grid">
         <div class="stat-box sb-correct">
@@ -401,6 +408,10 @@
         <div class="stat-box sb-unattempted">
           <div style="font-size: 1.8rem;" id="resSkip">0</div>
           <div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div>
+        </div>
+        <div class="stat-box sb-time">
+          <div style="font-size: 1.8rem;" id="resTime">00:00</div>
+          <div style="font-size: 0.8rem; text-transform: uppercase;">લીધેલ સમય</div>
         </div>
       </div>
 
@@ -423,7 +434,9 @@
 // Security scripts
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.onkeydown = function(e) {
-  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) || (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))) return false;
+  if (e.key === 'F12') return false;
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
 };
 document.addEventListener('copy', e => e.preventDefault());
 
@@ -600,7 +613,7 @@ If you _____ the rumour, you _____|had spread, would have been arrested.|had spr
 नवसर्ग गते माघे _____ शब्द न विद्यते ?|नवानम्|द्वादशः|नव|नूतनम्|0|'नवसर्ग गते माघे नवशब्दो न विद्यते' - મહાકવિ માઘના શિશુપાલવધમાં નવા શબ્દોનો ભંડાર છે.
 कः मोघमन्नं विन्दते ?|मानवः|प्रचेताः|अप्रचेताः|अर्यमा|2|જે દાન નથી કરતો અને એકલો જ ખાય છે (अप्रचेताः) તે પાપને જ ખાય છે એવો વેદમંત્ર છે.
 અધર્મથી વર્તનાર પુરુષની છેવટે શી ગતિ થાય છે?|ઉન્નતિ થાય છે.|સુખ – સમૃદ્ધિ મેળવે છે.|શત્રુઓ ઉપર વિજય મેળવે છે.|મૂળ સહિત સર્વનાશ નોતરે છે|3|અધર્મથી શરૂઆતમાં સુખ મળે છે, પરંતુ છેવટે તો તેનો સમૂળગો નાશ જ થાય છે (સમૂલં વિનશ્યતિ).
-असुराः स्वभावतः कीदृशाः सन्ति ?|लब्धाः|अदान्ताः|क्रूराः|गुणः|2|અસુરો સ્વભાવથી જ ક્રૂર (क्रूराः) અને હિંસક હોય છે.
+असुराः स्वभावतः कीदृशाः सन्ति ?|लब्धाः|अदान्ताः|क्रूराः|क्रूराः|गुणः|2|અસુરો સ્વભાવથી જ ક્રૂર (क्रूराः) અને હિંસક હોય છે.
 બુદ્ધિશાળીઓનો સમય કેવી રીતે પસાર થાય છે ?|કુટેવોમાં|ઝઘડાઓમાં|કાવ્ય અને શાસ્ત્રોની ચર્ચામાં|રમત – ગમતમાં|2|'काव्यशास्त्रविनोदेन कालो गच्छति धीमताम्' - બુદ્ધિશાળીઓ કાવ્ય અને શાસ્ત્રોની ચર્ચામાં સમય વિતાવે છે.
 ઊભી રેખા (1) કયા સ્વરનું સૂચન કરે છે?|સ્વરિત|અનુદાત્ત|ઉદાત્ત|પૂર્ણવિરામ|0|વેદપાઠમાં અક્ષરની ઉપર કરેલી ઊભી રેખા એ સ્વરિત સ્વરનું સૂચન કરે છે.
 "किरातार्जुनीयम्" મહાકાવ્યમાં કેટલા સર્ગો છે?|17|9|18|20|2|મહાકવિ ભારવિ રચિત કિરાતાર્જુનીયમ્ મહાકાવ્યમાં કુલ 18 સર્ગો આવેલા છે.
@@ -657,9 +670,7 @@ rows.forEach((row) => {
 // MAP QUESTIONS EXACTLY AS PER PDF INDICES (0-199) NO REPETITION
 const topicMap = {
     'gk': [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,18].map(i => fullDatabase[i]),
-    'aims': [19, 22, 27].map(i => fullDatabase[i]),
-    'forms': [16, 20].map(i => fullDatabase[i]),
-    'ideologies': [21, 23, 24, 25, 26, 28, 29].map(i => fullDatabase[i]),
+    'philosophy': [16, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29].map(i => fullDatabase[i]),
     'psych': fullDatabase.slice(30, 46),
     'eval': [fullDatabase[17], ...fullDatabase.slice(46, 55)],
     'reasoning': fullDatabase.slice(55, 70),
@@ -813,7 +824,8 @@ function loadQuestion(index) {
         return `
           <div class="p-opt-btn ${isChecked ? 'selected' : ''}" onclick="selectOption(${i})">
             <div class="p-opt-letter">${String.fromCharCode(65 + i)}</div>
-            <div>${opt}</div>
+            <div style="flex-grow:1; pointer-events:none; color: var(--navy-dark);">${opt}</div>
+            <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid ${isChecked ? 'var(--navy)' : 'var(--border-dark)'}; background: ${isChecked ? 'var(--navy)' : 'transparent'}; flex-shrink:0;"></div>
           </div>
         `;
       }).join('');
@@ -927,6 +939,18 @@ function submitExam() {
 
   const finalScore = correct - (wrong * 0.25);
   
+  // Calculate Time Taken
+  let totalTimeAllocated = isMockTestUI ? 180 * 60 : totalActiveQuestions * 60;
+  let timeTakenSeconds = totalTimeAllocated - timeRemaining;
+  let m = Math.floor(timeTakenSeconds / 60);
+  let s = timeTakenSeconds % 60;
+  
+  let timeStr = "";
+  if (m > 0 && s > 0) timeStr = `${m} મિનિટ અને ${s} સેકન્ડ`;
+  else if (m > 0) timeStr = `${m} મિનિટ`;
+  else timeStr = `${s} સેકન્ડ`;
+  
+  document.getElementById('resTime').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   document.getElementById('resScore').innerText = finalScore.toFixed(2);
   document.getElementById('resCorrect').innerText = correct;
   document.getElementById('resWrong').innerText = wrong;
@@ -935,13 +959,13 @@ function submitExam() {
   const pct = finalScore / totalActiveQuestions;
   const motiv = document.getElementById('resMotivation');
   if(pct >= 0.75) {
-    motiv.innerText = "અદ્ભુત! તમારી તૈયારી ખૂબ જ મજબૂત છે. તમે નિશ્ચિતપણે સફળ થશો! 🏆";
+    motiv.innerText = `અદ્ભુત! તમે માત્ર ${timeStr}માં ટેસ્ટ પૂરી કરી. તમારી તૈયારી ખૂબ જ મજબૂત છે! તમે નિશ્ચિતપણે સફળ થશો! 🏆`;
     motiv.style.color = "#166534";
   } else if(pct >= 0.50) {
-    motiv.innerText = "ખૂબ સરસ પ્રયાસ! થોડી વધુ મહેનત તમને લક્ષ્ય સુધી પહોંચાડશે. 🌟";
+    motiv.innerText = `ખૂબ સરસ પ્રયાસ! તમે ${timeStr}નો સમય લીધો. થોડી વધુ મહેનત તમને લક્ષ્ય સુધી પહોંચાડશે. 🌟`;
     motiv.style.color = "var(--navy)";
   } else {
-    motiv.innerText = "નિરાશ ન થશો! તમારી ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો. સતત મહેનત જ સફળતાની ચાવી છે. 💪";
+    motiv.innerText = `તમે ${timeStr}નો સમય લીધો. નિરાશ ન થશો! ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો. સતત મહેનત જ સફળતાની ચાવી છે. 💪`;
     motiv.style.color = "var(--red)";
   }
 
@@ -950,7 +974,7 @@ function submitExam() {
   let attemptedCount = 0;
 
   activeQuestions.forEach((q, i) => {
-    if (userAnswers[i] === undefined) return; // જો પ્રશ્ન છોડી દીધો હોય તો તેનું વર્ણન ન બતાવો
+    if (userAnswers[i] === undefined) return; 
     attemptedCount++;
     
     const userAnsText = q.opts[userAnswers[i]];
@@ -987,7 +1011,8 @@ function submitExam() {
 
 function shareWhatsApp() {
   const scoreText = document.getElementById('resScore').innerText;
-  const textMsg = `મારો TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) ટેસ્ટનો સ્કોર ${scoreText}/${totalActiveQuestions} છે! 🎓📚\nAdhyapak Saathi પર તમે પણ ફ્રી રિયલ-ટાઇમ ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapaksaathi.in/test.html`;
+  const timeText = document.getElementById('resTime').innerText;
+  const textMsg = `મારો TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) ટેસ્ટનો સ્કોર ${scoreText}/${totalActiveQuestions} છે! મેં આ ટેસ્ટ ${timeText} માં પૂરી કરી. 🎓📚\nAdhyapak Saathi પર તમે પણ ફ્રી રિયલ-ટાઇમ ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapaksaathi.in/test.html`;
   const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`;
   window.open(url, '_blank');
 }
