@@ -570,7 +570,7 @@ rows.forEach((row) => {
     q: parts[0],
     opts: [parts[1], parts[2], parts[3], parts[4]],
     ans: parseInt(parts[5]),
-    exp: "અસલી પેપર (PDF) મુજબ સાચો જવાબ: " + parts[parseInt(parts[5]) + 1]
+    exp: `આપેલ વિકલ્પોમાંથી સાચો ઉત્તર '${parts[parseInt(parts[5]) + 1]}' છે.`
   });
 });
 
@@ -634,6 +634,12 @@ function startExam(mode) {
     updateTimerDisplay();
     if(timeRemaining <= 0) {
       clearInterval(timerInterval);
+      let answeredCount = Object.keys(userAnswers).length;
+      if(answeredCount === 0) {
+        alert("સમય સમાપ્ત! પરંતુ તમે એક પણ પ્રશ્નનો જવાબ આપ્યો ન હોવાથી પરીક્ષા રદ કરવામાં આવે છે.");
+        window.location.reload();
+        return;
+      }
       alert("સમય સમાપ્ત! તમારી પરીક્ષા ઓટો-સબમિટ થઈ રહી છે.");
       submitExam();
     }
@@ -831,9 +837,7 @@ function submitExam() {
     `;
   });
   
-  if (attemptedCount === 0) {
-    revHtml = `<div style="text-align:center; padding: 20px; font-size: 1.1rem; color: var(--red); font-weight: bold; background: white; border: 1px solid var(--border); border-radius: 8px;">તમે એક પણ પ્રશ્નનો જવાબ આપ્યો ન હોવાથી કોઈ સમજૂતી ઉપલબ્ધ નથી.</div>`;
-  } else if (attemptedCount < totalActiveQuestions) {
+  if (attemptedCount < totalActiveQuestions) {
     revHtml = `<div style="margin-bottom: 20px; padding: 15px; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; border-radius: 8px; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 10px;">
       <span style="font-size: 1.5rem;">⚠️</span>
       નોંધ: તમે જે પ્રશ્નો છોડી દીધા છે તેના જવાબો અને સમજૂતી છુપાવવામાં આવ્યા છે. માત્ર તમે આપેલા જવાબોનું જ વર્ણન નીચે છે.
