@@ -294,7 +294,16 @@
     <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:janijani431@yahoo.com">janijani431@yahoo.com</a></li><li><a href="contact.html">Send a Message</a></li><li><a href="contact.html">Suggestion Box</a></li></ul></div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
+    <div>
+      <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
+      
+      <!-- VISITOR COUNTER SECTION -->
+      <div id="visitor-counter" style="margin-top: 10px; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 600;">Total Website Visitors:</span>
+        <!-- Counter badge will load here via JavaScript -->
+      </div>
+
+    </div>
     <p>Hosted on <span>GitHub Pages</span></p>
   </div>
 </footer>
@@ -308,6 +317,37 @@ document.onkeydown = function(e) {
   if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
 };
 document.addEventListener('copy', function(e) { e.preventDefault(); });
+
+// --- VISITOR COUNTER & ADMIN TRICK ---
+document.addEventListener("DOMContentLoaded", function() {
+  // Check if admin is trying to set the secret flag in the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('admin') === 'true') {
+    localStorage.setItem('adhyapak_admin', 'true');
+    alert('Admin mode activated! Your visits will no longer be counted on this device.');
+  }
+
+  const isAdmin = localStorage.getItem('adhyapak_admin') === 'true';
+  const counterContainer = document.getElementById('visitor-counter');
+
+  if (!isAdmin) {
+    // Load the counter image to register a hit for regular users
+    const counterImg = document.createElement('img');
+    counterImg.src = "https://api.visitorbadge.io/api/visitors?path=adhyapak-saathi.github.io&label=VISITORS&labelColor=%231d3461&countColor=%23b8860b";
+    counterImg.alt = "Visitor Count";
+    counterImg.style.height = "20px";
+    counterImg.style.borderRadius = "4px";
+    counterContainer.appendChild(counterImg);
+  } else {
+    // Show special admin text instead of loading the counter (preventing the hit)
+    const adminBadge = document.createElement('span');
+    adminBadge.style.color = "var(--gold-light)";
+    adminBadge.style.fontSize = "0.75rem";
+    adminBadge.style.fontWeight = "700";
+    adminBadge.innerText = "🛑 Admin View (Not Counted)";
+    counterContainer.appendChild(adminBadge);
+  }
+});
 
 // --- REGULAR SCRIPTS ---
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
