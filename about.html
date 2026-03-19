@@ -7,6 +7,14 @@
   <meta name="description" content="About Adhyapak Saathi — a free academic preparation portal for teacher eligibility exam aspirants in Gujarat and India."/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  <style>
+    /* Security: Prevent text selection across the whole page */
+    body {
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
+    }
+  </style>
 </head>
 <body>
 
@@ -159,7 +167,7 @@
       <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
     </div>
     <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="test.html">Practice Test</a></li><li><a href="news.html">Exam News</a></li><li><a href="materials.html">Study Materials</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-    <div><div class="footer-col-title">Examinations</div><ul class="footer-links"><li><a href="test.html?exam=tat">TAT (S) &amp; TAT (HS)</a></li><li><a href="test.html?exam=tet1">TET I &amp; TET II</a></li><li><a href="test.html?exam=ugcnet">UGC NET</a></li><li><a href="test.html?exam=gset">GSET</a></li><li><a href="test.html?exam=ctet">CTET</a></li></ul></div>
+    <div><div class="footer-col-title">Examinations</div><ul class="footer-links"><li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li><li><a href="news.html">TET I &amp; TET II</a></li><li><a href="news.html">UGC NET</a></li><li><a href="news.html">GSET</a></li><li><a href="news.html">CTET</a></li></ul></div>
     <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:janijani431@yahoo.com">janijani431@yahoo.com</a></li><li><a href="contact.html">Send a Message</a></li><li><a href="contact.html">Suggestion Box</a></li></ul></div>
   </div>
   <div class="footer-bottom">
@@ -169,6 +177,16 @@
 </footer>
 
 <script>
+// --- SECURITY FEATURES ---
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+document.onkeydown = function(e) {
+  if (e.key === 'F12') return false;
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
+};
+document.addEventListener('copy', function(e) { e.preventDefault(); });
+
+// --- REGULAR SCRIPTS ---
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 </script>
 </body>
