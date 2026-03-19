@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
   <style>
+    /* Security: Prevent text selection across the whole page */
+    body {
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
+    }
+
     /* Ensure ticker never breaks even if main CSS is cached */
     .safe-ticker {
       background: var(--navy-dark); color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; border-bottom: 2px solid var(--gold);
@@ -87,7 +94,7 @@
   </div>
 </div>
 
-<!-- FILTER BUTTONS (Using standard framed buttons to prevent breaking) -->
+<!-- FILTER BUTTONS -->
 <section class="section-sm" style="border-bottom: 1px solid var(--border); background: var(--white);">
   <div class="wrapper">
     <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;" id="newsTabs">
@@ -266,6 +273,44 @@
 </footer>
 
 <script>
+// --- SECURITY FEATURES ---
+
+// 1. Disable Right-Click (Context Menu)
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+
+// 2. Disable Specific Keyboard Shortcuts
+document.onkeydown = function(e) {
+  // F12 (DevTools)
+  if (e.key === 'F12') {
+    return false;
+  }
+  // Ctrl+Shift+I or Cmd+Option+I (Inspect)
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+    return false;
+  }
+  // Ctrl+Shift+J or Cmd+Option+J (Console)
+  if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+    return false;
+  }
+  // Ctrl+U or Cmd+Option+U (View Source)
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+    return false;
+  }
+  // Ctrl+S or Cmd+S (Save Page)
+  if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+    return false;
+  }
+};
+
+// 3. Disable Copying Text
+document.addEventListener('copy', function(e) {
+  e.preventDefault();
+});
+
+// --- REGULAR PAGE SCRIPTS ---
+
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
 function filterNews(cat, btn) {
@@ -282,7 +327,7 @@ function filterNews(cat, btn) {
   // Filter cards
   document.querySelectorAll('.news-card').forEach(el => {
     if (cat === 'all' || el.dataset.cat === cat) {
-      el.style.display = 'block'; // FIXED: Keeps standard card shape instead of forcing flex row!
+      el.style.display = 'block'; 
     } else {
       el.style.display = 'none';
     }
