@@ -7,6 +7,14 @@
   <meta name="description" content="Contact Adhyapak Saathi — send suggestions, report errors, share exam news, or ask questions about TAT, TET, UGC NET, GSET, CTET."/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  <style>
+    /* Security: Prevent text selection across the whole page */
+    body {
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
+    }
+  </style>
 </head>
 <body>
 
@@ -292,6 +300,16 @@
 </footer>
 
 <script>
+// --- SECURITY FEATURES ---
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+document.onkeydown = function(e) {
+  if (e.key === 'F12') return false;
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
+};
+document.addEventListener('copy', function(e) { e.preventDefault(); });
+
+// --- REGULAR SCRIPTS ---
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
 async function submitForm(e, successId, formId) {
