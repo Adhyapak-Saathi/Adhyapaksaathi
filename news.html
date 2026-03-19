@@ -7,9 +7,25 @@
   <meta name="description" content="Latest notifications for TAT, TET, UGC NET, GSET, CTET — application dates, admit cards, results, and official updates."/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  <style>
+    /* Ensure ticker never breaks even if main CSS is cached */
+    .safe-ticker {
+      background: var(--navy-dark); color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; border-bottom: 2px solid var(--gold);
+    }
+    .safe-ticker-inner {
+      display: inline-block; white-space: nowrap; animation: safeTicker 35s linear infinite;
+    }
+    @keyframes safeTicker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    
+    /* Ensure images always center perfectly */
+    .news-card-img {
+      width: 100%; height: 200px; object-fit: cover; object-position: center; border-bottom: 3px solid var(--gold);
+    }
+  </style>
 </head>
 <body>
 
+<!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-inner">
     <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
@@ -17,6 +33,7 @@
   </div>
 </div>
 
+<!-- NAVBAR -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -33,7 +50,6 @@
         <span class="site-tagline">Teacher Exam Preparation Portal</span>
       </div>
     </a>
-    
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="test.html">Practice Test</a></li>
@@ -42,205 +58,167 @@
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    
     <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
   </div>
 </nav>
 
+<!-- BANNER -->
 <div class="page-banner">
   <div class="wrapper">
     <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Exam News</div>
     <h1>Exam <em>Notifications</em></h1>
-    <p>Official updates on TAT, TET, UGC NET, GSET, and CTET — application dates, admit cards, syllabi, and results.</p>
+    <p>Official updates on TAT, TET, UGC NET, GSET, and CTET — verified links, application dates, and results.</p>
   </div>
 </div>
 
-<!-- TICKER -->
-<div class="ticker-bar">
-  <div class="ticker-inner">
-    <span class="ticker-label">Live Updates</span>
-    <span>📢 TET I &amp; II 2025 Admit Card Download Active &nbsp;·&nbsp; </span>
-    <span>📢 UGC NET June 2025 Registration Open — Apply at ugcnet.nta.ac.in &nbsp;·&nbsp; </span>
-    <span>📢 GSET 2025 Notification Expected — Stay Tuned &nbsp;·&nbsp; </span>
-    <span>📢 TAT (S) 2025 Application Dates Released — Visit gssb.gujarat.gov.in &nbsp;·&nbsp; </span>
-    <span>📢 CTET July 2025 Registration Begins &nbsp;·&nbsp; </span>
-    <span>📢 NEP 2020 Implementation Update Issued &nbsp;·&nbsp; </span>
-    <span>📢 TET I &amp; II 2025 Admit Card Download Active &nbsp;·&nbsp; </span>
-    <span>📢 UGC NET June 2025 Registration Open &nbsp;·&nbsp; </span>
+<!-- BULLETPROOF TICKER -->
+<div class="safe-ticker">
+  <div class="wrapper" style="display: flex; align-items: center; width: 100%;">
+    <span style="background: var(--gold); color: var(--navy-dark); font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 4px; z-index: 10; position: relative; margin-right: 15px; flex-shrink: 0; text-transform: uppercase;">LIVE UPDATES</span>
+    <div style="overflow: hidden; flex-grow: 1;">
+      <div class="safe-ticker-inner">
+        📢 Check SEB Portal (sebexam.org) for TAT & TET updates &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+        📢 GSET E-Certificates now available for download &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+        📢 UGC NET notifications released at ugcnet.nta.ac.in &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+        📢 CTET upcoming schedules via ctet.nic.in &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+        📢 Stay updated with Official Government Portals for 100% accurate news!
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- FILTER -->
-<section class="section-sm">
+<!-- FILTER BUTTONS (Using standard framed buttons to prevent breaking) -->
+<section class="section-sm" style="border-bottom: 1px solid var(--border); background: var(--white);">
   <div class="wrapper">
-    <div class="tab-row" id="newsTabs">
-      <button class="tab-btn active" onclick="filterNews('all',this)">All Updates</button>
-      <button class="tab-btn" onclick="filterNews('tat',this)">TAT (S) &amp; (HS)</button>
-      <button class="tab-btn" onclick="filterNews('tet',this)">TET I &amp; II</button>
-      <button class="tab-btn" onclick="filterNews('ugcnet',this)">UGC NET</button>
-      <button class="tab-btn" onclick="filterNews('gset',this)">GSET</button>
-      <button class="tab-btn" onclick="filterNews('ctet',this)">CTET</button>
-      <button class="tab-btn" onclick="filterNews('policy',this)">Education Policy</button>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;" id="newsTabs">
+      <button class="btn btn-navy btn-sm filter-btn" onclick="filterNews('all', this)">All Updates</button>
+      <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('tat', this)">TAT (S) & (HS)</button>
+      <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('tet', this)">TET I & II</button>
+      <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('gset', this)">GSET</button>
+      <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('ugcnet', this)">UGC NET & CTET</button>
     </div>
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
+<!-- MAIN NEWS GRID -->
+<section class="section">
   <div class="wrapper">
-    <div class="news-layout">
-
-      <!-- MAIN COLUMN -->
-      <div>
-        <!-- Featured Article -->
-        <div class="news-featured" data-cat="tat">
-          <img class="news-featured-img" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900&q=75" alt="TAT Gujarat classroom"/>
-          <div class="news-featured-body">
-            <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;flex-wrap:wrap">
-              <span class="card-tag">TAT (S) · Gujarat</span>
-              <span class="news-date">📅 February 2025</span>
-            </div>
-            <div class="news-title">TAT Secondary 2025 — Detailed Notification Released by GSSB Gujarat</div>
-            <p style="color:var(--text-mid);font-size:0.9rem;margin-bottom:1.2rem;line-height:1.8">
-              The Gujarat Secondary Service Board (GSSB) has released the comprehensive official notification for the Teacher Aptitude Test (Secondary) 2025. The examination will be conducted for Secondary school teacher posts (Class 9–10). Eligible candidates holding a B.Ed. degree with relevant subject graduation may apply through the official GSSB portal. The exam pattern includes General Knowledge, Gujarati Language, and Subject Knowledge sections. Candidates are advised to refer to the official syllabus available on gssb.gujarat.gov.in.
-            </p>
-            <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
-              <span style="font-size:0.78rem;color:var(--text-muted);background:var(--bg);border:1px solid var(--border);padding:3px 10px;border-radius:4px">📌 TAT (S)</span>
-              <span style="font-size:0.78rem;color:var(--text-muted);background:var(--bg);border:1px solid var(--border);padding:3px 10px;border-radius:4px">📌 GSSB Gujarat</span>
-              <span style="font-size:0.78rem;color:var(--text-muted);background:var(--bg);border:1px solid var(--border);padding:3px 10px;border-radius:4px">📌 Recruitment 2025</span>
-            </div>
+    <div class="grid-3" id="newsGrid">
+      
+      <!-- TAT NEWS -->
+      <div class="card news-card" data-cat="tat">
+        <img class="news-card-img" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80" alt="TAT Gujarat Classroom"/>
+        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
+          <span class="card-tag">TAT · Gujarat SEB</span>
+          <div class="card-title">TAT (Secondary & Higher Secondary) Updates</div>
+          <div class="card-text" style="flex-grow: 1;">
+            The State Examination Board (SEB) manages all recruitment exams for secondary and higher secondary teachers. Ensure you check the official portal regularly for upcoming exam dates, admit cards, and detailed syllabi.
           </div>
-        </div>
-
-        <!-- Sub-grid -->
-        <div class="grid-2" style="margin-top:1.5rem">
-          <div class="card" data-cat="ugcnet">
-            <img class="card-img" src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=70" alt="UGC NET"/>
-            <div class="card-body">
-              <span class="card-tag">UGC NET · June 2025</span>
-              <div class="card-title">UGC NET June 2025 — Application Open at ugcnet.nta.ac.in</div>
-              <div class="card-text">NTA has opened registration for UGC NET June 2025 covering 83+ subjects. The examination qualifies candidates for assistant professor and JRF in central universities.</div>
-              <div class="news-date">📅 March 2025</div>
-            </div>
-          </div>
-          <div class="card" data-cat="ctet">
-            <img class="card-img" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=70" alt="CTET"/>
-            <div class="card-body">
-              <span class="card-tag">CTET · July 2025</span>
-              <div class="card-title">CTET July 2025 Registration Begins — Paper I &amp; II</div>
-              <div class="card-text">CBSE has announced CTET July 2025. Both Paper I (Class 1–5) and Paper II (Class 6–8) will be held. Apply on ctet.nic.in before the last date.</div>
-              <div class="news-date">📅 April 2025</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- More articles -->
-        <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:1rem" id="extraNewsItems">
-
-          <div class="news-item-small" style="padding:1.2rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg)" data-cat="tet">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&q=70" alt="TET Gujarat"/>
-            <div>
-              <div class="news-item-small-title" style="font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.3rem;font-family:var(--font-serif)">Gujarat TET I &amp; II 2025 — Admit Card Available on ojas.gujarat.gov.in</div>
-              <div style="font-size:0.84rem;color:var(--text-muted);margin-bottom:0.4rem">Candidates who applied for Gujarat TET I and TET II can download their Hall Ticket from the official OJAS portal. Check exam centre and roll number carefully.</div>
-              <div class="news-item-small-date">📅 April 2025 &nbsp;·&nbsp; TET · GSHSEB</div>
-            </div>
-          </div>
-
-          <div class="news-item-small" style="padding:1.2rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg)" data-cat="gset">
-            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=200&q=70" alt="GSET"/>
-            <div>
-              <div class="news-item-small-title" style="font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.3rem;font-family:var(--font-serif)">GSET 2025 Notification — Saurashtra University Announces Tentative Schedule</div>
-              <div style="font-size:0.84rem;color:var(--text-muted);margin-bottom:0.4rem">Saurashtra University has published a tentative schedule for GSET 2025. This eligibility test qualifies candidates for Assistant Professor posts in Gujarat colleges.</div>
-              <div class="news-item-small-date">📅 March 2025 &nbsp;·&nbsp; GSET · Saurashtra University</div>
-            </div>
-          </div>
-
-          <div class="news-item-small" style="padding:1.2rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg)" data-cat="tat">
-            <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=200&q=70" alt="TAT HS"/>
-            <div>
-              <div class="news-item-small-title" style="font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.3rem;font-family:var(--font-serif)">TAT (Higher Secondary) 2025 — Exam Date and Pattern Announced</div>
-              <div style="font-size:0.84rem;color:var(--text-muted);margin-bottom:0.4rem">GSSB Gujarat has announced the exam schedule for TAT (HS) 2025. The exam pattern includes 150 MCQs covering Subject Knowledge and General Studies.</div>
-              <div class="news-item-small-date">📅 Feb 2025 &nbsp;·&nbsp; TAT (HS) · GSSB</div>
-            </div>
-          </div>
-
-          <div class="news-item-small" style="padding:1.2rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg)" data-cat="policy">
-            <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=200&q=70" alt="NEP"/>
-            <div>
-              <div class="news-item-small-title" style="font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.3rem;font-family:var(--font-serif)">NEP 2020 Implementation — 4-Year B.Ed. Programme to Replace 2-Year B.Ed. by 2030</div>
-              <div style="font-size:0.84rem;color:var(--text-muted);margin-bottom:0.4rem">As per NEP 2020, the NCTE is transitioning towards an integrated 4-year B.Ed. as the standard teacher qualification, to be fully implemented by 2030.</div>
-              <div class="news-item-small-date">📅 Jan 2025 &nbsp;·&nbsp; Education Policy · NCTE</div>
-            </div>
-          </div>
-
-          <div class="news-item-small" style="padding:1.2rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg)" data-cat="ugcnet">
-            <img src="https://images.unsplash.com/photo-1491538509465-1c1f85b86ee8?w=200&q=70" alt="UGC NET result"/>
-            <div>
-              <div class="news-item-small-title" style="font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.3rem;font-family:var(--font-serif)">UGC NET December 2024 Result Declared — Check at ugcnet.nta.ac.in</div>
-              <div style="font-size:0.84rem;color:var(--text-muted);margin-bottom:0.4rem">NTA has declared the UGC NET December 2024 results. Candidates who qualified are eligible for Assistant Professor and JRF in their respective subjects.</div>
-              <div class="news-item-small-date">📅 Feb 2025 &nbsp;·&nbsp; UGC NET · NTA Result</div>
-            </div>
-          </div>
-
+          <a href="https://www.sebexam.org/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Visit Official SEB Portal →</a>
         </div>
       </div>
 
-      <!-- SIDEBAR -->
-      <div class="news-sidebar">
-        <div class="news-sidebar-title">Quick Notifications</div>
-
-        <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden">
-          <div style="background:var(--navy);padding:0.7rem 1rem">
-            <span style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-light);font-family:var(--font-sans)">Upcoming Deadlines</span>
+      <!-- GSET NEWS -->
+      <div class="card news-card" data-cat="gset">
+        <img class="news-card-img" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80" alt="GSET University"/>
+        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
+          <span class="card-tag">GSET · E-Certificate</span>
+          <div class="card-title">GSET E-Certificates Available for Download</div>
+          <div class="card-text" style="flex-grow: 1;">
+            The Maharaja Sayajirao University of Baroda has activated the portal to download E-Certificates for qualified candidates of the Gujarat State Eligibility Test. Enter your credentials on the official link below to retrieve it.
           </div>
-          <div style="padding:0.5rem 0">
-            <div style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem">
-              <div style="font-weight:700;color:var(--navy);margin-bottom:0.2rem">UGC NET June 2025</div>
-              <div style="color:var(--text-muted)">Application Last Date: April 20, 2025</div>
-            </div>
-            <div style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem">
-              <div style="font-weight:700;color:var(--navy);margin-bottom:0.2rem">CTET July 2025</div>
-              <div style="color:var(--text-muted)">Registration Ends: May 5, 2025</div>
-            </div>
-            <div style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem">
-              <div style="font-weight:700;color:var(--navy);margin-bottom:0.2rem">Gujarat TET I &amp; II</div>
-              <div style="color:var(--text-muted)">Exam: May–June 2025 (Tentative)</div>
-            </div>
-            <div style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem">
-              <div style="font-weight:700;color:var(--navy);margin-bottom:0.2rem">GSET 2025</div>
-              <div style="color:var(--text-muted)">Notification Expected: May 2025</div>
-            </div>
-            <div style="padding:0.8rem 1rem;font-size:0.83rem">
-              <div style="font-weight:700;color:var(--navy);margin-bottom:0.2rem">TAT (S) &amp; (HS)</div>
-              <div style="color:var(--text-muted)">Recruitment Ongoing — Check GSSB</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Official Links -->
-        <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden">
-          <div style="background:var(--navy);padding:0.7rem 1rem">
-            <span style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-light);font-family:var(--font-sans)">Official Websites</span>
-          </div>
-          <div style="padding:0.5rem 0">
-            <a href="https://gssb.gujarat.gov.in" target="_blank" style="display:block;padding:0.7rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem;color:var(--navy);text-decoration:none;font-weight:600">↗ gssb.gujarat.gov.in <span style="font-weight:400;color:var(--text-muted)">(TAT)</span></a>
-            <a href="https://sebexam.org" target="_blank" style="display:block;padding:0.7rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem;color:var(--navy);text-decoration:none;font-weight:600">↗ sebexam.org <span style="font-weight:400;color:var(--text-muted)">(TET Gujarat)</span></a>
-            <a href="https://ugcnet.nta.ac.in" target="_blank" style="display:block;padding:0.7rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem;color:var(--navy);text-decoration:none;font-weight:600">↗ ugcnet.nta.ac.in <span style="font-weight:400;color:var(--text-muted)">(UGC NET)</span></a>
-            <a href="https://ctet.nic.in" target="_blank" style="display:block;padding:0.7rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem;color:var(--navy);text-decoration:none;font-weight:600">↗ ctet.nic.in <span style="font-weight:400;color:var(--text-muted)">(CTET)</span></a>
-            <a href="https://ojas.gujarat.gov.in" target="_blank" style="display:block;padding:0.7rem 1rem;font-size:0.83rem;color:var(--navy);text-decoration:none;font-weight:600">↗ ojas.gujarat.gov.in <span style="font-weight:400;color:var(--text-muted)">(Gujarat Jobs)</span></a>
-          </div>
-        </div>
-
-        <!-- Suggestion -->
-        <div style="background:var(--gold-bg);border:1px solid #e0c060;border-radius:var(--radius-lg);padding:1.5rem">
-          <div style="font-family:var(--font-serif);font-size:0.95rem;font-weight:700;color:var(--navy);margin-bottom:0.5rem">Know an Update?</div>
-          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem">Share exam notifications, admit card releases, or result updates with us.</p>
-          <a href="contact.html" class="btn btn-navy btn-sm btn-full">Send News Tip →</a>
+          <a href="https://gujaratset.ac.in/certificate/ecerti25" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Download E-Certificate →</a>
         </div>
       </div>
+
+      <!-- TET NEWS -->
+      <div class="card news-card" data-cat="tet">
+        <img class="news-card-img" src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&q=80" alt="TET Primary School"/>
+        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
+          <span class="card-tag">TET I & II · Gujarat</span>
+          <div class="card-title">TET Exam Guidelines & Syllabi</div>
+          <div class="card-text" style="flex-grow: 1;">
+            Primary and Upper Primary teacher eligibility tests (TET 1 & 2) are conducted by the SEB. Aspirants must download the official exam structure directly from the SEB portal to avoid misinformation and fake syllabi online.
+          </div>
+          <a href="https://www.sebexam.org/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Check SEB Portal →</a>
+        </div>
+      </div>
+
+      <!-- UGC NET NEWS -->
+      <div class="card news-card" data-cat="ugcnet">
+        <img class="news-card-img" src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80" alt="UGC NET Exam"/>
+        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
+          <span class="card-tag">UGC NET · National</span>
+          <div class="card-title">UGC NET Notifications by NTA</div>
+          <div class="card-text" style="flex-grow: 1;">
+            The National Testing Agency (NTA) conducts the UGC NET exam bi-annually for Assistant Professor and JRF roles. Keep track of the application windows, city intimation slips, and result declarations on the official NTA website.
+          </div>
+          <a href="https://ugcnet.nta.ac.in/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Visit NTA Portal →</a>
+        </div>
+      </div>
+
+      <!-- CTET NEWS -->
+      <div class="card news-card" data-cat="ugcnet">
+        <img class="news-card-img" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80" alt="CTET Education"/>
+        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
+          <span class="card-tag">CTET · CBSE</span>
+          <div class="card-title">Central Teacher Eligibility Test (CTET)</div>
+          <div class="card-text" style="flex-grow: 1;">
+            The CBSE manages the CTET for teaching positions in central government schools (KVS, NVS). Access the information bulletin, submit applications, and download admit cards exclusively via the CTET official web portal.
+          </div>
+          <a href="https://ctet.nic.in/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Visit CTET Portal →</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
+<!-- QUICK DEADLINES & LINKS SECTION -->
+<hr class="divider"/>
+<section class="section-sm" style="background: var(--white);">
+  <div class="wrapper">
+    <div class="grid-2">
+      
+      <!-- Important Notice Box -->
+      <div style="background: var(--navy); border-radius: var(--radius-lg); padding: 2.5rem; color: var(--white); box-shadow: var(--shadow-md);">
+        <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem;">⚠️ Beware of Fake News</h3>
+        <p style="font-size: 0.95rem; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 1.5rem;">
+          Social media is often flooded with fake exam dates and unofficial syllabus changes. Adhyapak Saathi strongly advises all teacher aspirants to <strong>only trust notifications published on official government websites.</strong>
+        </p>
+        <p style="font-size: 0.95rem; line-height: 1.8; color: rgba(255,255,255,0.85);">
+          Always verify news by clicking the official links provided in our portal.
+        </p>
+      </div>
+
+      <!-- Quick Official Links Box -->
+      <div style="background: #f8fafd; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm);">
+        <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin-bottom: 1.5rem;">Trusted Official Portals</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <a href="https://www.sebexam.org/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; color: var(--navy); font-weight: 600; transition: all 0.2s;">
+            <span>📌 SEB Exam Portal (TAT & TET)</span> <span style="color: var(--gold);">↗</span>
+          </a>
+          
+          <a href="https://gujaratset.ac.in/certificate/ecerti25" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; color: var(--navy); font-weight: 600; transition: all 0.2s;">
+            <span>📌 GSET E-Certificate Download</span> <span style="color: var(--gold);">↗</span>
+          </a>
+
+          <a href="https://ugcnet.nta.ac.in/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; color: var(--navy); font-weight: 600; transition: all 0.2s;">
+            <span>📌 UGC NET Official Website</span> <span style="color: var(--gold);">↗</span>
+          </a>
+
+          <a href="https://ctet.nic.in/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); text-decoration: none; color: var(--navy); font-weight: 600; transition: all 0.2s;">
+            <span>📌 CTET Official Website</span> <span style="color: var(--gold);">↗</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -248,10 +226,38 @@
       <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
       <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
     </div>
-    <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="test.html">Practice Test</a></li><li><a href="news.html">Exam News</a></li><li><a href="materials.html">Study Materials</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-    <div><div class="footer-col-title">Examinations</div><ul class="footer-links"><li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li><li><a href="news.html">TET I &amp; TET II</a></li><li><a href="news.html">UGC NET</a></li><li><a href="news.html">GSET</a></li><li><a href="news.html">CTET</a></li></ul></div>
-    <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:janijani431@yahoo.com">janijani431@yahoo.com</a></li><li><a href="contact.html">Send a Message</a></li><li><a href="contact.html">Suggestion Box</a></li></ul></div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="test.html">Practice Test</a></li>
+        <li><a href="news.html">Exam News</a></li>
+        <li><a href="materials.html">Study Materials</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Examinations</div>
+      <ul class="footer-links">
+        <li><a href="test.html?exam=tat">TAT (Secondary)</a></li>
+        <li><a href="test.html?exam=tat">TAT (Higher Secondary)</a></li>
+        <li><a href="test.html?exam=tet1">TET I &amp; II</a></li>
+        <li><a href="test.html?exam=ugcnet">UGC NET</a></li>
+        <li><a href="test.html?exam=gset">GSET</a></li>
+        <li><a href="test.html?exam=ctet">CTET</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:janijani431@yahoo.com">janijani431@yahoo.com</a></li>
+        <li><a href="contact.html">Send a Message</a></li>
+        <li><a href="contact.html">Suggestion Box</a></li>
+      </ul>
+    </div>
   </div>
+  
   <div class="footer-bottom">
     <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
     <p>Hosted on <span>GitHub Pages</span></p>
@@ -260,11 +266,25 @@
 
 <script>
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
 function filterNews(cat, btn) {
-  document.querySelectorAll('#newsTabs .tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('[data-cat]').forEach(el => {
-    el.style.display = (cat === 'all' || el.dataset.cat === cat) ? '' : 'none';
+  // Reset all buttons to outline
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.remove('btn-navy');
+    b.classList.add('btn-outline');
+  });
+  
+  // Set clicked button to navy
+  btn.classList.remove('btn-outline');
+  btn.classList.add('btn-navy');
+  
+  // Filter cards
+  document.querySelectorAll('.news-card').forEach(el => {
+    if (cat === 'all' || el.dataset.cat === cat) {
+      el.style.display = 'flex';
+    } else {
+      el.style.display = 'none';
+    }
   });
 }
 </script>
