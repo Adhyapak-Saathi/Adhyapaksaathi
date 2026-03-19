@@ -95,7 +95,8 @@
       <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('tat', this)">TAT (S) & (HS)</button>
       <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('tet', this)">TET I & II</button>
       <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('gset', this)">GSET</button>
-      <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('ugcnet', this)">UGC NET & CTET</button>
+      <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('ugcnet', this)">UGC NET</button>
+      <button class="btn btn-outline btn-sm filter-btn" onclick="filterNews('ctet', this)">CTET</button>
     </div>
   </div>
 </section>
@@ -120,12 +121,12 @@
 
       <!-- GSET NEWS -->
       <div class="card news-card" data-cat="gset">
-        <img class="news-card-img" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80" alt="GSET University"/>
+        <img class="news-card-img" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80" alt="GSET Exam"/>
         <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
           <span class="card-tag">GSET · E-Certificate</span>
           <div class="card-title">GSET E-Certificates Available for Download</div>
           <div class="card-text" style="flex-grow: 1;">
-            The Maharaja Sayajirao University of Baroda has activated the portal to download E-Certificates for qualified candidates of the Gujarat State Eligibility Test. Enter your credentials on the official link below to retrieve it.
+            The Gujarat State Eligibility Test (GSET) Agency has activated the portal to download E-Certificates for qualified candidates. Enter your credentials on the official link below to retrieve it.
           </div>
           <a href="https://gujaratset.ac.in/certificate/ecerti25" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Download E-Certificate →</a>
         </div>
@@ -158,7 +159,7 @@
       </div>
 
       <!-- CTET NEWS -->
-      <div class="card news-card" data-cat="ugcnet">
+      <div class="card news-card" data-cat="ctet">
         <img class="news-card-img" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80" alt="CTET Education"/>
         <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
           <span class="card-tag">CTET · CBSE</span>
@@ -281,7 +282,7 @@ function filterNews(cat, btn) {
   // Filter cards
   document.querySelectorAll('.news-card').forEach(el => {
     if (cat === 'all' || el.dataset.cat === cat) {
-      el.style.display = 'flex';
+      el.style.display = 'block'; // FIXED: Keeps standard card shape instead of forcing flex row!
     } else {
       el.style.display = 'none';
     }
