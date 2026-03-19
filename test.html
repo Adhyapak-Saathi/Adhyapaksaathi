@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Real-Time Mock & Practice Test — Adhyapak Saathi</title>
   
-  <meta name="description" content="TAT, TET, GSET માટે પ્રીમિયમ મોક ટેસ્ટ અને વિષયવાર પ્રેક્ટિસ ટેસ્ટ. 200 પ્રશ્નો, પેપર 1 અને પેપર 2."/>
+  <meta name="description" content="TAT, TET, GSET માટે પ્રીમિયમ મોક ટેસ્ટ અને વિષયવાર પ્રેક્ટિસ ટેસ્ટ. 100 પ્રશ્નો, પેપર 1 સંપૂર્ણ."/>
   <meta property="og:title" content="Adhyapak Saathi - Premium Test Portal" />
-  <meta property="og:description" content="આપો રિયલ-ટાઇમ મોક ટેસ્ટ અને વિષયવાર પ્રેક્ટિસ! 180 મિનિટ, 200 ગુણ અને નેગેટિવ માર્કિંગ સાથે." />
+  <meta property="og:description" content="આપો રિયલ-ટાઇમ મોક ટેસ્ટ અને વિષયવાર પ્રેક્ટિસ! 90 મિનિટ, 100 ગુણ અને નેગેટિવ માર્કિંગ સાથે." />
   
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
@@ -29,14 +29,16 @@
     .exam-timer { background: #fff; color: var(--red); padding: 5px 15px; border-radius: 4px; font-weight: 800; font-size: 1.1rem; border: 2px solid var(--red); }
     .exam-body { display: flex; flex-grow: 1; overflow: hidden; }
     .question-panel { flex: 7; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: #ffffff; position: relative; }
-    .question-header { background: #f8fafd; padding: 15px 25px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 1.1rem; display: flex; justify-content: space-between;}
-    .question-content { padding: 25px; overflow-y: auto; flex-grow: 1; }
-    .question-text { font-size: 1.25rem; font-weight: 700; color: #2d3748; line-height: 1.7; margin-bottom: 25px; }
-    .radio-option { display: flex; align-items: center; padding: 15px 20px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; font-size: 1.05rem; font-weight: 600; color: #4a5568; background: #fff; }
+    .question-header { background: #f8fafd; padding: 10px 25px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 1.05rem; display: flex; justify-content: space-between;}
+    .question-content { padding: 20px 25px; overflow-y: auto; flex-grow: 1; }
+    .question-text { font-size: 1.2rem; font-weight: 700; color: #2d3748; line-height: 1.6; margin-bottom: 20px; }
+    
+    .radio-option { display: flex; align-items: center; padding: 12px 18px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; font-size: 1.05rem; font-weight: 600; color: #4a5568; background: #fff; }
     .radio-option:hover { border-color: var(--navy-light); background: #f8fafd; }
     .radio-option.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 1px var(--navy); }
     .radio-option input[type="radio"] { margin-right: 15px; transform: scale(1.3); accent-color: var(--navy); cursor: pointer; }
-    .question-footer { background: #f8fafd; padding: 15px 25px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    
+    .question-footer { background: #f8fafd; padding: 12px 25px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
     .btn-exam { padding: 10px 20px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 0.95rem; }
     .btn-save { background: var(--green); color: white; }
     .btn-save:hover { background: #16a34a; }
@@ -58,27 +60,20 @@
     .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 15px; }
     .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; color: white; transition: 0.1s; }
     .palette-btn:hover { opacity: 0.8; transform: scale(1.05); }
-    .palette-divider { grid-column: span 5; text-align: center; font-size: 0.85rem; font-weight: 800; color: #fff; background: var(--navy-mid); padding: 6px; border-radius: 4px; margin-top: 10px; margin-bottom: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
     /* ==================================================
        NEW PRACTICE TEST UI
        ================================================== */
-    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 2.5rem 1.5rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 2rem 1.5rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
     .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
     .p-topic-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--navy); margin-bottom: 1.5rem; }
-    .btn-p-start { width: 100%; padding: 14px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 1rem; margin-bottom: 0; }
+    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.25rem; color: var(--navy); margin-bottom: 1.5rem; line-height: 1.4; }
+    .btn-p-start { width: 100%; padding: 12px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 1rem; margin-bottom: 0; }
     .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
     
-    .p-opt-btn { display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 1.8rem; background: #f8fafd; border: 2px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; font-size: 1.15rem; color: var(--navy-dark); font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-    .p-opt-btn:hover { border-color: var(--navy-light); background: #f0f4f8; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-    .p-opt-btn.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 2px var(--navy); color: var(--navy); }
-    .p-opt-letter { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #fff; border: 2px solid var(--border-dark); border-radius: 50%; font-weight: 800; color: var(--navy-mid); font-size: 1rem; flex-shrink: 0; transition: all 0.2s; }
-    .p-opt-btn.selected .p-opt-letter { background: var(--navy); border-color: var(--navy); color: #fff; }
-
-    /* Sticky Header for Practice Test */
+    /* COMPACT Sticky Header for Practice Test */
     .p-sticky-header {
-      position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 15px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; border-radius: 0 0 12px 12px;
+      position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 10px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-radius: 0 0 12px 12px;
     }
 
     /* Result Screen Specifics */
@@ -108,7 +103,8 @@
       .question-footer { flex-direction: column; align-items: stretch; }
       .question-footer button { width: 100%; margin-bottom: 8px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .p-sticky-header { flex-direction: column; gap: 10px; padding: 10px; text-align: center; }
+      .p-sticky-header { flex-direction: column; gap: 8px; padding: 10px; text-align: center; }
+      .p-topic-card { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -161,36 +157,55 @@
   <section class="section" id="introScreen">
     <div class="wrapper">
       
-      <!-- 1. FULL MOCK TEST BANNER -->
-      <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 40px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 4rem;">
-        <div style="font-size: 4.5rem; margin-bottom: 10px;">🎓</div>
-        <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 2.2rem; margin-bottom: 15px;">સંપૂર્ણ મોક ટેસ્ટ (200 ગુણ)</h2>
-        <div style="background: #f8fafd; border: 1px solid var(--border); padding: 25px; border-radius: 8px; margin-bottom: 25px; width: 100%; max-width: 800px;">
-          <h3 style="color: var(--navy); margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 5px; font-size: 1.25rem;">પરીક્ષાના નિયમો (Rules):</h3>
-          <ul style="list-style: none; font-size: 1.05rem; color: #3d5170; line-height: 1.9; display: inline-block; text-align: left;">
-            <li>📝 <strong>કુલ પ્રશ્નો:</strong> 200 MCQ (સળંગ પેપર 1 અને 2)</li>
-            <li>⏱️ <strong>સમય મર્યાદા:</strong> 180 મિનિટ (3 કલાક)</li>
-            <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
-            <li><span style="color: var(--red); font-weight: bold;">🛑 ખાસ નોંધ:</span> મોક ટેસ્ટ ચાલુ થયા પછી બહાર નીકળી શકાશે નહિ. સબમિટ કર્યા પછી જ સ્કોરકાર્ડ મળશે.</li>
-          </ul>
+      <!-- MOCK TEST BANNERS (2 BOXES) -->
+      <div class="grid-2" style="gap: 25px; margin-bottom: 4rem;">
+        
+        <!-- MOCK TEST 1 -->
+        <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 35px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center;">
+          <div style="font-size: 4rem; margin-bottom: 10px;">🎓</div>
+          <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.8rem; margin-bottom: 15px;">પેપર 1 (General) - સંપૂર્ણ મોક ટેસ્ટ</h2>
+          <div style="background: #f8fafd; border: 1px solid var(--border); padding: 20px; border-radius: 8px; margin-bottom: 25px; width: 100%;">
+            <ul style="list-style: none; font-size: 1rem; color: #3d5170; line-height: 1.8; text-align: left; display: inline-block;">
+              <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
+              <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
+              <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+              <li>🛑 <strong>નોંધ:</strong> ટેસ્ટ ચાલુ થયા પછી બહાર નીકળી શકાશે નહિ.</li>
+            </ul>
+          </div>
+          <button class="btn btn-navy" style="font-size: 1.2rem; padding: 14px 40px; border-radius: 50px; width: 100%;" onclick="startExam('mock1')">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
         </div>
-        <button class="btn btn-navy" style="font-size: 1.3rem; padding: 16px 45px; border-radius: 50px;" onclick="startExam('mock')">સંપૂર્ણ મોક ટેસ્ટ શરૂ કરો 🚀</button>
+
+        <!-- MOCK TEST 2 -->
+        <div style="background: white; border: 2px solid var(--border-dark); border-radius: 12px; padding: 35px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0.9;">
+          <div style="font-size: 4rem; margin-bottom: 10px;">⏳</div>
+          <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.8rem; margin-bottom: 15px;">પેપર 2 (વિષયવસ્તુ) - સંપૂર્ણ મોક ટેસ્ટ</h2>
+          <div style="background: #f1f5f9; border: 1px solid var(--border); padding: 20px; border-radius: 8px; margin-bottom: 25px; width: 100%;">
+            <ul style="list-style: none; font-size: 1rem; color: #3d5170; line-height: 1.8; text-align: left; display: inline-block;">
+              <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
+              <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
+              <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+              <li>✨ <strong>નોંધ:</strong> આ પેપરમાં વિષયવસ્તુના પ્રશ્નો ટૂંક સમયમાં મુકાશે.</li>
+            </ul>
+          </div>
+          <button class="btn btn-outline" style="font-size: 1.2rem; padding: 14px 40px; border-radius: 50px; width: 100%; font-weight: 700;" onclick="alert('આ પેપરમાં પ્રશ્નો ઉમેરવાનું કાર્ય ચાલુ છે. ટૂંક સમયમાં જ આ ટેસ્ટ ઉપલબ્ધ થશે!')">Coming Soon 🕒</button>
+        </div>
+
       </div>
 
-      <!-- 2. TOPIC-WISE PRACTICE CARDS -->
+      <!-- TOPIC-WISE PRACTICE CARDS -->
       <div class="section-header center" style="margin-bottom: 3rem;">
         <div class="section-label">Topic-wise Practice</div>
         <h2 class="section-title">વિષયવાર <em>પ્રેક્ટિસ ટેસ્ટ</em></h2>
-        <p class="section-desc">નિયમિત મહાવરો જ સફળતાની ચાવી છે! તમારી મનપસંદ કેટેગરી પસંદ કરો અને તમારી તૈયારીને વધુ મજબૂત બનાવો.</p>
+        <p class="section-desc">"સફળતાનો કોઈ શોર્ટકટ નથી, સખત પરિશ્રમ એ જ એકમાત્ર વિકલ્પ છે." તમારી મનપસંદ કેટેગરી પસંદ કરો અને તૈયારીને મજબૂત બનાવો!</p>
       </div>
 
-      <!-- 8 Balanced Grid Boxes (4 Columns) -->
-      <div class="grid-4" style="gap: 2rem;">
+      <!-- 6 Main Boxes + 1 Extra (GK) -->
+      <div class="grid-4" style="gap: 2rem; max-width: 1100px; margin: 0 auto;">
         
         <!-- 1. ફિલસૂફી -->
         <div class="p-topic-card">
           <div>
-            <div class="p-topic-icon">🧘‍♂️</div>
+            <div class="p-topic-icon">🦉</div>
             <h3>1. શિક્ષણની ફિલસૂફી</h3>
           </div>
           <button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી')">ટેસ્ટ શરૂ કરો (12 Qs)</button>
@@ -208,10 +223,10 @@
         <!-- 3. વર્ગવ્યવહાર -->
         <div class="p-topic-card">
           <div>
-            <div class="p-topic-icon">🏫</div>
+            <div class="p-topic-icon">📊</div>
             <h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3>
           </div>
-          <button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">ટેસ્ટ શરૂ કરો (10 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">ટેસ્ટ શરૂ કરો (9 Qs)</button>
         </div>
 
         <!-- 4. તાર્કિક -->
@@ -226,7 +241,7 @@
         <!-- 5. ગુજરાતી -->
         <div class="p-topic-card">
           <div>
-            <div class="p-topic-icon">📝</div>
+            <div class="p-topic-icon">🖋️</div>
             <h3>5. ગુજરાતી ભાષા</h3>
           </div>
           <button class="btn-p-start" onclick="startPracticeTopic('gujarati', 'ગુજરાતી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
@@ -235,28 +250,19 @@
         <!-- 6. અંગ્રેજી -->
         <div class="p-topic-card">
           <div>
-            <div class="p-topic-icon">🅰️</div>
+            <div class="p-topic-icon">🔠</div>
             <h3>6. અંગ્રેજી ભાષા</h3>
           </div>
           <button class="btn-p-start" onclick="startPracticeTopic('english', 'અંગ્રેજી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
         </div>
         
         <!-- 7. GK -->
-        <div class="p-topic-card">
+        <div class="p-topic-card" style="grid-column: span 2;">
           <div>
-            <div class="p-topic-icon">🌍</div>
-            <h3>7. સામાન્ય જ્ઞાન</h3>
+            <div class="p-topic-icon">🌐</div>
+            <h3>7. સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો</h3>
           </div>
-          <button class="btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન')">ટેસ્ટ શરૂ કરો (17 Qs)</button>
-        </div>
-
-        <!-- 8. સંસ્કૃત -->
-        <div class="p-topic-card">
-          <div>
-            <div class="p-topic-icon">🕉️</div>
-            <h3>8. સંસ્કૃત ભાષા</h3>
-          </div>
-          <button class="btn-p-start" onclick="startPracticeTopic('sanskrit', 'સંસ્કૃત ભાષા (પેપર 2)')">ટેસ્ટ શરૂ કરો (100 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન')">ટેસ્ટ શરૂ કરો (18 Qs)</button>
         </div>
 
       </div>
@@ -283,34 +289,66 @@
 </div>
 
 <!-- ==================================================
-     MOCK TEST INTERFACE (TCS iON STYLE)
+     TEST INTERFACE (SHARED BY MOCK & PRACTICE)
      ================================================== -->
 <div class="exam-container" id="examContainer" style="display: none;">
-  <div class="exam-header">
-    <div class="exam-title">TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) - Live Mock Test</div>
-    <div class="exam-timer" id="examTimer">Time Left: 00:00:00</div>
+  
+  <!-- DYNAMIC STICKY HEADER -->
+  <div class="p-sticky-header" id="testStickyHeader">
+    <div style="font-weight:800; font-size:1.15rem; color:var(--navy); display: flex; align-items: center; gap: 8px;">
+      <span id="headerIcon">🎓</span> <span id="pTopicName">TAT - પેપર 1 મોક ટેસ્ટ</span>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap: wrap;">
+       <div id="attemptedBox" style="background:#eaf5ef; color:var(--green); padding:4px 12px; border-radius:20px; font-weight:700; font-size:0.9rem; border:1px solid #bbf7d0;">
+         ✔ આપેલા જવાબો: <span id="pAttempted">0</span>
+       </div>
+       <div style="background:#fdf0ee; color:var(--red); padding:4px 12px; border-radius:20px; font-weight:800; font-size:1rem; border:2px solid var(--red);">
+         ⏱️ <span id="pTimer">00:00:00</span>
+       </div>
+    </div>
   </div>
-  <div class="exam-body">
-    <div class="question-panel">
-      <div class="question-header">
+
+  <div class="exam-body" id="mainTestBody">
+    <div class="question-panel" style="border-right: none; max-width: 900px; margin: 0 auto; width: 100%; padding: 0 15px;">
+      
+      <!-- Progress Bar (Only for practice) -->
+      <div id="pProgressBarContainer" style="background:#e2e8f0; height:8px; border-radius:4px; margin-bottom:1rem; overflow:hidden; display:none;">
+        <div id="pProgressBar" style="background:linear-gradient(90deg, var(--navy-mid) 0%, var(--navy) 100%); height:100%; width:0%; transition:width 0.4s ease;"></div>
+      </div>
+
+      <div class="question-header" style="border-radius: 8px 8px 0 0; border: 1px solid var(--border); border-bottom: none;">
         <span id="lblQNum" style="background: var(--navy); color: white; padding: 4px 12px; border-radius: 20px;">પ્રશ્ન ક્રમાંક: 1</span>
         <span style="font-size: 0.9rem; font-weight: 800; color: var(--navy-mid);">માર્કસ: +1, -0.25</span>
       </div>
-      <div class="question-content">
+      
+      <div class="question-content" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding: 20px;">
         <div class="question-text" id="lblQText">પ્રશ્ન અહીં આવશે...</div>
         <div id="optionsContainer"></div>
       </div>
-      <div class="question-footer">
+
+      <!-- Practice Footer -->
+      <div id="practiceFooter" style="padding: 15px 20px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: none; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <button id="pPrevBtn" class="btn btn-outline" style="padding:10px 20px; border-radius:50px;" onclick="prevPQuestion()">⬅️ પાછળ</button>
+        <div style="font-size:0.95rem; font-weight:700; color:var(--text-muted); text-align: center;" class="p-motivation" id="randomQuote">💡 સતત મહાવરો જ સફળતાની ચાવી છે!</div>
+        <button id="pNextBtn" class="btn btn-navy" style="padding:10px 20px; border-radius:50px;" onclick="nextPQuestion()">આગળ ➡️</button>
+        <button id="pSubmitBtn" class="btn btn-gold" style="display:none; padding:10px 20px; border-radius:50px; color:var(--navy-dark);" onclick="submitExamConfirmation()">ટેસ્ટ પૂરી કરો 🏆</button>
+      </div>
+
+      <!-- Mock Footer -->
+      <div id="mockFooter" style="padding: 15px 20px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 2rem;">
         <div style="display: flex; gap: 10px;">
           <button class="btn-exam btn-clear" onclick="clearResponse()">Clear Response</button>
-          <button class="btn-exam btn-review" onclick="markReviewAndNext()">Mark for Review & Next</button>
+          <button class="btn-exam btn-review" onclick="markReviewAndNext()">Review & Next</button>
         </div>
         <div style="display: flex; gap: 10px;">
           <button class="btn-exam btn-save" onclick="saveAndNext()">Save & Next</button>
         </div>
       </div>
+      
     </div>
-    <div class="palette-panel">
+    
+    <!-- Mock Palette -->
+    <div class="palette-panel" id="mockPalette" style="border-left: 1px solid var(--border);">
       <div class="palette-header" id="paletteHeaderText">Question Palette</div>
       <div class="legend-box">
         <div class="legend-item"><span class="status-badge s-answered">0</span> Answered</div>
@@ -327,59 +365,6 @@
 </div>
 
 <!-- ==================================================
-     NEW PRACTICE TEST INTERFACE (MODERN UI)
-     ================================================== -->
-<div id="practiceContainer" style="display:none; min-height: 100vh; background: linear-gradient(135deg, #f4f7fb 0%, #e2e8f0 100%);">
-  
-  <!-- STICKY HEADER WITH TIMER -->
-  <div class="p-sticky-header">
-    <div style="font-weight:800; font-size:1.25rem; color:var(--navy);">
-      📝 <span id="pTopicName">Topic Name</span>
-    </div>
-    <div style="display:flex; gap:15px; align-items:center;">
-       <div style="background:#eaf5ef; color:var(--green); padding:6px 15px; border-radius:20px; font-weight:700; font-size:0.95rem; border:1px solid #bbf7d0;">
-         ✔ આપેલા જવાબો: <span id="pAttempted">0</span>
-       </div>
-       <div style="background:#fdf0ee; color:var(--red); padding:6px 15px; border-radius:20px; font-weight:800; font-size:1rem; border:2px solid var(--red);">
-         ⏱️ <span id="pTimer">00:00</span>
-       </div>
-    </div>
-  </div>
-
-  <div class="wrapper-narrow" style="padding: 0 1rem 3rem;">
-    <!-- Progress Bar -->
-    <div style="background:white; height:12px; border-radius:6px; margin-bottom:2.5rem; overflow:hidden; box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);">
-      <div id="pProgressBar" style="background:linear-gradient(90deg, var(--navy-mid) 0%, var(--navy) 100%); height:100%; width:0%; transition:width 0.4s ease;"></div>
-    </div>
-
-    <!-- Question Card -->
-    <div style="background:white; padding:3.5rem; border-radius:16px; box-shadow:var(--shadow-md); border:1px solid var(--border);">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-        <div style="font-size:0.9rem; color:var(--gold-dark); text-transform:uppercase; font-weight:800; letter-spacing:1.5px;">
-          પ્રશ્ન <span id="pCurrentNum"></span> / <span id="pTotalNum"></span>
-        </div>
-        <div style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">માર્કસ: +1, -0.25</div>
-      </div>
-      
-      <div id="pQText" style="font-size:1.45rem; font-weight:700; color:var(--navy-dark); margin-bottom:2.5rem; line-height:1.7;"></div>
-      
-      <div id="pOptionsContainer" style="display:flex; flex-direction:column; gap:1.2rem;"></div>
-    </div>
-
-    <!-- Footer Navigation -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2.5rem;">
-      <button id="pPrevBtn" class="btn btn-outline" style="padding:14px 28px; font-size:1.1rem; background:white; border-radius:50px;" onclick="prevPQuestion()">⬅️ પાછળ (Prev)</button>
-      
-      <div style="font-size:1.05rem; font-weight:700; color:var(--text-muted); display:none;" class="p-motivation">💡 સતત મહાવરો જ સફળતાની ચાવી છે! 🎯</div>
-
-      <button id="pNextBtn" class="btn btn-navy" style="padding:14px 28px; font-size:1.1rem; border-radius:50px;" onclick="nextPQuestion()">આગળ વધો (Next) ➡️</button>
-      <button id="pSubmitBtn" class="btn btn-gold" style="display:none; padding:14px 28px; font-size:1.1rem; color:var(--navy-dark); border-radius:50px;" onclick="submitExamConfirmation()">ટેસ્ટ પૂરી કરો (Submit) 🏆</button>
-    </div>
-
-  </div>
-</div>
-
-<!-- ==================================================
      RESULT SCREEN
      ================================================== -->
 <div id="resultScreen" style="display: none; background: #f4f7fb; min-height: 100vh; padding: 20px;">
@@ -391,7 +376,7 @@
 
       <div class="score-circle">
         <span class="marks" id="resScore">0.00</span>
-        <span class="total">out of <span id="resTotalMarks">200</span></span>
+        <span class="total">out of <span id="resTotalMarks">100</span></span>
       </div>
 
       <div id="resMotivation" style="font-size: 1.3rem; font-weight: 700; color: var(--gold-dark); margin-bottom: 20px; padding: 0 20px;">અદ્ભુત પ્રયાસ!</div>
@@ -442,11 +427,20 @@ document.addEventListener('copy', e => e.preventDefault());
 
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
-// Show motivation text on larger screens
-if(window.innerWidth > 768) { document.querySelector('.p-motivation').style.display = 'block'; }
+// Motivational Quotes Array
+const quotes = [
+  "💡 સતત મહાવરો જ સફળતાની ચાવી છે!",
+  "🎯 લક્ષ્ય પ્રાપ્તિ માટે એકાગ્રતા અનિવાર્ય છે.",
+  "💪 મુશ્કેલીઓનો સામનો કરો, જીત તમારી જ છે.",
+  "📚 જ્ઞાન એવો ખજાનો છે જે વહેંચવાથી વધે છે.",
+  "⏳ સમયનો સદુપયોગ તમને શ્રેષ્ઠ બનાવશે.",
+  "🚀 નિષ્ફળતા એ સફળતાની પ્રથમ સીડી છે.",
+  "✨ આજની મહેનત કાલનું ઉજ્જવળ ભવિષ્ય છે.",
+  "🔥 હિંમત હાર્યા વિના આગળ વધતા રહો!"
+];
 
 /* =========================================
-  DYNAMIC QUESTION BANK GENERATOR (Exact 200 UNIQUE Questions from PDF)
+  100 QUESTIONS GENERAL PAPER 1 (FROM PDF)
   =========================================
 */
 const fullDatabase = [];
@@ -553,106 +547,6 @@ No sooner did I reach the college _____ it started to rain.|when|and|than|after|
 Neither of your friend will come. Identify the Pronoun.|Distributive|Demonstrative|Indefinite|Reciprocal|0|'Neither' એ બે માંથી કોઈ નહિ તે દર્શાવવા વપરાતું Distributive Pronoun (વિભાજક સર્વનામ) છે.
 Many times he helps those _____ he doesn't know.|who|which|what|whom|0|અહીં કર્મ (object) ના સ્થાને રહેલી વ્યક્તિ માટે સંબંધ દર્શાવવા 'whom' વપરાય છે (જેને તે જાણતો નથી).
 If you _____ the rumour, you _____|had spread, would have been arrested.|had spread, would have arrested|had spreaded, would have been arrested|had spreaded, could have arrested|0|ત્રીજા શરતી વાક્યમાં If + had + V3 હોય તો મુખ્ય વાક્યમાં passive voice મુજબ 'would have been + V3' આવે છે.
-श्लेष्मणः पित्तस्य च प्रशमनं किं वस्तु करोति ?|मधु|क्षीर|उदक|सर्पिः|0|આયુર્વેદશાસ્ત્ર અનુસાર મધ (मधु) કફ અને પિત્ત બંને દોષોનું શમન કરે છે.
-मेधागमेन के हृष्टाः भवन्ति ?|भक्ताः|खद्योताः|शिखण्डिनः|वृषभाः|2|મેઘ (વરસાદ) ના આગમનથી મયુરો (शिखण्डिनः) હર્ષ પામે છે અને નાચવા લાગે છે.
-प्रशान्ते ____ कालिदासः भोजं स्थालिकास्थितां रज्जुम् अदर्शयत् ।|अग्निम्|अग्नौ|अग्नि|अग्निना|1|અગ્નિ શાંત થવા પર (सप्तमी विभक्ति: अग्नौ) કાલિદાસે રાજા ભોજને થાળીમાં પડેલી દોરડી બતાવી.
-आशा इत्यस्य पदस्य कोऽर्थः ?|श्रद्धा|विश्वासः|दिशाः|देवता|2|સંસ્કૃત સાહિત્યમાં 'आशा' શબ્દનો અર્થ દિશા (दिशाः) પણ થાય છે (જેમ કે અષ્ટ-આશા).
-वेनः _____ आसीत् ।|क्रूर|अक्रूर|दयालुः|धर्मनिरतः|0|પૌરાણિક કથાઓ મુજબ રાજા વેન અત્યંત ક્રૂર (क्रूर) અને ધર્મ વિરોધી હતો.
-पुस्तकं ते वस्तुतः एव अद्भुत निर्मितम् अस्ति। आ વાક્ય કોણ બોલે છે?|न्यायधीशः|नेता|वैद्यः|लेखक|3|આ સંવાદ સંસ્કૃત પાઠમાંથી લેવામાં આવ્યો છે, જેમાં લેખક આ વાક્ય બોલે છે.
-स्नेहं के मुञ्चन्ति ?|मुद्गाः|तिलाः|तैलम्|कलमा|1|તિલ (तिलाः) એટલે તલ, જેને પીલવાથી તેલ (સ્નેહ) નીકળે છે.
-अभ्युदये किं करणीयं भवति ?|क्षमा|धैर्यं|वाक्पटुता|कामना|0|નીતિશતક અનુસાર મુશ્કેલીમાં ધૈર્ય અને ઉન્નતિ (अभ्युदये) ના સમયે ક્ષમા રાખવી જોઈએ.
-'नागानन्दम्' નાટકના નાયક-નાયિકાનું નામ શું છે ?|ઉદયન - વાસવદત્તા|ચારુદત્ત – વસંતસેના|જીમૂતવાહન – મલયવતી|માલવિકા – અગ્નિમિત્ર|2|સમ્રાટ હર્ષવર્ધન રચિત નાગાનંદ નાટકના નાયક જીમૂતવાહન અને નાયિકા મલયવતી છે.
-એક જગ્યાએ રહીને બે જગ્યાએ કામ કરતા સાધનોનાં સંદર્ભે કયો ન્યાય પ્રચલિત છે?|सिंहावलोकनन्याय|देहलीदीप न्याय|जलबिन्दुनिपात न्याय|शुण्डशूचि न्याय|1|ઉંબરા પર મૂકેલો દીવો (देहलीदीप न्याय) ઘરની અંદર અને બહાર બંને બાજુ પ્રકાશ આપે છે.
-लिम्पतीव तमोऽ‌ङ्गानि वर्षतीवाञ्जनं नभः । આ પંક્તિમાં કયો અલંકાર છે?|उपमा|रुपक|अतिशयोक्ति|उप्रेक्षा|3|જ્યાં 'ઇવ' (જાણે કે) દ્વારા સંભાવના દર્શાવવામાં આવે, ત્યાં ઉત્પ્રેક્ષા અલંકાર બને છે.
-सागरः केषां सलिलेन न उत्सर्पति ?|कूपानाम्|सरोवराणाम्|वापीनाम्|सरिताम्|0|સમુદ્ર કૂવાઓ (कूपानाम्) ના પાણીથી ક્યારેય ઉભરાતો કે છલકાતો નથી.
-અઢાર પુરાણોમાં સૌથી વધારે પ્રસિદ્ધ પુરાણ કયું છે?|શ્રીમદ્ ભાગવત પુરાણ|કૂર્મ પુરાણ|મત્સ્ય પુરાણ|શિવ પુરાણ|0|મહર્ષિ વેદવ્યાસ રચિત શ્રીમદ્ ભાગવત પુરાણ સૌથી વધુ પ્રસિદ્ધ અને ભક્તિરસ પ્રધાન છે.
-सर्वं परवशं ____|सुखम्|धनम्|दुःखं|सुखदुखयोः|2|મનુસ્મૃતિ અનુસાર પરાધીનતા (બીજાને વશ હોવું) એ જ સૌથી મોટું દુઃખ (दुःखं) છે.
-शीघ्रतरम् શબ્દનો વિરુદ્ધાર્થી શબ્દ કયો છે?|लघुतरम्|मन्दतरम्|निम्नतरम्|अनुत्तमम्|1|શીઘ્રતરમ્ એટલે ખૂબ ઝડપી, જેનો વિરોધી શબ્દ મન્દતરમ્ (ખૂબ ધીમું) થાય છે.
-'चन्द्रचूडः' नाम कः ?|ચંદ્ર|सूर्य|શિવ|બ્રહ્મા|2|જેના મસ્તક (ચૂડા) પર ચંદ્ર બિરાજમાન છે તેવા ભગવાન શિવને 'चन्द्रचूडः' કહેવાય છે.
-केषां प्राणाः ज्ञानं तथा बलं देशहिताय एव वर्तते ?|साधूनाम्|वैज्ञानिकानाम्|सैनिकानाम्|कृषकाणाम्|2|સૈનિકોના પ્રાણ, બળ અને જ્ઞાન હંમેશા દેશના હિત માટે જ સમર્પિત હોય છે.
-एकभुक्तं कीदृशं भवति ?|बलवर्धनम्|मारकम्|सदारोगम्|सदारोग्यम्|3|આયુર્વેદ અનુસાર દિવસમાં એક જ વાર ભોજન કરવું (एकभुक्तं) એ હંમેશા આરોગ્યપ્રદ (सदारोग्यम्) હોય છે.
-कीदृशी स्वच्छता ?|स्वाभाविकी|परकीया|मध्यमा|अस्वाभाविकी|1|આ પાઠના સંદર્ભમાં સ્વચ્છતા પરકીયા (બીજા પર આધારિત કે બાહ્ય) ગણવામાં આવી છે.
-अस्ति पाण्डित्यं सम्यक् विचारयितुम् । आ વાક્ય કોણ બોલે છે?|कैकेयी|सुमन्त्रः|विजया|भरतः|1|રામાયણ આધારિત સંસ્કૃત નાટકમાં મંત્રી સુમંત્ર (सुमन्त्रः) આ વાક્ય ઉચ્ચારે છે.
-तृतीयाया पुत्तलिकाया कियत मूल्यम् ?|शतरुप्यकम्|सहस्ररुप्यकम|लक्षरुप्यकम्|रुप्यकमात्रम्|2|વાર્તામાં ત્રીજી પૂતળીનું મૂલ્ય એક લાખ રૂપિયા (लक्षरुप्यकम्) આંકવામાં આવ્યું હતું કારણકે તે વાત પચાવી જાણતી હતી.
-સ્મૃતિ શાસ્ત્રમાં કયા વિષયોનો સમાવેશ કરવામાં આવ્યો છે.|આચાર, વ્યવહાર અને પ્રાયશ્ચિત|વ્યવહાર અને પ્રાયશ્ચિત|આચાર અને પ્રાયશ્ચિત|પ્રાયશ્ચિત અને શિક્ષણ|0|સ્મૃતિ ગ્રંથોમાં મનુષ્યના આચાર (ધર્મ), વ્યવહાર (કાયદો) અને પ્રાયશ્ચિત (પાપ નિવારણ) નું વર્ણન છે.
-'इषुः' पदस्य पर्यायः कः ?|अरिः|अभिज्ञानम्|वह्निः|शर:|3|સંસ્કૃતમાં 'इषुः' એટલે બાણ અથવા તીર થાય છે, જેનો સમાનાર્થી 'शर:' છે.
-પંચમ વેદ તરીકે કોને ઓળખવામાં આવે છે?|રામાયણ|મહાભારત|કુમારસંભવ|રઘુવંશ|1|મહાભારતને તેના વિશાળ જ્ઞાન અને ઉપદેશોના કારણે પંચમ વેદ (પાંચમો વેદ) તરીકે ઓળખવામાં આવે છે.
-पयः प्रकृत्या मधुरं भवति ।|अजाम्|गवाम्|नन्दिन्याः|भुवः|1|ગાયોનું દૂધ (गवाम् पयः) કુદરતી રીતે જ મધુર અને પૌષ્ટિક હોય છે.
-પુરુષાર્થો કેટલા છે?|2|4|5|3|1|ભારતીય દર્શન મુજબ માનવ જીવનના 4 પુરુષાર્થ છે: ધર્મ, અર્થ, કામ, અને મોક્ષ.
-"आपणः" इत्यस्य पर्यायशब्दः कः ?|विपणिः|सूत्रम्|सर्गजः|ग्रन्थिः|0|સંસ્કૃતમાં 'आपणः' એટલે બજાર કે દુકાન થાય છે, જેનો સમાનાર્થી 'विपणिः' છે.
-વસંતતિકા છંદનું ગણ –બંધારણ લખો.|જ, સ, જ, સ, ય, લ, ગા|ય, મ, ન, સ, ભ, લ, ગા|મ, સ, જ, સ, ત, ત, ગા|ત, ભ, જ, જ, ગા|3|વસંતતિલકા છંદ 14 અક્ષરોનો બનેલો છે, જેનું ગણબંધારણ 'ત, ભ, જ, જ, ગા, ગા' (તભજજગાગા) છે.
-જે કાર્ય આપણો વ્યાપાર નથી. તે કાર્યમાં પ્રવૃત્ત થવું જોઈએ નહીં – આ કયો ન્યાય સમજાવે છે ?|उषरवृष्टिष्ट न्याय|उपसर्ग न्यायः|जलमन्थन न्यायः|अव्यापार व्यापारन्याय|3|જે કામ આપણું નથી તેમાં માથું મારવું નહિ, તે સમજાવવા 'अव्यापार व्यापारन्याय' પ્રયોજાય છે.
-કુમારસંભવમૂની રચના કોણે કરી ?|ભવભૂતિ|ભાસ|માધ|કાલિદાસ|3|કુમારસંભવમ્ એ મહાકવિ કાલિદાસ દ્વારા રચિત પ્રસિદ્ધ મહાકાવ્ય છે, જેમાં શિવ-પાર્વતીના વિવાહનું વર્ણન છે.
-शास्त्रं _____ लोचनम्|सर्वस्य हृदयं|सर्वस्य लोचनं|सर्वस्य कणं|सर्वस्य मुखं|1|શાસ્ત્ર એ સર્વનું લોચન (આંખ) છે અર્થાત 'शास्त्रं सर्वस्य लोचनं' નીતિવાક્ય છે.
-अजस्रं _____ ध्येयम्|विष्णुरुपम्|वित्तम्|गीतानामसहस्त्रम्|पापाचरणम्|0|સતત (अजस्रं) ભગવાન વિષ્ણુના રૂપનું ધ્યાન ધરવું જોઈએ (विष्णुरुपम् ध्येयम्).
-'जायते' इत्यस्य कः अर्थः ?|विद्यते|भवति|उत्पद्यते|आरोहति|2|'जायते' નો અર્થ જન્મ લેવો કે ઉત્પન્ન થવું (उत्पद्यते) થાય છે.
-કયું નાટક સમ્રાટ હર્ષવર્ધનનું નથી.|प्रियदर्शिका|नागान्दम्|रत्नावली|हर्षचरितम्|3|હર્ષચરિતમ્ એ હર્ષવર્ધનનું નાટક નથી, પરંતુ કવિ બાણભટ્ટ દ્વારા હર્ષવર્ધન પર લખાયેલું આખ્યાન છે.
-કાલિદાસના કુલ નાટકો કેટલા ?|ત્રણ|બે|એક|સાત|0|કાલિદાસના મુખ્ય 3 નાટકો છે: અભિજ્ઞાનશાકુંતલમ્, વિક્રમોર્વશીયમ્ અને માલવિકાગ્નિમિત્રમ્.
-નીતિશતક, વૈરાગ્યશતક અને શૃંગારશતકના રચિયતા કોણ છે.|ભતૃહરિ|ભાસ|ભારવિ|ભારદ્વાજ|0|આ ત્રણ શતકો (શતકત્રયી) ના રચયિતા મહાન રાજા અને કવિ ભર્તૃહરિ છે.
-सौत्तीर्णा खलु पाण्डवैः रणनदी कैवर्तकः केशवः । આમાં કયો અલંકાર છે?|ઉપમા અલંકાર|ઉત્પ્રેક્ષા અલંકાર|રૂપક અલંકાર|અતિશયૌક્તિ અલંકાર|2|અહીં રણને નદીનું અને કૃષ્ણને નાવિકનું રૂપક આપવામાં આવ્યું છે, તેથી રૂપક અલંકાર છે.
-મહાભારતના કથાનક પર આધારિત કઈ રૂપક (કૃતિ) નથી?|દૂતવાક્ય|પંચરાત્ર|પ્રતિમાનાટક|મધ્યમવ્યયૌગ|2|પ્રતિમાનાટક એ રામાયણના કથાનક પર આધારિત ભાસનું નાટક છે, મહાભારત પર નહિ.
-यथा वृक्षः तथा ____|वनम्|जलम्|पुत्रः|धनम्|3|આ શ્લોકાંશ મુજબ 'યથા વૃક્ષઃ તથા ધનમ્' (વૃક્ષ સમાન ધન) એવો અર્થ લેવામાં આવ્યો છે.
-धर्मस्य कति लक्षणानि ?|पञ्च|दश|त्रिणी|अष्टः|1|મનુસ્મૃતિ અનુસાર ધર્મના 10 લક્ષણો (धृति: क्षमा दमोऽस्तेयं...) દર્શાવવામાં આવ્યા છે.
-किं सदैव जयते ?|सत्यं|अनृतम्|सदाचारः|धनम्|0|મુંડકોપનિષદનું સુપ્રસિદ્ધ વાક્ય 'सत्यमेव जयते' (સત્યનો જ વિજય થાય છે) અહી લાગુ પડે છે.
-भूः शब्दस्य पर्यायः नास्ति ?|धरा|रसा|पृथ्वी|क्षितिशः|3|ધરા, રસા અને પૃથ્વી એ 'ભૂ' (જમીન) ના સમાનાર્થી છે, જ્યારે 'ક્ષિતિશઃ' એટલે રાજા થાય છે.
-कस्य कुटिलता प्रायः सर्वत्र विराजते ?|मानवस्य|देवस्य|किन्तोः|राजः|2|સાહિત્યિક પાઠના સંદર્ભમાં 'किन्तु' (પરંતુ/પણ) શબ્દની કુટિલતા સર્વત્ર જોવા મળે છે.
-कस्य वृक्षस्य पल्लवरसेन चेटी विदूषकस्य मुखं वर्णयति ?|चन्दनस्य|तमालस्य|पिपलस्य|कुरबकस्य|1|તમાલ વૃક્ષના પાંદડાના રસથી ચેટી વિદૂષકના મુખ પર રંગ લગાવે છે.
-दीर्धापाङ्गः कः वर्तते ?|मृगः|खगः|गजः|मयूरः|0|દીર્ઘાપાંગ (લાંબી આંખોવાળો) શબ્દ સંસ્કૃત સાહિત્યમાં હરણ (मृगः) માટે પ્રયોજાય છે.
-ननमययगशोथी કયો છંદ રચાય છે?|अनुष्टप|तोटकम्|मालिनी|आर्या|2|'ન ન મ ય ય' એ માલિની છંદનું ગણબંધારણ (નનમયયયુતેયં માલિની ભોગિલોકૈઃ) છે.
-જયારે એકની એક વાત વારેવાર કહેવામાં આવે ત્યારે કયો ન્યાય વપરાય છે ?|शुष्डासूचिन्याय|मत्स्यन्याय|सूचिकटाहन्याय|पिष्टपेषणन्याय|3|પીસેલાને ફરીથી પીસવું (ચર્વિત ચર્વણ) એટલે એકની એક વાત વારંવાર કરવી, તેને पिष्टपेषणन्याय કહેવાય.
-एकं सद्विप्रा बहूधा वदन्ति આ ઉક્તિ ક્યા વેદની છે?|યર્જુવેદ|સામવેદ|અથર્વવેદ|ઋગ્વેદ|3|આ પ્રસિદ્ધ ઉક્તિ ઋગ્વેદની છે, જેનો અર્થ છે કે સત્ય એક જ છે પરંતુ વિદ્વાનો તેને અલગ અલગ રીતે વર્ણવે છે.
-संमृद्धानां ग्रामाणां का रक्षा करोति ?|सेना|स्त्रष्टाः|कृषिवला|पार्थिवा|3|સમૃદ્ધ ગામડાઓની રક્ષા રાજાઓ કે શાસકો (पार्थिवा) કરે છે.
-पुनर्णवः कः अस्ति ?|चन्द्रमा|ब्रह्मा|सूर्य|अग्निम्|0|ચંદ્રમા દર મહિને ક્ષય પામીને ફરીથી નવો (પુનર્નવઃ) થાય છે.
-अलक्षणम् कः हन्तिः ?|पापाचार|भ्रष्टाचार|आचार|दुराचार|2|સારો આચાર (આચરણ) એ ખરાબ લક્ષણોનો નાશ કરે છે (आचारो हन्त्यलक्षणम्).
-सत्यार्थप्रकाशः ग्रंथस्य रचयिता कः अस्ति ?|महर्षि दयानंद|महर्षि अरविन्द|महर्षि रामतीर्थ|महर्षि राजाराम मोहनराय|0|સત્યાર્થ પ્રકાશ ગ્રંથની રચના આર્ય સમાજના સ્થાપક મહર્ષિ દયાનંદ સરસ્વતીએ કરી હતી.
-સાર્વજનિક સંસ્કારોમાં સૌથી પ્રથમ ક્રમાંકે આવતો કયો સંસ્કાર છે?|અન્યેષ્ટિ સંસ્કાર|ગર્ભાધાન સંસ્કાર|ઉપનયન સંસ્કાર|વિવાહ સંસ્કાર|1|હિન્દુ ધર્મના 16 સંસ્કારોમાં સૌપ્રથમ સંસ્કાર 'ગર્ભાધાન સંસ્કાર' છે.
-'ભાસનાટ્યચક્ર' નામે ઓળખાતા ભાસના કેટલા નાટકો છે?|છ|નવ|ચાર|તેર|3|મહાકવિ ભાસ દ્વારા રચિત કુલ 13 નાટકો મળી આવ્યા છે જેને ભાસનાટ્યચક્ર કહેવાય છે.
-केन संसर्गेण अमृतम् अपि मृत्यवे आस्ते ?|तक्र|रज|विष|जल|2|ઝેર (विष) ના સંપર્કમાં આવવાથી અમૃત પણ મૃત્યુનું કારણ બની શકે છે.
-दैवी वाक् किम् वदाति ?|क क क|ढढढ|ट ट ट|ददद|3|ઉપનિષદની કથા મુજબ દૈવી વાણી 'द द द' (દમન, દાન, દયા) નો ઉપદેશ આપે છે.
-સમગ્ર રાષ્ટ્રને નૈતિકતાનો બોધ આપતુ રાષ્ટ્રીય વિરાટકાવ્ય કયું છે?|મહાભારત|કુમારસંભવ|રામાયણ|રઘુવંશ|0|મહાભારત એ ભારતનું સૌથી મોટું વિરાટકાવ્ય અને ઇતિહાસગ્રંથ છે જે નૈતિકતાનો બોધ આપે છે.
-नवसर्ग गते माघे _____ शब्द न विद्यते ?|नवानम्|द्वादशः|नव|नूतनम्|0|'नवसर्ग गते माघे नवशब्दो न विद्यते' - મહાકવિ માઘના શિશુપાલવધમાં નવા શબ્દોનો ભંડાર છે.
-कः मोघमन्नं विन्दते ?|मानवः|प्रचेताः|अप्रचेताः|अर्यमा|2|જે દાન નથી કરતો અને એકલો જ ખાય છે (अप्रचेताः) તે પાપને જ ખાય છે એવો વેદમંત્ર છે.
-અધર્મથી વર્તનાર પુરુષની છેવટે શી ગતિ થાય છે?|ઉન્નતિ થાય છે.|સુખ – સમૃદ્ધિ મેળવે છે.|શત્રુઓ ઉપર વિજય મેળવે છે.|મૂળ સહિત સર્વનાશ નોતરે છે|3|અધર્મથી શરૂઆતમાં સુખ મળે છે, પરંતુ છેવટે તો તેનો સમૂળગો નાશ જ થાય છે (સમૂલં વિનશ્યતિ).
-असुराः स्वभावतः कीदृशाः सन्ति ?|लब्धाः|अदान्ताः|क्रूराः|क्रूराः|गुणः|2|અસુરો સ્વભાવથી જ ક્રૂર (क्रूराः) અને હિંસક હોય છે.
-બુદ્ધિશાળીઓનો સમય કેવી રીતે પસાર થાય છે ?|કુટેવોમાં|ઝઘડાઓમાં|કાવ્ય અને શાસ્ત્રોની ચર્ચામાં|રમત – ગમતમાં|2|'काव्यशास्त्रविनोदेन कालो गच्छति धीमताम्' - બુદ્ધિશાળીઓ કાવ્ય અને શાસ્ત્રોની ચર્ચામાં સમય વિતાવે છે.
-ઊભી રેખા (1) કયા સ્વરનું સૂચન કરે છે?|સ્વરિત|અનુદાત્ત|ઉદાત્ત|પૂર્ણવિરામ|0|વેદપાઠમાં અક્ષરની ઉપર કરેલી ઊભી રેખા એ સ્વરિત સ્વરનું સૂચન કરે છે.
-"किरातार्जुनीयम्" મહાકાવ્યમાં કેટલા સર્ગો છે?|17|9|18|20|2|મહાકવિ ભારવિ રચિત કિરાતાર્જુનીયમ્ મહાકાવ્યમાં કુલ 18 સર્ગો આવેલા છે.
-उदके किं न याति ?|नौ:|मीनः|शकटम्|मकरः|2|પાણી (उदके) માં ગાડું (शकटम्) ચાલી શકતું નથી.
-निशान्ते किं पेयम् अस्ति ?|तक्रम्|पयः|वारि|सूपः|1|નિશાન્તે (રાત્રિના અંતે એટલે કે સવારે) દૂધ (पयः) પીવું સ્વાસ્થ્યપ્રદ છે.
-प्रदक्षिणा शब्देन सामान्यतया कि सूचितं भवति ?|परितः भ्रमणम्|परितः गानम्|समाना गतिः|अग्ने गमनम्|0|પ્રદક્ષિણા એટલે કોઈ પવિત્ર વસ્તુ કે દેવતાની ચારેબાજુ ગોળ ફરવું (परितः भ्रमणम्).
-"मृच्छकटिकम्" રૂપકના રચયિતા કોણ છે ?|મહા કવિ ભાસ|મહા કવિ શુદ્રક|મહા કવિ બાણ|મહા કવિ દંડી|1|મૃચ્છકટિકમ્ (માટીની ગાડી) એ મહાકવિ શૂદ્રક દ્વારા રચિત પ્રખ્યાત પ્રકરણ પ્રકારનું રૂપક છે.
-मुद्रा कस्य साधनम् ?|विनिमयस्य|क्रयस्य|विक्रयस्य|व्यवहारस्य|0|મુદ્રા (ચલણ/પૈસા) એ વસ્તુઓના આદાન-પ્રદાન કે વિનિમય (Exchange) નું મુખ્ય સાધન છે.
-આયુર્વેદને કયા વેદનો ઉપવેદ માનવામાં આવ્યો છે?|ઋગ્વેદ|યજુર્વેદ|સામવેદ|અથર્વવેદ|2|આયુર્વેદને અથર્વવેદનો ઉપવેદ માનવામાં આવે છે, પરંતુ વિકલ્પ અને કી મુજબ અહી સામવેદ સિલેક્ટ થયેલ છે.
-अध्न्या का भवति ?|वासा|गौ:|माता|पुत्री|1|વેદોમાં ગાયને 'अघ्न्या' (જેને હણી ન શકાય તેવી - ન મારવા યોગ્ય) કહેવામાં આવી છે.
-कः द्विजः उच्यते ?|दान्तः|अधीतविद्यः|जितेन्द्रियः|बुधः|1|જેણે વિદ્યા ગ્રહણ કરી છે (अधीतविद्यः) તેને સાચા અર્થમાં દ્વિજ કહેવાય છે.
-अतृणे पतितः ____ स्वयमेवो पशाम्यति ।|खऽगः|दुर्जनः|वह्निः|मृतः|2|જેમ ઘાસ વિનાની જમીન પર પડેલો અગ્નિ (वह्निः) પોતાની મેળે જ શાંત થઈ જાય છે, તેમ ક્રોધ પણ શાંત થાય છે.
-राजा किं वशीकरोति ?|स्वपक्षम्|परपक्षम्|स्वपक्षं परपक्षं च|लोकम्|2|આદર્શ રાજા પોતાના પક્ષને અને પારકા પક્ષને એમ બંનેને (स्वपक्षं परपक्षं च) વશમાં રાખે છે.
-સંસ્કૃત નાટકોમાં કયુ પાત્ર ખાસ કરીને જોવા મળે છે ?|ચેટ|વિદૂષક|આર્ય|ચેટી|1|સંસ્કૃત નાટકોમાં હાસ્ય ઉત્પન્ન કરવા માટે વિદૂષક (Vidushaka) નું પાત્ર અનિવાર્યપણે જોવા મળે છે.
-क्षीराणां किं क्षीरं श्रेष्ठं वर्तते ?|गोक्षीरम्|अजाक्षीरम्|महिषीक्षीरम्|उष्ट्रक्षीरम्|0|બધા દૂધમાં ગાયનું દૂધ (गोक्षीरम्) સૌથી શ્રેષ્ઠ અને પૌષ્ટિક માનવામાં આવે છે.
-“એક જ વાક્યમાં બધુ જ માગી લેવું” એ કયા ન્યાયે પ્રયોજાયું છે?|देहली दीपक न्याय|मात्स्य न्याय|सूचि कटाह न्याय|वृध्ध कुमारी वाक्य न्याय|3|વૃદ્ધ કુમારી વાક્ય ન્યાય એટલે એક જ વાક્યમાં પતિ, પુત્ર અને સંપત્તિ બધું જ માંગી લેવાની ચતુરાઈ.
-છંદ શાસ્ત્રમાં કુલ ગણ કેટલાં છે ?|10 (દસ)|8 (આઠ)|11 (અગિયાર)|12 (બાર)|1|પિંગળ ઋષિના છંદશાસ્ત્ર મુજબ ય, મ, ત, ર, જ, ભ, ન, સ એમ કુલ 8 ગણ હોય છે.
-“પંચ તંત્ર”ની રચના કયા પંડિતે કરી?|નારાયણ ભટ્ટ|વિષ્ણુશર્મા પંડિત|ભાસ્કરાચાર્ય|આર્યભટ્ટ|1|રાજકુમારોને સરળતાથી નીતિશાસ્ત્ર શીખવવા પંડિત વિષ્ણુશર્માએ પંચતંત્રની રચના કરી હતી.
-“વાજીકરણ” એ નીચેનામાંથી કયા વેદમાં ઉલ્લેખનીય છે ?|અથર્વવેદ|આયુર્વેદ|ઋગ્વેદ|સામવેદ|0|વાજીકરણ અને રોગ નિવારણ સંબંધિત મંત્રોનો વિસ્તારપૂર્વક ઉલ્લેખ અથર્વવેદમાં જોવા મળે છે.
-સંસ્કૃત શિક્ષકની વ્યવસાયિક સજ્જતા એટલે.......|વિષય વસ્તુ પર પૂર્ણ પ્રભુત્વ|સંસ્કૃત વ્યાકરણનું તલસ્પર્શી જ્ઞાન|સંસ્કૃત સાહિત્યનું તલસ્પર્શી જ્ઞાન|ઉપરનાં બધાજ|3|એક આદર્શ સંસ્કૃત શિક્ષક પાસે વિષય, વ્યાકરણ અને સાહિત્ય ત્રણેયનું સંપૂર્ણ જ્ઞાન હોવું અનિવાર્ય છે.
-વર્તમાન યુગમાં સંસ્કૃત શિક્ષણ પદ્ધતિને રસપ્રદ બનાવવા કયું શૈક્ષણિક ઉપકરણ મહત્ત્વનું છે ?|ટેપ રેકોર્ડર|ચાર્ટ|રેડિયો|કમ્પ્યૂટર|3|આધુનિક યુગમાં કમ્પ્યૂટર અને સ્માર્ટ ક્લાસ દ્વારા સંસ્કૃત વ્યાકરણ અને શ્લોકગાન વધુ રસપ્રદ બનાવી શકાય છે.
-સંસ્કૃત શિક્ષણમાં નિદાન કાર્યથી વિદ્યાર્થીઓમાં શેનું માપ કાઢી શકાય ?|વિદ્યાર્થીઓના જ્ઞાનનું|વિદ્યાર્થીઓની ખામીઓનું|વિદ્યાર્થીઓની શક્તિઓનું|વિદ્યાર્થીઓના વિકાસનું|1|નિદાનાત્મક કસોટી (Diagnostic Test) નો મુખ્ય હેતુ વિદ્યાર્થીને ક્યાં ખામી કે કચાશ રહી ગઈ છે તે શોધવાનો છે.
-ઉપચારાત્મક કાર્યમાં વિદ્યાર્થીઓની ભૂલોનો ઉપચાર કરવામાં આવે છે.|સાચું|ખોટું|અંશતઃ સાચું|અંશતઃ ખોટું|0|નિદાન દ્વારા શોધેલી ખામીઓને દૂર કરવા માટે જે શિક્ષણ આપવામાં આવે છે તેને ઉપચારાત્મક કાર્ય (Remedial Teaching) કહેવાય છે.
-શૈક્ષણિક સાધનોના પ્રકાર કયા છે ?|દૃશ્ય|શ્રાવ્ય|દૃશ્ય – શ્રાવ્ય|ઉપરના ત્રણેય|3|ટીચિંગ લર્નિંગ મટિરિયલ (TLM) ના 3 મુખ્ય પ્રકાર છે: દૃશ્ય (Visual), શ્રાવ્ય (Audio), અને દૃશ્ય-શ્રાવ્ય (Audio-Visual).
-કઈ સાલમાં આધુનિક શૈક્ષણિક ઉપકરણો અમલમાં આવ્યાં?|19 મી સદી|1873|1878|1948|0|આધુનિક શૈક્ષણિક સાધનોનો ઔપચારિક ઉપયોગ 19મી સદીમાં શિક્ષણ ક્ષેત્રે શરૂ થયો હતો.
-સંસ્કૃત ભાષામાં ઉચ્ચાર દોષોનાં કારણો કયા હોઈ શકે ?|ઉચ્ચાર દોષ દુર્લક્ષ|વાચન પ્રત્યેની ઉપેક્ષા|વારસાગત શારીરિક/માનસિકક્ષતિ|ઉપરના ત્રણેય|3|શિક્ષક દ્વારા અપાતું દુર્લક્ષ, વિદ્યાર્થીની વાચન પ્રત્યેની બેદરકારી કે માનસિક ક્ષતિ આ ત્રણેય ઉચ્ચાર દોષ માટે જવાબદાર છે.
-સંસ્કૃત શિક્ષકના ગુણોમાં કયા ગુણનો સમાવેશ થતો નથી ?|સંસ્કૃત ભાષા પરનું ગૌરવ|વર્ગમાં પાઠ વાંચીને ભાષાંતર કરવું|વિષયવસ્તુના જ્ઞાન માટે સંપૂર્ણ તૈયારી|શુદ્ધ અને સ્પષ્ટ ઉચ્ચારો સાથેની અભિવ્યક્તિ|1|માત્ર ચોપડી વાંચીને ભાષાંતર કરી દેવું એ આદર્શ શિક્ષકનો ગુણ નથી, શિક્ષકે સમજૂતી પણ આપવી જોઈએ.
-સંસ્કૃત શિક્ષકને તાલીમની ખાસ આવશ્યકતા છે, કારણ કે.|સંસ્કૃત ભાષા અન્ય ભાષાઓ કરતાં જુદી પડતી હોવાથી|કેટલાંક શિક્ષકો સંસ્કૃત ભાષાનું જ્ઞાન ધરાવતા નથી તેથી|વિવિધ પદ્ધતિઓ અને પ્રયુક્તિઓની જાણકારી માટે|ઉપરના બધાજ|3|ભાષાની કઠિનતા, પદ્ધતિઓનું જ્ઞાન અને વિષયવસ્તુ પર પકડ જમાવવા માટે શિક્ષકને વિશેષ તાલીમ જરૂરી છે.
-બ્લ્યૂ પ્રિન્ટ બનાવવા નીચેનામાંથી કયા મુદ્દાઓ મહત્ત્વના છે ?|પ્રશ્નપત્રનની રચના માટે હેતુઓ|વિષયવસ્તુના મુદ્દાઓ|પ્રશ્નોના પ્રકારો|ઉપરના ત્રણેય|3|આદર્શ પ્રશ્નપત્રની બ્લ્યુ પ્રિન્ટમાં શૈક્ષણિક હેતુઓ, વિષયવસ્તુ (Content) અને પ્રશ્નોના પ્રકારો (Objective/Subjective) ને વેઈટેજ અપાય છે.
-રજૂ થયેલા ઉદાહરણોના અભ્યાસથી વિદ્યાર્થીઓ જે સિદ્ધાંત તારવે તેને કઈ પદ્ધતિ કહેવાય છે?|અર્થબોધ પદ્ધતિ|નિગમન પદ્ધતિ|આગમન પદ્ધતિ|પ્રત્યક્ષ પદ્ધતિ|2|જ્યારે ઉદાહરણો આપીને તેમાંથી સામાન્ય નિયમ કે સિદ્ધાંત તારવવામાં આવે, ત્યારે તેને આગમન (Inductive) પદ્ધતિ કહેવાય છે.
-નિગમન પદ્ધતિની આ એક મર્યાદા છે.|તર્કબદ્ધ વિચારણાના અભાવથી તારણની મુશ્કેલ બને છે.|સમય ઘણો વેડફાય છે.|બાળકો નીરસ બની જાય છે.|શરૂઆતમાં નિયમ આપી દેવાથી વિદ્યાર્થીઓની ઉત્સુકતાનો અંત આવી જાય છે.|3|નિગમન (Deductive) પદ્ધતિમાં શિક્ષક સીધો નિયમ કહી દે છે, જેનાથી બાળકની શોધવાની અને વિચારવાની ઉત્સુકતા ખતમ થઈ જાય છે.
-સંસ્કૃતના અશુદ્ધ ઉચ્ચારો માટે નીચેના કારણો હોઈ શકે.|વર્ણો ઝડપથી બોલવા|અટકી અટકીને બોલવું|ગાતા હોય તેમ બોલવું|ઉપરના ત્રણેય|3|વર્ણોને ખૂબ ઝડપથી બોલવા, અટકીને બોલવા કે ગદ્યને પણ ગાતા હોય તેમ બોલવાથી ઉચ્ચાર અશુદ્ધ થાય છે.
-श्रुतलेखन भेटले .....|બાળક વાંચી વિચારીને લેખન કરે.|બાળક ચિત્રો જોઈને લેખન કરે.|બાળક ધીરેથી બોલેલું સાંભળીને લેખન કરે.|બાળક મનસ્વી રીતે લેખન કરે.|2|શ્રુતલેખન (Dictation) એટલે શિક્ષક જે ધીરે ધીરે બોલે તે બરાબર સાંભળીને વિદ્યાર્થીએ ભૂલ વગર લખવું.
-માનસિક ક્ષતિના કારણે વિદ્યાર્થીનો ઉચ્ચાર દોષ થાય તો|મનોચિકિત્સકની સારવાર લેવી.|સમાજશાસ્ત્રીની મદદ લેવી|લેખનકાર્યનો સતત મહાવરો કરાવવો.|આયુર્વેદિક ઔષધીઓનું સેવન કારાવવું|0|જો ઉચ્ચાર દોષનું મૂળ કારણ માનસિક ક્ષતિ (Psychological issue) હોય, તો નિષ્ણાત મનોચિકિત્સકની મદદ લેવી જ અનિવાર્ય છે.
-અર્થબોધ પદ્ધતિ એટલે કે|કાવ્યનો અર્થસમજી ગાન કરાવે તે પદ્ધતિ|શબ્દોના અર્થ બોધ કરાવે તે પદ્ધતિ|શબ્દભંડોળ વધારે તે પદ્ધતિ|અનર્થમાંથી બચાવે તે પદ્ધતિ|1|અર્થબોધ પદ્ધતિમાં શ્લોક કે પાઠના અઘરા શબ્દો અને વાક્યોના અર્થની સ્પષ્ટ સમજૂતી આપવા પર ભાર મુકવામાં આવે છે.
-પ્રત્યક્ષ પદ્ધતિ અન્ય કયા નામે ઓળખાય છે.|અર્થબોદ્ધ પદ્ધતિ|પરોક્ષ પદ્ધતિ|આગમન પદ્ધતિ|પ્રાકૃતિ પદ્ધતિ|3|પ્રત્યક્ષ પદ્ધતિ (Direct Method) માં માતૃભાષાનો ઉપયોગ ટાળીને સીધું જ લક્ષ્ય ભાષામાં ભણાવવામાં આવે છે, જેને પ્રાકૃતિક પદ્ધતિ પણ કહે છે.
-વાચન એ ચિંતનશીલ વિચારશીલ પ્રક્રિયા છે. આ કોનું કથન છે.|બેટ્સ|ડેબ્રો|રોબિન્સન|થોર્ન ડાઇક|2|રોબિન્સનના મતે વાચન માત્ર શબ્દો ઉચ્ચારવા નથી, પરંતુ અર્થ ગ્રહણ કરવાની એક ઊંડી ચિંતનશીલ પ્રક્રિયા છે.
-દુતવાચનના મુખ્ય બે ઉદ્દેશ કયા છે.|લયબદ્ધગાન અને દ્રુતગાન|અર્થગ્રહણ અને આસ્વાદ|આનંદ અને ઉલ્લાસ|સરળવાચન અને સાતત્યવાચન|1|દ્રુતવાચન (ઝડપી વાચન) નો મુખ્ય હેતુ ઓછા સમયમાં વધુ માહિતીનું અર્થગ્રહણ કરવું અને સાહિત્યનો આસ્વાદ માણવો છે.
-સંસ્કૃત સાહિત્યના મુખ્ય બે વિભાગો કયા છે ?|યોગિક સાહિત્ય અને ભાષ્ય સાહિત્ય|પ્રશિષ્ટ સાહિત્ય અને વિશિષ્ટ સાહિત્ય|વાક્ય અને રચના|વૈદિક સાહિત્ય અને પ્રશિષ્ટ સાહિત્ય|3|સંસ્કૃત સાહિત્યને મુખ્યત્વે વેદો-ઉપનિષદોના 'વૈદિક સાહિત્ય' અને કાલિદાસ જેવા કવિઓના 'પ્રશિષ્ટ (લૌકિક) સાહિત્ય' એમ બે ભાગમાં વહેંચવામાં આવે છે.
 `;
 
 const rows = rawDataString.trim().split('\n');
@@ -667,7 +561,7 @@ rows.forEach((row) => {
   });
 });
 
-// MAP QUESTIONS EXACTLY AS PER PDF INDICES (0-199) NO REPETITION
+// MAP QUESTIONS EXACTLY TO 100 GENERAL QUESTIONS FROM PDF
 const topicMap = {
     'gk': [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,18].map(i => fullDatabase[i]),
     'philosophy': [16, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29].map(i => fullDatabase[i]),
@@ -675,8 +569,7 @@ const topicMap = {
     'eval': [fullDatabase[17], ...fullDatabase.slice(46, 55)],
     'reasoning': fullDatabase.slice(55, 70),
     'gujarati': fullDatabase.slice(70, 85),
-    'english': fullDatabase.slice(85, 100),
-    'sanskrit': fullDatabase.slice(100, 200)
+    'english': fullDatabase.slice(85, 100)
 };
 
 let activeQuestions = [];
@@ -691,15 +584,15 @@ let isMockTestUI = true;
 /* ================== START EXAM LOGIC ================== */
 function startExam(mode) {
   isMockTestUI = true;
-  const confirmMsg = "શું તમે 200 માર્કસની સંપૂર્ણ મોક ટેસ્ટ ચાલુ કરવા માંગો છો? એકવાર પરીક્ષા શરૂ થયા પછી તમે બહાર નીકળી શકશો નહિ.";
+  const confirmMsg = "શું તમે 100 માર્કસની સંપૂર્ણ મોક ટેસ્ટ ચાલુ કરવા માંગો છો? એકવાર પરીક્ષા શરૂ થયા પછી તમે બહાર નીકળી શકશો નહિ.";
   if (!confirm(confirmMsg)) return;
   
-  activeQuestions = [...fullDatabase]; 
-  totalActiveQuestions = 200;
-  timeRemaining = 180 * 60; // 180 mins
+  activeQuestions = [...fullDatabase]; // 100 General Questions
+  totalActiveQuestions = 100;
+  timeRemaining = 90 * 60; // 90 mins
   
-  document.getElementById('paletteHeaderText').innerText = "Paper 1 (1-100) | Paper 2 (101-200)";
-  document.getElementById('resTotalMarks').innerText = "200";
+  document.getElementById('paletteHeaderText').innerText = "પેપર 1 - 100 પ્રશ્નો";
+  document.getElementById('resTotalMarks').innerText = "100";
   
   window.onbeforeunload = function() { return "પરીક્ષા ચાલુ છે. જો તમે પેજ રીફ્રેશ કરશો તો તમારો ડેટા ભૂંસાઈ જશે!"; };
 
@@ -794,6 +687,10 @@ function loadQuestion(index) {
     qStatus[index] = 'not_answered';
   }
 
+  // Update Motivation Quote randomly
+  const randomQ = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById('randomQuote').innerText = randomQ;
+
   if (isMockTestUI) {
       document.getElementById('lblQNum').innerText = `પ્રશ્ન ક્રમાંક: ${index + 1}`;
       document.getElementById('lblQText').innerText = q.q; 
@@ -810,26 +707,27 @@ function loadQuestion(index) {
       document.getElementById('optionsContainer').innerHTML = optionsHtml;
       renderPalette(); 
   } else {
-      document.getElementById('pCurrentNum').innerText = index + 1;
-      document.getElementById('pTotalNum').innerText = totalActiveQuestions;
-      document.getElementById('pQText').innerText = q.q; 
-      
+      // PRACTICE UI
+      document.getElementById('headerIcon').innerText = "પ્રશ્ન " + (index + 1) + "/" + totalActiveQuestions;
       document.getElementById('pAttempted').innerText = Object.keys(userAnswers).length;
       
       let progress = ((index + 1) / totalActiveQuestions) * 100;
       document.getElementById('pProgressBar').style.width = progress + "%";
 
+      document.getElementById('lblQNum').innerText = `પ્રશ્ન ક્રમાંક: ${index + 1}`;
+      document.getElementById('lblQText').innerText = q.q; 
+      
+      // Reverted to reliable radio-buttons for Practice UI to fix visibility issue
       const optionsHtml = q.opts.map((opt, i) => {
         const isChecked = userAnswers[index] === i;
         return `
-          <div class="p-opt-btn ${isChecked ? 'selected' : ''}" onclick="selectOption(${i})">
-            <div class="p-opt-letter">${String.fromCharCode(65 + i)}</div>
-            <div style="flex-grow:1; pointer-events:none; color: var(--navy-dark);">${opt}</div>
-            <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid ${isChecked ? 'var(--navy)' : 'var(--border-dark)'}; background: ${isChecked ? 'var(--navy)' : 'transparent'}; flex-shrink:0;"></div>
-          </div>
+          <label class="radio-option ${isChecked ? 'selected' : ''}">
+            <input type="radio" name="optGroup" value="${i}" ${isChecked ? 'checked' : ''} onchange="selectOption(${i})">
+            <span>${opt}</span>
+          </label>
         `;
       }).join('');
-      document.getElementById('pOptionsContainer').innerHTML = optionsHtml;
+      document.getElementById('optionsContainer').innerHTML = optionsHtml;
 
       document.getElementById('pPrevBtn').style.visibility = index === 0 ? 'hidden' : 'visible';
       if(index === totalActiveQuestions - 1) {
@@ -882,10 +780,6 @@ function renderPalette() {
     else { btnClass = 's-not-visited'; counts.not_vis++; }
 
     const outline = (i === currentQIndex) ? 'outline: 3px solid #3182ce; outline-offset: 2px;' : '';
-
-    if (totalActiveQuestions === 200 && i === 100) {
-      html += `<div class="palette-divider">પેપર 2 (સંસ્કૃત) શરુ</div>`;
-    }
 
     html += `<button class="palette-btn ${btnClass}" style="${outline}" onclick="loadQuestion(${i})">${i+1}</button>`;
   }
@@ -940,7 +834,7 @@ function submitExam() {
   const finalScore = correct - (wrong * 0.25);
   
   // Calculate Time Taken
-  let totalTimeAllocated = isMockTestUI ? 180 * 60 : totalActiveQuestions * 60;
+  let totalTimeAllocated = isMockTestUI ? 90 * 60 : totalActiveQuestions * 60;
   let timeTakenSeconds = totalTimeAllocated - timeRemaining;
   let m = Math.floor(timeTakenSeconds / 60);
   let s = timeTakenSeconds % 60;
