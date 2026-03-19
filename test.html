@@ -744,7 +744,21 @@ function renderPalette() {
 }
 
 function submitExamConfirmation() {
-  const confirmSubmit = confirm("શું તમે ખરેખર પરીક્ષા પૂર્ણ કરવા માંગો છો? સબમિટ કર્યા પછી કોઈ ફેરફાર થઈ શકશે નહિ.");
+  let answeredCount = Object.keys(userAnswers).length;
+  if(answeredCount === 0) {
+    alert("તમે એક પણ પ્રશ્નનો જવાબ આપ્યો નથી! માત્ર પ્રશ્નો જોઈને સીધું સબમિટ કરી શકાશે નહિ. કૃપા કરીને પ્રશ્નોના જવાબ આપો.");
+    return;
+  }
+  
+  let skippedCount = totalActiveQuestions - answeredCount;
+  let confirmSubmit;
+  
+  if(skippedCount > 0) {
+    confirmSubmit = confirm(`તમે ${skippedCount} પ્રશ્નો છોડી દીધા છે. શું તમે ખરેખર પરીક્ષા પૂર્ણ કરવા માંગો છો? સબમિટ કર્યા પછી કોઈ ફેરફાર થઈ શકશે નહિ.`);
+  } else {
+    confirmSubmit = confirm("શું તમે ખરેખર પરીક્ષા પૂર્ણ કરવા માંગો છો? સબમિટ કર્યા પછી કોઈ ફેરફાર થઈ શકશે નહિ.");
+  }
+  
   if(confirmSubmit) {
     submitExam();
   }
@@ -790,16 +804,18 @@ function submitExam() {
 
   const revCont = document.getElementById('reviewContainer');
   let revHtml = '';
+  let attemptedCount = 0;
 
   activeQuestions.forEach((q, i) => {
-    const userAnsText = userAnswers[i] !== undefined ? q.opts[userAnswers[i]] : "કોઈ જવાબ આપ્યો નથી (Skipped)";
+    if (userAnswers[i] === undefined) return; // જો પ્રશ્ન છોડી દીધો હોય તો તેનું વર્ણન ન બતાવો
+    attemptedCount++;
+    
+    const userAnsText = q.opts[userAnswers[i]];
     const correctAnsText = q.opts[q.ans];
     const isCorrect = userAnswers[i] === q.ans;
     
     let ansHtml = '';
-    if (userAnswers[i] === undefined) {
-      ansHtml = `<div style="color: #718096; font-weight: 600; margin-top: 10px;">તમારો જવાબ: છોડી દીધો (Skipped)</div>`;
-    } else if (isCorrect) {
+    if (isCorrect) {
       ansHtml = `<div class="ans-correct-txt">✅ તમારો જવાબ સાચો છે: ${userAnsText}</div>`;
     } else {
       ansHtml = `<div class="ans-wrong-txt">❌ તમારો જવાબ: ${userAnsText}</div>`;
@@ -814,6 +830,16 @@ function submitExam() {
       </div>
     `;
   });
+  
+  if (attemptedCount === 0) {
+    revHtml = `<div style="text-align:center; padding: 20px; font-size: 1.1rem; color: var(--red); font-weight: bold; background: white; border: 1px solid var(--border); border-radius: 8px;">તમે એક પણ પ્રશ્નનો જવાબ આપ્યો ન હોવાથી કોઈ સમજૂતી ઉપલબ્ધ નથી.</div>`;
+  } else if (attemptedCount < totalActiveQuestions) {
+    revHtml = `<div style="margin-bottom: 20px; padding: 15px; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; border-radius: 8px; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 1.5rem;">⚠️</span>
+      નોંધ: તમે જે પ્રશ્નો છોડી દીધા છે તેના જવાબો અને સમજૂતી છુપાવવામાં આવ્યા છે. માત્ર તમે આપેલા જવાબોનું જ વર્ણન નીચે છે.
+    </div>` + revHtml;
+  }
+
   revCont.innerHTML = revHtml;
   
   window.scrollTo(0, 0); 
