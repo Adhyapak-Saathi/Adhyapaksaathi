@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
+<!-- TOP BAR (Counter Removed) -->
 <div class="topbar">
   <div class="topbar-inner">
     <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
@@ -90,9 +90,11 @@
   </div>
 </section>
 
-<!-- STATS -->
+<!-- STATS SECTION -->
 <div class="wrapper">
-  <div class="stats-row">
+  
+  <!-- ROW 1: The original 4 stats -->
+  <div class="stats-row" style="margin-bottom: 1.2rem;">
     <div class="stat-cell">
       <span class="stat-num">7</span>
       <span class="stat-label">Exams Covered</span>
@@ -110,10 +112,22 @@
       <span class="stat-label">Open Access</span>
     </div>
   </div>
+
+  <!-- ROW 2: The New Dedicated Visitor Counter Box -->
+  <div class="stats-row" style="margin-top: 0; margin-bottom: 3rem; display: block;">
+    <div class="stat-cell" style="border-right: none; padding: 1.5rem;">
+      <span class="stat-num" style="display: flex; justify-content: center; align-items: center; min-height: 40px; margin-bottom: 0.3rem;">
+        <img id="counter-img-home" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fadhyapak-saathi.github.io%2FAdhyapaksaathi&count_bg=%231D3461&title_bg=%23B8860B&icon=&icon_color=%23E7E7E7&title=Total+Visits&edge_flat=false" alt="Visitor Count" style="height: 38px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
+        <span id="admin-badge-home" style="display: none; color: var(--navy); font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700;">Admin Mode</span>
+      </span>
+      <span class="stat-label" style="font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: var(--navy); font-weight: 700;">Platform Visitors</span>
+    </div>
+  </div>
+
 </div>
 
 <!-- EXAMS COVERED -->
-<section class="section">
+<section class="section" style="padding-top: 0;">
   <div class="wrapper">
     <div class="section-header">
       <div class="section-label">Examinations</div>
@@ -349,39 +363,33 @@
 
 <script>
 // --- SECURITY FEATURES ---
-
-// 1. Disable Right-Click (Context Menu)
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-});
-
-// 2. Disable Specific Keyboard Shortcuts
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 document.onkeydown = function(e) {
-  // F12 (DevTools)
-  if (e.key === 'F12') {
-    return false;
-  }
-  // Ctrl+Shift+I or Cmd+Option+I (Inspect)
-  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-    return false;
-  }
-  // Ctrl+Shift+J or Cmd+Option+J (Console)
-  if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
-    return false;
-  }
-  // Ctrl+U or Cmd+Option+U (View Source)
-  if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-    return false;
-  }
-  // Ctrl+S or Cmd+S (Save Page)
-  if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-    return false;
-  }
+  if (e.key === 'F12') return false;
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
 };
+document.addEventListener('copy', function(e) { e.preventDefault(); });
 
-// 3. Disable Copying Text
-document.addEventListener('copy', function(e) {
-  e.preventDefault();
+// --- VISITOR COUNTER & ADMIN TRICK ---
+document.addEventListener("DOMContentLoaded", function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  if (urlParams.get('admin') === 'false') {
+    localStorage.removeItem('adhyapak_admin');
+    alert('Admin mode disabled! You are now viewing the site as a regular visitor and will see the counter.');
+  }
+  else if (urlParams.get('admin') === 'true') {
+    localStorage.setItem('adhyapak_admin', 'true');
+    alert('Admin mode activated! Your visits will no longer be counted on this device.');
+  }
+
+  const isAdmin = localStorage.getItem('adhyapak_admin') === 'true';
+  
+  if (isAdmin) {
+    if(document.getElementById('counter-img-home')) document.getElementById('counter-img-home').style.display = 'none';
+    if(document.getElementById('admin-badge-home')) document.getElementById('admin-badge-home').style.display = 'inline-block';
+  }
 });
 
 // --- REGULAR SCRIPTS ---
