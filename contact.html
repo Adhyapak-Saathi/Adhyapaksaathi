@@ -4,7 +4,14 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact Us — Adhyapak Saathi</title>
+  
+  <!-- SEO & OpenGraph Tags for beautiful link sharing on WhatsApp/Telegram -->
   <meta name="description" content="Contact Adhyapak Saathi — send suggestions, report errors, share exam news, or ask questions about TAT, TET, UGC NET, GSET, CTET."/>
+  <meta property="og:title" content="Contact Us — Adhyapak Saathi" />
+  <meta property="og:description" content="Get in touch, share your valuable suggestions, and help us make the Adhyapak Saathi platform even better." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
   <style>
@@ -84,11 +91,20 @@
     }
     .form-textarea { min-height: 180px; resize: vertical; }
     
-    .success-banner {
-      display: none; background: #f0fdf4; border: 2px solid var(--green);
-      border-radius: 8px; padding: 1.5rem; color: #166534; font-weight: 700;
-      font-size: 1.1rem; margin-bottom: 2rem; text-align: center;
+    /* QA UI Fixes: Modern Error and Success States */
+    .error-message {
+      display: none; background: #fef2f2; border: 1px solid #f87171; color: #b91c1c;
+      padding: 14px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; margin-bottom: 1.5rem;
     }
+    
+    .success-banner-lg {
+      display: none; background: #f0fdf4; border: 2px solid var(--green);
+      border-radius: var(--radius-lg); padding: 3rem 2rem; color: #166534; 
+      text-align: center; box-shadow: var(--shadow-sm); margin-bottom: 2rem;
+    }
+    .success-icon-lg { font-size: 4.5rem; margin-bottom: 1rem; display: block; line-height: 1; }
+    .success-title { font-family: var(--font-serif); font-size: 2rem; color: var(--navy); margin-bottom: 0.5rem; }
+    .success-text { font-size: 1.1rem; color: var(--text-mid); font-weight: 500; }
 
     /* Sitemap Section */
     .sitemap-section {
@@ -148,7 +164,10 @@
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
-      <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+      <!-- Accessibility improvement (role and aria-label) -->
+      <div class="hamburger" role="button" tabindex="0" aria-label="Open Mobile Menu" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+      </div>
     </div>
   </nav>
 
@@ -228,12 +247,18 @@
           <h2 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--navy); margin-bottom: 0.5rem;">Send a Message</h2>
           <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem;">Fill out the form below and we will respond to your email within <strong>24 hours</strong>.</p>
 
-          <div id="contactSuccess" class="success-banner">
-            🎉 Thank you! We have successfully received your message. We will get back to you within 24 hours.
+          <!-- New Beautiful Success Banner -->
+          <div id="contactSuccess" class="success-banner-lg">
+            <span class="success-icon-lg">✅</span>
+            <h3 class="success-title">Message Sent!</h3>
+            <p class="success-text">Thank you for reaching out. We have received your message and will get back to you within 24 hours.</p>
           </div>
 
-          <form id="contactForm" action="https://formspree.io/f/xnjgoeod" method="POST" onsubmit="submitValidatedForm(event, 'contactSuccess', 'contactForm')">
+          <form id="contactForm" action="https://formspree.io/f/xnjgoeod" method="POST" onsubmit="submitValidatedForm(event, 'contactSuccess', 'contactError', 'contactForm')">
             <input type="hidden" name="_subject" value="Adhyapak Saathi — Contact Message"/>
+            
+            <!-- New Inline Error Box -->
+            <div id="contactError" class="error-message"></div>
             
             <div class="form-group">
               <label class="form-label" for="c_name">Full Name *</label>
@@ -285,13 +310,19 @@
             💡 A great idea can change the future of thousands of students! Share your valuable suggestions to make Adhyapak Saathi even better.
           </p>
 
-          <div id="suggSuccess" class="success-banner">
-            🎉 Thank you! We have successfully received your valuable suggestion.
+          <!-- New Beautiful Success Banner -->
+          <div id="suggSuccess" class="success-banner-lg">
+            <span class="success-icon-lg">🎉</span>
+            <h3 class="success-title">Suggestion Received!</h3>
+            <p class="success-text">Your valuable idea can shape the future! Thank you for being an active part of Adhyapak Saathi.</p>
           </div>
 
-          <form id="suggForm" action="https://formspree.io/f/xnjgoeod" method="POST" onsubmit="submitValidatedForm(event, 'suggSuccess', 'suggForm')">
+          <form id="suggForm" action="https://formspree.io/f/xnjgoeod" method="POST" onsubmit="submitValidatedForm(event, 'suggSuccess', 'suggError', 'suggForm')">
             <input type="hidden" name="_subject" value="Adhyapak Saathi — Suggestion Box"/>
             <input type="hidden" name="form_type" value="Suggestion"/>
+            
+            <!-- New Inline Error Box -->
+            <div id="suggError" class="error-message"></div>
             
             <div class="form-group">
               <label class="form-label" for="s_name">Full Name *</label>
@@ -459,21 +490,25 @@ document.addEventListener('copy', function(e) { e.preventDefault(); });
 
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
-// --- SMART VALIDATION SYSTEM ---
-function validateForm(formId) {
+// --- SMART VALIDATION SYSTEM (QA UPDATED: NO ALERTS) ---
+function validateForm(formId, errorId) {
   const form = document.getElementById(formId);
+  const errorDiv = document.getElementById(errorId);
   const nameField = form.querySelector('input[name="name"]');
   const textField = form.querySelector('textarea');
   
   const nameVal = nameField.value.trim().toLowerCase();
   const textVal = textField.value.trim();
 
+  // Reset error box
+  errorDiv.style.display = 'none';
+
   // 1. Name Validation (No numbers, no gibberish like abc)
   const isNumber = /^\d+$/.test(nameVal);
   const isGibberish = (nameVal === 'abc' || nameVal === 'abcd' || nameVal === 'અબક' || nameVal === 'અબકડ');
   
   if (nameVal.length < 3 || isNumber || isGibberish) {
-    alert("⚠️ Please enter your real and full name.\n(Numbers or gibberish like 'abc' are not allowed)");
+    showError(errorDiv, "⚠️ Please enter your real and full name. (Numbers or random letters are not allowed)");
     nameField.focus();
     return false;
   }
@@ -483,13 +518,13 @@ function validateForm(formId) {
   const wordCount = wordsArray.length;
 
   if (wordCount < 15) {
-    alert(`⚠️ Please write in more detail.\n(You have only written ${wordCount} words. A minimum of 15 words is required.)`);
+    showError(errorDiv, `⚠️ Please write in more detail. (You have only written ${wordCount} words. Minimum 15 words required.)`);
     textField.focus();
     return false;
   }
   
   if (wordCount > 1000) {
-    alert(`⚠️ Your message is too long.\n(You have written ${wordCount} words. The maximum limit is 1000 words.)`);
+    showError(errorDiv, `⚠️ Your message is too long. (You have written ${wordCount} words. Maximum limit is 1000 words.)`);
     textField.focus();
     return false;
   }
@@ -497,16 +532,22 @@ function validateForm(formId) {
   return true;
 }
 
+function showError(div, message) {
+  div.innerText = message;
+  div.style.display = 'block';
+}
+
 // --- SECURE FORM SUBMISSION ---
-async function submitValidatedForm(e, successId, formId) {
+async function submitValidatedForm(e, successId, errorId, formId) {
   e.preventDefault(); // Stop normal submission
   
   // First run the validation check
-  if (!validateForm(formId)) {
+  if (!validateForm(formId, errorId)) {
     return; // If validation fails, stop here
   }
 
   const form = document.getElementById(formId);
+  const errorDiv = document.getElementById(errorId);
   const btn = form.querySelector('button[type=submit]');
   const origText = btn.textContent;
   
@@ -521,15 +562,15 @@ async function submitValidatedForm(e, successId, formId) {
     });
     
     if (res.ok) {
-      form.style.display = 'none'; // Hide the form
-      document.getElementById(successId).style.display = 'block'; // Show beautiful success message
+      form.style.display = 'none'; // Hide the form completely
+      document.getElementById(successId).style.display = 'block'; // Show massive beautiful success UI
     } else {
-      alert('⚠️ There was an error on the server. Please try again.');
+      showError(errorDiv, '⚠️ There was an error on the server. Please try again.');
       btn.textContent = origText;
       btn.disabled = false;
     }
   } catch (error) {
-    alert('⚠️ Please check your internet connection and try again.');
+    showError(errorDiv, '⚠️ Please check your internet connection and try again.');
     btn.textContent = origText;
     btn.disabled = false;
   }
