@@ -15,14 +15,43 @@
       user-select: none; /* Standard syntax */
     }
 
-    /* Ensure ticker never breaks even if main CSS is cached */
+    /* Fixed News Card to contain absolute badges */
+    .news-card {
+      position: relative; /* This completely fixes the floating badge glitch! */
+    }
+
+    /* SEAMLESS DYNAMIC TICKER CSS */
     .safe-ticker {
-      background: var(--navy-dark); color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; border-bottom: 2px solid var(--gold);
+      background: var(--navy-dark); 
+      color: #fff; 
+      padding: 10px 0; 
+      overflow: hidden; 
+      display: flex; 
+      align-items: center; 
+      border-bottom: 2px solid var(--gold);
     }
-    .safe-ticker-inner {
-      display: inline-block; white-space: nowrap; animation: safeTicker 35s linear infinite;
+    
+    .ticker-viewport {
+      overflow: hidden; 
+      flex-grow: 1; 
+      display: flex;
     }
-    @keyframes safeTicker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+    .safe-ticker-track {
+      display: flex;
+      width: fit-content;
+      animation: seamlessTicker 40s linear infinite;
+    }
+
+    .safe-ticker-content {
+      white-space: nowrap;
+      padding-right: 30px; /* Space before it repeats */
+    }
+
+    @keyframes seamlessTicker { 
+      0% { transform: translateX(0); } 
+      100% { transform: translateX(-50%); } 
+    }
     
     /* Ensure images always center perfectly */
     .news-card-img {
@@ -78,17 +107,14 @@
   </div>
 </div>
 
-<!-- BULLETPROOF TICKER -->
+<!-- BULLETPROOF & DYNAMIC TICKER -->
 <div class="safe-ticker">
   <div class="wrapper" style="display: flex; align-items: center; width: 100%;">
     <span style="background: var(--gold); color: var(--navy-dark); font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 4px; z-index: 10; position: relative; margin-right: 15px; flex-shrink: 0; text-transform: uppercase;">LIVE UPDATES</span>
-    <div style="overflow: hidden; flex-grow: 1;">
-      <div class="safe-ticker-inner">
-        📢 TAT (Secondary) 2026 Prelims Exam Date Announced &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
-        📢 TAT (HS) Application Window Closing Soon on OJAS &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
-        📢 GSET E-Certificates now available for download &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
-        📢 UGC NET notifications released at ugcnet.nta.ac.in &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
-        📢 CTET upcoming schedules via ctet.nic.in
+    <div class="ticker-viewport">
+      <!-- JavaScript will automatically clone the titles from the news cards and inject them here -->
+      <div class="safe-ticker-track" id="dynamicTickerTrack">
+        <!-- Content gets loaded here -->
       </div>
     </div>
   </div>
@@ -115,7 +141,7 @@
 
       <!-- LATEST TAT (SECONDARY) NEWS -->
       <div class="card news-card" data-cat="tat">
-        <div style="position: absolute; top: 10px; right: 10px; background: var(--red); color: white; font-size: 0.7rem; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5; text-transform: uppercase;">🔥 Latest</div>
+        <div style="position: absolute; top: 10px; right: 10px; background: var(--red); color: white; font-size: 0.7rem; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">🔥 Latest</div>
         <img class="news-card-img" src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&q=80" alt="TAT Secondary Updates"/>
         <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
           <span class="card-tag">TAT (S) · Exam Date</span>
@@ -129,7 +155,7 @@
 
       <!-- LATEST TAT (HIGHER SECONDARY) NEWS -->
       <div class="card news-card" data-cat="tat">
-        <div style="position: absolute; top: 10px; right: 10px; background: var(--navy); color: white; font-size: 0.7rem; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5; text-transform: uppercase;">📢 Important</div>
+        <div style="position: absolute; top: 10px; right: 10px; background: var(--navy); color: white; font-size: 0.7rem; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">📢 Important</div>
         <img class="news-card-img" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80" alt="TAT HS Updates"/>
         <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
           <span class="card-tag">TAT (HS) · Notification</span>
@@ -323,6 +349,7 @@ document.addEventListener('copy', function(e) {
   e.preventDefault();
 });
 
+
 // --- REGULAR PAGE SCRIPTS ---
 
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
@@ -347,6 +374,23 @@ function filterNews(cat, btn) {
     }
   });
 }
+
+// --- DYNAMIC TICKER GENERATOR ---
+document.addEventListener("DOMContentLoaded", function() {
+  // 1. બનેલા બધા જ ન્યૂઝ કાર્ડ્સના ટાઇટલ શોધો
+  const cardTitles = document.querySelectorAll('.news-card .card-title');
+  const titleArray = Array.from(cardTitles).map(el => el.innerText);
+
+  // 2. તેમને જોડીને એક લાંબી લાઈન બનાવો
+  const tickerString = titleArray.map(title => '📢 ' + title).join(' &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp; ';
+
+  // 3. સીમલેસ સ્માર્ટ લૂપ માટે એ જ લાઈનને 2 વાર ટિકરમાં મૂકી દો!
+  const track = document.getElementById('dynamicTickerTrack');
+  track.innerHTML = `
+    <div class="safe-ticker-content">${tickerString}</div>
+    <div class="safe-ticker-content">${tickerString}</div>
+  `;
+});
 </script>
 </body>
 </html>
