@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<!-- TOP BAR (Counter Removed) -->
+<!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-inner">
     <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
@@ -93,7 +93,6 @@
 <!-- STATS SECTION -->
 <div class="wrapper">
   
-  <!-- ROW 1: The original 4 stats -->
   <div class="stats-row" style="margin-bottom: 1.2rem;">
     <div class="stat-cell">
       <span class="stat-num">7</span>
@@ -113,7 +112,7 @@
     </div>
   </div>
 
-  <!-- ROW 2: The New Dedicated Visitor Counter Box -->
+  <!-- Dedicated Visitor Counter Box -->
   <div class="stats-row" style="margin-top: 0; margin-bottom: 3rem; display: block;">
     <div class="stat-cell" style="border-right: none; padding: 1.5rem;">
       <span class="stat-num" style="display: flex; justify-content: center; align-items: center; gap: 12px; min-height: 40px; margin-bottom: 0.5rem;">
@@ -232,8 +231,6 @@
   </div>
 </section>
 
-<hr class="divider"/>
-
 <!-- SUBJECT CARDS -->
 <section class="section">
   <div class="wrapper">
@@ -267,50 +264,6 @@
           <div class="card-title">Research Aptitude (Paper I)</div>
           <div class="card-text">Teaching and research aptitude, reasoning ability, comprehension, and subject-specific content for higher-level exams.</div>
           <a href="test.html?exam=ugcnet" class="btn btn-outline btn-sm">Practice NET/GSET →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider"/>
-
-<!-- NEWS SNIPPET -->
-<section class="section">
-  <div class="wrapper">
-    <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2rem">
-      <div>
-        <div class="section-label">Recent Updates</div>
-        <h2 class="section-title" style="margin-bottom:0">Latest Exam <em>Notifications</em></h2>
-      </div>
-      <a href="news.html" class="btn btn-navy btn-sm">View All Updates →</a>
-    </div>
-    <div class="grid-3">
-      <div class="card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=70" alt="TAT exam clash"/>
-        <div class="card-body">
-          <span class="card-tag">TAT (HS) · Update</span>
-          <div class="card-title">TAT-HS 2026 Prelims Exam Date Rescheduled</div>
-          <div class="card-text">Due to a clash with the GUJCET exam, the SEB has officially rescheduled the TAT (Higher Secondary) Preliminary Exam from March 29 to April 12, 2026.</div>
-          <a href="https://www.sebexam.org/" target="_blank" class="btn btn-outline btn-sm">Official Notice →</a>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=70" alt="TAT Syllabus"/>
-        <div class="card-body">
-          <span class="card-tag">TAT (HS) · Syllabus</span>
-          <div class="card-title">TAT-HS 2026 Detailed Syllabus &amp; Reduced Chapters</div>
-          <div class="card-text">SEB Gujarat has released the detailed subject-wise syllabus and the list of reduced chapters. Ensure your preparation aligns with the updated GSHSEB guidelines.</div>
-          <a href="https://www.sebexam.org/" target="_blank" class="btn btn-outline btn-sm">Download PDF →</a>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=600&q=70" alt="TAT Secondary Notification"/>
-        <div class="card-body">
-          <span class="card-tag">TAT (S) · Recruitment</span>
-          <div class="card-title">Gujarat TAT Secondary 2026 Notification Released</div>
-          <div class="card-text">State Examination Board (SEB) has released the official notification for TAT (Secondary). Applications are processed via OJAS, and prelims are scheduled for late April.</div>
-          <a href="https://ojas.gujarat.gov.in/" target="_blank" class="btn btn-outline btn-sm">Apply via OJAS →</a>
         </div>
       </div>
     </div>
@@ -359,7 +312,6 @@
   
   <div class="footer-bottom">
     <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
-    <p>Hosted on <span>GitHub Pages</span></p>
   </div>
 </footer>
 
@@ -379,22 +331,20 @@ document.addEventListener("DOMContentLoaded", function() {
   
   if (urlParams.get('admin') === 'false') {
     localStorage.removeItem('adhyapak_admin');
-    alert('Admin mode disabled! You are now viewing the site as a regular visitor and will see the counter.');
+    alert('Admin mode disabled!');
   }
   else if (urlParams.get('admin') === 'true') {
     localStorage.setItem('adhyapak_admin', 'true');
-    alert('Admin mode activated! Your visits will no longer be counted on this device.');
+    alert('Admin mode activated!');
   }
 
   const isAdmin = localStorage.getItem('adhyapak_admin') === 'true';
-  
   if (isAdmin) {
     if(document.getElementById('counter-img-home')) document.getElementById('counter-img-home').style.display = 'none';
     if(document.getElementById('admin-badge-home')) document.getElementById('admin-badge-home').style.display = 'inline-block';
   }
 });
 
-// --- REGULAR SCRIPTS ---
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 </script>
 </body>
