@@ -100,6 +100,9 @@
     .exp-box { margin-top: 10px; padding: 10px; background: #fffbeb; border-left: 3px solid var(--gold); border-radius: 4px; font-size: 0.9rem; color: #4a5568; line-height: 1.5; }
 
     .hide-during-exam { display: none !important; }
+    
+    /* Print Only Branding */
+    .print-only-branding { display: none; }
 
     @media (max-width: 768px) {
       .exam-body { flex-direction: column; }
@@ -119,6 +122,32 @@
       .result-card { box-shadow: none; border: 3px solid var(--navy); margin: 0; max-width: 100%; padding: 20px; }
       .stats-grid { justify-content: space-around; }
       .stat-box { min-width: 100px; }
+      
+      /* Show Print Only Branding on PDF */
+      .print-only-branding {
+        display: block;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 2px dashed var(--gold);
+        text-align: center;
+      }
+      .print-only-branding h3 {
+        font-family: var(--font-serif);
+        font-size: 1.8rem;
+        color: var(--navy);
+        margin-bottom: 8px;
+      }
+      .print-only-branding p {
+        font-size: 1.1rem;
+        color: var(--text-mid);
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+      .print-only-branding .website-link {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--navy);
+      }
     }
   </style>
 </head>
@@ -407,6 +436,13 @@
       <div id="topicAnalysis" class="topic-analysis-box">
         <h4 style="color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px; font-size: 1.1rem;">વિષયવાર તમારું પ્રદર્શન (Topic Analysis)</h4>
         <div id="taContent"></div>
+      </div>
+
+      <!-- PRINT ONLY BRANDING (Website Link for Marketing) -->
+      <div class="print-only-branding">
+        <h3>Adhyapak Saathi</h3>
+        <p>શિક્ષક બનવાનું સ્વપ્ન કરો સાકાર! વધુ ફ્રી મોક ટેસ્ટ અને મટિરિયલ માટે મુલાકાત લો:</p>
+        <p class="website-link">🌐 www.adhyapaksaathi.in</p>
       </div>
 
       <div class="no-print" style="display: flex; gap: 12px; justify-content: center; margin-top: 25px; flex-wrap: wrap;">
@@ -842,6 +878,7 @@ function submitExam() {
   window.onbeforeunload = null; 
   clearInterval(timerInterval);
   document.getElementById('examContainer').style.display = 'none';
+  document.getElementById('practiceContainer').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'block';
 
   let correct = 0, wrong = 0, skipped = 0;
