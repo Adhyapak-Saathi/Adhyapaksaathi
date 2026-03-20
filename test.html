@@ -27,85 +27,86 @@
     .exam-body { display: flex; flex-grow: 1; overflow: hidden; }
     
     .question-panel { flex: 7; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: #ffffff; position: relative; }
-    .question-header { background: #f8fafd; padding: 10px 25px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 1.05rem; display: flex; justify-content: space-between;}
-    .question-content { padding: 20px 25px; overflow-y: auto; flex-grow: 1; }
-    .question-text { font-size: 1.2rem; font-weight: 700; color: #2d3748; line-height: 1.6; margin-bottom: 20px; }
+    .question-header { background: #f8fafd; padding: 8px 20px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 1rem; display: flex; justify-content: space-between;}
+    .question-content { padding: 15px 20px; overflow-y: auto; flex-grow: 1; }
+    .question-text { font-size: 1.15rem; font-weight: 700; color: #2d3748; line-height: 1.5; margin-bottom: 15px; }
     
-    .radio-option { display: flex; align-items: center; padding: 12px 18px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; font-size: 1.05rem; font-weight: 600; color: #4a5568; background: #fff; }
+    .radio-option { display: flex; align-items: center; padding: 10px 15px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; font-size: 1rem; font-weight: 600; color: #4a5568; background: #fff; }
     .radio-option:hover { border-color: var(--navy-light); background: #f8fafd; }
     .radio-option.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 1px var(--navy); }
-    .radio-option input[type="radio"] { margin-right: 15px; transform: scale(1.3); accent-color: var(--navy); cursor: pointer; }
+    .radio-option input[type="radio"] { margin-right: 12px; transform: scale(1.2); accent-color: var(--navy); cursor: pointer; }
     
-    .btn-exam { padding: 10px 20px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 0.95rem; }
+    .btn-exam { padding: 8px 18px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 0.9rem; }
     .btn-save { background: var(--green); color: white; }
     .btn-save:hover { background: #16a34a; }
     .btn-review { background: #805ad5; color: white; }
     .btn-review:hover { background: #6b46c1; }
     .btn-clear { background: #e2e8f0; color: #4a5568; }
     .btn-clear:hover { background: #cbd5e0; }
-    .btn-submit { background: var(--navy); color: var(--gold); border: 2px solid var(--gold); font-size: 1.1rem; padding: 10px 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+    .btn-submit { background: var(--navy); color: var(--gold); border: 2px solid var(--gold); font-size: 1rem; padding: 8px 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
     .btn-submit:hover { background: var(--gold); color: var(--navy); }
     
     .palette-panel { flex: 3; background: #f8fafd; display: flex; flex-direction: column; overflow-y: auto; }
-    .palette-header { background: var(--navy); color: #fff; padding: 15px; font-weight: 700; text-align: center; font-size: 0.95rem; }
-    .legend-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; border-bottom: 1px solid var(--border); font-size: 0.85rem; font-weight: 600; color: #4a5568; }
-    .legend-item { display: flex; align-items: center; gap: 8px; }
-    .status-badge { width: 22px; height: 22px; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; color: white; font-size: 0.7rem; font-weight: bold; }
+    .palette-header { background: var(--navy); color: #fff; padding: 12px; font-weight: 700; text-align: center; font-size: 0.9rem; }
+    .legend-box { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.8rem; font-weight: 600; color: #4a5568; }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .status-badge { width: 20px; height: 20px; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; color: white; font-size: 0.65rem; font-weight: bold; }
     .s-not-visited { background: #e2e8f0; border: 1px solid #cbd5e0; color: #4a5568; }
     .s-not-answered { background: #e53e3e; border: 1px solid #c53030; }
     .s-answered { background: #38a169; border: 1px solid #2f855a; }
     .s-review { background: #805ad5; border: 1px solid #6b46c1; }
-    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 15px; }
-    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; color: white; transition: 0.1s; }
+    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 12px; }
+    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; color: white; transition: 0.1s; }
     .palette-btn:hover { opacity: 0.8; transform: scale(1.05); }
 
     /* ==================================================
        PRACTICE CARDS UI
        ================================================== */
-    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 2rem 1.5rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 1.8rem 1.2rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
     .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
-    .p-topic-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.25rem; color: var(--navy); margin-bottom: 1.5rem; line-height: 1.4; }
-    .btn-p-start { width: 100%; padding: 12px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 1rem; margin-bottom: 0; }
+    .p-topic-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
+    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--navy); margin-bottom: 1.2rem; line-height: 1.4; }
+    .btn-p-start { width: 100%; padding: 10px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; margin-bottom: 0; }
     .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
     
     /* COMPACT Sticky Header */
     .p-sticky-header {
-      position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 10px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-radius: 0 0 12px 12px;
+      position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 8px 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-radius: 0 0 8px 8px;
     }
 
     /* Result Screen Specifics */
-    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 900px; margin: 40px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    .score-circle { width: 150px; height: 150px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px auto; background: #f8fafd; }
-    .score-circle .marks { font-size: 2.5rem; font-weight: 800; color: var(--navy); line-height: 1; }
-    .score-circle .total { font-size: 1rem; color: var(--text-mid); font-weight: 600; }
+    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; max-width: 900px; margin: 30px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; border: 6px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; background: #f8fafd; }
+    .score-circle .marks { font-size: 2.2rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .score-circle .total { font-size: 0.9rem; color: var(--text-mid); font-weight: 600; }
     
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 30px 0; }
-    .stat-box { padding: 15px; border-radius: 8px; font-weight: 700; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 25px 0; }
+    .stat-box { padding: 12px; border-radius: 8px; font-weight: 700; }
     .sb-correct { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
     .sb-wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
     .sb-unattempted { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
     .sb-time { background: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; }
     
-    .review-item { text-align: left; padding: 20px; background: #fff; border: 1px solid var(--border); border-left: 5px solid var(--navy); margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-    .ans-correct-txt { color: var(--green); font-weight: 800; margin-top: 10px; }
-    .ans-wrong-txt { color: var(--red); font-weight: 800; margin-top: 10px; }
-    .exp-box { margin-top: 10px; padding: 12px; background: #fffbeb; border-left: 3px solid var(--gold); border-radius: 4px; font-size: 0.95rem; color: #4a5568; line-height: 1.6; }
+    .review-item { text-align: left; padding: 15px; background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--navy); margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+    .ans-correct-txt { color: var(--green); font-weight: 800; margin-top: 8px; font-size: 0.95rem; }
+    .ans-wrong-txt { color: var(--red); font-weight: 800; margin-top: 8px; font-size: 0.95rem; }
+    .exp-box { margin-top: 10px; padding: 10px; background: #fffbeb; border-left: 3px solid var(--gold); border-radius: 4px; font-size: 0.9rem; color: #4a5568; line-height: 1.5; }
 
     .hide-during-exam { display: none !important; }
 
     @media (max-width: 768px) {
       .exam-body { flex-direction: column; }
-      .palette-panel { flex: none; height: 250px; border-top: 2px solid var(--border); }
-      .question-panel { flex: none; height: calc(100vh - 330px); }
+      .palette-panel { flex: none; height: 220px; border-top: 2px solid var(--border); }
+      .question-panel { flex: none; height: calc(100vh - 290px); }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .p-sticky-header { flex-direction: column; gap: 8px; padding: 10px; text-align: center; }
-      .p-topic-card { padding: 1.5rem; }
+      .p-sticky-header { flex-direction: column; gap: 5px; padding: 8px; text-align: center; }
+      .p-topic-card { padding: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
+<!-- STANDARD NAVBAR -->
 <div id="standardNav">
   <div class="topbar">
     <div class="topbar-inner">
@@ -154,43 +155,45 @@
       
       <div class="grid-2" style="gap: 25px; margin-bottom: 4rem;">
         
-        <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 35px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center;">
-          <div style="font-size: 4rem; margin-bottom: 10px;">🎓</div>
-          <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.8rem; margin-bottom: 15px;">પેપર 1 (General) - સંપૂર્ણ મોક ટેસ્ટ</h2>
-          <div style="background: #f8fafd; border: 1px solid var(--border); padding: 20px; border-radius: 8px; margin-bottom: 25px; width: 100%;">
-            <ul style="list-style: none; font-size: 1rem; color: #3d5170; line-height: 1.8; text-align: left; display: inline-block;">
+        <!-- MOCK TEST 1 (GENERAL 100 MARKS) -->
+        <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center;">
+          <div style="font-size: 3.5rem; margin-bottom: 10px;">🎓</div>
+          <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.6rem; margin-bottom: 12px;">પેપર 1 (General) - મોક ટેસ્ટ</h2>
+          <div style="background: #f8fafd; border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 20px; width: 100%;">
+            <ul style="list-style: none; font-size: 0.95rem; color: #3d5170; line-height: 1.8; text-align: left; display: inline-block;">
               <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
               <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
               <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
               <li>🛑 <strong>નોંધ:</strong> ટેસ્ટ ચાલુ થયા પછી બહાર નીકળી શકાશે નહિ.</li>
             </ul>
           </div>
-          <button class="btn btn-navy" style="font-size: 1.2rem; padding: 14px 40px; border-radius: 50px; width: 100%;" onclick="startExam('mock1')">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
+          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px 35px; border-radius: 50px; width: 100%;" onclick="startExam('mock1')">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
         </div>
 
-        <div style="background: white; border: 2px solid var(--border-dark); border-radius: 12px; padding: 35px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0.9;">
-          <div style="font-size: 4rem; margin-bottom: 10px;">⏳</div>
-          <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.8rem; margin-bottom: 15px;">પેપર 2 (વિષયવસ્તુ) - સંપૂર્ણ મોક ટેસ્ટ</h2>
-          <div style="background: #f1f5f9; border: 1px solid var(--border); padding: 20px; border-radius: 8px; margin-bottom: 25px; width: 100%;">
-            <ul style="list-style: none; font-size: 1rem; color: #3d5170; line-height: 1.8; text-align: left; display: inline-block;">
+        <!-- MOCK TEST 2 (SUBJECT CONTENT) -->
+        <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; align-items: center; text-align: center;">
+          <div style="font-size: 3.5rem; margin-bottom: 10px;">⏳</div>
+          <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.6rem; margin-bottom: 12px;">પેપર 2 (વિષયવસ્તુ) - મોક ટેસ્ટ</h2>
+          <div style="background: #f1f5f9; border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 20px; width: 100%;">
+            <ul style="list-style: none; font-size: 0.95rem; color: #3d5170; line-height: 1.8; text-align: left; display: inline-block;">
               <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
               <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
               <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
               <li>✨ <strong>નોંધ:</strong> આ પેપરમાં વિષયવસ્તુના પ્રશ્નો ટૂંક સમયમાં મુકાશે.</li>
             </ul>
           </div>
-          <button class="btn btn-outline" style="font-size: 1.2rem; padding: 14px 40px; border-radius: 50px; width: 100%; font-weight: 700;" onclick="alert('આ પેપરમાં પ્રશ્નો ઉમેરવાનું કાર્ય ચાલુ છે. ટૂંક સમયમાં જ આ ટેસ્ટ ઉપલબ્ધ થશે!')">Coming Soon 🕒</button>
+          <button class="btn btn-outline-gold" style="font-size: 1.1rem; padding: 12px 35px; border-radius: 50px; width: 100%; font-weight: 700;" onclick="alert('આ પેપરમાં પ્રશ્નો ઉમેરવાનું કાર્ય ચાલુ છે. ટૂંક સમયમાં જ આ ટેસ્ટ ઉપલબ્ધ થશે!')">Coming Soon 🕒</button>
         </div>
 
       </div>
 
-      <div class="section-header center" style="margin-bottom: 3rem;">
+      <div class="section-header center" style="margin-bottom: 2.5rem;">
         <div class="section-label">Topic-wise Practice</div>
         <h2 class="section-title">વિષયવાર <em>પ્રેક્ટિસ ટેસ્ટ</em></h2>
         <p class="section-desc">"સફળતાનો કોઈ શોર્ટકટ નથી, સખત પરિશ્રમ એ જ એકમાત્ર વિકલ્પ છે." તમારી મનપસંદ કેટેગરી પસંદ કરો અને તૈયારીને મજબૂત બનાવો!</p>
       </div>
 
-      <div class="grid-4" style="gap: 2rem; max-width: 1100px; margin: 0 auto;">
+      <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto;">
         
         <div class="p-topic-card">
           <div>
@@ -210,10 +213,10 @@
 
         <div class="p-topic-card">
           <div>
-            <div class="p-topic-icon">📊</div>
+            <div class="p-topic-icon">👩‍🏫</div>
             <h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3>
           </div>
-          <button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">ટેસ્ટ શરૂ કરો (9 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">ટેસ્ટ શરૂ કરો (10 Qs)</button>
         </div>
 
         <div class="p-topic-card">
@@ -226,7 +229,7 @@
 
         <div class="p-topic-card">
           <div>
-            <div class="p-topic-icon">🖋️</div>
+            <div class="p-topic-icon">📜</div>
             <h3>5. ગુજરાતી ભાષા</h3>
           </div>
           <button class="btn-p-start" onclick="startPracticeTopic('gujarati', 'ગુજરાતી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
@@ -245,7 +248,7 @@
             <div class="p-topic-icon">🌐</div>
             <h3>7. સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો</h3>
           </div>
-          <button class="btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન')">ટેસ્ટ શરૂ કરો (18 Qs)</button>
+          <button class="btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન')">ટેસ્ટ શરૂ કરો (17 Qs)</button>
         </div>
 
       </div>
@@ -266,57 +269,58 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
-      <p>Hosted on <span>Netlify</span></p>
     </div>
   </footer>
 </div>
 
 <div class="exam-container" id="examContainer" style="display: none;">
   
+  <!-- COMPACT HEADER -->
   <div class="p-sticky-header" id="testStickyHeader">
-    <div style="font-weight:800; font-size:1.15rem; color:var(--navy); display: flex; align-items: center; gap: 8px;">
+    <div style="font-weight:800; font-size:1.05rem; color:var(--navy); display: flex; align-items: center; gap: 6px;">
       <span id="headerIcon">🎓</span> <span id="pTopicName">TAT - પેપર 1 મોક ટેસ્ટ</span>
     </div>
-    <div style="display:flex; gap:10px; align-items:center; flex-wrap: wrap;">
-       <div id="attemptedBox" style="background:#eaf5ef; color:var(--green); padding:4px 12px; border-radius:20px; font-weight:700; font-size:0.9rem; border:1px solid #bbf7d0;">
+    <div style="display:flex; gap:8px; align-items:center; flex-wrap: wrap;">
+       <div id="attemptedBox" style="background:#eaf5ef; color:var(--green); padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.85rem; border:1px solid #bbf7d0;">
          ✔ આપેલા જવાબો: <span id="pAttempted">0</span>
        </div>
-       <div style="background:#fdf0ee; color:var(--red); padding:4px 12px; border-radius:20px; font-weight:800; font-size:1rem; border:2px solid var(--red);">
+       <div style="background:#fdf0ee; color:var(--red); padding:4px 10px; border-radius:20px; font-weight:800; font-size:0.9rem; border:2px solid var(--red);">
          ⏱️ <span id="pTimer">00:00:00</span>
        </div>
     </div>
   </div>
 
   <div class="exam-body" id="mainTestBody">
-    <div class="question-panel" style="border-right: none; max-width: 900px; margin: 0 auto; width: 100%; padding: 0 15px;">
+    <!-- COMPACT QUESTION PANEL -->
+    <div class="question-panel" style="border-right: none; max-width: 900px; margin: 0 auto; width: 100%; padding: 0 10px;">
       
-      <div id="pProgressBarContainer" style="background:#e2e8f0; height:8px; border-radius:4px; margin-bottom:1rem; overflow:hidden; display:none;">
+      <div id="pProgressBarContainer" style="background:#e2e8f0; height:6px; border-radius:3px; margin-bottom:0.8rem; overflow:hidden; display:none;">
         <div id="pProgressBar" style="background:linear-gradient(90deg, var(--navy-mid) 0%, var(--navy) 100%); height:100%; width:0%; transition:width 0.4s ease;"></div>
       </div>
 
       <div class="question-header" style="border-radius: 8px 8px 0 0; border: 1px solid var(--border); border-bottom: none;">
-        <span id="lblQNum" style="background: var(--navy); color: white; padding: 4px 12px; border-radius: 20px;">પ્રશ્ન ક્રમાંક: 1</span>
-        <span style="font-size: 0.9rem; font-weight: 800; color: var(--navy-mid);">માર્કસ: +1, -0.25</span>
+        <span id="lblQNum" style="background: var(--navy); color: white; padding: 3px 10px; border-radius: 20px;">પ્રશ્ન ક્રમાંક: 1</span>
+        <span style="font-size: 0.85rem; font-weight: 800; color: var(--navy-mid);">માર્કસ: +1, -0.25</span>
       </div>
       
-      <div class="question-content" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding: 20px;">
-        <div class="question-text" id="lblQText">પ્રશ્ન અહીં આવશે...</div>
+      <div class="question-content" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding: 15px 20px;">
+        <div class="question-text" id="lblQText" style="margin-bottom: 15px; font-size: 1.15rem;">પ્રશ્ન અહીં આવશે...</div>
         <div id="optionsContainer"></div>
       </div>
 
-      <div id="practiceFooter" style="padding: 15px 20px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: none; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-        <button id="pPrevBtn" class="btn btn-outline" style="padding:10px 20px; border-radius:50px;" onclick="prevPQuestion()">⬅️ પાછળ</button>
-        <div style="font-size:0.95rem; font-weight:700; color:var(--text-muted); text-align: center; display:none;" class="p-motivation" id="randomQuote">💡 સતત મહાવરો જ સફળતાની ચાવી છે!</div>
-        <button id="pNextBtn" class="btn btn-navy" style="padding:10px 20px; border-radius:50px;" onclick="nextPQuestion()">આગળ ➡️</button>
-        <button id="pSubmitBtn" class="btn btn-gold" style="display:none; padding:10px 20px; border-radius:50px; color:var(--navy-dark);" onclick="submitExamConfirmation()">ટેસ્ટ પૂરી કરો 🏆</button>
+      <div id="practiceFooter" style="padding: 10px 15px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: none; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <button id="pPrevBtn" class="btn btn-outline" style="padding:8px 16px; border-radius:50px;" onclick="prevPQuestion()">⬅️ પાછળ</button>
+        <div style="font-size:0.9rem; font-weight:700; color:var(--navy-mid); text-align: center; display:none; flex-grow: 1;" class="p-motivation" id="randomQuote">💡 સતત મહાવરો જ સફળતાની ચાવી છે!</div>
+        <button id="pNextBtn" class="btn btn-navy" style="padding:8px 16px; border-radius:50px;" onclick="nextPQuestion()">આગળ ➡️</button>
+        <button id="pSubmitBtn" class="btn btn-gold" style="display:none; padding:8px 16px; border-radius:50px; color:var(--navy-dark);" onclick="submitExamConfirmation()">ટેસ્ટ પૂરી કરો 🏆</button>
       </div>
 
-      <div id="mockFooter" style="padding: 15px 20px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 2rem;">
-        <div style="display: flex; gap: 10px;">
+      <div id="mockFooter" style="padding: 10px 15px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+        <div style="display: flex; gap: 8px;">
           <button class="btn-exam btn-clear" onclick="clearResponse()">Clear Response</button>
           <button class="btn-exam btn-review" onclick="markReviewAndNext()">Review & Next</button>
         </div>
-        <div style="display: flex; gap: 10px;">
+        <div style="display: flex; gap: 8px;">
           <button class="btn-exam btn-save" onclick="saveAndNext()">Save & Next</button>
         </div>
       </div>
@@ -332,7 +336,7 @@
         <div class="legend-item"><span class="status-badge s-review">0</span> Review</div>
       </div>
       <div class="palette-grid" id="paletteGrid"></div>
-      <div style="padding: 15px; border-top: 1px solid var(--border); margin-top: auto; text-align: center;">
+      <div style="padding: 12px; border-top: 1px solid var(--border); margin-top: auto; text-align: center;">
         <button class="btn-exam btn-submit" style="width: 100%;" onclick="submitExamConfirmation()">Submit Exam</button>
       </div>
     </div>
@@ -343,36 +347,36 @@
   <div class="wrapper">
     
     <div class="result-card">
-      <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પરીક્ષા પરિણામ (Scorecard)</h2>
-      <p style="color: var(--text-mid); font-size: 1.1rem; margin-bottom: 30px;">નીચે તમારું વિગતવાર પરિણામ અને માર્કસ આપેલ છે.</p>
+      <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--navy); margin-bottom: 5px;">પરીક્ષા પરિણામ (Scorecard)</h2>
+      <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 25px;">નીચે તમારું વિગતવાર પરિણામ અને માર્કસ આપેલ છે.</p>
 
       <div class="score-circle">
         <span class="marks" id="resScore">0.00</span>
         <span class="total">out of <span id="resTotalMarks">100</span></span>
       </div>
 
-      <div id="resMotivation" style="font-size: 1.3rem; font-weight: 700; color: var(--gold-dark); margin-bottom: 20px; padding: 0 20px;">અદ્ભુત પ્રયાસ!</div>
+      <div id="resMotivation" style="font-size: 1.2rem; font-weight: 700; color: var(--gold-dark); margin-bottom: 20px; padding: 0 20px;">અદ્ભુત પ્રયાસ!</div>
 
       <div class="stats-grid">
         <div class="stat-box sb-correct">
-          <div style="font-size: 1.8rem;" id="resCorrect">0</div>
-          <div style="font-size: 0.8rem; text-transform: uppercase;">સાચા જવાબો</div>
+          <div style="font-size: 1.6rem;" id="resCorrect">0</div>
+          <div style="font-size: 0.75rem; text-transform: uppercase;">સાચા જવાબો</div>
         </div>
         <div class="stat-box sb-wrong">
-          <div style="font-size: 1.8rem;" id="resWrong">0</div>
-          <div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા જવાબો (-0.25)</div>
+          <div style="font-size: 1.6rem;" id="resWrong">0</div>
+          <div style="font-size: 0.75rem; text-transform: uppercase;">ખોટા જવાબો (-0.25)</div>
         </div>
         <div class="stat-box sb-unattempted">
-          <div style="font-size: 1.8rem;" id="resSkip">0</div>
-          <div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div>
+          <div style="font-size: 1.6rem;" id="resSkip">0</div>
+          <div style="font-size: 0.75rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div>
         </div>
         <div class="stat-box sb-time">
-          <div style="font-size: 1.8rem;" id="resTime">00:00</div>
-          <div style="font-size: 0.8rem; text-transform: uppercase;">લીધેલ સમય</div>
+          <div style="font-size: 1.6rem;" id="resTime">00:00</div>
+          <div style="font-size: 0.75rem; text-transform: uppercase;">લીધેલ સમય</div>
         </div>
       </div>
 
-      <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
+      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 25px; flex-wrap: wrap;">
         <button class="btn btn-outline" onclick="window.location.href='index.html'">🏠 હોમ (Home)</button>
         <button class="btn btn-navy" onclick="window.location.reload()">🔄 બીજી ટેસ્ટ આપો</button>
         <button class="btn" style="background: #25D366; color: white; border: none;" onclick="shareWhatsApp()">📱 Share Score</button>
@@ -380,7 +384,7 @@
     </div>
 
     <div style="max-width: 800px; margin: 0 auto;">
-      <h3 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">વિગતવાર સમજૂતી (Detailed Solutions)</h3>
+      <h3 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.4rem; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 8px;">વિગતવાર સમજૂતી (Detailed Solutions)</h3>
       <div id="reviewContainer"></div>
     </div>
 
@@ -399,21 +403,20 @@ document.addEventListener('copy', e => e.preventDefault());
 
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
-// Motivational Quotes Array
+// Random Gujarati Motivational Quotes
 const quotes = [
-  "💡 સતત મહાવરો જ સફળતાની ચાવી છે!",
+  "💡 મહેનતનો કોઈ વિકલ્પ નથી.",
   "🎯 લક્ષ્ય પ્રાપ્તિ માટે એકાગ્રતા અનિવાર્ય છે.",
-  "💪 મુશ્કેલીઓનો સામનો કરો, જીત તમારી જ છે.",
-  "📚 જ્ઞાન એવો ખજાનો છે જે વહેંચવાથી વધે છે.",
+  "💪 જે કઠિન સંઘર્ષ કરે છે, તેની જીત શાનદાર હોય છે.",
+  "📚 જ્ઞાન એવો ખજાનો છે જે ક્યારેય ચોરાતો નથી.",
   "⏳ સમયનો સદુપયોગ તમને શ્રેષ્ઠ બનાવશે.",
-  "🚀 નિષ્ફળતા એ સફળતાની પ્રથમ સીડી છે.",
-  "✨ આજની મહેનત કાલનું ઉજ્જવળ ભવિષ્ય છે.",
+  "🚀 નિષ્ફળતાથી ડરશો નહીં, એ તો સફળતાની પહેલી સીડી છે.",
+  "✨ આજની મહેનત કાલની સફળતાનું નિર્માણ કરશે.",
   "🔥 હિંમત હાર્યા વિના આગળ વધતા રહો!",
   "🦅 ધીરજના ફળ હંમેશા મીઠાં હોય છે.",
-  "🌟 જે મહેનત કરે છે, તેને નસીબ પણ સાથ આપે છે."
+  "🌟 પોતાના પર વિશ્વાસ રાખો, તમે ધારો તે કરી શકો છો!"
 ];
 
-// Show motivation text on larger screens
 if(window.innerWidth > 768) { document.querySelector('.p-motivation').style.display = 'block'; }
 
 /* =========================================
@@ -789,6 +792,7 @@ function submitExam() {
   window.onbeforeunload = null; 
   clearInterval(timerInterval);
   document.getElementById('examContainer').style.display = 'none';
+  document.getElementById('practiceContainer').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'block';
 
   let correct = 0, wrong = 0, skipped = 0;
@@ -825,13 +829,13 @@ function submitExam() {
   const pct = finalScore / totalActiveQuestions;
   const motiv = document.getElementById('resMotivation');
   if(pct >= 0.75) {
-    motiv.innerText = `અદ્ભુત! તમે માત્ર ${timeStr}માં ટેસ્ટ પૂરી કરી. તમારી તૈયારી ખૂબ જ મજબૂત છે! તમે નિશ્ચિતપણે સફળ થશો! 🏆`;
+    motiv.innerText = `અદ્ભુત! તમે ${totalActiveQuestions} માંથી ${finalScore} માર્કસ મેળવ્યા છે અને આ ટેસ્ટ ${timeStr} માં પૂરી કરી છે. તમારી તૈયારી ખૂબ જ મજબૂત છે! 🏆`;
     motiv.style.color = "#166534";
   } else if(pct >= 0.50) {
-    motiv.innerText = `ખૂબ સરસ પ્રયાસ! તમે ${timeStr}નો સમય લીધો. થોડી વધુ મહેનત તમને લક્ષ્ય સુધી પહોંચાડશે. 🌟`;
+    motiv.innerText = `ખૂબ સરસ પ્રયાસ! તમે ${totalActiveQuestions} માંથી ${finalScore} માર્કસ મેળવ્યા છે. તમે ${timeStr}નો સમય લીધો. થોડી વધુ મહેનત તમને લક્ષ્ય સુધી પહોંચાડશે. 🌟`;
     motiv.style.color = "var(--navy)";
   } else {
-    motiv.innerText = `તમે ${timeStr}નો સમય લીધો. નિરાશ ન થશો! ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો. સતત મહેનત જ સફળતાની ચાવી છે. 💪`;
+    motiv.innerText = `તમે ${timeStr}નો સમય લઈને ${finalScore} માર્કસ મેળવ્યા છે. નિરાશ ન થશો! ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો. સતત મહેનત જ સફળતાની ચાવી છે. 💪`;
     motiv.style.color = "var(--red)";
   }
 
