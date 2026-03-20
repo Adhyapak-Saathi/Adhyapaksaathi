@@ -14,70 +14,6 @@
       -ms-user-select: none; /* IE 10 and IE 11 */
       user-select: none; /* Standard syntax */
     }
-
-    /* PDF VIEWER MODAL */
-    .pdf-modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .pdf-modal-overlay.active { display: flex; }
-    .pdf-modal-box {
-      background: #fff;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 900px;
-      height: 90vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    }
-    .pdf-modal-header {
-      background: var(--navy);
-      color: #fff;
-      padding: 14px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 3px solid var(--gold);
-      flex-shrink: 0;
-    }
-    .pdf-modal-title {
-      font-family: var(--font-serif);
-      font-size: 1rem;
-      font-weight: 700;
-    }
-    .pdf-modal-close {
-      background: var(--gold);
-      color: var(--navy-dark);
-      border: none;
-      border-radius: 6px;
-      padding: 6px 16px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    .pdf-modal-close:hover { background: var(--gold-light); }
-    .pdf-modal-frame {
-      flex-grow: 1;
-      border: none;
-      width: 100%;
-    }
-    .pdf-notice {
-      background: #fff8e1;
-      border-top: 1px solid #ffe082;
-      padding: 8px 20px;
-      font-size: 0.78rem;
-      color: #7c5c00;
-      text-align: center;
-      flex-shrink: 0;
-    }
   </style>
 </head>
 <body>
@@ -85,7 +21,7 @@
 <div class="topbar">
   <div class="topbar-inner">
     <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
-    <span>✉️ <a href="/cdn-cgi/l/email-protection#d7bdb6b9bebdb6b9bee3e4e697aeb6bfb8b8f9b4b8ba"><span class="__cf_email__" data-cfemail="7319121d1a19121d1a474042330a121b1c1c5d101c1e">[email&#160;protected]</span></a></span>
+    <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
   </div>
 </div>
 
@@ -153,8 +89,7 @@
           <span class="card-tag">TAT (S) & (HS)</span>
           <div class="card-title">TAT 2025-26 Official Syllabus</div>
           <div class="card-text" style="flex-grow:1;">Detailed breakdown of the Paper 1 & Paper 2 syllabus for Secondary and Higher Secondary exams by GSSB.</div>
-          <button onclick="openPdfModal('TAT S -SYLLABUS.pdf','TAT (Secondary) Syllabus 2025-26')" class="btn btn-navy btn-sm btn-full" style="justify-content:center; margin-bottom:8px;">👁️ TAT (S) Syllabus જુઓ</button>
-          <button onclick="openPdfModal('TAT HS- SYLLABUS.pdf','TAT (Higher Secondary) Syllabus 2025-26')" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">👁️ TAT (HS) Syllabus જુઓ</button>
+          <a href="tat-syllabus.pdf" target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">📥 View & Download</a>
         </div>
       </div>
 
@@ -284,18 +219,6 @@
   </div>
 </section>
 
-<!-- PDF VIEWER MODAL -->
-<div class="pdf-modal-overlay" id="pdfModal">
-  <div class="pdf-modal-box">
-    <div class="pdf-modal-header">
-      <span class="pdf-modal-title" id="pdfModalTitle">📄 Syllabus</span>
-      <button class="pdf-modal-close" onclick="closePdfModal()">✕ બંધ કરો</button>
-    </div>
-    <iframe class="pdf-modal-frame" id="pdfModalFrame" src="" allowfullscreen></iframe>
-    <div class="pdf-notice">⚠️ આ document માત્ર જોવા માટે છે. Download અથવા Print ઉપલબ્ધ નથી.</div>
-  </div>
-</div>
-
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -305,15 +228,14 @@
     </div>
     <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="test.html">Practice Test</a></li><li><a href="news.html">Exam News</a></li><li><a href="materials.html">Study Materials</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     <div><div class="footer-col-title">Examinations</div><ul class="footer-links"><li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li><li><a href="news.html">TET I &amp; TET II</a></li><li><a href="news.html">UGC NET</a></li><li><a href="news.html">GSET</a></li><li><a href="news.html">CTET</a></li></ul></div>
-    <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="/cdn-cgi/l/email-protection#bad0dbd4d3d0dbd4d38e898bfac3dbd2d5d594d9d5d7"><span class="__cf_email__" data-cfemail="97fdf6f9fefdf6f9fea3a4a6d7eef6fff8f8b9f4f8fa">[email&#160;protected]</span></a></li><li><a href="contact.html">Send a Message</a></li><li><a href="contact.html">Suggestion Box</a></li></ul></div>
+    <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li><li><a href="contact.html">Send a Message</a></li><li><a href="contact.html">Suggestion Box</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
-    <p>Hosted on <span>GitHub Pages</span></p>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // --- SECURITY FEATURES ---
 document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 document.onkeydown = function(e) {
@@ -322,25 +244,6 @@ document.onkeydown = function(e) {
   if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
 };
 document.addEventListener('copy', function(e) { e.preventDefault(); });
-
-// --- PDF VIEWER MODAL ---
-function openPdfModal(filename, title) {
-  var baseUrl = 'https://adhyapaksaathi.in/';
-  var encoded = encodeURIComponent(baseUrl + filename);
-  var viewerUrl = 'https://docs.google.com/viewer?url=' + encoded + '&embedded=true';
-  document.getElementById('pdfModalTitle').innerText = '📄 ' + title;
-  document.getElementById('pdfModalFrame').src = viewerUrl;
-  document.getElementById('pdfModal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-function closePdfModal() {
-  document.getElementById('pdfModal').classList.remove('active');
-  document.getElementById('pdfModalFrame').src = '';
-  document.body.style.overflow = '';
-}
-document.getElementById('pdfModal').addEventListener('click', function(e) {
-  if(e.target === this) closePdfModal();
-});
 
 // --- REGULAR SCRIPTS ---
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
