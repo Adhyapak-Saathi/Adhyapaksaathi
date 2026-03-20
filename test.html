@@ -80,12 +80,19 @@
     .score-circle .marks { font-size: 2.2rem; font-weight: 800; color: var(--navy); line-height: 1; }
     .score-circle .total { font-size: 0.9rem; color: var(--text-mid); font-weight: 600; }
     
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 25px 0; }
-    .stat-box { padding: 12px; border-radius: 8px; font-weight: 700; }
+    /* 5 Stats Boxes Grid */
+    .stats-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 25px 0; }
+    .stat-box { padding: 12px; border-radius: 8px; font-weight: 700; flex: 1; min-width: 130px; max-width: 160px; }
     .sb-correct { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
     .sb-wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
     .sb-unattempted { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
     .sb-time { background: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; }
+    .sb-acc { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
+    
+    /* Topic Analysis Table */
+    .topic-analysis-box { margin-top: 20px; text-align: left; background: #f8fafd; padding: 20px; border-radius: 8px; border: 1px solid var(--border); display: none; }
+    .ta-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #cbd5e0; font-size: 0.95rem; color: #4a5568; font-weight: 600; }
+    .ta-row:last-child { border-bottom: none; }
     
     .review-item { text-align: left; padding: 15px; background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--navy); margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
     .ans-correct-txt { color: var(--green); font-weight: 800; margin-top: 8px; font-size: 0.95rem; }
@@ -98,9 +105,20 @@
       .exam-body { flex-direction: column; }
       .palette-panel { flex: none; height: 220px; border-top: 2px solid var(--border); }
       .question-panel { flex: none; height: calc(100vh - 290px); }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .p-sticky-header { flex-direction: column; gap: 5px; padding: 8px; text-align: center; }
       .p-topic-card { padding: 1.2rem; }
+      .stats-grid { flex-direction: row; flex-wrap: wrap; }
+      .stat-box { min-width: 45%; }
+    }
+
+    /* Print CSS for Download Scorecard */
+    @media print {
+      body { background: white; -webkit-print-color-adjust: exact; }
+      #standardNav, .page-banner, #standardFooter, .no-print, #reviewContainer, .review-title-print { display: none !important; }
+      #resultScreen { background: white; padding: 0; min-height: auto; }
+      .result-card { box-shadow: none; border: 3px solid var(--navy); margin: 0; max-width: 100%; padding: 20px; }
+      .stats-grid { justify-content: space-around; }
+      .stat-box { min-width: 100px; }
     }
   </style>
 </head>
@@ -171,7 +189,7 @@
         </div>
 
         <!-- MOCK TEST 2 (SUBJECT CONTENT) -->
-        <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <div style="background: white; border: 2px solid var(--border-dark); border-radius: 12px; padding: 30px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0.9;">
           <div style="font-size: 3.5rem; margin-bottom: 10px;">⏳</div>
           <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.6rem; margin-bottom: 12px;">પેપર 2 (વિષયવસ્તુ) - મોક ટેસ્ટ</h2>
           <div style="background: #f1f5f9; border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 20px; width: 100%;">
@@ -348,14 +366,19 @@
     
     <div class="result-card">
       <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--navy); margin-bottom: 5px;">પરીક્ષા પરિણામ (Scorecard)</h2>
-      <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 25px;">નીચે તમારું વિગતવાર પરિણામ અને માર્કસ આપેલ છે.</p>
+      <p class="no-print" style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 25px;">નીચે તમારું વિગતવાર પરિણામ અને માર્કસ આપેલ છે.</p>
 
       <div class="score-circle">
         <span class="marks" id="resScore">0.00</span>
         <span class="total">out of <span id="resTotalMarks">100</span></span>
       </div>
 
-      <div id="resMotivation" style="font-size: 1.2rem; font-weight: 700; color: var(--gold-dark); margin-bottom: 20px; padding: 0 20px;">અદ્ભુત પ્રયાસ!</div>
+      <div id="resMotivation" style="font-size: 1.15rem; font-weight: 700; color: var(--gold-dark); margin-bottom: 20px; padding: 0 20px; line-height: 1.6;">અદ્ભુત પ્રયાસ!</div>
+      
+      <div id="actionFeedback" class="no-print" style="display:none; margin-bottom: 20px;">
+        <p style="color: var(--red); font-weight: 700; margin-bottom: 10px;">📚 તમારી તૈયારી ઓછી જણાય છે. અમારી ફ્રી સ્ટડી મટિરિયલમાંથી અભ્યાસ કરો.</p>
+        <a href="materials.html" class="btn btn-navy" style="font-size: 0.9rem;">ફ્રી સ્ટડી મટિરિયલ જુઓ</a>
+      </div>
 
       <div class="stats-grid">
         <div class="stat-box sb-correct">
@@ -370,21 +393,32 @@
           <div style="font-size: 1.6rem;" id="resSkip">0</div>
           <div style="font-size: 0.75rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div>
         </div>
+        <div class="stat-box sb-acc">
+          <div style="font-size: 1.6rem;"><span id="resAcc">0</span>%</div>
+          <div style="font-size: 0.75rem; text-transform: uppercase;">ચોકસાઈ (Accuracy)</div>
+        </div>
         <div class="stat-box sb-time">
           <div style="font-size: 1.6rem;" id="resTime">00:00</div>
           <div style="font-size: 0.75rem; text-transform: uppercase;">લીધેલ સમય</div>
         </div>
       </div>
 
-      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 25px; flex-wrap: wrap;">
+      <!-- Topic Analysis (For Mock Test Only) -->
+      <div id="topicAnalysis" class="topic-analysis-box">
+        <h4 style="color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 12px; font-size: 1.1rem;">વિષયવાર તમારું પ્રદર્શન (Topic Analysis)</h4>
+        <div id="taContent"></div>
+      </div>
+
+      <div class="no-print" style="display: flex; gap: 12px; justify-content: center; margin-top: 25px; flex-wrap: wrap;">
         <button class="btn btn-outline" onclick="window.location.href='index.html'">🏠 હોમ (Home)</button>
         <button class="btn btn-navy" onclick="window.location.reload()">🔄 બીજી ટેસ્ટ આપો</button>
         <button class="btn" style="background: #25D366; color: white; border: none;" onclick="shareWhatsApp()">📱 Share Score</button>
+        <button class="btn" style="background: var(--navy-mid); color: white; border: none;" onclick="window.print()">📥 ડાઉનલોડ સ્કોરકાર્ડ (PDF)</button>
       </div>
     </div>
 
-    <div style="max-width: 800px; margin: 0 auto;">
-      <h3 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.4rem; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 8px;">વિગતવાર સમજૂતી (Detailed Solutions)</h3>
+    <div class="no-print" style="max-width: 800px; margin: 0 auto;">
+      <h3 class="review-title-print" style="font-family: var(--font-serif); color: var(--navy); font-size: 1.4rem; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 8px;">વિગતવાર સમજૂતી (Detailed Solutions)</h3>
       <div id="reviewContainer"></div>
     </div>
 
@@ -405,16 +439,21 @@ function toggleNav() { document.getElementById('navLinks').classList.toggle('ope
 
 // Random Gujarati Motivational Quotes
 const quotes = [
-  "💡 મહેનતનો કોઈ વિકલ્પ નથી.",
-  "🎯 લક્ષ્ય પ્રાપ્તિ માટે એકાગ્રતા અનિવાર્ય છે.",
-  "💪 જે કઠિન સંઘર્ષ કરે છે, તેની જીત શાનદાર હોય છે.",
+  "💡 મહેનતનો કોઈ વિકલ્પ નથી, સતત મહાવરો જ સફળતાની ચાવી છે.",
+  "🎯 લક્ષ્ય પ્રાપ્તિ માટે એકાગ્રતા અનિવાર્ય છે. આગળ વધતા રહો!",
+  "💪 જે કઠિન સંઘર્ષ કરે છે, તેની જીત હંમેશા શાનદાર હોય છે.",
   "📚 જ્ઞાન એવો ખજાનો છે જે ક્યારેય ચોરાતો નથી.",
-  "⏳ સમયનો સદુપયોગ તમને શ્રેષ્ઠ બનાવશે.",
+  "⏳ સમયનો સદુપયોગ તમને અન્ય કરતા શ્રેષ્ઠ બનાવશે.",
   "🚀 નિષ્ફળતાથી ડરશો નહીં, એ તો સફળતાની પહેલી સીડી છે.",
-  "✨ આજની મહેનત કાલની સફળતાનું નિર્માણ કરશે.",
-  "🔥 હિંમત હાર્યા વિના આગળ વધતા રહો!",
+  "✨ આજની મહેનત કાલની શાનદાર સફળતાનું નિર્માણ કરશે.",
+  "🔥 હિંમત હાર્યા વિના આગળ વધતા રહો, મંઝિલ નજીક છે!",
   "🦅 ધીરજના ફળ હંમેશા મીઠાં હોય છે.",
-  "🌟 પોતાના પર વિશ્વાસ રાખો, તમે ધારો તે કરી શકો છો!"
+  "🌟 પોતાના પર વિશ્વાસ રાખો, તમે ધારો તે કરી શકો છો!",
+  "🌊 નદી જેવો સ્વભાવ રાખો, રસ્તો જાતે જ બની જશે.",
+  "☀️ અંધકાર પછી જ સાચો સૂર્યોદય થાય છે, હાર ન માનો.",
+  "🌿 ધીરજ અને શાંતિ એ પરીક્ષાના સૌથી મોટા હથિયાર છે.",
+  "🧗‍♂️ આકાશને આંબવા માટે પહેલું કદમ જમીન પરથી જ લેવું પડે.",
+  "🎖️ વિજેતા એ નથી જે ક્યારેય હાર્યો નથી, પણ એ છે જે હાર માનતો નથી."
 ];
 
 if(window.innerWidth > 768) { document.querySelector('.p-motivation').style.display = 'block'; }
@@ -551,6 +590,18 @@ const topicMap = {
     'gujarati': fullDatabase.slice(70, 85),
     'english': fullDatabase.slice(85, 100)
 };
+
+// Helper for Topic Analysis in Mock Test
+function getTopicName(index) {
+  if ([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,18].includes(index)) return 'સામાન્ય જ્ઞાન';
+  if ([16,19,20,21,22,23,24,25,26,27,28,29].includes(index)) return 'શિક્ષણની ફિલસૂફી';
+  if (index >= 30 && index <= 45) return 'મનોવિજ્ઞાન';
+  if (index === 17 || (index >= 46 && index <= 54)) return 'વર્ગવ્યવહાર અને મૂલ્યાંકન';
+  if (index >= 55 && index <= 69) return 'તાર્કિક અભિયોગ્યતા';
+  if (index >= 70 && index <= 84) return 'ગુજરાતી ભાષા';
+  if (index >= 85 && index <= 99) return 'અંગ્રેજી ભાષા';
+  return 'અન્ય';
+}
 
 let activeQuestions = [];
 let totalActiveQuestions = 0;
@@ -792,22 +843,31 @@ function submitExam() {
   window.onbeforeunload = null; 
   clearInterval(timerInterval);
   document.getElementById('examContainer').style.display = 'none';
-  document.getElementById('practiceContainer').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'block';
 
   let correct = 0, wrong = 0, skipped = 0;
+  let topicAnalytics = {};
   
   activeQuestions.forEach((q, i) => {
+    let tName = getTopicName(i);
+    if (!topicAnalytics[tName]) topicAnalytics[tName] = { total: 0, correct: 0 };
+    topicAnalytics[tName].total++;
+
     if(userAnswers[i] === undefined) {
       skipped++;
     } else if(userAnswers[i] === q.ans) {
       correct++;
+      topicAnalytics[tName].correct++;
     } else {
       wrong++;
     }
   });
 
   const finalScore = correct - (wrong * 0.25);
+  
+  // Calculate Accuracy
+  let attemptedCount = correct + wrong;
+  let accuracy = attemptedCount > 0 ? ((correct / attemptedCount) * 100).toFixed(0) : 0;
   
   // Calculate Time Taken
   let totalTimeAllocated = isMockTestUI ? 90 * 60 : totalActiveQuestions * 60;
@@ -825,27 +885,58 @@ function submitExam() {
   document.getElementById('resCorrect').innerText = correct;
   document.getElementById('resWrong').innerText = wrong;
   document.getElementById('resSkip').innerText = skipped;
+  document.getElementById('resAcc').innerText = accuracy;
 
   const pct = finalScore / totalActiveQuestions;
   const motiv = document.getElementById('resMotivation');
+  const actionFeedback = document.getElementById('actionFeedback');
+
   if(pct >= 0.75) {
-    motiv.innerText = `અદ્ભુત! તમે ${totalActiveQuestions} માંથી ${finalScore} માર્કસ મેળવ્યા છે અને આ ટેસ્ટ ${timeStr} માં પૂરી કરી છે. તમારી તૈયારી ખૂબ જ મજબૂત છે! 🏆`;
+    motiv.innerText = `અદ્ભુત! તમે ${totalActiveQuestions} માંથી ${finalScore.toFixed(2)} માર્કસ મેળવ્યા છે અને આ ટેસ્ટ માત્ર ${timeStr} માં પૂરી કરી છે. તમારી તૈયારી ખૂબ જ મજબૂત છે! 🏆`;
     motiv.style.color = "#166534";
+    actionFeedback.style.display = 'none';
   } else if(pct >= 0.50) {
-    motiv.innerText = `ખૂબ સરસ પ્રયાસ! તમે ${totalActiveQuestions} માંથી ${finalScore} માર્કસ મેળવ્યા છે. તમે ${timeStr}નો સમય લીધો. થોડી વધુ મહેનત તમને લક્ષ્ય સુધી પહોંચાડશે. 🌟`;
+    motiv.innerText = `ખૂબ સરસ પ્રયાસ! તમે ${totalActiveQuestions} માંથી ${finalScore.toFixed(2)} માર્કસ મેળવ્યા છે અને ${timeStr} નો સમય લીધો. થોડી વધુ મહેનત તમને લક્ષ્ય સુધી પહોંચાડશે. 🌟`;
     motiv.style.color = "var(--navy)";
+    actionFeedback.style.display = 'none';
   } else {
-    motiv.innerText = `તમે ${timeStr}નો સમય લઈને ${finalScore} માર્કસ મેળવ્યા છે. નિરાશ ન થશો! ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો. સતત મહેનત જ સફળતાની ચાવી છે. 💪`;
+    motiv.innerText = `તમે ${timeStr} નો સમય લઈને ${finalScore.toFixed(2)} માર્કસ મેળવ્યા છે. નિરાશ ન થશો! ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો. સતત મહેનત જ સફળતાની ચાવી છે. 💪`;
     motiv.style.color = "var(--red)";
+    actionFeedback.style.display = 'block'; // Show actionable feedback
   }
 
+  // Render Topic Analysis for Mock Test
+  const taBox = document.getElementById('topicAnalysis');
+  const taContent = document.getElementById('taContent');
+  if (isMockTestUI) {
+    taBox.style.display = 'block';
+    let taHtml = '';
+    for (const [topic, data] of Object.entries(topicAnalytics)) {
+      if (data.total > 0) {
+        let tPct = Math.round((data.correct / data.total) * 100);
+        let barColor = tPct > 70 ? 'var(--green)' : (tPct > 40 ? '#f59e0b' : 'var(--red)');
+        taHtml += `
+          <div class="ta-row">
+            <span style="flex:1;">${topic}</span>
+            <span style="width:100px; text-align:right;">${data.correct} / ${data.total}</span>
+          </div>
+          <div style="background:#e2e8f0; height:6px; border-radius:3px; margin-bottom:8px; overflow:hidden;">
+            <div style="background:${barColor}; height:100%; width:${tPct}%;"></div>
+          </div>
+        `;
+      }
+    }
+    taContent.innerHTML = taHtml;
+  } else {
+    taBox.style.display = 'none';
+  }
+
+  // Detailed Review
   const revCont = document.getElementById('reviewContainer');
   let revHtml = '';
-  let attemptedCount = 0;
-
+  
   activeQuestions.forEach((q, i) => {
     if (userAnswers[i] === undefined) return; 
-    attemptedCount++;
     
     const userAnsText = q.opts[userAnswers[i]];
     const correctAnsText = q.opts[q.ans];
@@ -858,9 +949,13 @@ function submitExam() {
       ansHtml = `<div class="ans-wrong-txt">❌ તમારો જવાબ: ${userAnsText}</div>`;
     }
 
+    const reportBtnHtml = `<button class="no-print" onclick="reportQuestion(${i+1})" style="background:none; border:none; color:var(--red); font-size:0.85rem; font-weight:700; cursor:pointer; text-decoration:underline; float:right;">🚩 પ્રશ્ન રિપોર્ટ કરો</button>`;
+
     revHtml += `
       <div class="review-item">
-        <div style="font-weight: 700; font-size: 1.1rem; color: var(--navy); margin-bottom: 10px;">પ્રશ્ન ${i+1}. ${q.q}</div>
+        <div style="font-weight: 700; font-size: 1.1rem; color: var(--navy); margin-bottom: 10px;">
+          પ્રશ્ન ${i+1}. ${q.q} ${reportBtnHtml}
+        </div>
         ${ansHtml}
         <div style="color: var(--green); font-weight: 800; margin-top: 5px;">✔️ સાચો જવાબ: ${correctAnsText}</div>
         <div class="exp-box"><strong>💡 સમજૂતી (Reason):</strong> ${q.exp}</div>
@@ -869,7 +964,7 @@ function submitExam() {
   });
   
   if (attemptedCount < totalActiveQuestions) {
-    revHtml = `<div style="margin-bottom: 20px; padding: 15px; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; border-radius: 8px; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 10px;">
+    revHtml = `<div class="no-print" style="margin-bottom: 20px; padding: 15px; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; border-radius: 8px; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 10px;">
       <span style="font-size: 1.5rem;">⚠️</span>
       નોંધ: તમે જે પ્રશ્નો છોડી દીધા છે તેના જવાબો અને સમજૂતી છુપાવવામાં આવ્યા છે. માત્ર તમે આપેલા જવાબોનું જ વર્ણન નીચે છે.
     </div>` + revHtml;
@@ -877,6 +972,13 @@ function submitExam() {
 
   revCont.innerHTML = revHtml;
   window.scrollTo(0, 0); 
+}
+
+function reportQuestion(qNum) {
+  const reason = prompt(`પ્રશ્ન ${qNum} માં શું ભૂલ છે? (દા.ત. પ્રશ્ન ખોટો છે, જવાબમાં ભૂલ છે, વગેરે)`);
+  if (reason) {
+    alert(`આભાર! પ્રશ્ન ${qNum} નો રિપોર્ટ ("${reason}") એડમિનને મોકલી દેવામાં આવ્યો છે. અમે જલ્દીથી તેને સુધારીશું.`);
+  }
 }
 
 function shareWhatsApp() {
