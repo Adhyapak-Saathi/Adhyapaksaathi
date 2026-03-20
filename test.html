@@ -21,13 +21,11 @@
     }
 
     /* ==================================================
-       MOCK TEST UI (TCS iON STYLE)
+       MOCK & PRACTICE TEST SHARED UI
        ================================================== */
     .exam-container { display: flex; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
-    .exam-header { background: var(--navy); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--gold); box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 10; }
-    .exam-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; margin: 0; }
-    .exam-timer { background: #fff; color: var(--red); padding: 5px 15px; border-radius: 4px; font-weight: 800; font-size: 1.1rem; border: 2px solid var(--red); }
     .exam-body { display: flex; flex-grow: 1; overflow: hidden; }
+    
     .question-panel { flex: 7; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: #ffffff; position: relative; }
     .question-header { background: #f8fafd; padding: 10px 25px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 1.05rem; display: flex; justify-content: space-between;}
     .question-content { padding: 20px 25px; overflow-y: auto; flex-grow: 1; }
@@ -38,7 +36,6 @@
     .radio-option.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 1px var(--navy); }
     .radio-option input[type="radio"] { margin-right: 15px; transform: scale(1.3); accent-color: var(--navy); cursor: pointer; }
     
-    .question-footer { background: #f8fafd; padding: 12px 25px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
     .btn-exam { padding: 10px 20px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 0.95rem; }
     .btn-save { background: var(--green); color: white; }
     .btn-save:hover { background: #16a34a; }
@@ -48,6 +45,7 @@
     .btn-clear:hover { background: #cbd5e0; }
     .btn-submit { background: var(--navy); color: var(--gold); border: 2px solid var(--gold); font-size: 1.1rem; padding: 10px 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
     .btn-submit:hover { background: var(--gold); color: var(--navy); }
+    
     .palette-panel { flex: 3; background: #f8fafd; display: flex; flex-direction: column; overflow-y: auto; }
     .palette-header { background: var(--navy); color: #fff; padding: 15px; font-weight: 700; text-align: center; font-size: 0.95rem; }
     .legend-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; border-bottom: 1px solid var(--border); font-size: 0.85rem; font-weight: 600; color: #4a5568; }
@@ -62,7 +60,7 @@
     .palette-btn:hover { opacity: 0.8; transform: scale(1.05); }
 
     /* ==================================================
-       NEW PRACTICE TEST UI
+       PRACTICE CARDS UI
        ================================================== */
     .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 2rem 1.5rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
     .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
@@ -71,7 +69,7 @@
     .btn-p-start { width: 100%; padding: 12px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 1rem; margin-bottom: 0; }
     .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
     
-    /* COMPACT Sticky Header for Practice Test */
+    /* COMPACT Sticky Header */
     .p-sticky-header {
       position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 10px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-radius: 0 0 12px 12px;
     }
@@ -100,8 +98,6 @@
       .exam-body { flex-direction: column; }
       .palette-panel { flex: none; height: 250px; border-top: 2px solid var(--border); }
       .question-panel { flex: none; height: calc(100vh - 330px); }
-      .question-footer { flex-direction: column; align-items: stretch; }
-      .question-footer button { width: 100%; margin-bottom: 8px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .p-sticky-header { flex-direction: column; gap: 8px; padding: 10px; text-align: center; }
       .p-topic-card { padding: 1.5rem; }
@@ -110,7 +106,6 @@
 </head>
 <body>
 
-<!-- STANDARD NAVBAR -->
 <div id="standardNav">
   <div class="topbar">
     <div class="topbar-inner">
@@ -157,10 +152,8 @@
   <section class="section" id="introScreen">
     <div class="wrapper">
       
-      <!-- MOCK TEST BANNERS (2 BOXES) -->
       <div class="grid-2" style="gap: 25px; margin-bottom: 4rem;">
         
-        <!-- MOCK TEST 1 -->
         <div style="background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 35px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center;">
           <div style="font-size: 4rem; margin-bottom: 10px;">🎓</div>
           <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.8rem; margin-bottom: 15px;">પેપર 1 (General) - સંપૂર્ણ મોક ટેસ્ટ</h2>
@@ -175,7 +168,6 @@
           <button class="btn btn-navy" style="font-size: 1.2rem; padding: 14px 40px; border-radius: 50px; width: 100%;" onclick="startExam('mock1')">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
         </div>
 
-        <!-- MOCK TEST 2 -->
         <div style="background: white; border: 2px solid var(--border-dark); border-radius: 12px; padding: 35px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0.9;">
           <div style="font-size: 4rem; margin-bottom: 10px;">⏳</div>
           <h2 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.8rem; margin-bottom: 15px;">પેપર 2 (વિષયવસ્તુ) - સંપૂર્ણ મોક ટેસ્ટ</h2>
@@ -192,17 +184,14 @@
 
       </div>
 
-      <!-- TOPIC-WISE PRACTICE CARDS -->
       <div class="section-header center" style="margin-bottom: 3rem;">
         <div class="section-label">Topic-wise Practice</div>
         <h2 class="section-title">વિષયવાર <em>પ્રેક્ટિસ ટેસ્ટ</em></h2>
         <p class="section-desc">"સફળતાનો કોઈ શોર્ટકટ નથી, સખત પરિશ્રમ એ જ એકમાત્ર વિકલ્પ છે." તમારી મનપસંદ કેટેગરી પસંદ કરો અને તૈયારીને મજબૂત બનાવો!</p>
       </div>
 
-      <!-- 6 Main Boxes + 1 Extra (GK) -->
       <div class="grid-4" style="gap: 2rem; max-width: 1100px; margin: 0 auto;">
         
-        <!-- 1. ફિલસૂફી -->
         <div class="p-topic-card">
           <div>
             <div class="p-topic-icon">🦉</div>
@@ -211,7 +200,6 @@
           <button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી')">ટેસ્ટ શરૂ કરો (12 Qs)</button>
         </div>
 
-        <!-- 2. મનોવિજ્ઞાન -->
         <div class="p-topic-card">
           <div>
             <div class="p-topic-icon">🧠</div>
@@ -220,7 +208,6 @@
           <button class="btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન')">ટેસ્ટ શરૂ કરો (16 Qs)</button>
         </div>
 
-        <!-- 3. વર્ગવ્યવહાર -->
         <div class="p-topic-card">
           <div>
             <div class="p-topic-icon">📊</div>
@@ -229,7 +216,6 @@
           <button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">ટેસ્ટ શરૂ કરો (9 Qs)</button>
         </div>
 
-        <!-- 4. તાર્કિક -->
         <div class="p-topic-card">
           <div>
             <div class="p-topic-icon">🧩</div>
@@ -238,7 +224,6 @@
           <button class="btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
         </div>
 
-        <!-- 5. ગુજરાતી -->
         <div class="p-topic-card">
           <div>
             <div class="p-topic-icon">🖋️</div>
@@ -247,7 +232,6 @@
           <button class="btn-p-start" onclick="startPracticeTopic('gujarati', 'ગુજરાતી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
         </div>
 
-        <!-- 6. અંગ્રેજી -->
         <div class="p-topic-card">
           <div>
             <div class="p-topic-icon">🔠</div>
@@ -256,7 +240,6 @@
           <button class="btn-p-start" onclick="startPracticeTopic('english', 'અંગ્રેજી ભાષા')">ટેસ્ટ શરૂ કરો (15 Qs)</button>
         </div>
         
-        <!-- 7. GK -->
         <div class="p-topic-card" style="grid-column: span 2;">
           <div>
             <div class="p-topic-icon">🌐</div>
@@ -283,17 +266,13 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
-      <p>Hosted on <span>GitHub Pages</span></p>
+      <p>Hosted on <span>Netlify</span></p>
     </div>
   </footer>
 </div>
 
-<!-- ==================================================
-     TEST INTERFACE (SHARED BY MOCK & PRACTICE)
-     ================================================== -->
 <div class="exam-container" id="examContainer" style="display: none;">
   
-  <!-- DYNAMIC STICKY HEADER -->
   <div class="p-sticky-header" id="testStickyHeader">
     <div style="font-weight:800; font-size:1.15rem; color:var(--navy); display: flex; align-items: center; gap: 8px;">
       <span id="headerIcon">🎓</span> <span id="pTopicName">TAT - પેપર 1 મોક ટેસ્ટ</span>
@@ -311,7 +290,6 @@
   <div class="exam-body" id="mainTestBody">
     <div class="question-panel" style="border-right: none; max-width: 900px; margin: 0 auto; width: 100%; padding: 0 15px;">
       
-      <!-- Progress Bar (Only for practice) -->
       <div id="pProgressBarContainer" style="background:#e2e8f0; height:8px; border-radius:4px; margin-bottom:1rem; overflow:hidden; display:none;">
         <div id="pProgressBar" style="background:linear-gradient(90deg, var(--navy-mid) 0%, var(--navy) 100%); height:100%; width:0%; transition:width 0.4s ease;"></div>
       </div>
@@ -326,15 +304,13 @@
         <div id="optionsContainer"></div>
       </div>
 
-      <!-- Practice Footer -->
       <div id="practiceFooter" style="padding: 15px 20px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: none; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
         <button id="pPrevBtn" class="btn btn-outline" style="padding:10px 20px; border-radius:50px;" onclick="prevPQuestion()">⬅️ પાછળ</button>
-        <div style="font-size:0.95rem; font-weight:700; color:var(--text-muted); text-align: center;" class="p-motivation" id="randomQuote">💡 સતત મહાવરો જ સફળતાની ચાવી છે!</div>
+        <div style="font-size:0.95rem; font-weight:700; color:var(--text-muted); text-align: center; display:none;" class="p-motivation" id="randomQuote">💡 સતત મહાવરો જ સફળતાની ચાવી છે!</div>
         <button id="pNextBtn" class="btn btn-navy" style="padding:10px 20px; border-radius:50px;" onclick="nextPQuestion()">આગળ ➡️</button>
         <button id="pSubmitBtn" class="btn btn-gold" style="display:none; padding:10px 20px; border-radius:50px; color:var(--navy-dark);" onclick="submitExamConfirmation()">ટેસ્ટ પૂરી કરો 🏆</button>
       </div>
 
-      <!-- Mock Footer -->
       <div id="mockFooter" style="padding: 15px 20px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 2rem;">
         <div style="display: flex; gap: 10px;">
           <button class="btn-exam btn-clear" onclick="clearResponse()">Clear Response</button>
@@ -347,7 +323,6 @@
       
     </div>
     
-    <!-- Mock Palette -->
     <div class="palette-panel" id="mockPalette" style="border-left: 1px solid var(--border);">
       <div class="palette-header" id="paletteHeaderText">Question Palette</div>
       <div class="legend-box">
@@ -364,9 +339,6 @@
   </div>
 </div>
 
-<!-- ==================================================
-     RESULT SCREEN
-     ================================================== -->
 <div id="resultScreen" style="display: none; background: #f4f7fb; min-height: 100vh; padding: 20px;">
   <div class="wrapper">
     
@@ -436,8 +408,13 @@ const quotes = [
   "⏳ સમયનો સદુપયોગ તમને શ્રેષ્ઠ બનાવશે.",
   "🚀 નિષ્ફળતા એ સફળતાની પ્રથમ સીડી છે.",
   "✨ આજની મહેનત કાલનું ઉજ્જવળ ભવિષ્ય છે.",
-  "🔥 હિંમત હાર્યા વિના આગળ વધતા રહો!"
+  "🔥 હિંમત હાર્યા વિના આગળ વધતા રહો!",
+  "🦅 ધીરજના ફળ હંમેશા મીઠાં હોય છે.",
+  "🌟 જે મહેનત કરે છે, તેને નસીબ પણ સાથ આપે છે."
 ];
+
+// Show motivation text on larger screens
+if(window.innerWidth > 768) { document.querySelector('.p-motivation').style.display = 'block'; }
 
 /* =========================================
   100 QUESTIONS GENERAL PAPER 1 (FROM PDF)
@@ -591,7 +568,8 @@ function startExam(mode) {
   totalActiveQuestions = 100;
   timeRemaining = 90 * 60; // 90 mins
   
-  document.getElementById('paletteHeaderText').innerText = "પેપર 1 - 100 પ્રશ્નો";
+  document.getElementById('pTopicName').innerText = "TAT - પેપર 1 મોક ટેસ્ટ";
+  document.getElementById('headerIcon').innerText = "🎓";
   document.getElementById('resTotalMarks').innerText = "100";
   
   window.onbeforeunload = function() { return "પરીક્ષા ચાલુ છે. જો તમે પેજ રીફ્રેશ કરશો તો તમારો ડેટા ભૂંસાઈ જશે!"; };
@@ -604,7 +582,12 @@ function startExam(mode) {
   document.getElementById('introScreen').classList.add('hide-during-exam');
   document.getElementById('standardFooter').classList.add('hide-during-exam');
   
-  document.getElementById('practiceContainer').style.display = 'none';
+  // Setup UI for Mock
+  document.getElementById('practiceFooter').style.display = 'none';
+  document.getElementById('pProgressBarContainer').style.display = 'none';
+  document.getElementById('mockFooter').style.display = 'flex';
+  document.getElementById('mockPalette').style.display = 'block';
+
   document.getElementById('examContainer').style.display = 'flex';
   
   startTimer();
@@ -615,12 +598,13 @@ function startExam(mode) {
 function startPracticeTopic(topicCode, topicName) {
   isMockTestUI = false;
   
-  // Load questions and shuffle them so they appear in random order but never repeat
+  // Load questions and shuffle them
   activeQuestions = [...topicMap[topicCode]].sort(() => Math.random() - 0.5);
   totalActiveQuestions = activeQuestions.length;
   timeRemaining = totalActiveQuestions * 60; // 1 min per question
   
   document.getElementById('pTopicName').innerText = topicName;
+  document.getElementById('headerIcon').innerText = "📝";
   document.getElementById('resTotalMarks').innerText = totalActiveQuestions;
 
   userAnswers = {};
@@ -631,8 +615,13 @@ function startPracticeTopic(topicCode, topicName) {
   document.getElementById('introScreen').classList.add('hide-during-exam');
   document.getElementById('standardFooter').classList.add('hide-during-exam');
   
-  document.getElementById('examContainer').style.display = 'none';
-  document.getElementById('practiceContainer').style.display = 'block';
+  // Setup UI for Practice
+  document.getElementById('mockFooter').style.display = 'none';
+  document.getElementById('mockPalette').style.display = 'none';
+  document.getElementById('practiceFooter').style.display = 'flex';
+  document.getElementById('pProgressBarContainer').style.display = 'block';
+
+  document.getElementById('examContainer').style.display = 'flex';
 
   startTimer();
   qStatus[0] = 'not_answered'; 
@@ -665,17 +654,16 @@ function updateTimerDisplay() {
   const s = (timeRemaining % 60).toString().padStart(2, '0');
   
   if(isMockTestUI) {
-      document.getElementById('examTimer').innerText = `Time Left: ${h}:${m}:${s}`;
-      if(timeRemaining < 300) { 
-        document.getElementById('examTimer').style.background = 'var(--red)';
-        document.getElementById('examTimer').style.color = '#fff';
-      }
+      document.getElementById('pTimer').innerText = `${h}:${m}:${s}`;
   } else {
       document.getElementById('pTimer').innerText = `${m}:${s}`;
-      if(timeRemaining < 60) { 
-        document.getElementById('pTimer').style.color = 'var(--red)';
-        document.getElementById('pTimer').parentElement.style.borderColor = 'var(--red)';
-      }
+  }
+
+  // Red color warning if less than 5 mins (mock) or 1 min (practice)
+  if((isMockTestUI && timeRemaining < 300) || (!isMockTestUI && timeRemaining < 60)) {
+      document.getElementById('pTimer').parentElement.style.background = '#fee2e2';
+      document.getElementById('pTimer').parentElement.style.borderColor = '#ef4444';
+      document.getElementById('pTimer').style.color = '#b91c1c';
   }
 }
 
@@ -691,43 +679,28 @@ function loadQuestion(index) {
   const randomQ = quotes[Math.floor(Math.random() * quotes.length)];
   document.getElementById('randomQuote').innerText = randomQ;
 
+  document.getElementById('lblQNum').innerText = `પ્રશ્ન ક્રમાંક: ${index + 1}`;
+  document.getElementById('lblQText').innerText = q.q; 
+  
+  // Use radio-buttons for BOTH Mock and Practice to ensure robust clicking
+  const optionsHtml = q.opts.map((opt, i) => {
+    const isChecked = userAnswers[index] === i;
+    return `
+      <label class="radio-option ${isChecked ? 'selected' : ''}">
+        <input type="radio" name="optGroup" value="${i}" ${isChecked ? 'checked' : ''} onchange="selectOption(${i})">
+        <span>${opt}</span>
+      </label>
+    `;
+  }).join('');
+  document.getElementById('optionsContainer').innerHTML = optionsHtml;
+
   if (isMockTestUI) {
-      document.getElementById('lblQNum').innerText = `પ્રશ્ન ક્રમાંક: ${index + 1}`;
-      document.getElementById('lblQText').innerText = q.q; 
-      
-      const optionsHtml = q.opts.map((opt, i) => {
-        const isChecked = userAnswers[index] === i;
-        return `
-          <label class="radio-option ${isChecked ? 'selected' : ''}">
-            <input type="radio" name="optGroup" value="${i}" ${isChecked ? 'checked' : ''} onchange="selectOption(${i})">
-            <span>${opt}</span>
-          </label>
-        `;
-      }).join('');
-      document.getElementById('optionsContainer').innerHTML = optionsHtml;
       renderPalette(); 
   } else {
-      // PRACTICE UI
-      document.getElementById('headerIcon').innerText = "પ્રશ્ન " + (index + 1) + "/" + totalActiveQuestions;
       document.getElementById('pAttempted').innerText = Object.keys(userAnswers).length;
       
       let progress = ((index + 1) / totalActiveQuestions) * 100;
       document.getElementById('pProgressBar').style.width = progress + "%";
-
-      document.getElementById('lblQNum').innerText = `પ્રશ્ન ક્રમાંક: ${index + 1}`;
-      document.getElementById('lblQText').innerText = q.q; 
-      
-      // Reverted to reliable radio-buttons for Practice UI to fix visibility issue
-      const optionsHtml = q.opts.map((opt, i) => {
-        const isChecked = userAnswers[index] === i;
-        return `
-          <label class="radio-option ${isChecked ? 'selected' : ''}">
-            <input type="radio" name="optGroup" value="${i}" ${isChecked ? 'checked' : ''} onchange="selectOption(${i})">
-            <span>${opt}</span>
-          </label>
-        `;
-      }).join('');
-      document.getElementById('optionsContainer').innerHTML = optionsHtml;
 
       document.getElementById('pPrevBtn').style.visibility = index === 0 ? 'hidden' : 'visible';
       if(index === totalActiveQuestions - 1) {
@@ -816,7 +789,6 @@ function submitExam() {
   window.onbeforeunload = null; 
   clearInterval(timerInterval);
   document.getElementById('examContainer').style.display = 'none';
-  document.getElementById('practiceContainer').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'block';
 
   let correct = 0, wrong = 0, skipped = 0;
