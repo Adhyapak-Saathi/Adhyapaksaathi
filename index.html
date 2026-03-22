@@ -383,5 +383,34 @@ const db = firebase.firestore();
     <button onclick="login()" style="width:100%;">Login</button>
   </div>
 </div>
+  <script>
+function openAuth(){
+  document.getElementById('authModal').style.display = 'flex';
+}
+
+function signup(){
+  auth.createUserWithEmailAndPassword(
+    document.getElementById('email').value,
+    document.getElementById('password').value
+  ).then(()=>{
+    alert("Signup Success");
+    document.getElementById('authModal').style.display='none';
+  }).catch(err=>{
+    alert(err.message);
+  });
+}
+
+function login(){
+  auth.signInWithEmailAndPassword(
+    document.getElementById('email').value,
+    document.getElementById('password').value
+  ).then(()=>{
+    alert("Login Success");
+    document.getElementById('authModal').style.display='none';
+  }).catch(err=>{
+    alert(err.message);
+  });
+}
+</script>
 </body>
 </html>
