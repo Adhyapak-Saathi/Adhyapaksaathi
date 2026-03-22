@@ -16,12 +16,15 @@
     .nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
     .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; }
-    .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 5px 10px; transition: 0.3s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+    .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 5px 10px; transition: 0.3s; border-bottom: 2px solid transparent; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); border-bottom-color: var(--gold-light); background: rgba(255,255,255,0.06); border-radius: var(--radius); }
+    
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
 
     /* MOCK TEST CARDS */
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
-    .test-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+    .test-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; box-shadow: var(--shadow-md); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
     .premium-badge { position: absolute; top: 15px; right: -35px; background: var(--red); color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px; }
 
     /* OFFER BANNER */
@@ -59,6 +62,11 @@
       .exam-body { flex-direction: column; }
       .palette-panel { flex: none; height: 250px; border-left: none; border-top: 1px solid var(--border); }
       .palette-grid { grid-template-columns: repeat(6, 1fr); }
+      
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--navy); padding: 10px 0; z-index: 999; }
+      .nav-links.open { display: flex; }
+      .nav-links a { width: 100%; border-radius: 0; padding: 12px 20px; }
+      .hamburger { display: flex; }
     }
   </style>
 </head>
@@ -92,16 +100,32 @@
 <nav id="standardNav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <span class="site-name">Adhyapak Saathi</span>
+      <div class="nav-logo-emblem">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="18" width="22" height="3" rx="1" fill="#1d3461"/>
+          <rect x="7" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
+          <rect x="18" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
+          <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
+        </svg>
+      </div>
+      <div class="nav-logo-text">
+        <span class="site-name">Adhyapak Saathi</span>
+      </div>
     </a>
-    <ul class="nav-links">
+    
+    <!-- STANDARD NAV LINKS (Same color, font, size as all others) -->
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="test.html">Practice Test</a></li>
-      <li><a href="mocktest.html" class="active" style="color: var(--gold-light); font-weight: bold;">Mock Test 🚀</a></li>
+      <li><a href="mocktest.html" class="active">Mock Test</a></li>
       <li><a href="news.html">Exam News</a></li>
       <li><a href="materials.html">Study Materials</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
+    
+    <div class="hamburger" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
 
@@ -123,21 +147,36 @@
       </p>
     </div>
 
-    <!-- MOCK TESTS -->
+    <!-- MOCK TESTS: Perfect Replica of the Screenshot -->
     <div class="grid-2">
+      <!-- PAPER 1 BOX -->
       <div class="test-card">
         <div class="premium-badge">PREMIUM</div>
-        <div style="font-size: 3rem; margin-bottom: 10px;">🎓</div>
-        <h3 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.6rem;">પેપર 1 (General) - મોક ટેસ્ટ</h3>
-        <p style="margin: 15px 0; color: var(--text-mid); font-weight: 600;">૧૦૦ પ્રીમિયમ પ્રશ્નો • ૯૦ મિનિટ • -૦.૨૫ નેગેટિવ</p>
-        <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px 35px;" onclick="openLogin()">ટેસ્ટ શરૂ કરો 🚀</button>
+        <div style="font-size: 3.5rem; margin-bottom: 10px;">🎓</div>
+        <h3 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.6rem; margin-bottom: 10px;">પેપર 1 (General) - મોક ટેસ્ટ</h3>
+        
+        <div style="margin-bottom: auto;">
+            <p style="margin: 15px 0; color: var(--text-mid); font-weight: 600;">૧૦૦ પ્રીમિયમ પ્રશ્નો • ૯૦ મિનિટ • -૦.૨૫ નેગેટિવ</p>
+            
+            <!-- Green Highlighted Box -->
+            <div style="background: #eaf5ef; border: 1px solid #bbf7d0; padding: 12px; border-radius: 8px; margin-bottom: 25px; font-size: 0.95rem; color: var(--green); font-weight: 800;">
+              TCS/NTA નવી પરીક્ષા પદ્ધતિ મુજબ
+            </div>
+        </div>
+
+        <button class="btn btn-navy" style="font-size: 1.1rem; padding: 14px 35px; width: 100%; border-radius: 50px;" onclick="openLogin()">ટેસ્ટ શરૂ કરો 🚀</button>
       </div>
       
+      <!-- PAPER 2 BOX -->
       <div class="test-card" style="opacity: 0.8; border-color: #cbd5e0; background: #f8fafd;">
-        <div style="font-size: 3rem; margin-bottom: 10px; filter: grayscale(1);">⏳</div>
-        <h3 style="font-family: var(--font-serif); color: #64748b; font-size: 1.6rem;">પેપર 2 (વિષયવસ્તુ)</h3>
-        <p style="margin: 15px 0; color: #94a3b8; font-weight: 600;">આ પેપરમાં પ્રશ્નો ઉમેરવાનું કાર્ય ચાલુ છે. ટૂંક સમયમાં જ આ ટેસ્ટ ઉપલબ્ધ થશે!</p>
-        <button class="btn btn-outline" style="border-color: #cbd5e0; color: #94a3b8; font-size: 1.1rem; padding: 12px 35px;" disabled>Coming Soon 🕒</button>
+        <div style="font-size: 3.5rem; margin-bottom: 10px; filter: grayscale(1);">⏳</div>
+        <h3 style="font-family: var(--font-serif); color: #64748b; font-size: 1.6rem; margin-bottom: 10px;">પેપર 2 (વિષયવસ્તુ)</h3>
+        
+        <div style="margin-bottom: auto;">
+            <p style="margin: 15px 0; color: #94a3b8; font-weight: 600; line-height: 1.6;">આ પેપરમાં પ્રશ્નો ઉમેરવાનું કાર્ય ચાલુ છે.<br>ટૂંક સમયમાં જ આ ટેસ્ટ ઉપલબ્ધ થશે!</p>
+        </div>
+
+        <button class="btn btn-outline" style="border-color: #cbd5e0; color: #94a3b8; font-size: 1.1rem; padding: 14px 35px; width: 100%; border-radius: 50px; font-weight: bold;" disabled>Coming Soon 🕒</button>
       </div>
     </div>
   </div>
@@ -191,6 +230,10 @@
   document.addEventListener('contextmenu', e => e.preventDefault());
   window.onbeforeunload = null;
 
+  function toggleMobileNav() { 
+    document.getElementById('navLinks').classList.toggle('open'); 
+  }
+
   // LOGIN LOGIC
   function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
   
@@ -211,9 +254,9 @@
   const mockDB = [
     {q:"સિંધુ નદીમાંથી નીકળનારી સૌથી મોટી ઉપનદી કઈ છે?", opts:["જેલમ","સતલજ","રાવી","ચિનાબ"], ans:3},
     {q:"\"માણસનાં શરીર, મન, આત્મામાં જે કંઈ શ્રેષ્ઠ છે તે બધું બહાર લાવવું એટલે શિક્ષણ.\" - આ વ્યાખ્યા કોણે આપી છે?", opts:["ઋગ્વેદ","કૌટિલ્ય","મહાત્મા ગાંધીજી","સ્વામી વિવેકાનંદ"], ans:2},
-    {q:"\"તંદુરસ્ત શરીરમાં તંદુરસ્ત મનનું ઘડતર કરે તે કેળવણી.\" - આ વ્યાખ્યા કયા પ્રખ્યાત ચિંતકે આપી છે?", opts:["એચ. જી. વેલ્સ","ફોબેલ","રૂસો","એરિસ્ટોટલ"], ans:3},
-    {q:"કેળવણીની સંકલ્પનાની કઈ જોડ સ્વામી વિવેકાનંદ સાથે જોડાયેલ છે?", opts:["મન, શરીર અને આત્મામાં રહેલ ઉત્તમ અંશો બહાર લાવી સંસ્કારવા.","મનુષ્યોની જન્મજાત શક્તિઓનો કુદરતી સુસંવાદી વિકાસ.","માનવીની સંપૂર્ણ વ્યક્તિમત્તાનું સંપૂર્ણ પ્રગટીકરણ એટલે શિક્ષણ.","વ્યક્તિની સુષુપ્ત શક્તિઓ વિકસાવે તે જ શિક્ષણ."], ans:2},
-    {q:"અધ્યાપનનું સૂત્ર 'આગમન પરથી નિગમન તરફ' એટલે શું?", opts:["વ્યાકરણના વિવિધ ઉદાહરણો પરથી નિયમ તારવવો.","નિયમ પરથી ઉદાહરણ તરફ જવું.","સરળથી કઠિન તરફ જવું.","અજ્ઞાતથી જ્ઞાત તરફ જવું."], ans:0}
+    {q:"IIM સુધારા બિલ 2025 હેઠળ ₹550 કરોડની ગ્રાન્ટ સાથે કઈ નવી IIMની સ્થાપના થશે?", opts:["પટના","રાંચી","ગુવાહાટી","નાગપુર"], ans:2},
+    {q:"ગીરના જંગલમાં જંબુર ગામમાં કોની વસાહત છે?", opts:["ઠાકોર","દૂબળા","આહીર","સીદી"], ans:3},
+    {q:"RTE એક્ટ મુજબ, શૈક્ષણિક વર્ષ શરૂ થયા પછી કેટલા મહિના સુધી પ્રવેશ આપી શકાય છે?", opts:["૩ મહિના","૫ મહિના","૬ મહિના","૯ મહિના"], ans:2}
   ];
 
   // 100 પ્રશ્નો પૂરા કરવા માટેની લૂપ (તમે બાકીના પ્રશ્નો નાખશો એટલે આ લૂપ કાઢી નાખજો)
