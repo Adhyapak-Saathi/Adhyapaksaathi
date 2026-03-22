@@ -239,7 +239,24 @@
   
   function verifyKey() {
     const key = document.getElementById('securityKeyInput').value.trim().toUpperCase();
-    if(key === "TAT2026" || key === "RAMNAVAMI100") {
+  function verifyKey() {
+  const user = firebase.auth().currentUser;
+
+  if(!user){
+    alert("Please login first");
+    return;
+  }
+
+  db.collection("payments").doc(user.uid).get()
+  .then(doc => {
+    if(doc.exists && doc.data().paid){
+      document.getElementById('loginModal').style.display = 'none';
+      startExam();
+    } else {
+      alert("❌ Please purchase mock test first");
+    }
+  });
+} {
       document.getElementById('loginModal').style.display = 'none';
       startExam();
     } else {
