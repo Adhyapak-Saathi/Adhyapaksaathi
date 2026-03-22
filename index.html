@@ -372,5 +372,16 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 </script>
 <!-- FIREBASE END -->
+  <!-- LOGIN MODAL -->
+<div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:white; padding:30px; border-radius:10px; width:300px; text-align:center;">
+    <h3>Login / Signup</h3>
+    <input id="email" placeholder="Email" style="width:100%; padding:10px; margin:10px 0;">
+    <input id="password" type="password" placeholder="Password" style="width:100%; padding:10px; margin:10px 0;">
+    
+    <button onclick="signup()" style="width:100%; margin-bottom:10px;">Signup</button>
+    <button onclick="login()" style="width:100%;">Login</button>
+  </div>
+</div>
 </body>
 </html>
