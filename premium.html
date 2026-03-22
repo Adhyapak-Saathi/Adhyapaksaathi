@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Mock Test Offer - Adhyapak Saathi</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            max-width: 600px;
+            width: 90%;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-top: 6px solid #1d3461;
+        }
+        .header {
+            background-color: #1d3461;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .content {
+            padding: 30px;
+            text-align: center;
+        }
+        /* Poster Image Style */
+        .poster-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+        }
+        .promo-box {
+            background-color: #fffdf5;
+            border: 2px dashed #b8860b;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .promo-box h3 {
+            color: #b8860b;
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+        .promo-input {
+            width: 80%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            text-align: center;
+            text-transform: uppercase;
+            outline: none;
+            transition: 0.3s;
+        }
+        .promo-input:focus {
+            border-color: #1d3461;
+        }
+        .btn-apply {
+            background-color: #1d3461;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 80%;
+        }
+        .btn-apply:hover {
+            background-color: #b8860b;
+        }
+        .error-msg {
+            color: #e53e3e;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none;
+        }
+        .success-box {
+            display: none;
+            background-color: #e6f4ea;
+            border: 2px solid #34a853;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .success-box h3 {
+            color: #1e8e3e;
+            margin-top: 0;
+        }
+        .btn-download {
+            background-color: #34a853;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(52, 168, 83, 0.3);
+            transition: 0.3s;
+        }
+        .btn-download:hover {
+            background-color: #1e8e3e;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Adhyapak Saathi - Premium Portal</h1>
+    </div>
+    
+    <div class="content">
+        <!-- અહીં તમારું પોસ્ટર દેખાશે -->
+        <img src="poster.jpg" alt="TAT Premium Mock Test" class="poster-img" onerror="this.src='https://via.placeholder.com/600x400?text=Poster+Image+Here'">
+        
+        <p style="font-size: 1.1rem; color: #444; line-height: 1.6;">ગુજરાતનાં ભાવિ શિક્ષકો માટે સ્પેશિયલ <strong>૧૯૦ પ્રીમિયમ પ્રશ્નો</strong> ની સંપૂર્ણ PDF, જવાબો અને વિગતવાર સમજૂતી સાથે.</p>
+
+        <!-- પ્રોમો કોડ સેક્શન -->
+        <div class="promo-box" id="promoSection">
+            <h3>🎁 રામનવમી સ્પેશિયલ ઓફર!</h3>
+            <p style="color: #555;">પ્રથમ ૧૦૦ વિદ્યાર્થીઓ માટે <strong>100% ફ્રી!</strong><br>નીચે પ્રોમો કોડ દાખલ કરો:</p>
+            
+            <input type="text" id="promoCode" class="promo-input" placeholder="કોડ અહીં દાખલ કરો (દા.ત. RAMNAVAMI100)">
+            <button class="btn-apply" onclick="checkPromo()">કોડ એપ્લાય કરો 🚀</button>
+            <p class="error-msg" id="errorMsg">❌ ખોટો પ્રોમો કોડ! કૃપા કરીને સાચો કોડ દાખલ કરો.</p>
+        </div>
+
+        <!-- સક્સેસ અને ડાઉનલોડ સેક્શન (કોડ સાચો હોય તો જ દેખાશે) -->
+        <div class="success-box" id="successSection">
+            <h3>✅ કોડ સફળતાપૂર્વક લાગુ થયો!</h3>
+            <p style="color: #333;">અભિનંદન! તમારી ₹૪૯ ની મોક ટેસ્ટ હવે બિલકુલ ફ્રી થઈ ગઈ છે.</p>
+            <!-- અહીં PDF ડાઉનલોડ થશે -->
+            <a href="TAT_Premium_Mock_Test.pdf" download class="btn-download">📥 PDF ડાઉનલોડ કરો</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkPromo() {
+        // વિદ્યાર્થીએ નાખેલો કોડ મેળવો અને અક્ષરો મોટા (Capital) કરો
+        var inputCode = document.getElementById("promoCode").value.trim().toUpperCase();
+        var errorMsg = document.getElementById("errorMsg");
+        var promoSection = document.getElementById("promoSection");
+        var successSection = document.getElementById("successSection");
+
+        // તમારો સિક્રેટ માર્કેટિંગ કોડ
+        var validCode = "RAMNAVAMI100";
+
+        if (inputCode === validCode) {
+            // કોડ સાચો છે: પ્રોમો બોક્સ છુપાવો અને ડાઉનલોડ બટન બતાવો
+            promoSection.style.display = "none";
+            successSection.style.display = "block";
+        } else {
+            // કોડ ખોટો છે: એરર મેસેજ બતાવો
+            errorMsg.style.display = "block";
+            // 3 સેકન્ડ પછી એરર મેસેજ જાતે ગાયબ થઈ જશે
+            setTimeout(function() {
+                errorMsg.style.display = "none";
+            }, 3000);
+        }
+    }
+</script>
+
+</body>
+</html>
