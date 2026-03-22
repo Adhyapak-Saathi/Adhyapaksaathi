@@ -348,5 +348,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 </script>
+<!-- FIREBASE START -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCUdYwId_hC2frc1hil7CleRJha8rpR5Os",
+  authDomain: "mocktest-app-42a6d.firebaseapp.com",
+  projectId: "mocktest-app-42a6d",
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+</script>
+<!-- FIREBASE END -->
 </body>
 </html>
