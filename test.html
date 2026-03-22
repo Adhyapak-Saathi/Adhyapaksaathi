@@ -3,191 +3,239 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Real-Time Mock Test — Adhyapak Saathi</title>
+  <title>Topic-wise Practice Test — Adhyapak Saathi</title>
+  
+  <meta name="description" content="TAT, TET, GSET માટે વિષયવાર પ્રેક્ટિસ ટેસ્ટ."/>
+  
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
   
   <style>
-    :root {
-      --navy: #1d3461; --navy-dark: #142242; --navy-mid: #274690;
-      --gold: #b8860b; --gold-light: #d4a017; --white: #ffffff;
-      --bg: #f4f7fb; --border: #d6dce8; --text: #1e2d45;
-      --green: #1a6e3c; --red: #c0392b;
-    }
+    body { -webkit-user-select: none; -ms-user-select: none; user-select: none; background: #f4f7fb; }
 
-    /* સિક્યુરિટી: ટેક્સ્ટ સિલેક્શન બંધ */
-    * { 
-      box-sizing: border-box; margin: 0; padding: 0; 
-      -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; 
-    }
+    /* CUSTOM MODAL SYSTEM */
+    #customModalOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+    .c-modal { background: #fff; width: 90%; max-width: 450px; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-top: 5px solid var(--navy); }
+    .c-modal-header { padding: 20px; background: #f8fafd; border-bottom: 1px solid #e2e8f0; text-align: center; }
+    .c-modal-header h3 { font-family: var(--font-serif); color: var(--navy); font-size: 1.3rem; margin: 0; }
+    .c-modal-body { padding: 25px; text-align: center; color: var(--text-mid); font-size: 1.05rem; font-weight: 500; line-height: 1.5; }
+    .c-modal-footer { padding: 15px; background: #f8fafd; display: flex; gap: 10px; justify-content: center; }
+
+    /* EXAM UI */
+    .exam-container { display: none; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
+    .exam-body { display: flex; flex-grow: 1; overflow: hidden; justify-content: center; }
+    .question-panel { max-width: 800px; width: 100%; display: flex; flex-direction: column; background: #ffffff; position: relative; padding: 20px; }
+    .question-header { background: #f8fafd; padding: 10px 20px; border: 1px solid var(--border); border-radius: 8px 8px 0 0; font-weight: 700; color: var(--navy); font-size: 1rem; display: flex; justify-content: space-between; align-items: center;}
+    .question-content { padding: 20px; overflow-y: auto; flex-grow: 1; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    .question-text { font-size: 1.15rem; font-weight: 700; color: #2d3748; line-height: 1.6; margin-bottom: 18px; }
     
-    body { background: var(--bg); font-family: system-ui, sans-serif; overflow-x: hidden; }
-
-    /* NAVBAR & BANNER */
-    nav { background: var(--navy); height: 70px; display: flex; align-items: center; justify-content: center; color: white; }
-    .page-banner { background: var(--navy); color: white; padding: 40px 20px; text-align: center; border-bottom: 3px solid var(--gold); }
-
-    /* OFFER BANNER */
-    .wrapper { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-    .offer-banner { position: relative; background: var(--navy-mid); border: 2px solid var(--gold); border-radius: 12px; padding: 45px 20px; text-align: center; color: white; overflow: hidden; }
-    .offer-btn { background: var(--gold); color: white; padding: 14px 35px; border-radius: 30px; border: none; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 20px; }
-    .ribbon { background: var(--red); color: white; padding: 8px 0; position: absolute; top: 25px; right: -35px; width: 150px; transform: rotate(45deg); font-size: 0.7rem; font-weight: bold; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-
-    /* EXAM UI - ફુલ પેજ કવર કરશે */
-    .exam-container { 
-        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-        background: white; z-index: 9999; flex-direction: column; 
-    }
-    .sticky-header { background: white; border-bottom: 3px solid var(--gold); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
-    .exam-body { display: flex; flex: 1; overflow: hidden; }
+    .radio-option { display: flex; align-items: center; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; font-size: 1.05rem; font-weight: 600; color: #4a5568; background: #fff; }
+    .radio-option:hover { border-color: var(--navy-light); background: #f8fafd; }
+    .radio-option.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 1px var(--navy); }
+    .radio-option input[type="radio"] { margin-right: 12px; transform: scale(1.3); accent-color: var(--navy); cursor: pointer; }
     
-    /* પ્રશ્નોનું પેનલ */
-    .question-panel { flex: 7; padding: 30px; overflow-y: auto; background: #fff; }
-    /* પેલેટ પેનલ */
-    .palette-panel { flex: 3; background: #f8fafd; border-left: 1px solid var(--border); padding: 25px; overflow-y: auto; }
+    .practiceFooter { padding: 15px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    
+    /* PRACTICE CARDS UI */
+    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 1.8rem 1.2rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+    .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
+    .p-topic-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
+    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--navy); margin-bottom: 1.2rem; line-height: 1.4; }
+    .btn-p-start { width: 100%; padding: 10px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; margin-bottom: 0; }
+    .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
+    
+    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 10px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; }
 
-    .question-text { font-size: 1.3rem; font-weight: bold; margin-bottom: 25px; color: var(--navy-dark); }
-    .radio-option { display: flex; align-items: center; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; cursor: pointer; }
-    .radio-option.selected { border-color: var(--navy); background: #ebf4ff; }
+    /* Result Screen Specifics */
+    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; max-width: 600px; margin: 30px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .score-circle { width: 140px; height: 140px; border-radius: 50%; border: 6px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px auto; background: #f8fafd; }
+    .score-circle .marks { font-size: 2.5rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    
+    .stats-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 25px 0; }
+    .stat-box { padding: 15px; border-radius: 8px; font-weight: 700; flex: 1; min-width: 120px; }
+    .sb-correct { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .sb-wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
 
-    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px; }
-    .palette-btn { padding: 10px 5px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; background: #cbd5e0; color: white; }
-    .palette-btn.answered { background: var(--green); }
-    .palette-btn.current { border: 3px solid var(--navy-dark); }
-
-    /* મોડલ સ્ટાઇલ */
-    #modalOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; }
-    .modal { background: white; padding: 30px; border-radius: 15px; max-width: 400px; text-align: center; }
+    .hide-during-exam { display: none !important; }
   </style>
 </head>
-<body oncontextmenu="return false;"> <div id="modalOverlay">
-  <div class="modal">
-    <h3 id="mTitle" style="color: var(--navy);">સૂચના</h3>
-    <p id="mBody" style="margin: 15px 0;"></p>
-    <div id="mFooter"></div>
+<body>
+
+<!-- CUSTOM MODAL -->
+<div id="customModalOverlay">
+  <div class="c-modal">
+    <div class="c-modal-header"><h3 id="modalTitle">શીર્ષક</h3></div>
+    <div class="c-modal-body" id="modalMsg">સંદેશ અહીં આવશે...</div>
+    <div class="c-modal-footer" id="modalFooter"></div>
   </div>
 </div>
 
-<div id="landingPage">
-    <nav><h2>Adhyapak Saathi</h2></nav>
-    <div class="page-banner">
-        <h1>Real-Time <em>Mock Test</em></h1>
-    </div>
+<!-- NAVBAR -->
+<nav id="standardNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="site-name">Adhyapak Saathi</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="test.html" class="active">Practice Test</a></li>
+      <li><a href="mocktest.html" style="color: var(--gold-light); font-weight: bold;">Mock Test 🚀</a></li>
+      <li><a href="news.html">Exam News</a></li>
+      <li><a href="materials.html">Study Materials</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="mainContent">
+  <div class="page-banner">
     <div class="wrapper">
-        <div class="offer-banner">
-            <div class="ribbon">LIMITED TIME</div>
-            <h2>🎁 રામનવમી સ્પેશિયલ ઓફર!</h2>
-            <p style="font-size: 1.2rem; margin: 10px 0;">100 પ્રીમિયમ પ્રશ્નોની મોક ટેસ્ટ બિલકુલ ફ્રી માં આપો</p>
-            <button class="offer-btn" onclick="confirmStart()">ઓફરનો લાભ લો 🚀</button>
-        </div>
+      <h1>Topic-wise <em>Practice Tests</em></h1>
+      <p>તમારી મનપસંદ કેટેગરી પસંદ કરો અને તૈયારીને મજબૂત બનાવો!</p>
     </div>
+  </div>
+
+  <div class="wrapper" style="margin-bottom: 50px;">
+    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto;">
+      <div class="p-topic-card"><div><div class="p-topic-icon">🦉</div><h3>1. શિક્ષણની ફિલસૂફી</h3></div><button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી')">પ્રેક્ટિસ શરૂ કરો</button></div>
+      <div class="p-topic-card"><div><div class="p-topic-icon">🧠</div><h3>2. શૈક્ષણિક મનોવિજ્ઞાન</h3></div><button class="btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન')">પ્રેક્ટિસ શરૂ કરો</button></div>
+      <div class="p-topic-card"><div><div class="p-topic-icon">👩‍🏫</div><h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3></div><button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">પ્રેક્ટિસ શરૂ કરો</button></div>
+      <div class="p-topic-card"><div><div class="p-topic-icon">🧩</div><h3>4. તાર્કિક અભિયોગ્યતા</h3></div><button class="btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા')">પ્રેક્ટિસ શરૂ કરો</button></div>
+    </div>
+  </div>
 </div>
 
-<div class="exam-container" id="examUI">
-    <div class="sticky-header">
-        <div style="font-weight: bold; color: var(--navy); font-size: 1.2rem;">TAT Paper 1 - Mock Test</div>
-        <div style="background: #fee2e2; color: var(--red); padding: 8px 20px; border-radius: 25px; font-weight: bold;">
-            ⏱️ <span id="timer">90:00</span>
-        </div>
+<!-- EXAM UI -->
+<div class="exam-container" id="examContainer">
+  <div class="p-sticky-header">
+    <div style="font-weight:800; font-size:1.1rem; color:var(--navy);"><span id="headerIcon">📝</span> <span id="pTopicName">Topic</span></div>
+    <div style="display:flex; gap:8px;">
+       <div style="background:#fdf0ee; color:var(--red); padding:6px 12px; border-radius:20px; font-weight:800; border:2px solid var(--red);">⏱️ <span id="pTimer">00:00</span></div>
     </div>
-    <div class="exam-body">
-        <div class="question-panel">
-            <div id="qNum" style="color: var(--navy-mid); font-weight: bold; margin-bottom: 10px;">પ્રશ્ન: 1 / 100</div>
-            <div class="question-text" id="qText">પ્રશ્ન લોડ થાય છે...</div>
-            <div id="options"></div>
-            <div style="margin-top: 30px; display: flex; gap: 15px;">
-                <button class="offer-btn" style="margin:0; padding: 10px 25px;" onclick="nextQ()">Save & Next</button>
-                <button class="offer-btn" style="margin:0; background: #805ad5; padding: 10px 25px;" onclick="markReview()">Review</button>
-            </div>
-        </div>
-        <div class="palette-panel">
-            <h4>Question Palette</h4>
-            <div class="palette-grid" id="pGrid"></div>
-            <button class="offer-btn" style="width: 100%; background: var(--navy-dark);" onclick="finishExam()">Submit Test</button>
-        </div>
+  </div>
+
+  <div class="exam-body">
+    <div class="question-panel">
+      <div class="question-header">
+        <span id="lblQNum" style="background: var(--navy); color: white; padding: 5px 12px; border-radius: 20px;">પ્રશ્ન: 1</span>
+        <span style="font-size: 0.9rem; font-weight: 800; color: var(--navy-mid);">Practice Mode</span>
+      </div>
+      <div class="question-content">
+        <div class="question-text" id="lblQText">પ્રશ્ન...</div>
+        <div id="optionsContainer"></div>
+      </div>
+      <div class="practiceFooter">
+        <button id="pPrevBtn" class="btn btn-outline" style="padding:10px 20px; border-radius:50px;" onclick="prevPQuestion()">⬅️ પાછળ</button>
+        <button id="pNextBtn" class="btn btn-navy" style="padding:10px 20px; border-radius:50px;" onclick="nextPQuestion()">આગળ ➡️</button>
+        <button id="pSubmitBtn" class="btn btn-gold" style="display:none; padding:10px 20px; border-radius:50px; color:var(--navy-dark);" onclick="submitPractice()">પ્રેક્ટિસ પૂરી કરો 🏆</button>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- RESULT SCREEN -->
+<div id="resultScreen" style="display: none; background: #f4f7fb; min-height: 100vh; padding: 20px;">
+  <div class="result-card">
+    <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--navy); margin-bottom: 25px;">પ્રેક્ટિસ પરિણામ</h2>
+    <div class="score-circle">
+      <span class="marks" id="resScore">0</span>
+      <span style="font-size: 1rem; font-weight: 600; color: var(--text-mid);">કુલ સાચા</span>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box sb-correct"><div style="font-size: 1.6rem;" id="resCorrect">0</div><div>સાચા જવાબો</div></div>
+      <div class="stat-box sb-wrong"><div style="font-size: 1.6rem;" id="resWrong">0</div><div>ખોટા જવાબો</div></div>
+    </div>
+    <button class="btn btn-navy" style="margin-top: 20px; width: 100%;" onclick="location.reload()">બીજી પ્રેક્ટિસ કરો 🔄</button>
+  </div>
 </div>
 
 <script>
-    const questions = Array.from({length: 100}, (_, i) => ({
-        q: `TAT પરીક્ષા માટેનો નમૂનાનો પ્રશ્ન નંબર ${i+1}?`,
-        opts: ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
-        ans: 0
-    }));
+  window.onbeforeunload = null;
 
-    let cur = 0;
-    let userAns = {};
-    let status = {};
+  // PRACTICE DATABASE (Sample)
+  const practiceDB = [
+    {q:"માણસનાં શરીર, મન, આત્મામાં જે કંઈ શ્રેષ્ઠ છે તે બધું બહાર લાવવું એટલે શિક્ષણ. આ વ્યાખ્યા કોણે આપી છે?", opts:["ઋગ્વેદ","કૌટિલ્ય","મહાત્મા ગાંધીજી","સ્વામી વિવેકાનંદ"], ans:2, topic:"philosophy"},
+    {q:"RTE એક્ટ મુજબ, શૈક્ષણિક વર્ષ શરૂ થયા પછી કેટલા મહિના સુધી પ્રવેશ આપી શકાય છે?", opts:["૩ મહિના","૫ મહિના","૬ મહિના","૯ મહિના"], ans:2, topic:"eval"},
+    {q:"'બાળક એ કંઈ પ્રૌઢની લઘુ આવૃત્તિ નથી' - આ વિચાર કોણે રજૂ કર્યો?", opts:["ગાંધીજી","રૂસો","પ્લેટો","પેસ્ટાલોજી"], ans:1, topic:"philosophy"},
+    {q:"સિદ્ધાંતો અને તેના જનકનાં સાચાં જોડકાં બનાવો: બહુ અવયવ સિદ્ધાંત કોણે આપ્યો?", opts:["થર્સ્ટન","ગોલમેન","ગાર્ડનર","સ્ટેર્નબર્ગ"], ans:0, topic:"psych"},
+    {q:"આપેલી શ્રેણી પૂર્ણ કરો: 4, 8, 9, 27, 16, 64, 25 ...?", opts:["101","98","100","125"], ans:3, topic:"reasoning"}
+  ];
 
-    function confirmStart() {
-        document.getElementById('mBody').innerText = "શું તમે ૧૦૦ પ્રશ્નોની આ ટેસ્ટ શરૂ કરવા માંગો છો? સિક્યુરિટી માટે આ પેજ ફુલ સ્ક્રીન મોડમાં ખુલશે.";
-        document.getElementById('mFooter').innerHTML = `<button class="offer-btn" onclick="startNow()">હા, શરૂ કરો</button>`;
-        document.getElementById('modalOverlay').style.display = 'flex';
-    }
+  let activeQs = [];
+  let currentIdx = 0;
+  let answers = {};
+  let timeLeft = 0;
+  let timer;
 
-    function startNow() {
-        document.getElementById('modalOverlay').style.display = 'none';
-        document.getElementById('landingPage').style.display = 'none';
-        document.getElementById('examUI').style.display = 'flex';
-        
-        // ફુલ સ્ક્રીન રિક્વેસ્ટ
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        }
-        loadQ(0);
-        startTimer(90 * 60);
-    }
+  function startPracticeTopic(topicCode, topicName) {
+    activeQs = practiceDB.filter(q => q.topic === topicCode);
+    if(activeQs.length === 0) activeQs = practiceDB; // Fallback
+    timeLeft = activeQs.length * 60;
+    document.getElementById('pTopicName').innerText = topicName;
+    
+    document.getElementById('mainContent').style.display = 'none';
+    document.getElementById('examContainer').style.display = 'flex';
+    currentIdx = 0;
+    answers = {};
+    loadQuestion(0);
+    startTimer();
+  }
 
-    function loadQ(idx) {
-        cur = idx;
-        const q = questions[idx];
-        document.getElementById('qNum').innerText = `પ્રશ્ન: ${idx + 1} / 100`;
-        document.getElementById('qText').innerText = q.q;
-        let h = '';
-        q.opts.forEach((o, i) => {
-            h += `<div class="radio-option ${userAns[idx]===i?'selected':''}" onclick="sel(${i})">${o}</div>`;
-        });
-        document.getElementById('options').innerHTML = h;
-        renderPalette();
-    }
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      timeLeft--;
+      const m = Math.floor(timeLeft / 60).toString().padStart(2,'0');
+      const s = (timeLeft % 60).toString().padStart(2,'0');
+      document.getElementById('pTimer').innerText = `${m}:${s}`;
+      if(timeLeft <= 0) { clearInterval(timer); submitPractice(); }
+    }, 1000);
+  }
 
-    function sel(i) { userAns[cur] = i; status[cur] = 'answered'; loadQ(cur); }
-    function nextQ() { if(cur < 99) loadQ(cur + 1); }
-    function markReview() { status[cur] = 'review'; nextQ(); }
-
-    function renderPalette() {
-        let h = '';
-        questions.forEach((_, i) => {
-            let c = status[i] || '';
-            if(i === cur) c += ' current';
-            h += `<button class="palette-btn ${c}" onclick="loadQ(${i})">${i+1}</button>`;
-        });
-        document.getElementById('pGrid').innerHTML = h;
-    }
-
-    function startTimer(sec) {
-        const t = setInterval(() => {
-            sec--;
-            let m = Math.floor(sec/60), s = sec%60;
-            document.getElementById('timer').innerText = `${m}:${s<10?'0'+s:s}`;
-            if(sec<=0) { clearInterval(t); finishExam(); }
-        }, 1000);
-    }
-
-    function finishExam() {
-        alert("ટેસ્ટ સબમિટ થઈ ગઈ છે!");
-        location.reload();
-    }
-
-    // સિક્યુરિટી: કીબોર્ડ શોર્ટકટ બ્લોક (Ctrl+P, Ctrl+S, PrintScreen)
-    document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u')) {
-            e.preventDefault();
-            alert("Security: Action not allowed!");
-        }
-        if (e.key === 'PrintScreen') {
-            navigator.clipboard.writeText("");
-            alert("Screenshots are disabled!");
-        }
+  function loadQuestion(idx) {
+    currentIdx = idx;
+    const q = activeQs[idx];
+    document.getElementById('lblQNum').innerText = `પ્રશ્ન: ${idx + 1} / ${activeQs.length}`;
+    document.getElementById('lblQText').innerText = q.q;
+    
+    let html = '';
+    q.opts.forEach((opt, i) => {
+      const isSel = answers[idx] === i;
+      html += `<label class="radio-option ${isSel?'selected':''}">
+                 <input type="radio" name="opts" ${isSel?'checked':''} onchange="selectOpt(${i})"> <span>${opt}</span>
+               </label>`;
     });
+    document.getElementById('optionsContainer').innerHTML = html;
+
+    document.getElementById('pPrevBtn').style.visibility = idx === 0 ? 'hidden' : 'visible';
+    if(idx === activeQs.length - 1) {
+        document.getElementById('pNextBtn').style.display = 'none';
+        document.getElementById('pSubmitBtn').style.display = 'block';
+    } else {
+        document.getElementById('pNextBtn').style.display = 'block';
+        document.getElementById('pSubmitBtn').style.display = 'none';
+    }
+  }
+
+  function selectOpt(i) { answers[currentIdx] = i; loadQuestion(currentIdx); }
+  function nextPQuestion() { if(currentIdx < activeQs.length - 1) loadQuestion(currentIdx + 1); }
+  function prevPQuestion() { if(currentIdx > 0) loadQuestion(currentIdx - 1); }
+
+  function submitPractice() {
+    clearInterval(timer);
+    document.getElementById('examContainer').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+    
+    let correct = 0, wrong = 0;
+    activeQs.forEach((q, i) => {
+      if(answers[i] === q.ans) correct++;
+      else if(answers[i] !== undefined) wrong++;
+    });
+
+    document.getElementById('resScore').innerText = correct;
+    document.getElementById('resCorrect').innerText = correct;
+    document.getElementById('resWrong').innerText = wrong;
+  }
 </script>
 </body>
 </html>
