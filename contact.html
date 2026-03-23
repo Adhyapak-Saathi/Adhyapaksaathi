@@ -3,582 +3,206 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us — Adhyapak Saathi</title>
-  
-  <!-- SEO & OpenGraph Tags for beautiful link sharing on WhatsApp/Telegram -->
-  <meta name="description" content="Contact Adhyapak Saathi — send suggestions, report errors, share exam news, or ask questions about TAT, TET, UGC NET, GSET, CTET."/>
-  <meta property="og:title" content="Contact Us — Adhyapak Saathi" />
-  <meta property="og:description" content="Get in touch, share your valuable suggestions, and help us make the Adhyapak Saathi platform even better." />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80" />
-  <meta name="twitter:card" content="summary_large_image" />
-
+  <title>Real-Time Mock Test — Adhyapak Saathi</title>
+  <meta name="description" content="Premium real-time mock exams for TAT, TET, and other teacher eligibility exams in Gujarat."/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
   <style>
     body {
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      background: #f4f7fb;
+      background-color: #f8fafd;
     }
-
-    /* Get In Touch Banner */
-    .contact-info-banner {
-      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      color: white;
+    .mock-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 2rem;
-      box-shadow: var(--shadow-lg);
-      border-bottom: 4px solid var(--gold);
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
     }
-    .info-block { display: flex; align-items: center; gap: 1.2rem; }
-    .info-icon-lg { 
-      font-size: 2.5rem; 
-      background: rgba(255,255,255,0.1); 
-      width: 70px; height: 70px; 
-      display: flex; align-items: center; justify-content: center; 
-      border-radius: 50%; 
-      border: 2px solid rgba(255,255,255,0.2);
-    }
-    .info-title { font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.3rem; font-weight: 700;}
-    .info-detail { font-size: 1.05rem; font-weight: 600; color: #fff; }
-
-    /* You Can Write About Section */
-    .write-about-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+    .mock-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
       padding: 2.5rem;
-      box-shadow: var(--shadow-md);
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .mock-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .mock-list {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: 1.5rem auto 2rem auto;
+      max-width: 300px;
+      font-size: 0.95rem;
+      color: #4a5568;
+      line-height: 2;
+    }
+    .topic-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Marketing Badge Animation */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(184, 134, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+    }
+    .premium-badge {
+      background: linear-gradient(135deg, #1d3461 0%, #0f1c36 100%);
+      border: 2px solid #b8860b;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
       margin-bottom: 3rem;
-      border-top: 4px solid var(--navy-mid);
-    }
-    .write-about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .write-about-item {
-      display: flex; gap: 1rem; align-items: flex-start;
-      font-size: 1.05rem; color: var(--text-mid); font-weight: 500;
-      padding: 10px; background: #f8fafd; border-radius: 8px; border: 1px solid #e2e8f0;
-    }
-    .write-about-item span { color: var(--green); font-weight: 800; font-size: 1.2rem; }
-
-    /* Forms Styling */
-    .forms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    .form-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-top: 4px solid var(--navy); border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-md); padding: 2.5rem;
-    }
-    .form-card-gold { border-top-color: var(--gold); }
-    
-    .form-group { margin-bottom: 1.8rem; }
-    .form-label { display: block; font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; }
-    .form-input, .form-select, .form-textarea {
-      width: 100%; background: #fcfcfc; border: 2px solid #cbd5e0;
-      border-radius: 8px; padding: 14px 18px; color: var(--text);
-      font-size: 1.05rem; font-family: var(--font-sans); transition: 0.3s;
-    }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: var(--navy); background: #fff; box-shadow: 0 0 0 4px rgba(29,52,97,0.1); outline: none;
-    }
-    .form-textarea { min-height: 180px; resize: vertical; }
-    
-    /* QA UI Fixes: Modern Error and Success States */
-    .error-message {
-      display: none; background: #fef2f2; border: 1px solid #f87171; color: #b91c1c;
-      padding: 14px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; margin-bottom: 1.5rem;
-    }
-    
-    .success-banner-lg {
-      display: none; background: #f0fdf4; border: 2px solid var(--green);
-      border-radius: var(--radius-lg); padding: 3rem 2rem; color: #166534; 
-      text-align: center; box-shadow: var(--shadow-sm); margin-bottom: 2rem;
-    }
-    .success-icon-lg { font-size: 4.5rem; margin-bottom: 1rem; display: block; line-height: 1; }
-    .success-title { font-family: var(--font-serif); font-size: 2rem; color: var(--navy); margin-bottom: 0.5rem; }
-    .success-text { font-size: 1.1rem; color: var(--text-mid); font-weight: 500; }
-
-    /* Sitemap Section */
-    .sitemap-section {
-      background: #fff; border-top: 2px solid var(--border); padding: 4rem 0; margin-top: 3rem;
-    }
-    .sitemap-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
-    }
-    .sitemap-col h4 {
-      font-family: var(--font-serif); color: var(--navy); font-size: 1.2rem;
-      border-bottom: 2px solid var(--gold); padding-bottom: 8px; margin-bottom: 15px;
-    }
-    .sitemap-col ul { list-style: none; padding: 0; }
-    .sitemap-col ul li { margin-bottom: 10px; }
-    .sitemap-col ul li a {
-      color: var(--text-mid); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.2s; display: flex; align-items: center; gap: 6px;
-    }
-    .sitemap-col ul li a:hover { color: var(--navy); padding-left: 5px; }
-
-    @media (max-width: 992px) {
-      .contact-info-banner, .forms-grid, .sitemap-grid, .write-about-grid { grid-template-columns: 1fr; }
+      color: white;
+      animation: pulse 2s infinite;
     }
   </style>
 </head>
 <body>
 
-<div id="standardNav">
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
-      <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
+    <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
+  </div>
+</div>
+
+<nav style="background-color: #1d3461;">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-emblem">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="18" width="22" height="3" rx="1" fill="#fff"/>
+          <rect x="7" y="6" width="3" height="12" rx="1" fill="#fff"/>
+          <rect x="18" y="6" width="3" height="12" rx="1" fill="#fff"/>
+          <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
+        </svg>
+      </div>
+      <div class="nav-logo-text">
+        <span class="site-name" style="color: #ffffff;">Adhyapak Saathi</span>
+        <span class="site-tagline" style="color: #b8860b;">Teacher Exam Preparation Portal</span>
+      </div>
+    </a>
+    
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" style="color: #fff;">Home</a></li>
+      <li><a href="test.html" style="color: #fff;">Practice Test</a></li>
+      <li><a href="mocktest.html" class="active" style="color: #b8860b; border-bottom: 2px solid #b8860b;">Mock Test</a></li>
+      <li><a href="news.html" style="color: #fff;">Exam News</a></li>
+      <li><a href="materials.html" style="color: #fff;">Study Materials</a></li>
+      <li><a href="about.html" style="color: #fff;">About Us</a></li>
+      <li><a href="contact.html" style="color: #fff;">Contact</a></li>
+    </ul>
+    
+    <div class="hamburger" onclick="toggleNav()">
+      <span style="background: white;"></span>
+      <span style="background: white;"></span>
+      <span style="background: white;"></span>
     </div>
   </div>
-  
-  <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="nav-logo-emblem">
-          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="18" width="22" height="3" rx="1" fill="#1d3461"/>
-            <rect x="7" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
-            <rect x="18" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
-            <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
-          </svg>
-        </div>
-        <div class="nav-logo-text">
-          <span class="site-name">Adhyapak Saathi</span>
-          <span class="site-tagline">Teacher Exam Preparation Portal</span>
-        </div>
-      </a>
-      <ul class="nav-links" id="navLinks">
+</nav>
+
+<div class="page-banner" style="background: #1d3461; color: white; border-bottom: 4px solid #b8860b; padding: 4rem 0;">
+  <div class="wrapper">
+    <div class="breadcrumb" style="color: #cbd5e0;"><a href="index.html" style="color: #cbd5e0;">Home</a> <span>›</span> Mock Test</div>
+    <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Real-Time <em style="color: #b8860b; font-style: normal;">Mock Test</em></h1>
+    <p style="color: #cbd5e0; font-size: 1.1rem;">TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) માટે TCS/NTA પેટર્ન પર આધારિત સંપૂર્ણ ઓનલાઈન પરીક્ષાનો અનુભવ.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrapper">
+
+    <!-- MARKETING/STUDENT COUNTER BADGE -->
+    <div class="premium-badge">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏆</div>
+      <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: #b8860b; margin-bottom: 0.8rem; letter-spacing: 1px;">Premium Mock Test Series</h3>
+      <p style="font-size: 1.15rem; color: #cbd5e0; margin: 0; line-height: 1.6;">
+        <strong style="color: #fff; font-size: 1.4rem; background: #b8860b; padding: 2px 8px; border-radius: 4px;">૧૨,૪૫૦+</strong> થી વધુ વિદ્યાર્થીઓએ આ મોક ટેસ્ટ સફળતાપૂર્વક આપીને પોતાની તૈયારી ચકાસી છે! <br>શું તમે પરીક્ષા માટે તૈયાર છો? આજે જ તમારી ક્ષમતા ચકાસો.
+      </p>
+    </div>
+    
+    <!-- TOP MOCK TESTS SECTION -->
+    <div class="mock-grid">
+      <!-- PAPER 1 -->
+      <div class="mock-card">
+        <div class="topic-icon">🎓</div>
+        <h2 style="color: #1d3461; font-size: 1.5rem;">પેપર 1 (General) - મોક ટેસ્ટ</h2>
+        <ul class="mock-list">
+          <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
+          <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
+          <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+          <li>🔴 <strong style="color: #e53e3e;">નોંધ:</strong> ટેસ્ટ ચાલુ થયા પછી બહાર નીકળી શકાશે નહિ.</li>
+        </ul>
+        <button class="btn btn-navy" style="width: 100%; font-size: 1.1rem; padding: 0.8rem;">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
+      </div>
+      
+      <!-- PAPER 2 -->
+      <div class="mock-card">
+        <div class="topic-icon">⏳</div>
+        <h2 style="color: #1d3461; font-size: 1.5rem;">પેપર 2 (વિષયવસ્તુ) - મોક ટેસ્ટ</h2>
+        <ul class="mock-list">
+          <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
+          <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
+          <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+          <li>✨ <strong style="color: #b8860b;">નોંધ:</strong> આ પેપરમાં વિષયવસ્તુના પ્રશ્નો ટૂંક સમયમાં મુકાશે.</li>
+        </ul>
+        <button class="btn" style="width: 100%; font-size: 1.1rem; padding: 0.8rem; background: transparent; border: 2px solid #b8860b; color: #b8860b; font-weight: bold; cursor: not-allowed;">Coming Soon 🕒</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer style="margin-top: 2rem;">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-name">Adhyapak Saathi</div>
+      <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
+      <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="test.html">Practice Test</a></li>
+        <li><a href="mocktest.html">Mock Test</a></li>
         <li><a href="news.html">Exam News</a></li>
         <li><a href="materials.html">Study Materials</a></li>
         <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
-      <!-- Accessibility improvement (role and aria-label) -->
-      <div class="hamburger" role="button" tabindex="0" aria-label="Open Mobile Menu" onclick="toggleNav()">
-        <span></span><span></span><span></span>
-      </div>
     </div>
-  </nav>
-
-  <div class="page-banner">
-    <div class="wrapper">
-      <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Contact Us</div>
-      <h1>Contact <em>Us</em></h1>
-      <p>Get in touch, share your valuable suggestions, and help us make the Adhyapak Saathi platform even better.</p>
+    <div>
+      <div class="footer-col-title">Examinations</div>
+      <ul class="footer-links">
+        <li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li>
+        <li><a href="news.html">TET I &amp; TET II</a></li>
+        <li><a href="news.html">UGC NET</a></li>
+        <li><a href="news.html">GSET</a></li>
+        <li><a href="news.html">CTET</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
+        <li><a href="contact.html">Send a Message</a></li>
+      </ul>
     </div>
   </div>
-
-  <section class="section">
-    <div class="wrapper">
-      
-      <!-- 1. GET IN TOUCH -->
-      <div class="contact-info-banner">
-        <div class="info-block">
-          <div class="info-icon-lg">✉️</div>
-          <div>
-            <div class="info-title">Email Address</div>
-            <div class="info-detail"><a href="mailto:info@adhyapaksaathi.in" style="color: white; text-decoration: none;">info@adhyapaksaathi.in</a></div>
-          </div>
-        </div>
-        <div class="info-block">
-          <div class="info-icon-lg">⚡</div>
-          <div>
-            <div class="info-title">Response Time</div>
-            <div class="info-detail">Within 24 Hours</div>
-          </div>
-        </div>
-        <div class="info-block">
-          <div class="info-icon-lg">🏫</div>
-          <div>
-            <div class="info-title">Platform</div>
-            <div class="info-detail">Adhyapak Saathi Portal</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. YOU CAN WRITE ABOUT -->
-      <div class="write-about-card">
-        <h2 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 10px;">What can you message us about?</h2>
-        
-        <div class="write-about-grid">
-          <div class="write-about-item">
-            <span>✔</span> <div><strong>New Topics:</strong> Suggest new quiz topics or subjects for the practice tests.</div>
-          </div>
-          <div class="write-about-item">
-            <span>✔</span> <div><strong>Error Correction:</strong> Report technical errors or incorrect answers in any mock test.</div>
-          </div>
-          <div class="write-about-item">
-            <span>✔</span> <div><strong>Exam News:</strong> Share new exam dates, results, or notifications for TAT, TET, UGC NET, etc.</div>
-          </div>
-          <div class="write-about-item">
-            <span>✔</span> <div><strong>Study Material:</strong> Request specific PDFs, notes, or study materials for preparation.</div>
-          </div>
-          <div class="write-about-item">
-            <span>✔</span> <div><strong>Website Feedback:</strong> Share your feedback regarding the new features or design of the platform.</div>
-          </div>
-          <div class="write-about-item">
-            <span>✔</span> <div><strong>Guidance:</strong> Ask career-related queries or seek advice on exam preparation strategies.</div>
-          </div>
-          <div class="write-about-item">
-            <span>✔</span> <div><strong>Technical Issues:</strong> Report if the website is slow, pages are not loading, or forms are not working.</div>
-          </div>
-          <div class="write-about-item">
-            <span>✔</span> <div><strong>Partnership:</strong> Collaborate with us if you represent an educational institute or coaching class.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3 & 4. FORMS -->
-      <div class="forms-grid">
-
-        <!-- SEND A MESSAGE FORM -->
-        <div class="form-card">
-          <h2 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--navy); margin-bottom: 0.5rem;">Send a Message</h2>
-          <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem;">Fill out the form below and we will respond to your email within <strong>24 hours</strong>.</p>
-
-          <!-- New Beautiful Success Banner -->
-          <div id="contactSuccess" class="success-banner-lg">
-            <span class="success-icon-lg">✅</span>
-            <h3 class="success-title">Message Sent!</h3>
-            <p class="success-text">Thank you for reaching out. We have received your message and will get back to you within 24 hours.</p>
-          </div>
-
-          <form id="contactForm" action="https://formspree.io/f/xnjgoeod" method="POST" onsubmit="submitValidatedForm(event, 'contactSuccess', 'contactError', 'contactForm')">
-            <input type="hidden" name="_subject" value="Adhyapak Saathi — Contact Message"/>
-            
-            <!-- New Inline Error Box -->
-            <div id="contactError" class="error-message"></div>
-            
-            <div class="form-group">
-              <label class="form-label" for="c_name">Full Name *</label>
-              <!-- Added autocomplete="name" for better UX -->
-              <input class="form-input" type="text" id="c_name" name="name" placeholder="Enter your full name" required autocomplete="name"/>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="c_email">Email Address *</label>
-              <!-- Added autocomplete="email" for better UX -->
-              <input class="form-input" type="email" id="c_email" name="email" placeholder="Enter a valid email so we can reply" required autocomplete="email"/>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="c_exam">Which exam are you preparing for?</label>
-              <select class="form-select" id="c_exam" name="exam">
-                <option value="">— Select Exam —</option>
-                <option>TAT (Secondary & Higher Secondary)</option>
-                <option>TET I & TET II</option>
-                <option>UGC NET</option>
-                <option>GSET</option>
-                <option>CTET</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="c_type">Message Type</label>
-              <select class="form-select" id="c_type" name="message_type">
-                <option value="">— Select Type —</option>
-                <option>General Enquiry</option>
-                <option>Report Error</option>
-                <option>Exam News Tip</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="c_msg">Your Message (15 to 1000 words) *</label>
-              <textarea class="form-textarea" id="c_msg" name="message" placeholder="Please write your message in detail here..." required></textarea>
-            </div>
-            
-            <button class="btn btn-navy btn-full" style="padding: 15px; font-size: 1.15rem;" type="submit">Send Message 📩</button>
-          </form>
-        </div>
-
-        <!-- SUGGESTION BOX FORM -->
-        <div class="form-card form-card-gold">
-          <h2 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--navy); margin-bottom: 0.5rem;">Suggestion Box</h2>
-          <p style="font-size: 1.1rem; color: var(--gold-dark); font-weight: 600; margin-bottom: 2rem; line-height: 1.6;">
-            💡 A great idea can change the future of thousands of students! Share your valuable suggestions to make Adhyapak Saathi even better.
-          </p>
-
-          <!-- New Beautiful Success Banner -->
-          <div id="suggSuccess" class="success-banner-lg">
-            <span class="success-icon-lg">🎉</span>
-            <h3 class="success-title">Suggestion Received!</h3>
-            <p class="success-text">Your valuable idea can shape the future! Thank you for being an active part of Adhyapak Saathi.</p>
-          </div>
-
-          <form id="suggForm" action="https://formspree.io/f/xnjgoeod" method="POST" onsubmit="submitValidatedForm(event, 'suggSuccess', 'suggError', 'suggForm')">
-            <input type="hidden" name="_subject" value="Adhyapak Saathi — Suggestion Box"/>
-            <input type="hidden" name="form_type" value="Suggestion"/>
-            
-            <!-- New Inline Error Box -->
-            <div id="suggError" class="error-message"></div>
-            
-            <div class="form-group">
-              <label class="form-label" for="s_name">Full Name *</label>
-              <!-- Added autocomplete="name" for better UX -->
-              <input class="form-input" type="text" id="s_name" name="name" placeholder="Enter your full name" required autocomplete="name"/>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="s_email">Email Address *</label>
-              <!-- Added autocomplete="email" for better UX -->
-              <input class="form-input" type="email" id="s_email" name="email" placeholder="Email is required to send you future updates" required autocomplete="email"/>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="s_type">Suggestion Category *</label>
-              <select class="form-select" id="s_type" name="suggestion_type" required>
-                <option value="">— Select Category —</option>
-                <option>Add new questions/topics</option>
-                <option>Request study material</option>
-                <option>Website design/features</option>
-                <option>Other suggestion</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="s_text">Your Suggestion (15 to 1000 words) *</label>
-              <textarea class="form-textarea" id="s_text" name="suggestion" placeholder="Write your suggestion in detail (minimum 15 words required)..." required></textarea>
-            </div>
-            
-            <button class="btn btn-gold btn-full" style="padding: 15px; font-size: 1.15rem; color: var(--navy-dark);" type="submit">Submit Suggestion 🚀</button>
-            <div style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: var(--green); font-weight: 700;">
-              🙏 Thank you for being a part of Adhyapak Saathi!
-            </div>
-          </form>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. FAQ -->
-  <hr class="divider"/>
-  <section class="section">
-    <div class="wrapper-narrow">
-      <div class="section-header center">
-        <div class="section-label">FAQ</div>
-        <h2 class="section-title">Frequently Asked <em>Questions</em></h2>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:0.8rem">
-        <details class="faq">
-          <summary>Is Adhyapak Saathi free to use?</summary>
-          <div class="faq-answer">Yes, completely free. Adhyapak Saathi is an open-access platform. There are no subscriptions, no registration requirements, and no hidden costs. All practice tests, exam news, and resources are freely available.</div>
-        </details>
-        <details class="faq">
-          <summary>Which examinations does the site cover?</summary>
-          <div class="faq-answer">Adhyapak Saathi covers: TAT (Secondary & Higher Secondary), TET I, TET II, UGC NET, GSET, and CTET. Practice tests include Child Development & Pedagogy, Teaching Aptitude, General Knowledge, and Sanskrit — all mapped to official syllabi.</div>
-        </details>
-        <details class="faq">
-          <summary>I found an incorrect question or answer. What should I do?</summary>
-          <div class="faq-answer">Please use the Suggestion Box on this page and select "Report Error". Mention the subject, the question text, and what you believe the correct answer is. Our team verifies and corrects errors within 24 hours.</div>
-        </details>
-        <details class="faq">
-          <summary>How do I share an important exam notification?</summary>
-          <div class="faq-answer">Use the Contact Form above and select "Exam News Tip". Include the source (official URL if available) and the key details. If verified, we will publish it on the Exam News page promptly.</div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. SITEMAP SECTION -->
-  <section class="sitemap-section">
-    <div class="wrapper">
-      <div class="section-header center" style="margin-bottom: 1.5rem;">
-        <h2 class="section-title" style="font-size: 1.8rem;">Website <em>Sitemap</em></h2>
-      </div>
-      <div class="sitemap-grid">
-        <div class="sitemap-col">
-          <h4>Main Pages</h4>
-          <ul>
-            <li><a href="index.html">➤ Home</a></li>
-            <li><a href="about.html">➤ About Us</a></li>
-            <li><a href="contact.html">➤ Contact Us</a></li>
-          </ul>
-        </div>
-        <div class="sitemap-col">
-          <h4>Exams</h4>
-          <ul>
-            <li><a href="test.html">➤ TAT Mock Test</a></li>
-            <li><a href="test.html">➤ Practice Test</a></li>
-            <li><a href="test.html">➤ TET / GSET / UGC NET</a></li>
-          </ul>
-        </div>
-        <div class="sitemap-col">
-          <h4>Study Material</h4>
-          <ul>
-            <li><a href="materials.html">➤ Official Syllabus</a></li>
-            <li><a href="materials.html">➤ Previous Papers (PYQs)</a></li>
-            <li><a href="materials.html">➤ PDF Notes</a></li>
-          </ul>
-        </div>
-        <div class="sitemap-col">
-          <h4>Others</h4>
-          <ul>
-            <li><a href="news.html">➤ Exam News</a></li>
-            <li><a href="news.html">➤ Live Updates</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-brand-name">Adhyapak Saathi</div>
-        <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
-        <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
-      </div>
-      <div>
-        <div class="footer-col-title">Navigation</div>
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="test.html">Practice Test</a></li>
-          <li><a href="news.html">Exam News</a></li>
-          <li><a href="materials.html">Study Materials</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Examinations</div>
-        <ul class="footer-links">
-          <li><a href="test.html?exam=tat">TAT (Secondary)</a></li>
-          <li><a href="test.html?exam=tat">TAT (Higher Secondary)</a></li>
-          <li><a href="test.html?exam=tet1">TET I &amp; II</a></li>
-          <li><a href="test.html?exam=ugcnet">UGC NET</a></li>
-          <li><a href="test.html?exam=gset">GSET</a></li>
-          <li><a href="test.html?exam=ctet">CTET</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Contact</div>
-        <ul class="footer-links">
-          <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
-          <li><a href="contact.html">Send a Message</a></li>
-          <li><a href="contact.html">Suggestion Box</a></li>
-        </ul>
-      </div>
-    </div>
-    
-    <div class="footer-bottom">
-      <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
-    </div>
-  </footer>
-</div>
+  <div class="footer-bottom">
+    <p>© 2026 <span style="color: #b8860b;">Adhyapak Saathi</span>. All rights reserved.</p>
+  </div>
+</footer>
 
 <script>
-// --- SECURITY FEATURES ---
-document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-document.onkeydown = function(e) {
-  if (e.key === 'F12') return false;
-  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
-  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
-};
-document.addEventListener('copy', function(e) { e.preventDefault(); });
-
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-
-// --- SMART VALIDATION SYSTEM (QA UPDATED: NO ALERTS) ---
-function validateForm(formId, errorId) {
-  const form = document.getElementById(formId);
-  const errorDiv = document.getElementById(errorId);
-  const nameField = form.querySelector('input[name="name"]');
-  const textField = form.querySelector('textarea');
-  
-  const nameVal = nameField.value.trim().toLowerCase();
-  const textVal = textField.value.trim();
-
-  // Reset error box
-  errorDiv.style.display = 'none';
-
-  // 1. Name Validation (No numbers, no gibberish like abc)
-  const isNumber = /^\d+$/.test(nameVal);
-  const isGibberish = (nameVal === 'abc' || nameVal === 'abcd' || nameVal === 'અબક' || nameVal === 'અબકડ');
-  
-  if (nameVal.length < 3 || isNumber || isGibberish) {
-    showError(errorDiv, "⚠️ Please enter your real and full name. (Numbers or random letters are not allowed)");
-    nameField.focus();
-    return false;
-  }
-
-  // 2. Word Count Validation (15 to 1000 words)
-  const wordsArray = textVal.split(/\s+/).filter(word => word.length > 0);
-  const wordCount = wordsArray.length;
-
-  if (wordCount < 15) {
-    showError(errorDiv, `⚠️ Please write in more detail. (You have only written ${wordCount} words. Minimum 15 words required.)`);
-    textField.focus();
-    return false;
-  }
-  
-  if (wordCount > 1000) {
-    showError(errorDiv, `⚠️ Your message is too long. (You have written ${wordCount} words. Maximum limit is 1000 words.)`);
-    textField.focus();
-    return false;
-  }
-
-  return true;
-}
-
-function showError(div, message) {
-  div.innerText = message;
-  div.style.display = 'block';
-}
-
-// --- SECURE FORM SUBMISSION ---
-async function submitValidatedForm(e, successId, errorId, formId) {
-  e.preventDefault(); // Stop normal submission
-  
-  // First run the validation check
-  if (!validateForm(formId, errorId)) {
-    return; // If validation fails, stop here
-  }
-
-  const form = document.getElementById(formId);
-  const errorDiv = document.getElementById(errorId);
-  const btn = form.querySelector('button[type=submit]');
-  const origText = btn.textContent;
-  
-  btn.textContent = 'Sending... ⏳';
-  btn.disabled = true;
-  
-  try {
-    const res = await fetch(form.action, { 
-      method: 'POST', 
-      body: new FormData(form), 
-      headers: { Accept: 'application/json' } 
-    });
-    
-    if (res.ok) {
-      form.style.display = 'none'; // Hide the form completely
-      document.getElementById(successId).style.display = 'block'; // Show massive beautiful success UI
-    } else {
-      showError(errorDiv, '⚠️ There was an error on the server. Please try again.');
-      btn.textContent = origText;
-      btn.disabled = false;
-    }
-  } catch (error) {
-    showError(errorDiv, '⚠️ Please check your internet connection and try again.');
-    btn.textContent = origText;
-    btn.disabled = false;
-  }
-}
 </script>
 </body>
 </html>
