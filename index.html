@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Premium Mock Test — Adhyapak Saathi</title>
+  <title>Adhyapak Saathi — Free Teacher Exam Preparation Portal</title>
+  
+  <meta name="description" content="Gujarat's premium free portal for TAT, TET, UGC NET, GSET, and CTET exam preparation. Get mock tests, study materials, and live exam notifications."/>
   
   <link rel="stylesheet" href="style.css"/>
   
@@ -11,83 +13,21 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='n' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230f172a' /%3E%3Cstop offset='100%25' stop-color='%231d3461' /%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4a017' /%3E%3Cstop offset='100%25' stop-color='%23fbbf24' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='160' height='160' rx='40' fill='%23ffffff'/%3E%3Cg transform='translate(15, 20)'%3E%3Cpath d='M 30 108 Q 80 115 125 102' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='40' r='13' fill='url(%23n)'/%3E%3Cpath d='M 40 108 C 40 70 52 60 76 75' fill='none' stroke='url(%23n)' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='55' r='9' fill='url(%23g)'/%3E%3Cpath d='M 64 108 C 64 90 70 82 76 75' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M 70 82 Q 85 70 98 55' fill='none' stroke='url(%23g)' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E"/>
   
   <style>
-    body { -webkit-user-select: none; -ms-user-select: none; user-select: none; background: #f4f7fb; }
-
-    /* MOCK TEST CARDS */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
-    .test-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; box-shadow: var(--shadow-md); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-    .premium-badge { position: absolute; top: 15px; right: -35px; background: var(--red); color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px; }
-
-    /* OFFER BANNER */
-    .offer-banner { background: #fffdf5; border: 2px dashed #b8860b; padding: 25px; border-radius: 10px; margin-bottom: 40px; text-align: center; }
-    .offer-banner h3 { color: #b8860b; margin-top: 0; font-size: 1.5rem; margin-bottom: 10px; }
-
-    /* MODAL OVERLAYS */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-    .auth-box { background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; border-top: 5px solid var(--navy); box-shadow: 0 15px 30px rgba(0,0,0,0.3); animation: pop 0.3s ease-out; }
-    @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-    /* EXAM UI */
-    .exam-container { display: none; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
-    .sticky-header { background: white; border-bottom: 3px solid var(--gold); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-    .exam-body { display: flex; flex: 1; overflow: hidden; }
-    .question-panel { flex: 7; padding: 20px; overflow-y: auto; position: relative; }
-    .palette-panel { flex: 3; background: #f8fafd; border-left: 1px solid var(--border); padding: 20px; overflow-y: auto; }
-    
-    .question-text { font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; color: #2d3748; line-height: 1.6; }
-    .radio-option { display: flex; align-items: center; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; font-size: 1.05rem; font-weight: 600; color: #4a5568; }
-    .radio-option:hover { background: #f8fafd; border-color: var(--navy-mid); }
-    .radio-option.selected { background: #ebf4ff; border-color: var(--navy); }
-    .radio-option input { margin-right: 15px; transform: scale(1.3); }
-
-    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-    .palette-btn { aspect-ratio: 1; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; color: white; background: #cbd5e0; font-size: 1rem; }
-    .palette-btn.answered { background: var(--green); }
-    .palette-btn.not-answered { background: var(--red); }
-    .palette-btn.review { background: #805ad5; }
-    .palette-btn.current { outline: 3px solid var(--navy); outline-offset: 2px; }
-
-    /* MOBILE RESPONSIVE */
-    @media (max-width: 768px) {
-      .grid-2 { grid-template-columns: 1fr; }
-      .exam-body { flex-direction: column; }
-      .palette-panel { flex: none; height: 250px; border-left: none; border-top: 1px solid var(--border); }
-      .palette-grid { grid-template-columns: repeat(6, 1fr); }
+    /* Security: Prevent text selection across the whole page */
+    body {
+      -webkit-user-select: none; 
+      -ms-user-select: none; 
+      user-select: none; 
     }
   </style>
 </head>
 <body>
 
-<!-- LOGIN MODAL (SECURITY KEY) -->
-<div class="modal-overlay" id="loginModal">
-  <div class="auth-box">
-    <h3 style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">🔒 સિક્યુરિટી કી દાખલ કરો</h3>
-    <p style="color: var(--text-mid); font-size: 0.95rem; margin-bottom: 20px;">આ પ્રીમિયમ ટેસ્ટ આપવા માટે તમારી પાસે સિક્યુરિટી કી (પાસવર્ડ) હોવી જરૂરી છે.</p>
-    
-    <input type="text" id="securityKeyInput" placeholder="Enter Security Key" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-weight: bold; outline: none;">
-    
-    <button class="btn btn-navy" style="width: 100%; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="verifyKey()">ટેસ્ટ શરૂ કરો</button>
-    <p id="keyError" style="color: var(--red); font-weight: bold; display: none; margin-top: 15px;">❌ ખોટો પાસવર્ડ! કૃપા કરીને સાચો પાસવર્ડ દાખલ કરો.</p>
-    
-    <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('loginModal').style.display='none'">બંધ કરો</button>
-  </div>
-</div>
-
-<!-- WARNING MODAL (ANTI-BACK) -->
-<div class="modal-overlay" id="warningModal">
-  <div class="auth-box" style="border-top-color: var(--red);">
-    <h3 style="color: var(--red); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">⚠️ ચેતવણી!</h3>
-    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: bold;">પરીક્ષા દરમિયાન બેક (Back) જવાની કે પેજ રિફ્રેશ કરવાની સખત મનાઈ છે!</p>
-    <button class="btn btn-navy" style="width: 100%; padding: 12px; border-radius: 6px;" onclick="document.getElementById('warningModal').style.display='none'">ઓકે, ટેસ્ટ ચાલુ રાખો</button>
-  </div>
-</div>
-
-<!-- CUSTOM CONFIRMATION MODAL -->
-<div class="modal-overlay" id="customModalOverlay">
-  <div class="auth-box" style="border-top-color: var(--gold);">
-    <h3 id="modalTitle" style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">શીર્ષક</h3>
-    <p id="modalMsg" style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: 500;">સંદેશ અહીં આવશે...</p>
-    <div id="modalFooter" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;"></div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
+    <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
   </div>
 </div>
 
@@ -128,291 +68,182 @@
       </div>
     </a>
     
-    <!-- STANDARD NAV LINKS -->
+    <!-- STANDARD NAV LINKS (Home is active) -->
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
       <li><a href="test.html">Practice Test</a></li>
-      <li><a href="mocktest.html" class="active">Mock Test</a></li>
+      <li><a href="mocktest.html">Mock Test</a></li>
       <li><a href="news.html">Exam News</a></li>
       <li><a href="materials.html">Study Materials</a></li>
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     
-    <div class="hamburger" onclick="toggleMobileNav()">
+    <div class="hamburger" onclick="toggleNav()">
       <span></span><span></span><span></span>
     </div>
   </div>
 </nav>
 
-<div id="mainContent">
-  <div class="page-banner">
-    <div class="wrapper">
-      <h1>Real-Time <em>Premium Mock Test</em></h1>
-      <p>TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) માટે ૧૦૦ પ્રશ્નોની સંપૂર્ણ ઓનલાઇન પરીક્ષા.</p>
-    </div>
-  </div>
-
+<!-- HERO SECTION -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
   <div class="wrapper">
-    <!-- OFFER BANNER -->
-    <div class="offer-banner">
-      <h3>🎁 રામનવમી સ્પેશિયલ ઓફર!</h3>
-      <p style="color: #2c3e50; font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
-        <strong>૧૦૦ પ્રીમીયમ પ્રશ્નો સાથે મોકટેસ્ટ આપો તદ્દન ફ્રિ</strong><br>
-        પ્રોમોકોડ <span style="background: var(--navy); color: var(--gold); padding: 3px 10px; border-radius: 5px; font-weight: 800;">RAMNAVAMI100</span> નો ઉપયોગ સિક્યુરિટી કી તરીકે કરો.
-      </p>
-    </div>
-
-    <!-- MOCK TESTS: Perfect Replica of the Screenshot -->
-    <div class="grid-2">
-      <!-- PAPER 1 BOX -->
-      <div class="test-card">
-        <div class="premium-badge">PREMIUM</div>
-        <div style="font-size: 3.5rem; margin-bottom: 10px;">🎓</div>
-        <h3 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.6rem; margin-bottom: 10px;">પેપર 1 (General) - મોક ટેસ્ટ</h3>
-        
-        <div style="margin-bottom: auto;">
-            <p style="margin: 15px 0; color: var(--text-mid); font-weight: 600;">૧૦૦ પ્રીમિયમ પ્રશ્નો • ૯૦ મિનિટ • -૦.૨૫ નેગેટિવ</p>
-            
-            <!-- Green Highlighted Box -->
-            <div style="background: #eaf5ef; border: 1px solid #bbf7d0; padding: 12px; border-radius: 8px; margin-bottom: 25px; font-size: 0.95rem; color: var(--green); font-weight: 800;">
-              TCS/NTA નવી પરીક્ષા પદ્ધતિ મુજબ
-            </div>
-        </div>
-
-        <button class="btn btn-navy" style="font-size: 1.1rem; padding: 14px 35px; width: 100%; border-radius: 50px;" onclick="openLogin()">ટેસ્ટ શરૂ કરો</button>
-      </div>
-      
-      <!-- PAPER 2 BOX -->
-      <div class="test-card" style="opacity: 0.8; border-color: #cbd5e0; background: #f8fafd;">
-        <div style="font-size: 3.5rem; margin-bottom: 10px; filter: grayscale(1);">⏳</div>
-        <h3 style="font-family: var(--font-serif); color: #64748b; font-size: 1.6rem; margin-bottom: 10px;">પેપર 2 (વિષયવસ્તુ)</h3>
-        
-        <div style="margin-bottom: auto;">
-            <p style="margin: 15px 0; color: #94a3b8; font-weight: 600; line-height: 1.6;">આ પેપરમાં પ્રશ્નો ઉમેરવાનું કાર્ય ચાલુ છે.<br>ટૂંક સમયમાં જ આ ટેસ્ટ ઉપલબ્ધ થશે!</p>
-        </div>
-
-        <button class="btn btn-outline" style="border-color: #cbd5e0; color: #94a3b8; font-size: 1.1rem; padding: 14px 35px; width: 100%; border-radius: 50px; font-weight: bold;" disabled>Coming Soon</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- EXAM UI -->
-<div class="exam-container" id="examContainer">
-  <div class="sticky-header">
-    <div style="font-weight: bold; color: var(--navy); font-size: 1.2rem;">TAT Premium Mock Test</div>
-    <div style="background: #fee2e2; color: var(--red); padding: 5px 15px; border-radius: 20px; font-weight: bold; border: 1px solid var(--red);">
-      ⏱️ <span id="timer">00:00:00</span>
-    </div>
-  </div>
-  <div class="exam-body">
-    <div class="question-panel">
-      <div style="margin-bottom: 15px; font-weight: bold; color: var(--navy-mid); background: #ebf4ff; display: inline-block; padding: 4px 15px; border-radius: 20px;" id="qNumHeader">પ્રશ્ન: 1 / 100</div>
-      <div class="question-text" id="qText">પ્રશ્ન લોડ થઈ રહ્યો છે...</div>
-      <div id="optionsBox"></div>
-      
-      <div style="margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
-        <button class="btn btn-navy" style="width: auto; padding: 10px 30px;" onclick="saveNext()">Save & Next</button>
-        <button class="btn btn-outline" style="width: auto; border-color: #805ad5; color: #805ad5; padding: 10px 30px;" onclick="markReview()">Review & Next</button>
-        <button class="btn btn-outline" style="width: auto; border-color: #e2e8f0; color: #4a5568; padding: 10px 30px;" onclick="clearChoice()">Clear Response</button>
-      </div>
-    </div>
-    <div class="palette-panel">
-      <div style="font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 5px;">Question Palette</div>
-      <div class="palette-grid" id="paletteGrid"></div>
-      <button class="btn btn-navy" style="margin-top: 30px; background: var(--navy-dark); width: 100%;" onclick="confirmSubmit()">Submit Final Test</button>
-    </div>
-  </div>
-</div>
-
-<!-- RESULT SCREEN -->
-<div id="resultScreen" style="display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh;">
-  <div style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; border: 2px solid var(--gold); box-shadow: var(--shadow-lg); text-align: center;">
-    <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--navy); margin-bottom: 30px;">પરીક્ષા પરિણામ (Scorecard)</h2>
-    <div style="width: 150px; height: 150px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px; background: #f8fafd;">
-      <div style="font-size: 2.8rem; font-weight: bold; color: var(--navy); line-height: 1;" id="resScore">0.00</div>
-      <div style="font-size: 0.9rem; color: var(--text-mid); font-weight: bold;">મેળવેલ ગુણ</div>
+    <span class="hero-eyebrow">Gujarat's #1 Preparation Portal</span>
+    <h1>Your Journey to Becoming a <span>Teacher Starts Here.</span></h1>
+    <p class="hero-desc">Free, comprehensive, and syllabus-aligned mock tests, study materials, and real-time exam notifications for TAT, TET, UGC NET, GSET, and CTET aspirants.</p>
+    
+    <div class="hero-cta">
+      <a href="mocktest.html" class="btn btn-gold" style="font-size: 1.05rem; padding: 14px 30px;">Take Premium Mock Test 🚀</a>
+      <a href="test.html" class="btn btn-outline" style="color: white; border-color: white; font-size: 1.05rem; padding: 14px 30px;">Topic-wise Practice</a>
     </div>
     
-    <div style="margin: 30px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;" id="resStats"></div>
-    
-    <button class="btn btn-navy" style="margin-top: 20px; width: 100%; padding: 15px; font-size: 1.1rem;" onclick="window.location.href='index.html'">હોમ પેજ પર પાછા જાઓ 🏠</button>
+    <div class="exam-badge-row">
+      <span class="exam-badge">TAT (Secondary)</span>
+      <span class="exam-badge">TAT (Higher Sec.)</span>
+      <span class="exam-badge">TET I &amp; II</span>
+      <span class="exam-badge">GSET</span>
+      <span class="exam-badge">UGC NET</span>
+      <span class="exam-badge">CTET</span>
+    </div>
   </div>
-</div>
+</header>
+
+<!-- STATS ROW -->
+<section class="wrapper" style="margin-top: -40px; position: relative; z-index: 10;">
+  <div class="stats-row">
+    <div class="stat-cell">
+      <span class="stat-num">7+</span>
+      <span class="stat-label">EXAMS COVERED</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">PRACTICE Qs</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">FREE ACCESS</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">24/7</span>
+      <span class="stat-label">LIVE UPDATES</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="section">
+  <div class="wrapper">
+    <div class="section-header center">
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">Everything you need to <em>succeed.</em></h2>
+      <p class="section-desc">Designed by educators, for educators. A complete ecosystem for your exam preparation.</p>
+    </div>
+    
+    <div class="grid-3">
+      <div class="feature-box">
+        <span class="feature-icon">🎓</span>
+        <h3 class="feature-title">Real-Time Mock Tests</h3>
+        <p class="feature-desc">Experience the actual exam environment with our timed, negative-marking enabled mock tests based on the latest NTA/TCS patterns.</p>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">📝</span>
+        <h3 class="feature-title">Topic-wise Practice</h3>
+        <p class="feature-desc">Strengthen your weak areas with dedicated practice tests for Educational Psychology, Philosophy, Reasoning, and Languages.</p>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">🔔</span>
+        <h3 class="feature-title">Live Notifications</h3>
+        <p class="feature-desc">Never miss a deadline. Get instant updates on exam dates, admit cards, and results directly from official government sources.</p>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">📚</span>
+        <h3 class="feature-title">Study Materials & PDFs</h3>
+        <p class="feature-desc">Download free, high-quality study materials, official syllabi, and previous year question papers (PYQs) to boost your preparation.</p>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">🎯</span>
+        <h3 class="feature-title">Syllabus Accuracy</h3>
+        <p class="feature-desc">Every question and resource is strictly mapped to the official syllabus of the relevant examination board (GSSB, SEB, NTA, CBSE).</p>
+      </div>
+      <div class="feature-box">
+        <span class="feature-icon">📱</span>
+        <h3 class="feature-title">Universal Access</h3>
+        <p class="feature-desc">Adhyapak Saathi is fully mobile-responsive. Practice anytime, anywhere, on any device with an internet connection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="section-sm" style="background: var(--white); border-top: 1px solid var(--border);">
+  <div class="wrapper-narrow text-center" style="text-align: center; padding: 3rem 0;">
+    <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 1rem;">Ready to ace your exams?</h2>
+    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 2rem;">Join thousands of aspirants preparing on Gujarat's most trusted platform.</p>
+    <a href="mocktest.html" class="btn btn-navy" style="font-size: 1.1rem; padding: 14px 35px; border-radius: 50px;">Start Premium Mock Test Now →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-name">Adhyapak Saathi</div>
+      <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
+      <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="test.html">Practice Test</a></li>
+        <li><a href="mocktest.html">Mock Test</a></li>
+        <li><a href="news.html">Exam News</a></li>
+        <li><a href="materials.html">Study Materials</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Examinations</div>
+      <ul class="footer-links">
+        <li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li>
+        <li><a href="news.html">TET I &amp; TET II</a></li>
+        <li><a href="news.html">UGC NET</a></li>
+        <li><a href="news.html">GSET</a></li>
+        <li><a href="news.html">CTET</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
+        <li><a href="contact.html">Send a Message</a></li>
+        <li><a href="contact.html">Suggestion Box</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
+  </div>
+</footer>
 
 <script>
-  // SECURITY
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  window.onbeforeunload = null;
+// --- SECURITY FEATURES ---
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+document.onkeydown = function(e) {
+  if (e.key === 'F12') return false;
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
+};
+document.addEventListener('copy', function(e) { e.preventDefault(); });
 
-  function toggleMobileNav() { 
-    document.getElementById('navLinks').classList.toggle('open'); 
-  }
-
-  // MODAL FUNCTION FOR CONFIRMATION
-  function showModal(title, msg, isConfirm, callback) {
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalMsg').innerText = msg;
-    const footer = document.getElementById('modalFooter');
-    footer.innerHTML = '';
-    
-    if(isConfirm) {
-        const yesBtn = document.createElement('button');
-        yesBtn.className = 'btn btn-navy'; 
-        yesBtn.style.padding = '10px 20px';
-        yesBtn.innerText = 'હા, સબમિટ કરો';
-        yesBtn.onclick = () => { document.getElementById('customModalOverlay').style.display='none'; callback(); };
-        
-        const noBtn = document.createElement('button');
-        noBtn.className = 'btn btn-outline'; 
-        noBtn.style.padding = '10px 20px';
-        noBtn.innerText = 'ના, ચાલુ રાખો';
-        noBtn.onclick = () => { document.getElementById('customModalOverlay').style.display='none'; };
-        
-        footer.append(yesBtn, noBtn);
-    } else {
-        const okBtn = document.createElement('button');
-        okBtn.className = 'btn btn-navy'; 
-        okBtn.style.padding = '10px 20px';
-        okBtn.innerText = 'OK';
-        okBtn.onclick = () => { document.getElementById('customModalOverlay').style.display='none'; };
-        footer.append(okBtn);
-    }
-    document.getElementById('customModalOverlay').style.display = 'flex';
-  }
-
-  // LOGIN LOGIC
-  function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-  
-  function verifyKey() {
-    const key = document.getElementById('securityKeyInput').value.trim().toUpperCase();
-    if(key === "TAT2026" || key === "RAMNAVAMI100") {
-      document.getElementById('loginModal').style.display = 'none';
-      startExam();
-    } else {
-      document.getElementById('keyError').style.display = 'block';
-      setTimeout(() => document.getElementById('keyError').style.display = 'none', 3000);
-    }
-  }
-
-  // =======================================================================
-  // ⚠️ તમારો 100 પ્રશ્નોનો ડેટાબેઝ ⚠️
-  // =======================================================================
-  const mockDB = [
-    {q:"સિંધુ નદીમાંથી નીકળનારી સૌથી મોટી ઉપનદી કઈ છે?", opts:["જેલમ","સતલજ","રાવી","ચિનાબ"], ans:3},
-    {q:"\"માણસનાં શરીર, મન, આત્મામાં જે કંઈ શ્રેષ્ઠ છે તે બધું બહાર લાવવું એટલે શિક્ષણ.\" - આ વ્યાખ્યા કોણે આપી છે?", opts:["ઋગ્વેદ","કૌટિલ્ય","મહાત્મા ગાંધીજી","સ્વામી વિવેકાનંદ"], ans:2},
-    {q:"IIM સુધારા બિલ 2025 હેઠળ ₹550 કરોડની ગ્રાન્ટ સાથે કઈ નવી IIMની સ્થાપના થશે?", opts:["પટના","રાંચી","ગુવાહાટી","નાગપુર"], ans:2},
-    {q:"ગીરના જંગલમાં જંબુર ગામમાં કોની વસાહત છે?", opts:["ઠાકોર","દૂબળા","આહીર","સીદી"], ans:3},
-    {q:"RTE એક્ટ મુજબ, શૈક્ષણિક વર્ષ શરૂ થયા પછી કેટલા મહિના સુધી પ્રવેશ આપી શકાય છે?", opts:["૩ મહિના","૫ મહિના","૬ મહિના","૯ મહિના"], ans:2}
-  ];
-
-  // 100 પ્રશ્નો પૂરા કરવા માટેની લૂપ (તમે બાકીના પ્રશ્નો નાખશો એટલે આ લૂપ કાઢી નાખજો)
-  if (mockDB.length < 100) {
-      for (let i = mockDB.length; i < 100; i++) {
-          mockDB.push({
-              q: "પ્રશ્ન " + (i + 1) + ": (અહીં તમારી PDF માંથી બાકીના પ્રશ્નો ઉમેરવાના રહેશે)",
-              opts: ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
-              ans: Math.floor(Math.random() * 4)
-          });
-      }
-  }
-
-  let currentIdx = 0;
-  let answers = {};
-  let status = {}; // 'answered', 'review', 'not-visited'
-  let timeLeft = 90 * 60;
-  let timer;
-
-  function startExam() {
-    // ANTI-BACK MECHANISM
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1); // Force them to stay
-        document.getElementById('warningModal').style.display = 'flex'; // Show Warning
-    };
-
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('standardNav').style.display = 'none';
-    document.getElementById('examContainer').style.display = 'flex';
-    
-    currentIdx = 0; answers = {}; status = {};
-    mockDB.forEach((_, i) => status[i] = 'not-visited');
-    
-    loadQuestion(0);
-    startTimer();
-  }
-
-  function startTimer() {
-    timer = setInterval(() => {
-      timeLeft--;
-      const h = Math.floor(timeLeft / 3600).toString().padStart(2,'0');
-      const m = Math.floor((timeLeft % 3600) / 60).toString().padStart(2,'0');
-      const s = (timeLeft % 60).toString().padStart(2,'0');
-      document.getElementById('timer').innerText = `${h}:${m}:${s}`;
-      if(timeLeft <= 0) submitTest();
-    }, 1000);
-  }
-
-  function loadQuestion(idx) {
-    currentIdx = idx;
-    const q = mockDB[idx];
-    document.getElementById('qNumHeader').innerText = `પ્રશ્ન: ${idx + 1} / 100`;
-    document.getElementById('qText').innerText = q.q;
-    
-    let html = '';
-    q.opts.forEach((opt, i) => {
-      const isSel = answers[idx] === i;
-      html += `<div class="radio-option ${isSel?'selected':''}" onclick="selectOpt(${i})">
-                 <input type="radio" name="opts" ${isSel?'checked':''}> ${opt}
-               </div>`;
-    });
-    document.getElementById('optionsBox').innerHTML = html;
-    
-    if (status[idx] === 'not-visited') status[idx] = 'not-answered';
-    renderPalette();
-  }
-
-  function selectOpt(i) { answers[currentIdx] = i; status[currentIdx] = 'answered'; loadQuestion(currentIdx); }
-  function saveNext() { if(currentIdx < mockDB.length - 1) loadQuestion(currentIdx + 1); else renderPalette(); }
-  function markReview() { status[currentIdx] = 'review'; if(currentIdx < mockDB.length - 1) loadQuestion(currentIdx + 1); else renderPalette(); }
-  function clearChoice() { delete answers[currentIdx]; status[currentIdx] = 'not-answered'; loadQuestion(currentIdx); }
-
-  function renderPalette() {
-    let html = '';
-    mockDB.forEach((_, i) => {
-      let cls = status[i] || 'not-visited';
-      if(i === currentIdx) cls += ' current';
-      html += `<button class="palette-btn ${cls}" onclick="loadQuestion(${i})">${i+1}</button>`;
-    });
-    document.getElementById('paletteGrid').innerHTML = html;
-  }
-
-  function confirmSubmit() {
-    showModal("ટેસ્ટ સબમિટ કરવી છે?", "તમે સબમિટ કર્યા પછી કોઈ ફેરફાર કરી શકશો નહીં. શું તમે ખરેખર ટેસ્ટ પૂર્ણ કરવા માંગો છો?", true, submitTest);
-  }
-
-  function submitTest() {
-    clearInterval(timer);
-    window.onpopstate = null; // Remove anti-back after submit
-    document.getElementById('examContainer').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'block';
-    
-    let correct = 0, wrong = 0;
-    mockDB.forEach((q, i) => {
-      if(answers[i] === q.ans) correct++;
-      else if(answers[i] !== undefined) wrong++;
-    });
-
-    const score = correct - (wrong * 0.25);
-    document.getElementById('resScore').innerText = score.toFixed(2);
-    document.getElementById('resStats').innerHTML = `
-      <div style="background:#eafaf1; padding:15px; border-radius:8px; border:1px solid #d4efdf; font-size:1.1rem;">સાચા: <b style="color:var(--green); font-size:1.5rem; display:block;">${correct}</b></div>
-      <div style="background:#fef5f5; padding:15px; border-radius:8px; border:1px solid #fadbd8; font-size:1.1rem;">ખોટા (-0.25): <b style="color:var(--red); font-size:1.5rem; display:block;">${wrong}</b></div>
-      <div style="background:#f4f6f7; padding:15px; border-radius:8px; border:1px solid #ebedef; font-size:1.1rem;">છોડેલા: <b style="color:var(--navy); font-size:1.5rem; display:block;">${100 - (correct+wrong)}</b></div>
-      <div style="background:#ebf5fb; padding:15px; border-radius:8px; border:1px solid #d6eaf8; font-size:1.1rem;">ચોકસાઈ: <b style="color:var(--navy); font-size:1.5rem; display:block;">${((correct/100)*100).toFixed(0)}%</b></div>
-    `;
-  }
+// --- REGULAR SCRIPTS ---
+function toggleNav() { 
+  document.getElementById('navLinks').classList.toggle('open'); 
+}
 </script>
 </body>
 </html>
