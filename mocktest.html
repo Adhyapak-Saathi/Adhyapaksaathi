@@ -147,10 +147,10 @@
     .status-badge { width: 18px; height: 18px; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; color: white; font-size: 0.65rem; font-weight: bold; }
     
     /* Correct Colors and Highlights as requested */
-    .s-not-visited { background: #ffffff; border: 1px solid #cbd5e0; color: #4a5568; }
-    .s-not-answered { background: #e53e3e; border: 1px solid #c53030; color: white; } /* Red for skipped/not answered */
-    .s-answered { background: #38a169; border: 1px solid #2f855a; color: white; } /* Green for answered */
-    .s-review { background: #805ad5; border: 1px solid #6b46c1; color: white; }
+    .s-not-visited { background: #ffffff !important; border: 1px solid #cbd5e0 !important; color: #4a5568 !important; }
+    .s-not-answered { background: #e53e3e !important; border: 1px solid #c53030 !important; color: white !important; } /* Red for skipped/not answered */
+    .s-answered { background: #38a169 !important; border: 1px solid #2f855a !important; color: white !important; } /* Green for answered */
+    .s-review { background: #805ad5 !important; border: 1px solid #6b46c1 !important; color: white !important; }
     
     /* THE ACTIVE OUTLINE FIX: Doesn't override background color, just adds thick navy outline & scale */
     .s-active { 
@@ -338,7 +338,9 @@
   <div class="p-sticky-header">
     <div style="font-weight:900; color:var(--navy); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
       🎓 TAT - પેપર 1 
-      <span style="color:var(--gold); border-left:2px solid var(--border); padding-left:8px; margin-left:4px;">અધ્યાપકસાથી</span>
+      <span style="color:var(--gold); border-left:2px solid var(--border); padding-left:8px; margin-left:4px; font-size:0.95rem;">
+        અધ્યાપકસાથી શૈક્ષણિક પોર્ટલ | <span style="color:var(--navy); text-decoration:underline;">www.adhyapaksaathi.in</span>
+      </span>
     </div>
     <div style="display:flex; gap:10px; align-items:center;">
        <div style="background:#fdf0ee; color:var(--red); padding:4px 10px; border-radius:20px; font-weight:900; font-size:0.9rem; border:1px solid var(--red);">⏱️ <span id="pTimer">90:00</span></div>
@@ -629,10 +631,34 @@ function loadQuestion(index) {
 function selectOption(idx) {
     userAnswers[currentQIndex] = idx;
     qStatus[currentQIndex] = 'answered';
-    loadQuestion(currentQIndex);
+    
+    const options = document.querySelectorAll('.radio-option');
+    options.forEach((opt, i) => {
+        if (i === idx) {
+            opt.classList.add('selected');
+            opt.querySelector('input').checked = true;
+        } else {
+            opt.classList.remove('selected');
+            opt.querySelector('input').checked = false;
+        }
+    });
+
+    renderPalette();
 }
 
-function clearResponse() { delete userAnswers[currentQIndex]; qStatus[currentQIndex] = 'not_answered'; loadQuestion(currentQIndex); }
+function clearResponse() { 
+    delete userAnswers[currentQIndex]; 
+    qStatus[currentQIndex] = 'not_answered'; 
+    
+    const options = document.querySelectorAll('.radio-option');
+    options.forEach((opt) => {
+        opt.classList.remove('selected');
+        opt.querySelector('input').checked = false;
+    });
+
+    renderPalette(); 
+}
+
 function saveAndNext() { if(currentQIndex < fullDatabase.length - 1) loadQuestion(currentQIndex + 1); else renderPalette(); }
 function markReviewAndNext() { qStatus[currentQIndex] = 'review'; saveAndNext(); }
 function prevQuestion() { if(currentQIndex > 0) loadQuestion(currentQIndex - 1); }
