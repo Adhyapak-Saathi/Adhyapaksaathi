@@ -58,16 +58,16 @@
 </head>
 <body>
 
-<!-- LOGIN MODAL (SECURITY KEY) -->
+<!-- LOGIN MODAL (PROMO CODE) -->
 <div class="modal-overlay" id="loginModal">
   <div class="auth-box">
-    <h3 style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">🔒 સિક્યુરિટી કી દાખલ કરો</h3>
-    <p style="color: var(--text-mid); font-size: 0.95rem; margin-bottom: 20px;">આ પ્રીમિયમ ટેસ્ટ આપવા માટે તમારી પાસે સિક્યુરિટી કી (પાસવર્ડ) હોવી જરૂરી છે.</p>
+    <h3 style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">🎟️ પ્રોમો કોડ દાખલ કરો</h3>
+    <p style="color: var(--text-mid); font-size: 0.95rem; margin-bottom: 20px;">આ પ્રીમિયમ ટેસ્ટ બિલકુલ ફ્રીમાં આપવા માટે રામનવમીનો પ્રોમો કોડ દાખલ કરો.</p>
     
-    <input type="text" id="securityKeyInput" placeholder="Enter Security Key" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-weight: bold; outline: none;">
+    <input type="text" id="securityKeyInput" placeholder="Enter Promo Code" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-weight: bold; outline: none;">
     
     <button class="btn btn-navy" style="width: 100%; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="verifyKey()">ટેસ્ટ શરૂ કરો</button>
-    <p id="keyError" style="color: var(--red); font-weight: bold; display: none; margin-top: 15px;">❌ ખોટો પાસવર્ડ! કૃપા કરીને સાચો પાસવર્ડ દાખલ કરો.</p>
+    <p id="keyError" style="color: var(--red); font-weight: bold; display: none; margin-top: 15px;">❌ ખોટો પ્રોમો કોડ! કૃપા કરીને સાચો કોડ દાખલ કરો.</p>
     
     <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('loginModal').style.display='none'">બંધ કરો</button>
   </div>
@@ -154,12 +154,15 @@
   </div>
 
   <div class="wrapper">
-    <!-- OFFER BANNER -->
-    <div class="offer-banner">
-      <h3>🎁 રામનવમી સ્પેશિયલ ઓફર!</h3>
-      <p style="color: #2c3e50; font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
-        <strong>૧૦૦ પ્રીમીયમ પ્રશ્નો સાથે મોકટેસ્ટ આપો તદ્દન ફ્રિ</strong><br>
-        પ્રોમોકોડ <span style="background: var(--navy); color: var(--gold); padding: 3px 10px; border-radius: 5px; font-weight: 800;">RAMNAVAMI100</span> નો ઉપયોગ સિક્યુરિટી કી તરીકે કરો.
+    <!-- RAMNAVAMI SPECIAL OFFER BANNER -->
+    <div style="background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); border: 3px solid var(--gold); border-radius: 12px; padding: 25px 20px; margin-bottom: 3rem; color: white; text-align: center; box-shadow: var(--shadow-lg); position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 15px; right: -35px; background: var(--red); color: white; padding: 5px 40px; transform: rotate(45deg); font-weight: bold; font-size: 0.75rem; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">LIMITED TIME</div>
+      <h2 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--gold); margin-bottom: 10px;">🎁 રામનવમી સ્પેશિયલ ઓફર!</h2>
+      <p style="font-size: 1.1rem; color: rgba(255,255,255,0.95); margin-bottom: 8px; line-height: 1.5;">
+        ૧૦૦ પ્રીમીયમ પ્રશ્નો સાથે મોકટેસ્ટ આપો તદ્દન <strong>ફ્રિ</strong>!
+      </p>
+      <p style="font-size: 1rem; color: rgba(255,255,255,0.85); margin-bottom: 0;">
+        પ્રોમોકોડ <span style="background: rgba(255,255,255,0.15); color: var(--gold); padding: 4px 12px; border-radius: 6px; font-weight: 800; border: 1px dashed var(--gold); letter-spacing: 1px;">RAMNAVAMI100</span> નો ઉપયોગ કરો.
       </p>
     </div>
 
