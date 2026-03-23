@@ -74,9 +74,9 @@
     }
     .promo-box .label { font-size: 1rem; color: #fff; font-weight: 700; margin-bottom: 5px; display: block;}
     .promo-box .code {
-      font-size: 2rem; font-weight: 900; letter-spacing: 2px; color: var(--gold);
+      font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: var(--gold);
       text-shadow: 0 0 15px var(--gold); animation: textGlow 1.5s ease-in-out infinite alternate;
-      word-wrap: break-word;
+      word-break: break-all;
     }
     @keyframes textGlow { from { text-shadow: 0 0 5px var(--gold); } to { text-shadow: 0 0 20px var(--gold), 0 0 30px #ffb300; } }
 
@@ -113,7 +113,7 @@
     .exam-body { display: flex; flex-grow: 1; overflow: hidden; }
     .question-panel { flex: 7; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: #ffffff; position: relative; }
     
-    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 8px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
+    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 8px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;}
     
     /* New Top Stats Bar for Mobile/Web */
     .exam-stats-bar { display: flex; gap: 8px; font-size: 0.85rem; font-weight: 700; color: var(--navy); background: #f8fafd; padding: 8px 15px; border-bottom: 1px solid #e2e8f0; justify-content: center; flex-wrap: wrap; }
@@ -146,15 +146,23 @@
     .legend-item { display: flex; align-items: center; gap: 6px; }
     .status-badge { width: 18px; height: 18px; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; color: white; font-size: 0.65rem; font-weight: bold; }
     
-    /* Correct Colors as requested */
+    /* Correct Colors and Highlights as requested */
     .s-not-visited { background: #ffffff; border: 1px solid #cbd5e0; color: #4a5568; }
     .s-not-answered { background: #e53e3e; border: 1px solid #c53030; color: white; } /* Red for skipped/not answered */
     .s-answered { background: #38a169; border: 1px solid #2f855a; color: white; } /* Green for answered */
     .s-review { background: #805ad5; border: 1px solid #6b46c1; color: white; }
-    .s-active { background: #e53e3e !important; border: 3px solid #9b2c2c !important; color: white !important; transform: scale(1.15); box-shadow: 0 0 10px rgba(229, 62, 62, 0.5) !important; z-index: 10;} /* Active Red Box */
     
-    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 10px; }
-    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 4px; font-weight: 800; font-size: 0.9rem; border: 1px solid #cbd5e0; cursor: pointer; transition: 0.2s;}
+    /* THE ACTIVE OUTLINE FIX: Doesn't override background color, just adds thick navy outline & scale */
+    .s-active { 
+        border: 3px solid var(--navy) !important; 
+        box-shadow: 0 0 0 3px rgba(29, 52, 97, 0.3) !important; 
+        transform: scale(1.15); 
+        z-index: 10; 
+        font-weight: 900;
+    } 
+    
+    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 12px; }
+    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 800; font-size: 0.95rem; border: 1px solid #cbd5e0; cursor: pointer; transition: 0.2s;}
     
     /* COMPACT SCORECARD CSS */
     #resultScreen { display: none; background: #f4f7fb; min-height: 100vh; padding: 20px 10px; }
@@ -165,6 +173,7 @@
     .scorecard-brand svg { width: 40px; height: 40px; }
     .scorecard-brand-text h2 { margin: 0; font-family: var(--font-serif); color: var(--navy); font-size: 1.5rem; font-weight: 900;}
     .scorecard-brand-text p { margin: 0; color: var(--gold); font-weight: 700; font-size: 0.8rem;}
+    .scorecard-brand-text p span { color: var(--navy); font-weight: 900; margin-left: 5px; }
 
     .res-title { font-family: var(--font-serif); font-size: 1.4rem; color: var(--navy); margin-bottom: 15px; font-weight: 900; text-align: center;}
     .score-circle { width: 100px; height: 100px; border-radius: 50%; border: 5px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 10px auto; background: #f8fafd; }
@@ -325,14 +334,15 @@
 
 <!-- EXAM UI -->
 <div class="exam-container" id="examContainer" style="display: none;">
-  <!-- TOP STICKY HEADER -->
+  <!-- TOP STICKY HEADER (WITH BRANDING) -->
   <div class="p-sticky-header">
-    <div style="font-weight:900; color:var(--navy); display: flex; align-items: center; gap: 8px;">
-      🎓 TAT - પેપર 1
+    <div style="font-weight:900; color:var(--navy); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+      🎓 TAT - પેપર 1 
+      <span style="color:var(--gold); border-left:2px solid var(--border); padding-left:8px; margin-left:4px;">અધ્યાપકસાથી</span>
     </div>
     <div style="display:flex; gap:10px; align-items:center;">
        <div style="background:#fdf0ee; color:var(--red); padding:4px 10px; border-radius:20px; font-weight:900; font-size:0.9rem; border:1px solid var(--red);">⏱️ <span id="pTimer">90:00</span></div>
-       <!-- MOBILE SUBMIT BUTTON in HEADER (Hidden due to new footer button, kept as fallback) -->
+       <!-- MOBILE SUBMIT BUTTON in HEADER (Fallback) -->
        <button class="btn-exam btn-save header-mobile-submit" style="padding: 4px 12px; font-size:0.85rem;" onclick="submitExamConfirmation()">Submit 🏆</button>
     </div>
   </div>
@@ -390,7 +400,7 @@
       </svg>
       <div class="scorecard-brand-text">
         <h2>Adhyapak Saathi</h2>
-        <p>Premium Mock Test Scorecard</p>
+        <p>Premium Mock Test | <span style="color:var(--navy); font-weight:900;">www.adhyapaksaathi.in</span></p>
       </div>
     </div>
 
@@ -405,6 +415,10 @@
     </div>
     
     <table class="ta-table" id="topicTableBody" style="margin-bottom: 20px;"></table>
+
+    <div style="text-align: center; margin-top: 15px; font-weight: 700; color: var(--navy); font-size: 0.95rem; border-top: 1px dashed #cbd5e0; padding-top: 15px; padding-bottom: 10px;">
+      વધુ ફ્રી મોક ટેસ્ટ અને મટિરિયલ માટે મુલાકાત લો: <a href="https://www.adhyapaksaathi.in" style="color: #b8860b; text-decoration: none;">www.adhyapaksaathi.in</a>
+    </div>
 
     <div class="no-print" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
       <button class="btn btn-outline" onclick="window.location.reload()">🏠 Home</button>
@@ -486,6 +500,11 @@ function closeAdhyapakModal() { document.getElementById('customModalOverlay').st
 
 
 /* ================= 100 PREMIUM QUESTIONS DATABASE ================= */
+
+/*
+   ⬇️ અહીં તમારા 100 પ્રશ્નો નાખવાના છે ⬇️
+   નીચેના ફોર્મેટ મુજબ તમારા પ્રશ્નો પેસ્ટ કરો. (ans માં સાચો વિકલ્પ 0 થી 3 વચ્ચે લખો. A=0, B=1, C=2, D=3)
+*/
 const masterQuestions = [
   {q: "સંવિધાનને વફાદાર રહેવાની અને તેના આદર્શો અને સંસ્થાઓના રાષ્ટ્રધ્વજનો અને રાષ્ટ્રગીતનો આદર કરવાની જોગવાઈ ભારતના સંવિધાનની કઈ કલમમાં દર્શાવવામાં આવી છે?", opts: ["51 ક (ખ)","51 ક (ઘ)","51 ક (છ)","51 ક (ક)"], ans: 3, topic: "સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો"},
   {q: "નીચેના વિધાનો તપાસો:\n૧. વારસો એ વ્યક્તિની જન્મગત વિશિષ્ટતાઓનો સરવાળો છે.\n૨. પ્રકૃતિમાં દરેક પેઢીનું કાર્ય માતા-પિતા દ્વારા સંતાનોમાં કોઈ ને કોઈ જૈવિક અથવા મનોવૈજ્ઞાનિક વિશેષતાઓનું હસ્તાંતરણ કરવાનું છે.\nઉપરોક્ત વિધાનો ક્યા મનોવૈજ્ઞાનિકોના છે?", opts: ["૧. બી. એન. ઝા, ૨. ગિલ્બર્ટ","૧. રુથ બેંડિકટ, ૨. ડગ્લાસ અને હોલેન્ડ","૧. વૂડવર્થ, ૨. ગિલ્બર્ટ","૧. બી. એન. ઝા, ૨. વૂડવર્થ"], ans: 0, topic: "શૈક્ષણિક મનોવિજ્ઞાન"},
@@ -512,6 +531,7 @@ const masterQuestions = [
 const fullDatabase = [];
 const topicsReq = { "સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો": 20, "ગુજરાતી સાહિત્ય": 15, "ગુજરાતી ભાષાકીય પ્રાવીણ્ય": 15, "અંગ્રેજી ભાષાની જાણકારી": 15, "તાર્કિક અભિયોગ્યતા": 15, "શિક્ષણની ફિલસુફી": 10, "શૈક્ષણિક મનોવિજ્ઞાન": 5, "વર્ગ વ્યવહાર અને મૂલ્યાંકન": 5 };
 
+// જો તમે 100 અસલી પ્રશ્નો નાખી દો, તો આ લૂપ કાઢી નાખજો, નહિતર તે પ્રશ્નોને રિપીટ કરશે.
 for (const [topic, count] of Object.entries(topicsReq)) {
     let sourceQ = masterQuestions.filter(mq => mq.topic === topic);
     if(sourceQ.length === 0) sourceQ = [masterQuestions[0]];
@@ -620,8 +640,9 @@ function prevQuestion() { if(currentQIndex > 0) loadQuestion(currentQIndex - 1);
 function renderPalette() {
     updateStatsBar(); // Update Top Bar stats
     document.getElementById('paletteGrid').innerHTML = fullDatabase.map((_, i) => {
-        let activeClass = (i === currentQIndex) ? 's-active' : qStatus[i];
-        return `<button class="palette-btn ${activeClass}" onclick="loadQuestion(${i})">${i+1}</button>`;
+        let statusClass = qStatus[i];
+        let activeClass = (i === currentQIndex) ? 's-active' : '';
+        return `<button class="palette-btn ${statusClass} ${activeClass}" onclick="loadQuestion(${i})">${i+1}</button>`;
     }).join('');
 }
 
@@ -668,7 +689,7 @@ function submitExam() {
 async function shareScorecard() {
     const scoreText = document.getElementById('resScore').innerText;
     if (navigator.share) {
-        try { await navigator.share({ title: 'Adhyapak Saathi Result', text: `મેં Adhyapak Saathi પર TAT પ્રીમિયમ મોક ટેસ્ટ આપી અને 100 માંથી ${scoreText} માર્કસ મેળવ્યા છે! તમે પણ તમારી તૈયારી ચકાસો.`, url: window.location.href }); } 
+        try { await navigator.share({ title: 'Adhyapak Saathi Result', text: `મેં Adhyapak Saathi પર TAT પ્રીમિયમ મોક ટેસ્ટ આપી અને 100 માંથી ${scoreText} માર્કસ મેળવ્યા છે! તમે પણ તમારી તૈયારી ચકાસો.\n\n🌐 www.adhyapaksaathi.in`, url: window.location.href }); } 
         catch (err) { console.log(err); }
     } else { alert("લિંક કોપી કરી શકો છો."); }
 }
