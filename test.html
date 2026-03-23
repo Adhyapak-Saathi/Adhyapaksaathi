@@ -1,241 +1,294 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Topic-wise Practice Test — Adhyapak Saathi</title>
-  
-  <meta name="description" content="TAT, TET, GSET માટે વિષયવાર પ્રેક્ટિસ ટેસ્ટ."/>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Practice Tests & Mock Exam — Adhyapak Saathi</title>
+  <meta name="description" content="Online practice tests and real-time mock exams for TAT, TET, and other teacher eligibility exams in Gujarat."/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
-  
   <style>
-    body { -webkit-user-select: none; -ms-user-select: none; user-select: none; background: #f4f7fb; }
+    /* Security: Prevent text selection across the whole page */
+    body {
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none; /* Standard syntax */
+      background-color: #f8fafd; /* Very light blue background like the screenshot */
+    }
 
-    /* CUSTOM MODAL SYSTEM */
-    #customModalOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-    .c-modal { background: #fff; width: 90%; max-width: 450px; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-top: 5px solid var(--navy); }
-    .c-modal-header { padding: 20px; background: #f8fafd; border-bottom: 1px solid #e2e8f0; text-align: center; }
-    .c-modal-header h3 { font-family: var(--font-serif); color: var(--navy); font-size: 1.3rem; margin: 0; }
-    .c-modal-body { padding: 25px; text-align: center; color: var(--text-mid); font-size: 1.05rem; font-weight: 500; line-height: 1.5; }
-    .c-modal-footer { padding: 15px; background: #f8fafd; display: flex; gap: 10px; justify-content: center; }
+    /* Custom styles for the 7 topic boxes grid */
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .topic-card {
+      background: #fff;
+      border: 1px solid #b8860b; /* Gold border */
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .topic-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .topic-title {
+      font-size: 1.1rem;
+      color: #1d3461;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      height: 48px; /* Fixed height for alignment */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    /* EXAM UI */
-    .exam-container { display: none; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
-    .exam-body { display: flex; flex-grow: 1; overflow: hidden; justify-content: center; }
-    .question-panel { max-width: 800px; width: 100%; display: flex; flex-direction: column; background: #ffffff; position: relative; padding: 20px; }
-    .question-header { background: #f8fafd; padding: 10px 20px; border: 1px solid var(--border); border-radius: 8px 8px 0 0; font-weight: 700; color: var(--navy); font-size: 1rem; display: flex; justify-content: space-between; align-items: center;}
-    .question-content { padding: 20px; overflow-y: auto; flex-grow: 1; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
-    .question-text { font-size: 1.15rem; font-weight: 700; color: #2d3748; line-height: 1.6; margin-bottom: 18px; }
-    
-    .radio-option { display: flex; align-items: center; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; font-size: 1.05rem; font-weight: 600; color: #4a5568; background: #fff; }
-    .radio-option:hover { border-color: var(--navy-light); background: #f8fafd; }
-    .radio-option.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 1px var(--navy); }
-    .radio-option input[type="radio"] { margin-right: 12px; transform: scale(1.3); accent-color: var(--navy); cursor: pointer; }
-    
-    .practiceFooter { padding: 15px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    
-    /* PRACTICE CARDS UI */
-    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 1.8rem 1.2rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
-    .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
-    .p-topic-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
-    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--navy); margin-bottom: 1.2rem; line-height: 1.4; }
-    .btn-p-start { width: 100%; padding: 10px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; margin-bottom: 0; }
-    .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
-    
-    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 10px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; }
+    /* Mock Test Top Cards */
+    .mock-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
 
-    /* Result Screen Specifics */
-    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; max-width: 600px; margin: 30px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    .score-circle { width: 140px; height: 140px; border-radius: 50%; border: 6px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px auto; background: #f8fafd; }
-    .score-circle .marks { font-size: 2.5rem; font-weight: 800; color: var(--navy); line-height: 1; }
-    
-    .stats-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 25px 0; }
-    .stat-box { padding: 15px; border-radius: 8px; font-weight: 700; flex: 1; min-width: 120px; }
-    .sb-correct { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-    .sb-wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    .mock-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
 
-    .hide-during-exam { display: none !important; }
+    .mock-list {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: 1.5rem auto 2rem auto;
+      max-width: 300px;
+      font-size: 0.95rem;
+      color: #4a5568;
+      line-height: 2;
+    }
   </style>
 </head>
 <body>
 
-<!-- CUSTOM MODAL -->
-<div id="customModalOverlay">
-  <div class="c-modal">
-    <div class="c-modal-header"><h3 id="modalTitle">શીર્ષક</h3></div>
-    <div class="c-modal-body" id="modalMsg">સંદેશ અહીં આવશે...</div>
-    <div class="c-modal-footer" id="modalFooter"></div>
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
+    <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
   </div>
 </div>
 
 <!-- NAVBAR -->
-<nav id="standardNav">
+<nav style="background-color: #1d3461;"> <!-- Forced dark background to match photo -->
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <span class="site-name">Adhyapak Saathi</span>
+      <div class="nav-logo-emblem">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="18" width="22" height="3" rx="1" fill="#fff"/>
+          <rect x="7" y="6" width="3" height="12" rx="1" fill="#fff"/>
+          <rect x="18" y="6" width="3" height="12" rx="1" fill="#fff"/>
+          <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
+        </svg>
+      </div>
+      <!-- ADDED EXPLICIT COLORS TO LOGO TEXT HERE -->
+      <div class="nav-logo-text">
+        <span class="site-name" style="color: #ffffff;">Adhyapak Saathi</span>
+        <span class="site-tagline" style="color: #b8860b;">Teacher Exam Preparation Portal</span>
+      </div>
     </a>
+    
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="test.html" class="active">Practice Test</a></li>
-      <li><a href="mocktest.html" style="color: var(--gold-light); font-weight: bold;">Mock Test 🚀</a></li>
-      <li><a href="news.html">Exam News</a></li>
-      <li><a href="materials.html">Study Materials</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="index.html" style="color: #fff;">Home</a></li>
+      <li><a href="test.html" class="active" style="color: #b8860b; border-bottom: 2px solid #b8860b;">Practice Test</a></li>
+      <li><a href="news.html" style="color: #fff;">Exam News</a></li>
+      <li><a href="materials.html" style="color: #fff;">Study Materials</a></li>
+      <li><a href="about.html" style="color: #fff;">About Us</a></li>
+      <li><a href="contact.html" style="color: #fff;">Contact</a></li>
     </ul>
+    
+    <div class="hamburger" onclick="toggleNav()">
+      <span style="background: white;"></span>
+      <span style="background: white;"></span>
+      <span style="background: white;"></span>
+    </div>
   </div>
 </nav>
 
-<div id="mainContent">
-  <div class="page-banner">
-    <div class="wrapper">
-      <h1>Topic-wise <em>Practice Tests</em></h1>
-      <p>તમારી મનપસંદ કેટેગરી પસંદ કરો અને તૈયારીને મજબૂત બનાવો!</p>
-    </div>
-  </div>
-
-  <div class="wrapper" style="margin-bottom: 50px;">
-    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto;">
-      <div class="p-topic-card"><div><div class="p-topic-icon">🦉</div><h3>1. શિક્ષણની ફિલસૂફી</h3></div><button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી')">પ્રેક્ટિસ શરૂ કરો</button></div>
-      <div class="p-topic-card"><div><div class="p-topic-icon">🧠</div><h3>2. શૈક્ષણિક મનોવિજ્ઞાન</h3></div><button class="btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન')">પ્રેક્ટિસ શરૂ કરો</button></div>
-      <div class="p-topic-card"><div><div class="p-topic-icon">👩‍🏫</div><h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3></div><button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">પ્રેક્ટિસ શરૂ કરો</button></div>
-      <div class="p-topic-card"><div><div class="p-topic-icon">🧩</div><h3>4. તાર્કિક અભિયોગ્યતા</h3></div><button class="btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા')">પ્રેક્ટિસ શરૂ કરો</button></div>
-    </div>
+<!-- BANNER -->
+<div class="page-banner" style="background: #1d3461; color: white; border-bottom: 4px solid #b8860b; padding: 4rem 0;">
+  <div class="wrapper">
+    <div class="breadcrumb" style="color: #cbd5e0;"><a href="index.html" style="color: #cbd5e0;">Home</a> <span>›</span> Practice Tests & Mock Exam</div>
+    <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Real-Time <em style="color: #b8860b; font-style: normal;">Mock Test</em></h1>
+    <p style="color: #cbd5e0; font-size: 1.1rem;">TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) માટે TCS/NTA પેટર્ન પર આધારિત સંપૂર્ણ ઓનલાઈન પરીક્ષાનો અનુભવ.</p>
   </div>
 </div>
 
-<!-- EXAM UI -->
-<div class="exam-container" id="examContainer">
-  <div class="p-sticky-header">
-    <div style="font-weight:800; font-size:1.1rem; color:var(--navy);"><span id="headerIcon">📝</span> <span id="pTopicName">Topic</span></div>
-    <div style="display:flex; gap:8px;">
-       <div style="background:#fdf0ee; color:var(--red); padding:6px 12px; border-radius:20px; font-weight:800; border:2px solid var(--red);">⏱️ <span id="pTimer">00:00</span></div>
+<section class="section">
+  <div class="wrapper">
+    
+    <!-- TOP MOCK TESTS SECTION (2 LARGE CARDS) -->
+    <div class="mock-grid">
+      <!-- PAPER 1 -->
+      <div class="mock-card">
+        <div class="topic-icon">🎓</div>
+        <h2 style="color: #1d3461; font-size: 1.5rem;">પેપર 1 (General) - મોક ટેસ્ટ</h2>
+        <ul class="mock-list">
+          <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
+          <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
+          <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+          <li>🔴 <strong style="color: #e53e3e;">નોંધ:</strong> ટેસ્ટ ચાલુ થયા પછી બહાર નીકળી શકાશે નહિ.</li>
+        </ul>
+        <button class="btn btn-navy" style="width: 100%; font-size: 1.1rem; padding: 0.8rem;">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
+      </div>
+      
+      <!-- PAPER 2 -->
+      <div class="mock-card">
+        <div class="topic-icon">⏳</div>
+        <h2 style="color: #1d3461; font-size: 1.5rem;">પેપર 2 (વિષયવસ્તુ) - મોક ટેસ્ટ</h2>
+        <ul class="mock-list">
+          <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
+          <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
+          <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+          <li>✨ <strong style="color: #b8860b;">નોંધ:</strong> આ પેપરમાં વિષયવસ્તુના પ્રશ્નો ટૂંક સમયમાં મુકાશે.</li>
+        </ul>
+        <button class="btn" style="width: 100%; font-size: 1.1rem; padding: 0.8rem; background: transparent; border: 2px solid #b8860b; color: #b8860b; font-weight: bold; cursor: not-allowed;">Coming Soon 🕒</button>
+      </div>
     </div>
-  </div>
 
-  <div class="exam-body">
-    <div class="question-panel">
-      <div class="question-header">
-        <span id="lblQNum" style="background: var(--navy); color: white; padding: 5px 12px; border-radius: 20px;">પ્રશ્ન: 1</span>
-        <span style="font-size: 0.9rem; font-weight: 800; color: var(--navy-mid);">Practice Mode</span>
-      </div>
-      <div class="question-content">
-        <div class="question-text" id="lblQText">પ્રશ્ન...</div>
-        <div id="optionsContainer"></div>
-      </div>
-      <div class="practiceFooter">
-        <button id="pPrevBtn" class="btn btn-outline" style="padding:10px 20px; border-radius:50px;" onclick="prevPQuestion()">⬅️ પાછળ</button>
-        <button id="pNextBtn" class="btn btn-navy" style="padding:10px 20px; border-radius:50px;" onclick="nextPQuestion()">આગળ ➡️</button>
-        <button id="pSubmitBtn" class="btn btn-gold" style="display:none; padding:10px 20px; border-radius:50px; color:var(--navy-dark);" onclick="submitPractice()">પ્રેક્ટિસ પૂરી કરો 🏆</button>
-      </div>
-    </div>
-  </div>
-</div>
+    <hr class="divider" style="margin: 2rem 0 4rem 0;" />
 
-<!-- RESULT SCREEN -->
-<div id="resultScreen" style="display: none; background: #f4f7fb; min-height: 100vh; padding: 20px;">
-  <div class="result-card">
-    <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--navy); margin-bottom: 25px;">પ્રેક્ટિસ પરિણામ</h2>
-    <div class="score-circle">
-      <span class="marks" id="resScore">0</span>
-      <span style="font-size: 1rem; font-weight: 600; color: var(--text-mid);">કુલ સાચા</span>
+    <!-- TOPIC-WISE PRACTICE TEST SECTION (7 BOXES) -->
+    <div class="section-header center">
+      <div class="section-label" style="color: #b8860b; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 0.5rem;">— Topic-Wise Practice —</div>
+      <h2 class="section-title" style="color: #1d3461; font-size: 2.2rem; margin-bottom: 0.5rem;">વિષયવાર પ્રેક્ટિસ ટેસ્ટ</h2>
+      <p style="color: #4a5568;">તમારી મનપસંદ કેટેગરી પસંદ કરો અને તૈયારીને મજબૂત બનાવો!</p>
     </div>
-    <div class="stats-grid">
-      <div class="stat-box sb-correct"><div style="font-size: 1.6rem;" id="resCorrect">0</div><div>સાચા જવાબો</div></div>
-      <div class="stat-box sb-wrong"><div style="font-size: 1.6rem;" id="resWrong">0</div><div>ખોટા જવાબો</div></div>
+
+    <div class="practice-grid">
+      <!-- Box 1 -->
+      <div class="topic-card">
+        <div class="topic-icon">🦉</div>
+        <div class="topic-title">1. શિક્ષણની ફિલસૂફી</div>
+        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (12 Qs)</button>
+      </div>
+
+      <!-- Box 2 -->
+      <div class="topic-card">
+        <div class="topic-icon">🧠</div>
+        <div class="topic-title">2. શૈક્ષણિક મનોવિજ્ઞાન</div>
+        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (16 Qs)</button>
+      </div>
+
+      <!-- Box 3 -->
+      <div class="topic-card">
+        <div class="topic-icon">👩‍🏫</div>
+        <div class="topic-title">3. વર્ગવ્યવહાર અને મૂલ્યાંકન</div>
+        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (10 Qs)</button>
+      </div>
+
+      <!-- Box 4 -->
+      <div class="topic-card">
+        <div class="topic-icon">🧩</div>
+        <div class="topic-title">4. તાર્કિક અભિયોગ્યતા</div>
+        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (15 Qs)</button>
+      </div>
+
+      <!-- Box 5 -->
+      <div class="topic-card">
+        <div class="topic-icon">📜</div>
+        <div class="topic-title">5. ગુજરાતી ભાષા</div>
+        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (15 Qs)</button>
+      </div>
+
+      <!-- Box 6 -->
+      <div class="topic-card">
+        <div class="topic-icon">🔠</div>
+        <div class="topic-title">6. અંગ્રેજી ભાષા</div>
+        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (15 Qs)</button>
+      </div>
+
+      <!-- Box 7 -->
+      <div class="topic-card">
+        <div class="topic-icon">🌐</div>
+        <div class="topic-title">7. સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો</div>
+        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (17 Qs)</button>
+      </div>
     </div>
-    <button class="btn btn-navy" style="margin-top: 20px; width: 100%;" onclick="location.reload()">બીજી પ્રેક્ટિસ કરો 🔄</button>
+
   </div>
-</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="margin-top: 2rem;">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-name">Adhyapak Saathi</div>
+      <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
+      <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="test.html">Practice Test</a></li>
+        <li><a href="news.html">Exam News</a></li>
+        <li><a href="materials.html">Study Materials</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Examinations</div>
+      <ul class="footer-links">
+        <li><a href="test.html?exam=tat">TAT (S) &amp; TAT (HS)</a></li>
+        <li><a href="test.html?exam=tet1">TET I &amp; TET II</a></li>
+        <li><a href="test.html?exam=ugcnet">UGC NET</a></li>
+        <li><a href="test.html?exam=gset">GSET</a></li>
+        <li><a href="test.html?exam=ctet">CTET</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
+        <li><a href="contact.html">Send a Message</a></li>
+        <li><a href="contact.html">Suggestion Box</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>© 2026 <span style="color: #b8860b;">Adhyapak Saathi</span>. All rights reserved.</p>
+  </div>
+</footer>
 
 <script>
-  window.onbeforeunload = null;
+// --- SECURITY FEATURES ---
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+document.onkeydown = function(e) {
+  if (e.key === 'F12') return false;
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
+};
+document.addEventListener('copy', function(e) { e.preventDefault(); });
 
-  // PRACTICE DATABASE (Sample)
-  const practiceDB = [
-    {q:"માણસનાં શરીર, મન, આત્મામાં જે કંઈ શ્રેષ્ઠ છે તે બધું બહાર લાવવું એટલે શિક્ષણ. આ વ્યાખ્યા કોણે આપી છે?", opts:["ઋગ્વેદ","કૌટિલ્ય","મહાત્મા ગાંધીજી","સ્વામી વિવેકાનંદ"], ans:2, topic:"philosophy"},
-    {q:"RTE એક્ટ મુજબ, શૈક્ષણિક વર્ષ શરૂ થયા પછી કેટલા મહિના સુધી પ્રવેશ આપી શકાય છે?", opts:["૩ મહિના","૫ મહિના","૬ મહિના","૯ મહિના"], ans:2, topic:"eval"},
-    {q:"'બાળક એ કંઈ પ્રૌઢની લઘુ આવૃત્તિ નથી' - આ વિચાર કોણે રજૂ કર્યો?", opts:["ગાંધીજી","રૂસો","પ્લેટો","પેસ્ટાલોજી"], ans:1, topic:"philosophy"},
-    {q:"સિદ્ધાંતો અને તેના જનકનાં સાચાં જોડકાં બનાવો: બહુ અવયવ સિદ્ધાંત કોણે આપ્યો?", opts:["થર્સ્ટન","ગોલમેન","ગાર્ડનર","સ્ટેર્નબર્ગ"], ans:0, topic:"psych"},
-    {q:"આપેલી શ્રેણી પૂર્ણ કરો: 4, 8, 9, 27, 16, 64, 25 ...?", opts:["101","98","100","125"], ans:3, topic:"reasoning"}
-  ];
-
-  let activeQs = [];
-  let currentIdx = 0;
-  let answers = {};
-  let timeLeft = 0;
-  let timer;
-
-  function startPracticeTopic(topicCode, topicName) {
-    activeQs = practiceDB.filter(q => q.topic === topicCode);
-    if(activeQs.length === 0) activeQs = practiceDB; // Fallback
-    timeLeft = activeQs.length * 60;
-    document.getElementById('pTopicName').innerText = topicName;
-    
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('examContainer').style.display = 'flex';
-    currentIdx = 0;
-    answers = {};
-    loadQuestion(0);
-    startTimer();
-  }
-
-  function startTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => {
-      timeLeft--;
-      const m = Math.floor(timeLeft / 60).toString().padStart(2,'0');
-      const s = (timeLeft % 60).toString().padStart(2,'0');
-      document.getElementById('pTimer').innerText = `${m}:${s}`;
-      if(timeLeft <= 0) { clearInterval(timer); submitPractice(); }
-    }, 1000);
-  }
-
-  function loadQuestion(idx) {
-    currentIdx = idx;
-    const q = activeQs[idx];
-    document.getElementById('lblQNum').innerText = `પ્રશ્ન: ${idx + 1} / ${activeQs.length}`;
-    document.getElementById('lblQText').innerText = q.q;
-    
-    let html = '';
-    q.opts.forEach((opt, i) => {
-      const isSel = answers[idx] === i;
-      html += `<label class="radio-option ${isSel?'selected':''}">
-                 <input type="radio" name="opts" ${isSel?'checked':''} onchange="selectOpt(${i})"> <span>${opt}</span>
-               </label>`;
-    });
-    document.getElementById('optionsContainer').innerHTML = html;
-
-    document.getElementById('pPrevBtn').style.visibility = idx === 0 ? 'hidden' : 'visible';
-    if(idx === activeQs.length - 1) {
-        document.getElementById('pNextBtn').style.display = 'none';
-        document.getElementById('pSubmitBtn').style.display = 'block';
-    } else {
-        document.getElementById('pNextBtn').style.display = 'block';
-        document.getElementById('pSubmitBtn').style.display = 'none';
-    }
-  }
-
-  function selectOpt(i) { answers[currentIdx] = i; loadQuestion(currentIdx); }
-  function nextPQuestion() { if(currentIdx < activeQs.length - 1) loadQuestion(currentIdx + 1); }
-  function prevPQuestion() { if(currentIdx > 0) loadQuestion(currentIdx - 1); }
-
-  function submitPractice() {
-    clearInterval(timer);
-    document.getElementById('examContainer').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'block';
-    
-    let correct = 0, wrong = 0;
-    activeQs.forEach((q, i) => {
-      if(answers[i] === q.ans) correct++;
-      else if(answers[i] !== undefined) wrong++;
-    });
-
-    document.getElementById('resScore').innerText = correct;
-    document.getElementById('resCorrect').innerText = correct;
-    document.getElementById('resWrong').innerText = wrong;
-  }
+function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 </script>
 </body>
 </html>
