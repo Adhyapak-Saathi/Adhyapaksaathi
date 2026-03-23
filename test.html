@@ -3,66 +3,20 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Practice Tests & Mock Exam — Adhyapak Saathi</title>
-  <meta name="description" content="Online practice tests and real-time mock exams for TAT, TET, and other teacher eligibility exams in Gujarat."/>
+  <title>Real-Time Mock Test — Adhyapak Saathi</title>
+  <meta name="description" content="Premium real-time mock exams for TAT, TET, and other teacher eligibility exams in Gujarat."/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
   <style>
-    /* Security: Prevent text selection across the whole page */
     body {
-      -webkit-user-select: none; /* Safari */
-      -ms-user-select: none; /* IE 10 and IE 11 */
-      user-select: none; /* Standard syntax */
-      background-color: #f8fafd; /* Very light blue background like the screenshot */
+      background-color: #f8fafd;
     }
-
-    /* Custom styles for the 7 topic boxes grid */
-    .practice-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    
-    .topic-card {
-      background: #fff;
-      border: 1px solid #b8860b; /* Gold border */
-      border-radius: 8px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .topic-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    }
-    
-    .topic-icon {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .topic-title {
-      font-size: 1.1rem;
-      color: #1d3461;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      height: 48px; /* Fixed height for alignment */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Mock Test Top Cards */
     .mock-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 2rem;
       margin-bottom: 4rem;
     }
-
     .mock-card {
       background: #fff;
       border: 1px solid #e2e8f0;
@@ -70,8 +24,12 @@
       padding: 2.5rem;
       text-align: center;
       box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
     }
-
+    .mock-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
     .mock-list {
       list-style: none;
       padding: 0;
@@ -82,11 +40,31 @@
       color: #4a5568;
       line-height: 2;
     }
+    .topic-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Marketing Badge Animation */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(184, 134, 11, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+    }
+    .premium-badge {
+      background: linear-gradient(135deg, #1d3461 0%, #0f1c36 100%);
+      border: 2px solid #b8860b;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+      animation: pulse 2s infinite;
+    }
   </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-inner">
     <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
@@ -94,8 +72,7 @@
   </div>
 </div>
 
-<!-- NAVBAR -->
-<nav style="background-color: #1d3461;"> <!-- Forced dark background to match photo -->
+<nav style="background-color: #1d3461;">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <div class="nav-logo-emblem">
@@ -106,7 +83,6 @@
           <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
         </svg>
       </div>
-      <!-- ADDED EXPLICIT COLORS TO LOGO TEXT HERE -->
       <div class="nav-logo-text">
         <span class="site-name" style="color: #ffffff;">Adhyapak Saathi</span>
         <span class="site-tagline" style="color: #b8860b;">Teacher Exam Preparation Portal</span>
@@ -115,7 +91,8 @@
     
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" style="color: #fff;">Home</a></li>
-      <li><a href="test.html" class="active" style="color: #b8860b; border-bottom: 2px solid #b8860b;">Practice Test</a></li>
+      <li><a href="test.html" style="color: #fff;">Practice Test</a></li>
+      <li><a href="mocktest.html" class="active" style="color: #b8860b; border-bottom: 2px solid #b8860b;">Mock Test</a></li>
       <li><a href="news.html" style="color: #fff;">Exam News</a></li>
       <li><a href="materials.html" style="color: #fff;">Study Materials</a></li>
       <li><a href="about.html" style="color: #fff;">About Us</a></li>
@@ -130,10 +107,9 @@
   </div>
 </nav>
 
-<!-- BANNER -->
 <div class="page-banner" style="background: #1d3461; color: white; border-bottom: 4px solid #b8860b; padding: 4rem 0;">
   <div class="wrapper">
-    <div class="breadcrumb" style="color: #cbd5e0;"><a href="index.html" style="color: #cbd5e0;">Home</a> <span>›</span> Practice Tests & Mock Exam</div>
+    <div class="breadcrumb" style="color: #cbd5e0;"><a href="index.html" style="color: #cbd5e0;">Home</a> <span>›</span> Mock Test</div>
     <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Real-Time <em style="color: #b8860b; font-style: normal;">Mock Test</em></h1>
     <p style="color: #cbd5e0; font-size: 1.1rem;">TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) માટે TCS/NTA પેટર્ન પર આધારિત સંપૂર્ણ ઓનલાઈન પરીક્ષાનો અનુભવ.</p>
   </div>
@@ -141,8 +117,17 @@
 
 <section class="section">
   <div class="wrapper">
+
+    <!-- MARKETING/STUDENT COUNTER BADGE -->
+    <div class="premium-badge">
+      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏆</div>
+      <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: #b8860b; margin-bottom: 0.8rem; letter-spacing: 1px;">Premium Mock Test Series</h3>
+      <p style="font-size: 1.15rem; color: #cbd5e0; margin: 0; line-height: 1.6;">
+        <strong style="color: #fff; font-size: 1.4rem; background: #b8860b; padding: 2px 8px; border-radius: 4px;">૧૨,૪૫૦+</strong> થી વધુ વિદ્યાર્થીઓએ આ મોક ટેસ્ટ સફળતાપૂર્વક આપીને પોતાની તૈયારી ચકાસી છે! <br>શું તમે પરીક્ષા માટે તૈયાર છો? આજે જ તમારી ક્ષમતા ચકાસો.
+      </p>
+    </div>
     
-    <!-- TOP MOCK TESTS SECTION (2 LARGE CARDS) -->
+    <!-- TOP MOCK TESTS SECTION -->
     <div class="mock-grid">
       <!-- PAPER 1 -->
       <div class="mock-card">
@@ -171,70 +156,9 @@
       </div>
     </div>
 
-    <hr class="divider" style="margin: 2rem 0 4rem 0;" />
-
-    <!-- TOPIC-WISE PRACTICE TEST SECTION (7 BOXES) -->
-    <div class="section-header center">
-      <div class="section-label" style="color: #b8860b; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 0.5rem;">— Topic-Wise Practice —</div>
-      <h2 class="section-title" style="color: #1d3461; font-size: 2.2rem; margin-bottom: 0.5rem;">વિષયવાર પ્રેક્ટિસ ટેસ્ટ</h2>
-      <p style="color: #4a5568;">તમારી મનપસંદ કેટેગરી પસંદ કરો અને તૈયારીને મજબૂત બનાવો!</p>
-    </div>
-
-    <div class="practice-grid">
-      <!-- Box 1 -->
-      <div class="topic-card">
-        <div class="topic-icon">🦉</div>
-        <div class="topic-title">1. શિક્ષણની ફિલસૂફી</div>
-        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (12 Qs)</button>
-      </div>
-
-      <!-- Box 2 -->
-      <div class="topic-card">
-        <div class="topic-icon">🧠</div>
-        <div class="topic-title">2. શૈક્ષણિક મનોવિજ્ઞાન</div>
-        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (16 Qs)</button>
-      </div>
-
-      <!-- Box 3 -->
-      <div class="topic-card">
-        <div class="topic-icon">👩‍🏫</div>
-        <div class="topic-title">3. વર્ગવ્યવહાર અને મૂલ્યાંકન</div>
-        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (10 Qs)</button>
-      </div>
-
-      <!-- Box 4 -->
-      <div class="topic-card">
-        <div class="topic-icon">🧩</div>
-        <div class="topic-title">4. તાર્કિક અભિયોગ્યતા</div>
-        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (15 Qs)</button>
-      </div>
-
-      <!-- Box 5 -->
-      <div class="topic-card">
-        <div class="topic-icon">📜</div>
-        <div class="topic-title">5. ગુજરાતી ભાષા</div>
-        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (15 Qs)</button>
-      </div>
-
-      <!-- Box 6 -->
-      <div class="topic-card">
-        <div class="topic-icon">🔠</div>
-        <div class="topic-title">6. અંગ્રેજી ભાષા</div>
-        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (15 Qs)</button>
-      </div>
-
-      <!-- Box 7 -->
-      <div class="topic-card">
-        <div class="topic-icon">🌐</div>
-        <div class="topic-title">7. સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો</div>
-        <button class="btn btn-navy" style="width: 100%;">ટેસ્ટ શરૂ કરો (17 Qs)</button>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer style="margin-top: 2rem;">
   <div class="footer-grid">
     <div class="footer-brand">
@@ -247,6 +171,7 @@
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="test.html">Practice Test</a></li>
+        <li><a href="mocktest.html">Mock Test</a></li>
         <li><a href="news.html">Exam News</a></li>
         <li><a href="materials.html">Study Materials</a></li>
         <li><a href="about.html">About Us</a></li>
@@ -256,11 +181,11 @@
     <div>
       <div class="footer-col-title">Examinations</div>
       <ul class="footer-links">
-        <li><a href="test.html?exam=tat">TAT (S) &amp; TAT (HS)</a></li>
-        <li><a href="test.html?exam=tet1">TET I &amp; TET II</a></li>
-        <li><a href="test.html?exam=ugcnet">UGC NET</a></li>
-        <li><a href="test.html?exam=gset">GSET</a></li>
-        <li><a href="test.html?exam=ctet">CTET</a></li>
+        <li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li>
+        <li><a href="news.html">TET I &amp; TET II</a></li>
+        <li><a href="news.html">UGC NET</a></li>
+        <li><a href="news.html">GSET</a></li>
+        <li><a href="news.html">CTET</a></li>
       </ul>
     </div>
     <div>
@@ -268,26 +193,15 @@
       <ul class="footer-links">
         <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
         <li><a href="contact.html">Send a Message</a></li>
-        <li><a href="contact.html">Suggestion Box</a></li>
       </ul>
     </div>
   </div>
-  
   <div class="footer-bottom">
     <p>© 2026 <span style="color: #b8860b;">Adhyapak Saathi</span>. All rights reserved.</p>
   </div>
 </footer>
 
 <script>
-// --- SECURITY FEATURES ---
-document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-document.onkeydown = function(e) {
-  if (e.key === 'F12') return false;
-  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
-  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
-};
-document.addEventListener('copy', function(e) { e.preventDefault(); });
-
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 </script>
 </body>
