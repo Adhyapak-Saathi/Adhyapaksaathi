@@ -62,21 +62,21 @@
     .festival-banner::before { left: -20px; top: -20px; transform: rotate(-20deg); }
     .festival-banner::after { right: -20px; bottom: -20px; transform: rotate(20deg); }
 
-    .festival-header { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); color: #ffd700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%;}
+    .festival-header { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); color: #ffd700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; flex-wrap: wrap;}
     .festival-offer-badge { display: inline-block; background: linear-gradient(135deg, #ffd700, #ffb300); color: var(--navy); padding: 6px 20px; border-radius: 25px; font-weight: 900; font-size: 1.1rem; margin-bottom: 20px; border: 2px solid #fff;}
     .festival-title { font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 10px; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); font-weight: 800; line-height: 1.5; max-width: 800px;}
     
     .promo-container { margin-top: 20px; display: flex; flex-direction: column; align-items: center; width: 100%; z-index: 2;}
     .promo-box {
       background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px);
-      padding: 15px 30px; border-radius: 15px; border: 2px dashed var(--gold);
+      padding: 15px 20px; border-radius: 15px; border: 2px dashed var(--gold);
       text-align: center; width: 100%; max-width: 350px;
     }
     .promo-box .label { font-size: 1rem; color: #fff; font-weight: 700; margin-bottom: 5px; display: block;}
     .promo-box .code {
-      font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: var(--gold);
+      font-size: 2rem; font-weight: 900; letter-spacing: 2px; color: var(--gold);
       text-shadow: 0 0 15px var(--gold); animation: textGlow 1.5s ease-in-out infinite alternate;
-      word-break: break-all;
+      word-wrap: break-word;
     }
     @keyframes textGlow { from { text-shadow: 0 0 5px var(--gold); } to { text-shadow: 0 0 20px var(--gold), 0 0 30px #ffb300; } }
 
@@ -112,6 +112,15 @@
     
     .exam-body { display: flex; flex-grow: 1; overflow: hidden; }
     .question-panel { flex: 7; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: #ffffff; position: relative; }
+    
+    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 8px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
+    
+    /* New Top Stats Bar for Mobile/Web */
+    .exam-stats-bar { display: flex; gap: 8px; font-size: 0.85rem; font-weight: 700; color: var(--navy); background: #f8fafd; padding: 8px 15px; border-bottom: 1px solid #e2e8f0; justify-content: center; flex-wrap: wrap; }
+    .stat-pill { padding: 4px 10px; border-radius: 4px; border: 1px solid #cbd5e0; background: #fff; display: flex; align-items: center; gap: 5px;}
+    .sp-green { background: #eaf5ef; color: #2f855a; border-color: #bbf7d0; }
+    .sp-red { background: #fdf0ee; color: #c53030; border-color: #fecaca; }
+
     .question-header { background: #f8fafd; padding: 10px 15px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center;}
     .question-content { padding: 15px; overflow-y: auto; flex-grow: 1; }
     .question-text { font-size: 1.15rem; font-weight: 700; color: #2d3748; line-height: 1.6; margin-bottom: 20px; }
@@ -120,28 +129,33 @@
     .radio-option.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 1px var(--navy); }
     .radio-option input[type="radio"] { margin-right: 12px; transform: scale(1.3); accent-color: var(--navy); cursor: pointer; }
     
-    .btn-exam { padding: 10px 15px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 5px;}
-    .btn-save { background: var(--green); color: white; flex-grow: 1;}
+    /* Footer Buttons Container */
+    #mockFooter { padding: 15px; background: #f8fafd; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
+    #mockFooter .btn-prev { margin-right: auto; } /* Pushes the rest to the right on desktop */
+
+    .btn-exam { padding: 10px 15px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 5px;}
+    .btn-save { background: var(--green); color: white; }
     .btn-prev { background: var(--navy); color: white; }
     .btn-clear { background: #e2e8f0; color: #4a5568; }
     .btn-review { background: #805ad5; color: white; }
+    .btn-submit-mobile { display: none; } /* Hidden on desktop */
     
     .palette-panel { flex: 3; background: #f8fafd; display: flex; flex-direction: column; overflow-y: auto; }
     .palette-header { background: var(--navy); color: #fff; padding: 10px; font-weight: 700; text-align: center; font-size: 0.9rem;}
     .legend-box { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 10px; border-bottom: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; color: #4a5568; }
     .legend-item { display: flex; align-items: center; gap: 6px; }
     .status-badge { width: 18px; height: 18px; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; color: white; font-size: 0.65rem; font-weight: bold; }
-    .s-not-visited { background: #e2e8f0; border: 1px solid #cbd5e0; color: #4a5568; }
-    .s-not-answered { background: #e53e3e; border: 1px solid #c53030; }
-    .s-answered { background: #38a169; border: 1px solid #2f855a; }
-    .s-review { background: #805ad5; border: 1px solid #6b46c1; }
-    .s-active { background: #e53e3e !important; border: 2px solid #9b2c2c !important; color: white !important; transform: scale(1.15); box-shadow: 0 0 10px rgba(229, 62, 62, 0.5) !important; z-index: 10;}
+    
+    /* Correct Colors as requested */
+    .s-not-visited { background: #ffffff; border: 1px solid #cbd5e0; color: #4a5568; }
+    .s-not-answered { background: #e53e3e; border: 1px solid #c53030; color: white; } /* Red for skipped/not answered */
+    .s-answered { background: #38a169; border: 1px solid #2f855a; color: white; } /* Green for answered */
+    .s-review { background: #805ad5; border: 1px solid #6b46c1; color: white; }
+    .s-active { background: #e53e3e !important; border: 3px solid #9b2c2c !important; color: white !important; transform: scale(1.15); box-shadow: 0 0 10px rgba(229, 62, 62, 0.5) !important; z-index: 10;} /* Active Red Box */
     
     .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 10px; }
-    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 4px; font-weight: 800; font-size: 0.9rem; border: none; cursor: pointer; color: white;}
+    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 4px; font-weight: 800; font-size: 0.9rem; border: 1px solid #cbd5e0; cursor: pointer; transition: 0.2s;}
     
-    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 8px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
-
     /* COMPACT SCORECARD CSS */
     #resultScreen { display: none; background: #f4f7fb; min-height: 100vh; padding: 20px 10px; }
     .result-card { background: white; border: 2px solid var(--navy); border-radius: 12px; padding: 20px; max-width: 700px; margin: 0 auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
@@ -177,13 +191,37 @@
       
       /* Hide Palette completely on mobile to prevent scrolling */
       .palette-panel { display: none !important; }
-      .question-panel { border-right: none; height: calc(100vh - 100px); }
+      .question-panel { border-right: none; height: calc(100vh - 180px); }
       
-      /* Make footer buttons fit */
-      #mockFooter { flex-wrap: wrap; padding: 10px; gap: 8px;}
-      .btn-exam { font-size: 0.85rem; padding: 8px; flex: 1;}
-      .btn-clear { order: 3; }
-      .btn-review { order: 4; }
+      /* New 2x2 Button Grid for Mobile */
+      #mockFooter { 
+        display: grid !important; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px; 
+        padding: 15px; 
+      }
+      #mockFooter .btn-prev { margin-right: 0; }
+      .btn-exam { font-size: 0.95rem; padding: 12px 10px; }
+      
+      /* Reorder buttons: Row 1 = Prev & Clear, Row 2 = Review & Save */
+      .btn-prev { order: 1; }
+      .btn-clear { order: 2; }
+      .btn-review { order: 3; }
+      .btn-save { order: 4; }
+      
+      /* Big Submit Button spanning both columns */
+      .btn-submit-mobile { 
+        display: flex !important; 
+        order: 5; 
+        grid-column: span 2; 
+        background: var(--navy); 
+        color: var(--gold); 
+        border: 2px solid var(--gold); 
+        font-size: 1.1rem;
+        padding: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      }
+      .header-mobile-submit { display: none !important; }
     }
   </style>
 </head>
@@ -274,7 +312,7 @@
             <li><span style="font-size:1.2rem;">📝</span> <div><strong>કુલ પ્રશ્નો:</strong> 100 MCQ (Premium Set)</div></li>
             <li><span style="font-size:1.2rem;">⏱️</span> <div><strong>સમય:</strong> 90 મિનિટ</div></li>
             <li><span style="font-size:1.2rem;">➖</span> <div><strong>માર્કિંગ:</strong> સાચા: +1, ખોટા: -0.25</div></li>
-            <li><span style="font-size:1.2rem;">🔴</span> <div><strong style="color: #e53e3e;">સિક્યોરિટી:</strong> ટેસ્ટ દરમિયાન 'પાછળ' (Back) જવાની કે સ્ક્રીનશોટ લેવાની મનાઈ છે.</div></li>
+            <li><span style="font-size:1.2rem;">🔴</span> <div><strong style="color: #e53e3e;">સિક્યોરિટી:</strong> ટેસ્ટ દરમિયાન 'પાછળ' (Back) જવાની કે અન્ય એપ ખોલવાની મનાઈ છે.</div></li>
           </ul>
 
           <button class="btn btn-navy" style="width: 100%; font-size: 1.1rem; padding: 12px;" onclick="openPromoModal()">ટેસ્ટ શરૂ કરો 🚀</button>
@@ -287,15 +325,24 @@
 
 <!-- EXAM UI -->
 <div class="exam-container" id="examContainer" style="display: none;">
+  <!-- TOP STICKY HEADER -->
   <div class="p-sticky-header">
     <div style="font-weight:900; color:var(--navy); display: flex; align-items: center; gap: 8px;">
       🎓 TAT - પેપર 1
     </div>
     <div style="display:flex; gap:10px; align-items:center;">
        <div style="background:#fdf0ee; color:var(--red); padding:4px 10px; border-radius:20px; font-weight:900; font-size:0.9rem; border:1px solid var(--red);">⏱️ <span id="pTimer">90:00</span></div>
-       <!-- MOBILE SUBMIT BUTTON -->
-       <button class="btn-exam btn-save" style="padding: 4px 12px; font-size:0.85rem;" onclick="submitExamConfirmation()">Submit 🏆</button>
+       <!-- MOBILE SUBMIT BUTTON in HEADER (Hidden due to new footer button, kept as fallback) -->
+       <button class="btn-exam btn-save header-mobile-submit" style="padding: 4px 12px; font-size:0.85rem;" onclick="submitExamConfirmation()">Submit 🏆</button>
     </div>
+  </div>
+
+  <!-- EXAM STATS BAR (Live Info) -->
+  <div class="exam-stats-bar">
+    <span class="stat-pill">કુલ: 100</span>
+    <span class="stat-pill sp-green">આપેલ: <span id="sAttempted">0</span></span>
+    <span class="stat-pill sp-red">છોડેલા: <span id="sSkipped">0</span></span>
+    <span class="stat-pill">બાકી: <span id="sRemaining">100</span></span>
   </div>
 
   <div class="exam-body">
@@ -305,11 +352,14 @@
           <span style="font-weight: bold; color: #38a169;">+1 / <span style="color: #e53e3e;">-0.25</span></span>
       </div>
       <div class="question-content"><div class="question-text" id="lblQText">Loading...</div><div id="optionsContainer"></div></div>
+      
+      <!-- FOOTER BUTTONS -->
       <div id="mockFooter">
         <button class="btn-exam btn-prev" id="btnPrev" onclick="prevQuestion()">⬅️ પાછળ</button>
         <button class="btn-exam btn-clear" onclick="clearResponse()">Clear</button>
         <button class="btn-exam btn-review" onclick="markReviewAndNext()">Review</button>
         <button class="btn-exam btn-save" onclick="saveAndNext()">Save & Next ➡️</button>
+        <button class="btn-exam btn-submit-mobile" onclick="submitExamConfirmation()">Submit Exam 🏆</button>
       </div>
     </div>
     
@@ -320,7 +370,7 @@
         <div class="legend-item"><span class="status-badge s-answered"></span> Ans</div>
         <div class="legend-item"><span class="status-badge s-not-answered"></span> Not Ans</div>
         <div class="legend-item"><span class="status-badge s-review"></span> Review</div>
-        <div class="legend-item"><span class="status-badge s-not-visited"></span> Not Visit</div>
+        <div class="legend-item"><span class="status-badge s-not-visited" style="color:#000;"></span> Not Visit</div>
       </div>
       <div class="palette-grid" id="paletteGrid"></div>
       <div style="padding: 10px; margin-top: auto;"><button class="btn-exam" style="background:var(--navy); color:var(--gold); width: 100%; border: 2px solid var(--gold);" onclick="submitExamConfirmation()">Submit Exam 🏆</button></div>
@@ -365,18 +415,18 @@
 </div>
 
 <script>
-/* ================= ANTI-CHEAT (SCREENSHOT & BLUR) ================= */
+/* ================= ANTI-CHEAT (TAB SWITCH WARNING) ================= */
 document.addEventListener('contextmenu', e => {
     if(document.getElementById('examContainer').style.display === 'flex') e.preventDefault();
 });
 
+// STRICT WARNING WHEN CHANGING TABS
 window.addEventListener('blur', () => {
     if (document.getElementById('examContainer').style.display === 'flex') {
-        document.getElementById('examContainer').classList.add('blur-overlay');
-        showAdhyapakModal("ચેતવણી 🚫", "તમે પરીક્ષા દરમિયાન બીજું ટેબ ખોલવાનો પ્રયાસ કર્યો છે. આ ગેરરીતિ ગણવામાં આવશે.");
+        alert("ચેતવણી 🚫: તમે પરીક્ષા દરમિયાન બીજી ટેબ કે એપ્લિકેશન ખોલવાનો પ્રયાસ કર્યો છે. તમારી પરીક્ષા રદ કરવામાં આવે છે.");
+        window.location.reload(); // Restarts the page immediately
     }
 });
-window.addEventListener('focus', () => { document.getElementById('examContainer').classList.remove('blur-overlay'); });
 
 document.onkeydown = e => { 
     if (document.getElementById('examContainer').style.display === 'flex') {
@@ -388,7 +438,7 @@ document.addEventListener('keyup', (e) => {
     if (e.key === 'PrintScreen') {
         navigator.clipboard.writeText('');
         if (document.getElementById('examContainer').style.display === 'flex') {
-            showAdhyapakModal("ચેતવણી 🚫", "પરીક્ષા દરમિયાન સ્ક્રીનશોટ લેવાની સખત મનાઈ છે!");
+            alert("ચેતવણી 🚫: પરીક્ષા દરમિયાન સ્ક્રીનશોટ લેવાની સખત મનાઈ છે!");
         }
     }
 });
@@ -436,7 +486,6 @@ function closeAdhyapakModal() { document.getElementById('customModalOverlay').st
 
 
 /* ================= 100 PREMIUM QUESTIONS DATABASE ================= */
-// Parsing real questions provided by user in the doc.
 const masterQuestions = [
   {q: "સંવિધાનને વફાદાર રહેવાની અને તેના આદર્શો અને સંસ્થાઓના રાષ્ટ્રધ્વજનો અને રાષ્ટ્રગીતનો આદર કરવાની જોગવાઈ ભારતના સંવિધાનની કઈ કલમમાં દર્શાવવામાં આવી છે?", opts: ["51 ક (ખ)","51 ક (ઘ)","51 ક (છ)","51 ક (ક)"], ans: 3, topic: "સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો"},
   {q: "નીચેના વિધાનો તપાસો:\n૧. વારસો એ વ્યક્તિની જન્મગત વિશિષ્ટતાઓનો સરવાળો છે.\n૨. પ્રકૃતિમાં દરેક પેઢીનું કાર્ય માતા-પિતા દ્વારા સંતાનોમાં કોઈ ને કોઈ જૈવિક અથવા મનોવૈજ્ઞાનિક વિશેષતાઓનું હસ્તાંતરણ કરવાનું છે.\nઉપરોક્ત વિધાનો ક્યા મનોવૈજ્ઞાનિકોના છે?", opts: ["૧. બી. એન. ઝા, ૨. ગિલ્બર્ટ","૧. રુથ બેંડિકટ, ૨. ડગ્લાસ અને હોલેન્ડ","૧. વૂડવર્થ, ૨. ગિલ્બર્ટ","૧. બી. એન. ઝા, ૨. વૂડવર્થ"], ans: 0, topic: "શૈક્ષણિક મનોવિજ્ઞાન"},
@@ -463,11 +512,9 @@ const masterQuestions = [
 const fullDatabase = [];
 const topicsReq = { "સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો": 20, "ગુજરાતી સાહિત્ય": 15, "ગુજરાતી ભાષાકીય પ્રાવીણ્ય": 15, "અંગ્રેજી ભાષાની જાણકારી": 15, "તાર્કિક અભિયોગ્યતા": 15, "શિક્ષણની ફિલસુફી": 10, "શૈક્ષણિક મનોવિજ્ઞાન": 5, "વર્ગ વ્યવહાર અને મૂલ્યાંકન": 5 };
 
-// Auto-generating exactly 100 questions using provided doc questions logic
 for (const [topic, count] of Object.entries(topicsReq)) {
     let sourceQ = masterQuestions.filter(mq => mq.topic === topic);
-    if(sourceQ.length === 0) sourceQ = [masterQuestions[0]]; // Fallback
-    
+    if(sourceQ.length === 0) sourceQ = [masterQuestions[0]];
     for (let i = 0; i < count; i++) {
         let q = sourceQ[i % sourceQ.length];
         fullDatabase.push({ q: q.q, opts: [...q.opts], ans: q.ans, topic: topic });
@@ -493,7 +540,7 @@ function verifyPromoCode() {
     closePromoModal();
     startMockTest();
   } else {
-    alert("❌ Invalid Promo Code! કૃપા કરીને સાચો પ્રોમો કોડ (RAMNAVAMI100) દાખલ કરો.");
+    alert("❌ Invalid Promo Code! કૃપા કરીને સાચો પ્રોમો કોડ દાખલ કરો.");
   }
 }
 
@@ -524,6 +571,21 @@ function startTimer() {
     }, 1000);
 }
 
+function updateStatsBar() {
+    let attempted = Object.keys(userAnswers).length;
+    let notVisited = 0;
+    let skipped = 0;
+    
+    for(let i=0; i<fullDatabase.length; i++) {
+        if(qStatus[i] === 'not_visited') notVisited++;
+        else if(qStatus[i] === 'not_answered' || qStatus[i] === 'review') skipped++;
+    }
+    
+    document.getElementById('sAttempted').innerText = attempted;
+    document.getElementById('sSkipped').innerText = skipped;
+    document.getElementById('sRemaining').innerText = notVisited;
+}
+
 function loadQuestion(index) {
     currentQIndex = index;
     const q = fullDatabase[index];
@@ -539,7 +601,7 @@ function loadQuestion(index) {
         </label>
     `).join('');
     
-    document.getElementById('btnPrev').style.display = index === 0 ? 'none' : 'flex';
+    document.getElementById('btnPrev').style.visibility = index === 0 ? 'hidden' : 'visible';
     
     renderPalette();
 }
@@ -556,7 +618,7 @@ function markReviewAndNext() { qStatus[currentQIndex] = 'review'; saveAndNext();
 function prevQuestion() { if(currentQIndex > 0) loadQuestion(currentQIndex - 1); }
 
 function renderPalette() {
-    document.getElementById('pAttempted').innerText = Object.keys(userAnswers).length;
+    updateStatsBar(); // Update Top Bar stats
     document.getElementById('paletteGrid').innerHTML = fullDatabase.map((_, i) => {
         let activeClass = (i === currentQIndex) ? 's-active' : qStatus[i];
         return `<button class="palette-btn ${activeClass}" onclick="loadQuestion(${i})">${i+1}</button>`;
