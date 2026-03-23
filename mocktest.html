@@ -1,208 +1,588 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="gu">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Real-Time Mock Test — Adhyapak Saathi</title>
-  <meta name="description" content="Premium real-time mock exams for TAT, TET, and other teacher eligibility exams in Gujarat."/>
+  <title>Premium Mock Test — Adhyapak Saathi</title>
+  
+  <meta name="description" content="રામનવમી સ્પેશિયલ ઓફર! TAT, TET, GSET માટે પ્રીમિયમ મોક ટેસ્ટ એકદમ ફ્રીમાં આપો."/>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  
   <style>
     body {
-      background-color: #f8fafd;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background: #f4f7fb;
     }
-    .mock-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2rem;
-      margin-bottom: 4rem;
+
+    /* CUSTOM MODAL SYSTEM */
+    #customModalOverlay, #promoModalOverlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+      z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(5px);
     }
-    .mock-card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 2.5rem;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      transition: transform 0.3s;
+    .c-modal {
+      background: #fff; width: 90%; max-width: 450px; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-top: 5px solid var(--navy);
+      animation: modalSlide 0.3s ease-out;
     }
-    .mock-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    @keyframes modalSlide { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .c-modal-header { padding: 20px; background: #f8fafd; border-bottom: 1px solid #e2e8f0; text-align: center; }
+    .c-modal-header h3 { font-family: var(--font-serif); color: var(--navy); font-size: 1.3rem; }
+    .c-modal-body { padding: 25px; text-align: center; color: var(--text-mid); font-size: 1.05rem; font-weight: 500; line-height: 1.5; }
+    .c-modal-footer { padding: 15px; background: #f8fafd; display: flex; gap: 10px; justify-content: center; }
+
+    /* FORM INPUT */
+    .form-control { width: 100%; padding: 12px; border: 2px solid #cbd5e0; border-radius: 8px; font-size: 1.1rem; text-align: center; text-transform: uppercase; font-weight: bold; margin-top: 15px; outline: none; transition: 0.3s;}
+    .form-control:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2); }
+
+    /* RAM NAVAMI SPECIAL POSTER */
+    .festival-banner {
+      background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+      color: white; padding: 2.5rem 2rem; border-radius: 16px; text-align: center; 
+      margin-bottom: 3rem; border: 4px solid #ffd700; 
+      box-shadow: 0 15px 30px rgba(255, 126, 95, 0.4); position: relative; overflow: hidden;
     }
-    .mock-list {
-      list-style: none;
-      padding: 0;
-      text-align: left;
-      margin: 1.5rem auto 2rem auto;
-      max-width: 300px;
-      font-size: 0.95rem;
-      color: #4a5568;
-      line-height: 2;
+    .festival-banner::before {
+      content: '🚩'; font-size: 150px; position: absolute; opacity: 0.1; right: -20px; top: -30px; transform: rotate(15deg);
     }
-    .topic-icon {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
+    .festival-title { font-family: var(--font-serif); font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: 900; }
+    .promo-box {
+      background: rgba(255,255,255,0.9); color: var(--navy); display: inline-block; padding: 12px 30px; 
+      border-radius: 50px; border: 2px dashed #ff7e5f; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px;
+      margin-top: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
+
+    /* REAL-TIME COUNTER */
+    .live-counter-box {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 50px; padding: 10px 25px; 
+      display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      margin-bottom: 2rem; font-weight: 700; color: #4a5568; font-size: 1.1rem;
+    }
+    .pulsing-dot { width: 12px; height: 12px; background: #38a169; border-radius: 50%; animation: pulse-green 1.5s infinite; }
+    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(56, 161, 105, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(56, 161, 105, 0); } 100% { box-shadow: 0 0 0 0 rgba(56, 161, 105, 0); } }
+
+    /* MOCK TEST CARDS */
+    .mock-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+    .mock-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2.5rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s; }
+    .mock-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .mock-list { list-style: none; padding: 0; text-align: left; margin: 1.5rem auto 2rem auto; max-width: 300px; font-size: 0.95rem; color: #4a5568; line-height: 2; }
+    .topic-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+
+    /* EXAM UI CSS */
+    .exam-container { display: flex; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; position: fixed; inset: 0; z-index: 1000; }
+    .exam-body { display: flex; flex-grow: 1; overflow: hidden; }
+    .question-panel { flex: 7; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: #ffffff; position: relative; }
+    .question-header { background: #f8fafd; padding: 8px 20px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 1rem; display: flex; justify-content: space-between;}
+    .question-content { padding: 15px 20px; overflow-y: auto; flex-grow: 1; }
+    .question-text { font-size: 1.25rem; font-weight: 700; color: #2d3748; line-height: 1.6; margin-bottom: 20px; }
     
-    /* Marketing Badge Animation */
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0.4); }
-      70% { box-shadow: 0 0 0 15px rgba(184, 134, 11, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+    .radio-option { display: flex; align-items: center; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; font-size: 1.05rem; font-weight: 600; color: #4a5568; background: #fff; }
+    .radio-option:hover { border-color: var(--navy-light); background: #f8fafd; }
+    .radio-option.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 1px var(--navy); }
+    .radio-option input[type="radio"] { margin-right: 12px; transform: scale(1.3); accent-color: var(--navy); cursor: pointer; }
+    
+    .btn-exam { padding: 10px 20px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 1rem; }
+    .btn-save { background: var(--green); color: white; }
+    .btn-review { background: #805ad5; color: white; }
+    .btn-clear { background: #e2e8f0; color: #4a5568; }
+    .btn-submit { background: var(--navy); color: var(--gold); border: 2px solid var(--gold); font-size: 1.1rem; padding: 12px 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+    
+    .palette-panel { flex: 3; background: #f8fafd; display: flex; flex-direction: column; overflow-y: auto; }
+    .palette-header { background: var(--navy); color: #fff; padding: 12px; font-weight: 700; text-align: center; font-size: 1rem; letter-spacing: 1px;}
+    .legend-box { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 15px; border-bottom: 1px solid var(--border); font-size: 0.85rem; font-weight: 700; color: #4a5568; }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .status-badge { width: 22px; height: 22px; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; color: white; font-size: 0.7rem; font-weight: bold; }
+    .s-not-visited { background: #e2e8f0; border: 1px solid #cbd5e0; color: #4a5568; }
+    .s-not-answered { background: #e53e3e; border: 1px solid #c53030; }
+    .s-answered { background: #38a169; border: 1px solid #2f855a; }
+    .s-review { background: #805ad5; border: 1px solid #6b46c1; }
+    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 15px; }
+    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 800; font-size: 1rem; border: none; cursor: pointer; color: white; transition: 0.1s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+    
+    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 4px solid var(--gold); padding: 10px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; }
+
+    /* PDF EXACT SCORECARD CSS */
+    #resultScreen { display: none; background: #f4f7fb; min-height: 100vh; padding: 40px 20px; }
+    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 900px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+    .res-title { font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 30px; font-weight: 900; }
+    
+    .score-circle { width: 150px; height: 150px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px auto; background: #f8fafd; }
+    .score-circle .marks { font-size: 2.5rem; font-weight: 900; color: var(--navy); line-height: 1; }
+    
+    .stats-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 30px 0; }
+    .stat-box { padding: 15px; border-radius: 8px; font-weight: 800; flex: 1; min-width: 140px; max-width: 180px; }
+    .sb-correct { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .sb-wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    .sb-unattempted { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
+    .sb-time { background: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; }
+    .sb-acc { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
+    
+    /* TOPIC ANALYSIS TABLE */
+    .topic-analysis-box { margin-top: 30px; text-align: left; }
+    .topic-analysis-box h3 { font-family: var(--font-serif); color: var(--navy); font-size: 1.5rem; margin-bottom: 15px; text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+    .ta-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    .ta-table th, .ta-table td { padding: 12px 15px; border: 1px solid #e2e8f0; font-size: 1.05rem; }
+    .ta-table th { background: var(--navy); color: white; font-weight: 700; text-align: left; }
+    .ta-table tr:nth-child(even) { background-color: #f8fafd; }
+    .ta-table td { font-weight: 600; color: #4a5568; }
+
+    .hide-during-exam { display: none !important; }
+    
+    .print-page-2 { display: none; } /* Hidden normally, visible in print */
+
+    @media (max-width: 768px) {
+      .exam-body { flex-direction: column; }
+      .palette-panel { flex: none; height: 250px; border-top: 2px solid var(--border); }
+      .question-panel { flex: none; height: calc(100vh - 320px); }
+      .p-sticky-header { flex-direction: column; gap: 8px; padding: 10px; text-align: center; }
     }
-    .premium-badge {
-      background: linear-gradient(135deg, #1d3461 0%, #0f1c36 100%);
-      border: 2px solid #b8860b;
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      margin-bottom: 3rem;
-      color: white;
-      animation: pulse 2s infinite;
+
+    /* EXACT PRINT CSS TO MATCH THE PDF */
+    @media print {
+      body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      #standardNav, .page-banner, #standardFooter, .festival-banner, .live-counter-box, .mock-grid, .no-print, #examContainer { display: none !important; }
+      
+      #resultScreen { display: block !important; padding: 0 !important; background: white !important; }
+      .result-card { border: none !important; box-shadow: none !important; width: 100% !important; margin: 0 !important; max-width: 100% !important; padding: 10mm !important; }
+      
+      .print-page-break { page-break-after: always; }
+      
+      /* PAGE 2 BRANDING */
+      .print-page-2 { display: flex !important; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; }
+      .print-page-2 h1 { font-family: var(--font-serif); font-size: 4rem; color: var(--navy); margin-bottom: 20px; font-weight: 900; }
+      .print-page-2 p { font-size: 1.5rem; color: #4a5568; margin-bottom: 30px; }
+      .print-page-2 .website-link { font-size: 2rem; font-weight: 800; color: var(--navy); background: #f8fafd; padding: 15px 30px; border: 3px dashed var(--gold); border-radius: 12px; }
     }
   </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
-    <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
+<!-- PROMO CODE SECURITY MODAL -->
+<div id="promoModalOverlay">
+  <div class="c-modal">
+    <div class="c-modal-header"><h3>🔒 Security Key Required</h3></div>
+    <div class="c-modal-body">
+      પ્રિમિયમ મોક ટેસ્ટ શરૂ કરવા માટે કૃપા કરીને સ્પેશિયલ પ્રોમો કોડ (Promo Code) દાખલ કરો.
+      <input type="text" id="promoInput" class="form-control" placeholder="Enter Promo Code..." autocomplete="off">
+    </div>
+    <div class="c-modal-footer">
+      <button class="btn btn-outline" onclick="closePromoModal()">રદ કરો</button>
+      <button class="btn btn-navy" onclick="verifyPromoCode()">Unlock Test 🚀</button>
+    </div>
   </div>
 </div>
 
-<nav style="background-color: #1d3461;">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-emblem">
-        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="18" width="22" height="3" rx="1" fill="#fff"/>
-          <rect x="7" y="6" width="3" height="12" rx="1" fill="#fff"/>
-          <rect x="18" y="6" width="3" height="12" rx="1" fill="#fff"/>
-          <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
-        </svg>
-      </div>
-      <div class="nav-logo-text">
-        <span class="site-name" style="color: #ffffff;">Adhyapak Saathi</span>
-        <span class="site-tagline" style="color: #b8860b;">Teacher Exam Preparation Portal</span>
-      </div>
-    </a>
-    
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" style="color: #fff;">Home</a></li>
-      <li><a href="test.html" style="color: #fff;">Practice Test</a></li>
-      <li><a href="mocktest.html" class="active" style="color: #b8860b; border-bottom: 2px solid #b8860b;">Mock Test</a></li>
-      <li><a href="news.html" style="color: #fff;">Exam News</a></li>
-      <li><a href="materials.html" style="color: #fff;">Study Materials</a></li>
-      <li><a href="about.html" style="color: #fff;">About Us</a></li>
-      <li><a href="contact.html" style="color: #fff;">Contact</a></li>
-    </ul>
-    
-    <div class="hamburger" onclick="toggleNav()">
-      <span style="background: white;"></span>
-      <span style="background: white;"></span>
-      <span style="background: white;"></span>
-    </div>
-  </div>
-</nav>
-
-<div class="page-banner" style="background: #1d3461; color: white; border-bottom: 4px solid #b8860b; padding: 4rem 0;">
-  <div class="wrapper">
-    <div class="breadcrumb" style="color: #cbd5e0;"><a href="index.html" style="color: #cbd5e0;">Home</a> <span>›</span> Mock Test</div>
-    <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Real-Time <em style="color: #b8860b; font-style: normal;">Mock Test</em></h1>
-    <p style="color: #cbd5e0; font-size: 1.1rem;">TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) માટે TCS/NTA પેટર્ન પર આધારિત સંપૂર્ણ ઓનલાઈન પરીક્ષાનો અનુભવ.</p>
+<!-- STANDARD ALERT MODAL -->
+<div id="customModalOverlay">
+  <div class="c-modal">
+    <div class="c-modal-header"><h3 id="modalTitle">શીર્ષક</h3></div>
+    <div class="c-modal-body" id="modalMsg">સંદેશ અહીં આવશે...</div>
+    <div class="c-modal-footer" id="modalFooter"></div>
   </div>
 </div>
 
-<section class="section">
-  <div class="wrapper">
-
-    <!-- MARKETING/STUDENT COUNTER BADGE -->
-    <div class="premium-badge">
-      <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏆</div>
-      <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: #b8860b; margin-bottom: 0.8rem; letter-spacing: 1px;">Premium Mock Test Series</h3>
-      <p style="font-size: 1.15rem; color: #cbd5e0; margin: 0; line-height: 1.6;">
-        <strong style="color: #fff; font-size: 1.4rem; background: #b8860b; padding: 2px 8px; border-radius: 4px;">૧૨,૪૫૦+</strong> થી વધુ વિદ્યાર્થીઓએ આ મોક ટેસ્ટ સફળતાપૂર્વક આપીને પોતાની તૈયારી ચકાસી છે! <br>શું તમે પરીક્ષા માટે તૈયાર છો? આજે જ તમારી ક્ષમતા ચકાસો.
-      </p>
+<div id="mainWebsiteContent">
+  <!-- STANDARD NAVBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
+      <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
     </div>
-    
-    <!-- TOP MOCK TESTS SECTION -->
-    <div class="mock-grid">
-      <!-- PAPER 1 -->
-      <div class="mock-card">
-        <div class="topic-icon">🎓</div>
-        <h2 style="color: #1d3461; font-size: 1.5rem;">પેપર 1 (General) - મોક ટેસ્ટ</h2>
-        <ul class="mock-list">
-          <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
-          <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
-          <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
-          <li>🔴 <strong style="color: #e53e3e;">નોંધ:</strong> ટેસ્ટ ચાલુ થયા પછી બહાર નીકળી શકાશે નહિ.</li>
-        </ul>
-        <button class="btn btn-navy" style="width: 100%; font-size: 1.1rem; padding: 0.8rem;">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
+  </div>
+  <nav style="background-color: #1d3461;">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-emblem"><svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="18" width="22" height="3" rx="1" fill="#fff"/><rect x="7" y="6" width="3" height="12" rx="1" fill="#fff"/><rect x="18" y="6" width="3" height="12" rx="1" fill="#fff"/><path d="M14 4 L21 9 H7 Z" fill="#b8860b"/></svg></div>
+        <div class="nav-logo-text"><span class="site-name" style="color: #ffffff;">Adhyapak Saathi</span><span class="site-tagline" style="color: #b8860b;">Teacher Exam Preparation Portal</span></div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" style="color: #fff;">Home</a></li>
+        <li><a href="test.html" style="color: #fff;">Practice Test</a></li>
+        <li><a href="mocktest.html" class="active" style="color: #b8860b; border-bottom: 2px solid #b8860b;">Mock Test</a></li>
+        <li><a href="news.html" style="color: #fff;">Exam News</a></li>
+        <li><a href="materials.html" style="color: #fff;">Study Materials</a></li>
+        <li><a href="about.html" style="color: #fff;">About Us</a></li>
+        <li><a href="contact.html" style="color: #fff;">Contact</a></li>
+      </ul>
+      <div class="hamburger" onclick="toggleNav()"><span style="background: white;"></span><span style="background: white;"></span><span style="background: white;"></span></div>
+    </div>
+  </nav>
+
+  <div class="page-banner" style="background: #1d3461; color: white; border-bottom: 4px solid #b8860b; padding: 4rem 0;">
+    <div class="wrapper">
+      <div class="breadcrumb" style="color: #cbd5e0;"><a href="index.html" style="color: #cbd5e0;">Home</a> <span>›</span> Mock Test</div>
+      <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Real-Time <em style="color: #b8860b; font-style: normal;">Mock Test</em></h1>
+      <p style="color: #cbd5e0; font-size: 1.1rem;">TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) માટે TCS/NTA પેટર્ન પર આધારિત સંપૂર્ણ ઓનલાઈન પરીક્ષાનો અનુભવ.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrapper" style="text-align: center;">
+
+      <!-- FESTIVAL BANNER -->
+      <div class="festival-banner">
+        <div style="font-size: 3.5rem; margin-bottom: 10px;">🏹 શ્રિ રામનવમી મહોત્સવ 🚩</div>
+        <h2 class="festival-title">સ્પેશિયલ ફ્રી ઓફર!</h2>
+        <p style="font-size: 1.25rem; margin-bottom: 15px; font-weight: 500;">અધ્યાપક સાથી તરફથી 100 પ્રશ્નોવાળી પ્રીમિયમ મોક ટેસ્ટ હવે મેળવો બિલકુલ ફ્રી. (લિમિટેડ ટાઈમ ઓફર)</p>
+        <div class="promo-box">
+          PROMO CODE: <span style="color: #e53e3e;">Ramnavami100</span>
+        </div>
+      </div>
+
+      <!-- LIVE COUNTER -->
+      <div class="live-counter-box">
+        <div class="pulsing-dot"></div>
+        <span>Live: <span id="liveCounter" style="color: #1d3461; font-size: 1.3rem; font-weight: 900;">4,328</span> વિદ્યાર્થીઓ અત્યારે મોક ટેસ્ટ આપી રહ્યા છે!</span>
       </div>
       
-      <!-- PAPER 2 -->
-      <div class="mock-card">
-        <div class="topic-icon">⏳</div>
-        <h2 style="color: #1d3461; font-size: 1.5rem;">પેપર 2 (વિષયવસ્તુ) - મોક ટેસ્ટ</h2>
-        <ul class="mock-list">
-          <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
-          <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
-          <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
-          <li>✨ <strong style="color: #b8860b;">નોંધ:</strong> આ પેપરમાં વિષયવસ્તુના પ્રશ્નો ટૂંક સમયમાં મુકાશે.</li>
-        </ul>
-        <button class="btn" style="width: 100%; font-size: 1.1rem; padding: 0.8rem; background: transparent; border: 2px solid #b8860b; color: #b8860b; font-weight: bold; cursor: not-allowed;">Coming Soon 🕒</button>
+      <!-- TOP MOCK TESTS SECTION -->
+      <div class="mock-grid">
+        <!-- PAPER 1 -->
+        <div class="mock-card">
+          <div class="topic-icon">🎓</div>
+          <h2 style="color: #1d3461; font-size: 1.5rem;">પેપર 1 (General) - મોક ટેસ્ટ</h2>
+          <ul class="mock-list">
+            <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ (Premium Set)</li>
+            <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
+            <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+            <li>🔴 <strong style="color: #e53e3e;">સિક્યોરિટી:</strong> ટેસ્ટ શરૂ થયા પછી Back જવાની મનાઈ છે.</li>
+          </ul>
+          <button class="btn btn-navy" style="width: 100%; font-size: 1.1rem; padding: 0.8rem;" onclick="openPromoModal()">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
+        </div>
+        
+        <!-- PAPER 2 -->
+        <div class="mock-card">
+          <div class="topic-icon">⏳</div>
+          <h2 style="color: #1d3461; font-size: 1.5rem;">પેપર 2 (વિષયવસ્તુ) - મોક ટેસ્ટ</h2>
+          <ul class="mock-list">
+            <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
+            <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
+            <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
+            <li>✨ <strong style="color: #b8860b;">નોંધ:</strong> આ પેપરમાં વિષયવસ્તુના પ્રશ્નો ટૂંક સમયમાં મુકાશે.</li>
+          </ul>
+          <button class="btn" style="width: 100%; font-size: 1.1rem; padding: 0.8rem; background: transparent; border: 2px solid #b8860b; color: #b8860b; font-weight: bold; cursor: not-allowed;">Coming Soon 🕒</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer id="standardFooter" style="margin-top: 2rem;">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="footer-brand-name">Adhyapak Saathi</div><p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants.</p></div>
+      <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="test.html">Practice Test</a></li><li><a href="mocktest.html">Mock Test</a></li><li><a href="news.html">Exam News</a></li><li><a href="materials.html">Study Materials</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 <span style="color: #b8860b;">Adhyapak Saathi</span>. All rights reserved.</p></div>
+  </footer>
+</div> <!-- /mainWebsiteContent -->
+
+
+<!-- FULL SCREEN EXAM ENGINE UI -->
+<div class="exam-container" id="examContainer" style="display: none;">
+  <div class="p-sticky-header">
+    <div style="font-weight:900; font-size:1.2rem; color:var(--navy); display: flex; align-items: center; gap: 8px;">
+      <span id="headerIcon">🎓</span> TAT - પેપર 1 (Premium Mock Test)
+    </div>
+    <div style="display:flex; gap:10px; align-items:center;">
+       <div id="attemptedBox" style="background:#eaf5ef; color:var(--green); padding:6px 15px; border-radius:20px; font-weight:800; font-size:0.95rem; border:2px solid #bbf7d0;">✔ જવાબો: <span id="pAttempted">0</span></div>
+       <div style="background:#fdf0ee; color:var(--red); padding:6px 15px; border-radius:20px; font-weight:900; font-size:1rem; border:2px solid var(--red);">⏱️ <span id="pTimer">90:00</span></div>
+    </div>
+  </div>
+
+  <div class="exam-body">
+    <div class="question-panel">
+      <div class="question-header"><span id="lblQNum" style="background: var(--navy); color: white; padding: 4px 12px; border-radius: 20px;">પ્રશ્ન ક્રમાંક: 1</span><span style="font-weight: bold; color: #38a169;">+1 માર્કસ / <span style="color: #e53e3e;">-0.25 નેગેટિવ</span></span></div>
+      <div class="question-content"><div class="question-text" id="lblQText">પ્રશ્ન લોડ થઈ રહ્યો છે...</div><div id="optionsContainer"></div></div>
+      <div id="mockFooter" style="padding: 15px 20px; background: #f8fafd; display: flex; justify-content: space-between; border-top: 1px solid var(--border);">
+        <div style="display: flex; gap: 10px;"><button class="btn-exam btn-clear" onclick="clearResponse()">Clear Response</button><button class="btn-exam btn-review" onclick="markReviewAndNext()">Review & Next</button></div>
+        <button class="btn-exam btn-save" onclick="saveAndNext()">Save & Next ➡️</button>
       </div>
     </div>
+    <div class="palette-panel" id="mockPalette">
+      <div class="palette-header">Question Palette</div>
+      <div class="legend-box">
+        <div class="legend-item"><span class="status-badge s-answered"></span> Ans</div>
+        <div class="legend-item"><span class="status-badge s-not-answered"></span> Not Ans</div>
+        <div class="legend-item"><span class="status-badge s-review"></span> Review</div>
+        <div class="legend-item"><span class="status-badge s-not-visited"></span> Not Visit</div>
+      </div>
+      <div class="palette-grid" id="paletteGrid"></div>
+      <div style="padding: 15px; margin-top: auto; border-top: 1px solid var(--border);"><button class="btn-exam btn-submit" style="width: 100%;" onclick="submitExamConfirmation()">Submit Exam 🏆</button></div>
+    </div>
+  </div>
+</div>
 
-  </div>
-</section>
+<!-- EXACT PDF SCORECARD SCREEN -->
+<div id="resultScreen">
+  <div class="result-card print-page-break">
+    <h2 class="res-title">પરીક્ષા પરિણામ (scorecard)</h2>
+    <div class="score-circle"><span class="marks" id="resScore">0.00</span><span class="total" style="font-weight: 700; color: #4a5568;">out of 100</span></div>
+    <div id="resMotivation" style="font-size: 1.25rem; font-weight: 700; color: #4a5568; margin-bottom: 25px;">તમે <span id="resScoreText">0.00</span> માર્કસ મેળવ્યા છે. નિરાશ ન થશો! ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો.</div>
+    
+    <div class="stats-grid">
+      <div class="stat-box sb-correct"><div style="font-size: 1.8rem;" id="resCorrect">0</div><div style="font-size: 0.85rem; text-transform: uppercase;">સાચા જવાબો</div></div>
+      <div class="stat-box sb-wrong"><div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.85rem; text-transform: uppercase;">ખોટા જવાબો (-0.25)</div></div>
+      <div class="stat-box sb-unattempted"><div style="font-size: 1.8rem;" id="resSkip">0</div><div style="font-size: 0.85rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
+      <div class="stat-box sb-acc"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.85rem; text-transform: uppercase;">ચોકસાઈ (ACCURACY)</div></div>
+      <div class="stat-box sb-time"><div style="font-size: 1.8rem;" id="resTime">00:00</div><div style="font-size: 0.85rem; text-transform: uppercase;">લીધેલ સમય</div></div>
+    </div>
+    
+    <div class="topic-analysis-box">
+      <h3>વિષયવાર તમારું પ્રદર્શન (Topic Analysis)</h3>
+      <table class="ta-table" id="topicTableBody">
+        <!-- JS WILL INJECT ROWS HERE -->
+      </table>
+    </div>
 
-<footer style="margin-top: 2rem;">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-brand-name">Adhyapak Saathi</div>
-      <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
-      <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
-    </div>
-    <div>
-      <div class="footer-col-title">Navigation</div>
-      <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="test.html">Practice Test</a></li>
-        <li><a href="mocktest.html">Mock Test</a></li>
-        <li><a href="news.html">Exam News</a></li>
-        <li><a href="materials.html">Study Materials</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Examinations</div>
-      <ul class="footer-links">
-        <li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li>
-        <li><a href="news.html">TET I &amp; TET II</a></li>
-        <li><a href="news.html">UGC NET</a></li>
-        <li><a href="news.html">GSET</a></li>
-        <li><a href="news.html">CTET</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Contact</div>
-      <ul class="footer-links">
-        <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
-        <li><a href="contact.html">Send a Message</a></li>
-      </ul>
+    <div class="no-print" style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
+      <button class="btn btn-outline" onclick="window.location.reload()">🏠 Home</button>
+      <button class="btn" style="background: var(--navy); color: white; padding: 12px 25px; font-weight: bold; font-size: 1.1rem; border-radius: 8px;" onclick="window.print()">📥 Download Scorecard (PDF)</button>
     </div>
   </div>
-  <div class="footer-bottom">
-    <p>© 2026 <span style="color: #b8860b;">Adhyapak Saathi</span>. All rights reserved.</p>
+
+  <!-- PAGE 2 BRANDING (Only visible in PDF/Print) -->
+  <div class="print-page-2">
+    <h1>Adhyapak Saathi</h1>
+    <p>શિક્ષક બનવાનું સ્વપ્ન કરો સાકાર! વધુ ફ્રી મોક ટેસ્ટ અને મટિરિયલ માટે મુલાકાત લો:</p>
+    <div class="website-link">🌐 www.adhyapaksaathi.in</div>
   </div>
-</footer>
+</div>
 
 <script>
+/* ================= UTILS & ANTI-CHEAT ================= */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = e => { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) return false; };
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
+// Prevent going back during exam
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    if (document.getElementById('examContainer').style.display === 'flex') {
+        history.go(1);
+        showAdhyapakModal("ચેતવણી 🚫", "પરીક્ષા દરમિયાન 'Back' જવાની મનાઈ છે! મહેરબાની કરીને પરીક્ષા પૂર્ણ કરો.");
+    }
+};
+
+// Warn on reload
+window.onbeforeunload = function() {
+    if (document.getElementById('examContainer').style.display === 'flex') {
+        return "તમારી પરીક્ષા ચાલુ છે. શું તમે ખરેખર પેજ રિફ્રેશ/બંધ કરવા માંગો છો? તમારો ડેટા જતો રહેશે.";
+    }
+};
+
+/* ================= LIVE COUNTER (MARKETING) ================= */
+document.addEventListener("DOMContentLoaded", function() {
+  let count = parseInt(localStorage.getItem('adhyapak_live_count')) || 4328;
+  document.getElementById('liveCounter').innerText = count.toLocaleString('en-IN');
+  
+  setInterval(() => {
+    if(Math.random() > 0.5) { // 50% chance to increment every 4 seconds
+      count += Math.floor(Math.random() * 3) + 1; // Increase by 1 to 3
+      document.getElementById('liveCounter').innerText = count.toLocaleString('en-IN');
+      localStorage.setItem('adhyapak_live_count', count);
+    }
+  }, 4000);
+});
+
+/* ================= CUSTOM MODALS ================= */
+function openPromoModal() {
+  document.getElementById('promoInput').value = '';
+  document.getElementById('promoModalOverlay').style.display = 'flex';
+}
+function closePromoModal() {
+  document.getElementById('promoModalOverlay').style.display = 'none';
+}
+
+function showAdhyapakModal(title, msg, type = 'alert', callback = null) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalMsg').innerText = msg;
+    const footer = document.getElementById('modalFooter');
+    footer.innerHTML = '';
+    
+    if (type === 'confirm') {
+        const yesBtn = document.createElement('button'); yesBtn.className = 'btn btn-navy'; yesBtn.innerText = 'હા, સબમિટ કરો';
+        yesBtn.onclick = () => { closeAdhyapakModal(); if (callback) callback(); };
+        const noBtn = document.createElement('button'); noBtn.className = 'btn btn-outline'; noBtn.innerText = 'રદ કરો';
+        noBtn.onclick = closeAdhyapakModal;
+        footer.append(yesBtn, noBtn);
+    } else {
+        const okBtn = document.createElement('button'); okBtn.className = 'btn btn-navy'; okBtn.innerText = 'OK';
+        okBtn.onclick = closeAdhyapakModal;
+        footer.append(okBtn);
+    }
+    document.getElementById('customModalOverlay').style.display = 'flex';
+}
+function closeAdhyapakModal() { document.getElementById('customModalOverlay').style.display = 'none'; }
+
+
+/* ================= 100 PREMIUM QUESTIONS DATABASE ================= */
+const fullDatabase = [];
+// NOTE: Here we build exactly 100 questions automatically based on required weightage.
+// You can replace `masterQuestions` with your real 100 premium questions later.
+const masterQuestions = [
+  {q: "સંવિધાનને વફાદાર રહેવાની અને તેના આદર્શો અને સંસ્થાઓના રાષ્ટ્રધ્વજનો અને રાષ્ટ્રગીતનો આદર કરવાની જોગવાઈ ભારતના સંવિધાનની કઈ કલમમાં દર્શાવવામાં આવી છે?", opts: ["51 ક (ખ)","51 ક (ઘ)","51 ક (છ)","51 ક (ક)"], ans: 3, topic: "સામાન્ય જ્ઞાન"},
+  {q: "દૂરવર્તી શિક્ષણમાં અભ્યાસ કેવી રીતે થઈ શકે?", opts: ["કૉલેજ ગ્રંથાલયમાં છપાયેલી અધ્યયન સામગ્રી દ્વારા","જ્યાં રહેતા હોય ત્યાં માધ્યમો દ્વારા તથા છપાયેલી અધ્યયન સામગ્રી દ્વારા","કૉલેજમાં અધ્યયનની વિવિધ પદ્ધતિઓ દ્વારા","કૉલેજમાં હાજરી આપ્યા સિવાય સ્વપ્રયત્નો દ્વારા"], ans: 1, topic: "શિક્ષણની ફિલસૂફી"},
+  {q: "DIKSHA એટલે શું?", opts: ["Digital Infrastructure for Knowledge Sharing","Digital Initiative for Knowledge Sharing","Digital Interactive for Knowledge Sharing","Digital Interface for Knowledge Sharing"], ans: 0, topic: "વર્ગવ્યવહાર અને મૂલ્યાંકન"},
+  {q: "અધ્યયનના નિયમો (Laws of Learning) સંદર્ભે નીચે પૈકી કયો નિયમ લાગુ પડતો નથી ?", opts: ["અસરનો નિયમ","પુનરાવર્તનનો નિયમ","ભૂલનો નિયમ","તત્પરતાનો નિયમ"], ans: 2, topic: "શૈક્ષણિક મનોવિજ્ઞાન"},
+  {q: "આજે સોમવાર છે. 62 દિવસ પછી કયો વાર આવશે ?", opts: ["શનિવાર","રવિવાર","મંગળવાર","બુધવાર"], ans: 1, topic: "તાર્કિક અભિયોગ્યતા"},
+  {q: "‘પરિરંભ' શબ્દનો સમાનાર્થી શબ્દ શું થાય ?", opts: ["તેજ","બનાવટ","આલિંગન","લુચ્ચું"], ans: 2, topic: "ગુજરાતી ભાષા"},
+  {q: "The lightning has a tongue of flame. Identify the figure of speech.", opts: ["Irony","Personification","Metaphor","Simile"], ans: 1, topic: "અંગ્રેજી ભાષા"}
+];
+
+// Topic Weightage for exactly 100 questions
+const topicsReq = { "સામાન્ય જ્ઞાન": 17, "શિક્ષણની ફિલસૂફી": 12, "વર્ગવ્યવહાર અને મૂલ્યાંકન": 10, "શૈક્ષણિક મનોવિજ્ઞાન": 16, "તાર્કિક અભિયોગ્યતા": 15, "ગુજરાતી ભાષા": 15, "અંગ્રેજી ભાષા": 15 };
+
+// Auto-generating 100 dummy questions mapping to exact topics required for the scorecard
+for (const [topic, count] of Object.entries(topicsReq)) {
+    let sourceQ = masterQuestions.find(mq => mq.topic === topic) || masterQuestions[0];
+    for (let i = 0; i < count; i++) {
+        fullDatabase.push({ q: `(Q${fullDatabase.length + 1}) ` + sourceQ.q, opts: [...sourceQ.opts], ans: sourceQ.ans, topic: topic });
+    }
+}
+
+/* ================= EXAM ENGINE LOGIC ================= */
+let currentQIndex = 0;
+let userAnswers = {};
+let qStatus = {};
+let timeRemaining = 90 * 60; // 90 mins
+let timerInterval;
+let initialTime = 90 * 60;
+
+function verifyPromoCode() {
+  const code = document.getElementById('promoInput').value.trim().toUpperCase();
+  if(code === "RAMNAVAMI100") {
+    closePromoModal();
+    startMockTest();
+  } else {
+    alert("❌ Invalid Promo Code! કૃપા કરીને સાચો પ્રોમો કોડ (Ramnavami100) દાખલ કરો.");
+  }
+}
+
+function startMockTest() {
+    document.getElementById('mainWebsiteContent').style.display = 'none';
+    document.getElementById('examContainer').style.display = 'flex';
+    
+    // Reset Data
+    userAnswers = {};
+    qStatus = {};
+    fullDatabase.forEach((_, i) => qStatus[i] = 'not_visited');
+    timeRemaining = initialTime;
+    currentQIndex = 0;
+    
+    // Enter Fullscreen if possible to prevent distractions
+    if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch((e)=>{}); }
+    
+    loadQuestion(0);
+    startTimer();
+}
+
+function startTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+        if(timeRemaining <= 0) { clearInterval(timerInterval); submitExam(); }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('pTimer').innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+}
+
+function loadQuestion(index) {
+    currentQIndex = index;
+    const q = fullDatabase[index];
+    if(qStatus[index] === 'not_visited') qStatus[index] = 'not_answered';
+
+    document.getElementById('lblQNum').innerText = `પ્રશ્ન ક્રમાંક: ${index + 1} / 100`;
+    document.getElementById('lblQText').innerText = q.q;
+    
+    const optionsHtml = q.opts.map((opt, i) => `
+        <label class="radio-option ${userAnswers[index] === i ? 'selected' : ''}">
+            <input type="radio" name="opt" ${userAnswers[index] === i ? 'checked' : ''} onchange="selectOption(${i})">
+            <span>${opt}</span>
+        </label>
+    `).join('');
+    document.getElementById('optionsContainer').innerHTML = optionsHtml;
+    document.getElementById('pAttempted').innerText = Object.keys(userAnswers).length;
+    renderPalette();
+}
+
+function selectOption(idx) {
+    userAnswers[currentQIndex] = idx;
+    qStatus[currentQIndex] = 'answered';
+    loadQuestion(currentQIndex);
+}
+
+function clearResponse() { delete userAnswers[currentQIndex]; qStatus[currentQIndex] = 'not_answered'; loadQuestion(currentQIndex); }
+function saveAndNext() { if(currentQIndex < fullDatabase.length - 1) loadQuestion(currentQIndex + 1); else renderPalette(); }
+function markReviewAndNext() { qStatus[currentQIndex] = 'review'; saveAndNext(); }
+
+function renderPalette() {
+    const grid = document.getElementById('paletteGrid');
+    grid.innerHTML = fullDatabase.map((_, i) => `<button class="palette-btn ${qStatus[i]}" onclick="loadQuestion(${i})">${i+1}</button>`).join('');
+}
+
+function submitExamConfirmation() {
+    if(Object.keys(userAnswers).length === 0) return showAdhyapakModal("ચેતવણી 🚫", "કૃપા કરીને ઓછામાં ઓછો એક પ્રશ્નનો જવાબ આપો!");
+    
+    const unans = fullDatabase.length - Object.keys(userAnswers).length;
+    let msg = `તમે ${Object.keys(userAnswers).length} પ્રશ્નોના જવાબ આપ્યા છે અને ${unans} પ્રશ્નો છોડ્યા છે.\n\nશું તમે ખરેખર પરીક્ષા સબમિટ કરવા માંગો છો? આ પછી કોઈ ફેરફાર થઈ શકશે નહીં.`;
+    showAdhyapakModal("પરીક્ષા પૂર્ણ કરવી છે?", msg, 'confirm', submitExam);
+}
+
+function submitExam() {
+    clearInterval(timerInterval);
+    
+    // Exit fullscreen
+    if (document.exitFullscreen) { document.exitFullscreen().catch(()=>{}); }
+
+    document.getElementById('examContainer').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+
+    let correct = 0, wrong = 0;
+    let topicStats = {};
+    for(let t in topicsReq) { topicStats[t] = { correct: 0, total: topicsReq[t] }; }
+
+    fullDatabase.forEach((q, i) => {
+        if(userAnswers[i] === q.ans) {
+            correct++;
+            topicStats[q.topic].correct++;
+        }
+        else if(userAnswers[i] !== undefined) {
+            wrong++;
+        }
+    });
+
+    const score = correct - (wrong * 0.25);
+    const finalScore = score < 0 ? 0 : score.toFixed(2);
+    
+    document.getElementById('resScore').innerText = finalScore;
+    document.getElementById('resScoreText').innerText = finalScore;
+    document.getElementById('resCorrect').innerText = correct;
+    document.getElementById('resWrong').innerText = wrong;
+    document.getElementById('resSkip').innerText = fullDatabase.length - (correct + wrong);
+    document.getElementById('resAcc').innerText = (correct + wrong > 0) ? Math.round((correct/(correct+wrong))*100) : 0;
+    
+    const timeTaken = initialTime - timeRemaining;
+    const m = Math.floor(timeTaken / 60);
+    const s = timeTaken % 60;
+    document.getElementById('resTime').innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+
+    // Fill Topic Analysis Table
+    let tableHtml = `<tr><th>વિષય (Topic)</th><th style="text-align:center;">સાચા જવાબો / કુલ પ્રશ્નો</th></tr>`;
+    for(let t in topicsReq) {
+        tableHtml += `<tr><td>${t}</td><td style="text-align:center; font-weight: 800; color: var(--navy);">${topicStats[t].correct}/${topicStats[t].total}</td></tr>`;
+    }
+    document.getElementById('topicTableBody').innerHTML = tableHtml;
+
+    window.scrollTo(0,0);
+}
 </script>
 </body>
 </html>
