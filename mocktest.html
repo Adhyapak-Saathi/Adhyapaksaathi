@@ -126,12 +126,15 @@
     .topic-icon { font-size: 4.5rem; margin-bottom: 1.5rem; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
     .mock-title { color: var(--navy); font-size: 1.8rem; font-weight: 800; margin-bottom: 1.5rem; font-family: var(--font-serif);}
 
-    .mock-list { list-style: none; padding: 0; text-align: left; margin: 2rem auto 2.5rem auto; max-width: 320px; font-size: 1.05rem; color: #4a5568; line-height: 2.2; }
-    .mock-list li { display: flex; align-items: center; gap: 10px; }
-    .mock-list li strong { color: var(--navy); }
+    /* Adjusted Rules List */
+    .mock-list { list-style: none; padding: 0; text-align: left; margin: 1.5rem auto 2.5rem auto; max-width: 330px; font-size: 1.05rem; color: #4a5568; line-height: 1.8; }
+    .mock-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; background: #f8fafd; padding: 12px; border-radius: 8px; border-left: 3px solid var(--gold); }
+    .mock-list li strong { color: var(--navy); display: block; margin-bottom: 2px;}
 
-    /* EXAM UI CSS (UNCHANGED) */
-    .exam-container { display: flex; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; position: fixed; inset: 0; z-index: 1000; }
+    /* EXAM UI CSS */
+    .exam-container { display: flex; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; position: fixed; inset: 0; z-index: 1000; transition: filter 0.3s; }
+    .blur-overlay { filter: blur(15px); pointer-events: none; }
+    
     .exam-body { display: flex; flex-grow: 1; overflow: hidden; }
     .question-panel { flex: 7; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: #ffffff; position: relative; }
     .question-header { background: #f8fafd; padding: 8px 20px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 1rem; display: flex; justify-content: space-between;}
@@ -158,33 +161,46 @@
     .s-not-answered { background: #e53e3e; border: 1px solid #c53030; }
     .s-answered { background: #38a169; border: 1px solid #2f855a; }
     .s-review { background: #805ad5; border: 1px solid #6b46c1; }
+    
+    /* RED BOX FOR ACTIVE QUESTION */
+    .s-active { background: #e53e3e !important; border: 2px solid #9b2c2c !important; color: white !important; transform: scale(1.15); box-shadow: 0 0 12px rgba(229, 62, 62, 0.6) !important; z-index: 10;}
+    
     .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 15px; }
-    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 800; font-size: 1rem; border: none; cursor: pointer; color: white; transition: 0.1s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 800; font-size: 1rem; border: none; cursor: pointer; color: white; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
     
     .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 4px solid var(--gold); padding: 10px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; }
 
-    /* PDF EXACT SCORECARD CSS (UNCHANGED) */
-    #resultScreen { display: none; background: #f4f7fb; min-height: 100vh; padding: 40px 20px; }
-    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 900px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-    .res-title { font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 30px; font-weight: 900; }
-    .score-circle { width: 150px; height: 150px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px auto; background: #f8fafd; }
-    .score-circle .marks { font-size: 2.5rem; font-weight: 900; color: var(--navy); line-height: 1; }
-    .stats-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 30px 0; }
-    .stat-box { padding: 15px; border-radius: 8px; font-weight: 800; flex: 1; min-width: 140px; max-width: 180px; }
+    /* COMPACT & BEAUTIFUL PDF SCORECARD CSS */
+    #resultScreen { display: none; background: #f4f7fb; min-height: 100vh; padding: 30px 15px; }
+    .result-card { background: white; border: 3px solid var(--navy); border-radius: 16px; padding: 30px; max-width: 850px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+    .result-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 10px; background: var(--gold); }
+    
+    /* Branding Header inside Scorecard */
+    .scorecard-brand { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed #cbd5e0; }
+    .scorecard-brand svg { width: 50px; height: 50px; }
+    .scorecard-brand-text { text-align: left; }
+    .scorecard-brand-text h2 { margin: 0; font-family: var(--font-serif); color: var(--navy); font-size: 1.8rem; font-weight: 900;}
+    .scorecard-brand-text p { margin: 0; color: var(--gold); font-weight: 700; font-size: 0.9rem;}
+
+    .res-title { font-family: var(--font-serif); font-size: 1.8rem; color: var(--navy); margin-bottom: 20px; font-weight: 900; text-align: center;}
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; border: 6px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; background: #f8fafd; box-shadow: inset 0 0 15px rgba(0,0,0,0.05); }
+    .score-circle .marks { font-size: 2.2rem; font-weight: 900; color: var(--navy); line-height: 1; }
+    
+    .stats-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+    .stat-box { padding: 12px; border-radius: 8px; font-weight: 800; flex: 1; min-width: 120px; max-width: 160px; text-align: center; }
     .sb-correct { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
     .sb-wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
     .sb-unattempted { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
     .sb-time { background: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; }
     .sb-acc { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
-    .topic-analysis-box { margin-top: 30px; text-align: left; }
-    .topic-analysis-box h3 { font-family: var(--font-serif); color: var(--navy); font-size: 1.5rem; margin-bottom: 15px; text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
-    .ta-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    .ta-table th, .ta-table td { padding: 12px 15px; border: 1px solid #e2e8f0; font-size: 1.05rem; }
+    
+    .topic-analysis-box { margin-top: 20px; text-align: left; }
+    .topic-analysis-box h3 { font-family: var(--font-serif); color: var(--navy); font-size: 1.3rem; margin-bottom: 10px; text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 8px; }
+    .ta-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.95rem;}
+    .ta-table th, .ta-table td { padding: 10px 12px; border: 1px solid #e2e8f0; }
     .ta-table th { background: var(--navy); color: white; font-weight: 700; text-align: left; }
     .ta-table tr:nth-child(even) { background-color: #f8fafd; }
     .ta-table td { font-weight: 600; color: #4a5568; }
-    .hide-during-exam { display: none !important; }
-    .print-page-2 { display: none; }
 
     @media (max-width: 768px) {
       .exam-body { flex-direction: column; }
@@ -193,16 +209,21 @@
       .p-sticky-header { flex-direction: column; gap: 8px; padding: 10px; text-align: center; }
     }
 
+    /* EXACT PRINT CSS (1 PAGE FIT) */
     @media print {
+      @page { margin: 10mm; size: A4 portrait; }
       body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       #standardNav, .page-banner, #standardFooter, .festival-banner, .live-counter-box, .mock-grid, .no-print, #examContainer { display: none !important; }
       #resultScreen { display: block !important; padding: 0 !important; background: white !important; }
-      .result-card { border: none !important; box-shadow: none !important; width: 100% !important; margin: 0 !important; max-width: 100% !important; padding: 10mm !important; }
-      .print-page-break { page-break-after: always; }
-      .print-page-2 { display: flex !important; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; }
-      .print-page-2 h1 { font-family: var(--font-serif); font-size: 4rem; color: var(--navy); margin-bottom: 20px; font-weight: 900; }
-      .print-page-2 p { font-size: 1.5rem; color: #4a5568; margin-bottom: 30px; }
-      .print-page-2 .website-link { font-size: 2rem; font-weight: 800; color: var(--navy); background: #f8fafd; padding: 15px 30px; border: 3px dashed var(--gold); border-radius: 12px; }
+      .result-card { border: 2px solid var(--navy) !important; box-shadow: none !important; width: 100% !important; margin: 0 !important; max-width: 100% !important; padding: 15px !important; }
+      .stats-grid { margin: 10px 0; }
+      .stat-box { padding: 8px; font-size: 0.8rem; }
+      .stat-box div:first-child { font-size: 1.4rem; }
+      .ta-table th, .ta-table td { padding: 6px; font-size: 0.85rem; }
+      .topic-analysis-box h3 { font-size: 1.1rem; margin-bottom: 5px; padding-bottom: 5px; }
+      .res-title { margin-bottom: 10px; font-size: 1.4rem; }
+      .score-circle { width: 100px; height: 100px; margin-bottom: 10px; border-width: 4px; }
+      .score-circle .marks { font-size: 1.8rem; }
     }
   </style>
 </head>
@@ -300,12 +321,27 @@
           <div class="premium-badge">⭐ PREMIUM TEST</div>
           <div class="topic-icon">🎓</div>
           <h2 class="mock-title">પેપર 1 (General) - મોક ટેસ્ટ</h2>
+          
+          <!-- ADJUSTED RULES LIST -->
           <ul class="mock-list">
-            <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ (Premium Set)</li>
-            <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
-            <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
-            <li>🔴 <strong style="color: #e53e3e;">સિક્યોરિટી:</strong> ટેસ્ટ શરૂ થયા પછી Back જવાની મનાઈ છે.</li>
+            <li>
+              <span style="font-size:1.5rem;">📝</span> 
+              <div><strong>કુલ પ્રશ્નો:</strong> 100 MCQ (Premium Set)</div>
+            </li>
+            <li>
+              <span style="font-size:1.5rem;">⏱️</span> 
+              <div><strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</div>
+            </li>
+            <li>
+              <span style="font-size:1.5rem;">➖</span> 
+              <div><strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</div>
+            </li>
+            <li>
+              <span style="font-size:1.5rem;">🔴</span> 
+              <div><strong style="color: #e53e3e;">સિક્યોરિટી:</strong> ટેસ્ટ શરૂ થયા પછી 'પાછળ' (Back) જવાની કે સ્ક્રીનશોટ લેવાની મનાઈ છે.</div>
+            </li>
           </ul>
+
           <button class="btn btn-navy btn-lg" style="width: 100%; font-size: 1.2rem; padding: 1rem; box-shadow: 0 5px 15px rgba(29, 52, 97, 0.3);" onclick="openPromoModal()">પેપર 1 ટેસ્ટ શરૂ કરો 🚀</button>
         </div>
         
@@ -313,11 +349,10 @@
         <div class="mock-card" style="opacity: 0.8; border-color: #cbd5e0;">
           <div class="topic-icon" style="filter: grayscale(1);">⏳</div>
           <h2 class="mock-title" style="color: #4a5568;">પેપર 2 (વિષયવસ્તુ) - મોક ટેસ્ટ</h2>
-          <ul class="mock-list">
-            <li>📝 <strong>કુલ પ્રશ્નો:</strong> 100 MCQ</li>
-            <li>⏱️ <strong>સમય મર્યાદા:</strong> 90 મિનિટ (1.5 કલાક)</li>
-            <li>➖ <strong>માર્કિંગ:</strong> સાચા માટે +1, ખોટા માટે -0.25</li>
-            <li>✨ <strong style="color: #b8860b;">નોંધ:</strong> આ પેપરમાં વિષયવસ્તુના પ્રશ્નો ટૂંક સમયમાં મુકાશે.</li>
+          <ul class="mock-list" style="filter: grayscale(1);">
+            <li><span style="font-size:1.5rem;">📝</span> <div><strong>કુલ પ્રશ્નો:</strong> 100 MCQ</div></li>
+            <li><span style="font-size:1.5rem;">⏱️</span> <div><strong>સમય મર્યાદા:</strong> 90 મિનિટ</div></li>
+            <li><span style="font-size:1.5rem;">✨</span> <div><strong style="color: #b8860b;">નોંધ:</strong> વિષયવસ્તુના પ્રશ્નો ટૂંક સમયમાં મુકાશે.</div></li>
           </ul>
           <button class="btn" style="width: 100%; font-size: 1.1rem; padding: 0.8rem; background: transparent; border: 3px solid #b8860b; color: #b8860b; font-weight: bold; cursor: not-allowed; border-radius: 8px;">Coming Soon 🕒</button>
         </div>
@@ -337,7 +372,7 @@
 </div> <!-- /mainWebsiteContent -->
 
 
-<!-- FULL SCREEN EXAM ENGINE UI (UNCHANGED) -->
+<!-- FULL SCREEN EXAM ENGINE UI -->
 <div class="exam-container" id="examContainer" style="display: none;">
   <div class="p-sticky-header">
     <div style="font-weight:900; font-size:1.2rem; color:var(--navy); display: flex; align-items: center; gap: 8px;">
@@ -372,19 +407,34 @@
   </div>
 </div>
 
-<!-- EXACT PDF SCORECARD SCREEN (UNCHANGED) -->
+<!-- COMPACT 1-PAGE PDF SCORECARD SCREEN -->
 <div id="resultScreen">
-  <div class="result-card print-page-break">
-    <h2 class="res-title">પરીક્ષા પરિણામ (scorecard)</h2>
+  <div class="result-card">
+    
+    <!-- BRANDING FOR PDF -->
+    <div class="scorecard-brand">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="18" width="22" height="3" rx="1" fill="#1d3461"/>
+        <rect x="7" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
+        <rect x="18" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
+        <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
+      </svg>
+      <div class="scorecard-brand-text">
+        <h2>Adhyapak Saathi</h2>
+        <p>Premium Mock Test Scorecard</p>
+      </div>
+    </div>
+
+    <h2 class="res-title">પરીક્ષા પરિણામ</h2>
     <div class="score-circle"><span class="marks" id="resScore">0.00</span><span class="total" style="font-weight: 700; color: #4a5568;">out of 100</span></div>
-    <div id="resMotivation" style="font-size: 1.25rem; font-weight: 700; color: #4a5568; margin-bottom: 25px;">તમે <span id="resScoreText">0.00</span> માર્કસ મેળવ્યા છે. નિરાશ ન થશો! ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો.</div>
+    <div id="resMotivation" style="font-size: 1.15rem; font-weight: 700; color: #4a5568; margin-bottom: 20px;">તમે <span id="resScoreText">0.00</span> માર્કસ મેળવ્યા છે. નિરાશ ન થશો! ભૂલોમાંથી શીખો અને ફરીથી પ્રયાસ કરો.</div>
     
     <div class="stats-grid">
-      <div class="stat-box sb-correct"><div style="font-size: 1.8rem;" id="resCorrect">0</div><div style="font-size: 0.85rem; text-transform: uppercase;">સાચા જવાબો</div></div>
-      <div class="stat-box sb-wrong"><div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.85rem; text-transform: uppercase;">ખોટા જવાબો (-0.25)</div></div>
-      <div class="stat-box sb-unattempted"><div style="font-size: 1.8rem;" id="resSkip">0</div><div style="font-size: 0.85rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
-      <div class="stat-box sb-acc"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.85rem; text-transform: uppercase;">ચોકસાઈ (ACCURACY)</div></div>
-      <div class="stat-box sb-time"><div style="font-size: 1.8rem;" id="resTime">00:00</div><div style="font-size: 0.85rem; text-transform: uppercase;">લીધેલ સમય</div></div>
+      <div class="stat-box sb-correct"><div style="font-size: 1.6rem;" id="resCorrect">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">સાચા જવાબો</div></div>
+      <div class="stat-box sb-wrong"><div style="font-size: 1.6rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા જવાબો</div></div>
+      <div class="stat-box sb-unattempted"><div style="font-size: 1.6rem;" id="resSkip">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
+      <div class="stat-box sb-acc"><div style="font-size: 1.6rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div></div>
+      <div class="stat-box sb-time"><div style="font-size: 1.6rem;" id="resTime">00:00</div><div style="font-size: 0.8rem; text-transform: uppercase;">લીધેલ સમય</div></div>
     </div>
     
     <div class="topic-analysis-box">
@@ -394,24 +444,46 @@
       </table>
     </div>
 
-    <div class="no-print" style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
+    <div class="no-print" style="display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
       <button class="btn btn-outline" onclick="window.location.reload()">🏠 Home</button>
-      <button class="btn" style="background: var(--navy); color: white; padding: 12px 25px; font-weight: bold; font-size: 1.1rem; border-radius: 8px;" onclick="window.print()">📥 Download Scorecard (PDF)</button>
+      <button class="btn" style="background: #38a169; color: white; padding: 12px 25px; font-weight: bold; font-size: 1.1rem; border-radius: 8px; border:none;" onclick="shareScorecard()">🔗 Share Result</button>
+      <button class="btn" style="background: var(--navy); color: white; padding: 12px 25px; font-weight: bold; font-size: 1.1rem; border-radius: 8px; border:none;" onclick="window.print()">📥 Download Scorecard</button>
     </div>
-  </div>
-
-  <!-- PAGE 2 BRANDING (Only visible in PDF/Print) -->
-  <div class="print-page-2">
-    <h1>Adhyapak Saathi</h1>
-    <p>શિક્ષક બનવાનું સ્વપ્ન કરો સાકાર! વધુ ફ્રી મોક ટેસ્ટ અને મટિરિયલ માટે મુલાકાત લો:</p>
-    <div class="website-link">🌐 www.adhyapaksaathi.in</div>
   </div>
 </div>
 
 <script>
 /* ================= UTILS & ANTI-CHEAT ================= */
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.onkeydown = e => { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) return false; };
+document.addEventListener('contextmenu', e => {
+    if(document.getElementById('examContainer').style.display === 'flex') e.preventDefault();
+});
+
+// Advanced Anti-Screenshot & Blur when losing focus
+window.addEventListener('blur', () => {
+    if (document.getElementById('examContainer').style.display === 'flex') {
+        document.getElementById('examContainer').classList.add('blur-overlay');
+    }
+});
+window.addEventListener('focus', () => {
+    document.getElementById('examContainer').classList.remove('blur-overlay');
+});
+
+document.onkeydown = e => { 
+    if (document.getElementById('examContainer').style.display === 'flex') {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) return false; 
+    }
+};
+
+// Catch PrintScreen (Windows Anti-Screenshot best effort)
+document.addEventListener('keyup', (e) => {
+    if (e.key === 'PrintScreen') {
+        navigator.clipboard.writeText(''); // Clear clipboard
+        if (document.getElementById('examContainer').style.display === 'flex') {
+            showAdhyapakModal("ચેતવણી 🚫", "પરીક્ષા દરમિયાન સ્ક્રીનશોટ લેવાની સખત મનાઈ છે!");
+        }
+    }
+});
+
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
 // Prevent going back during exam
@@ -419,7 +491,7 @@ history.pushState(null, null, location.href);
 window.onpopstate = function () {
     if (document.getElementById('examContainer').style.display === 'flex') {
         history.go(1);
-        showAdhyapakModal("ચેતવણી 🚫", "પરીક્ષા દરમિયાન 'Back' જવાની મનાઈ છે! મહેરબાની કરીને પરીક્ષા પૂર્ણ કરો.");
+        showAdhyapakModal("ચેતવણી 🚫", "પરીક્ષા દરમિયાન 'પાછળ' (Back) જવાની મનાઈ છે! મહેરબાની કરીને પરીક્ષા પૂર્ણ કરો.");
     }
 };
 
@@ -476,7 +548,6 @@ const masterQuestions = [
   {q: "The lightning has a tongue of flame. Identify the figure of speech.", opts: ["Irony","Personification","Metaphor","Simile"], ans: 1, topic: "અંગ્રેજી ભાષા"}
 ];
 
-// Topic Weightage for exactly 100 questions
 const topicsReq = { "સામાન્ય જ્ઞાન": 17, "શિક્ષણની ફિલસૂફી": 12, "વર્ગવ્યવહાર અને મૂલ્યાંકન": 10, "શૈક્ષણિક મનોવિજ્ઞાન": 16, "તાર્કિક અભિયોગ્યતા": 15, "ગુજરાતી ભાષા": 15, "અંગ્રેજી ભાષા": 15 };
 
 // Auto-generating 100 dummy questions mapping to exact topics required for the scorecard
@@ -515,14 +586,12 @@ function startMockTest() {
     document.getElementById('mainWebsiteContent').style.display = 'none';
     document.getElementById('examContainer').style.display = 'flex';
     
-    // Reset Data
     userAnswers = {};
     qStatus = {};
     fullDatabase.forEach((_, i) => qStatus[i] = 'not_visited');
     timeRemaining = initialTime;
     currentQIndex = 0;
     
-    // Enter Fullscreen if possible to prevent distractions
     if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch((e)=>{}); }
     
     loadQuestion(0);
@@ -575,7 +644,11 @@ function markReviewAndNext() { qStatus[currentQIndex] = 'review'; saveAndNext();
 
 function renderPalette() {
     const grid = document.getElementById('paletteGrid');
-    grid.innerHTML = fullDatabase.map((_, i) => `<button class="palette-btn ${qStatus[i]}" onclick="loadQuestion(${i})">${i+1}</button>`).join('');
+    grid.innerHTML = fullDatabase.map((_, i) => {
+        // Red Box logic for active question
+        let activeClass = (i === currentQIndex) ? 's-active' : qStatus[i];
+        return `<button class="palette-btn ${activeClass}" onclick="loadQuestion(${i})">${i+1}</button>`;
+    }).join('');
 }
 
 function submitExamConfirmation() {
@@ -589,7 +662,6 @@ function submitExamConfirmation() {
 function submitExam() {
     clearInterval(timerInterval);
     
-    // Exit fullscreen
     if (document.exitFullscreen) { document.exitFullscreen().catch(()=>{}); }
     
     // INCREMENT REAL SUBMISSION COUNTER
@@ -637,6 +709,24 @@ function submitExam() {
     document.getElementById('topicTableBody').innerHTML = tableHtml;
 
     window.scrollTo(0,0);
+}
+
+// Share Feature
+async function shareScorecard() {
+    const scoreText = document.getElementById('resScore').innerText;
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'મારું Adhyapak Saathi મોક ટેસ્ટ પરિણામ',
+                text: `મેં Adhyapak Saathi પર TAT મોક ટેસ્ટ આપી અને 100 માંથી ${scoreText} માર્કસ મેળવ્યા છે! તમે પણ તમારી તૈયારી ચકાસો.`,
+                url: window.location.href,
+            });
+        } catch (err) {
+            console.log('Error sharing:', err);
+        }
+    } else {
+        alert("તમારું બ્રાઉઝર સીધું શેરિંગ સપોર્ટ કરતું નથી. કૃપા કરીને આ પેજની લિંક કોપી કરો.");
+    }
 }
 </script>
 </body>
