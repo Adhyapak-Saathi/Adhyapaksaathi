@@ -92,6 +92,10 @@
     .sb-s { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
     .sb-a { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
 
+    /* TOPIC ANALYSIS */
+    .topic-analysis-box { margin-top: 30px; text-align: left; background: #f8fafd; padding: 25px; border-radius: 12px; border: 1px solid var(--border); }
+    .topic-analysis-box h4 { color: var(--navy); font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; }
+
     /* BRANDING PRINT */
     .print-branding { margin-top: 40px; padding-top: 20px; border-top: 2px dashed var(--border-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
     .print-branding h3 { font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin: 0; }
@@ -218,9 +222,10 @@
     </div>
   </div>
 
-  <div class="wrapper" style="margin-bottom: 50px;">
+  <!-- Added padding-bottom to ensure enough space for dropdowns to open downwards -->
+  <div class="wrapper" style="margin-bottom: 120px;">
     <!-- 7 વિષયના બોક્સ WITH DROPDOWNS -->
-    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto; margin-top: 40px;">
+    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto; margin-top: 40px; padding-bottom: 100px;">
       
       <!-- Box 1 -->
       <div class="p-topic-card">
@@ -385,12 +390,15 @@
 <div id="resultScreen" style="display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh;">
   <div class="scorecard-wrapper">
     <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પ્રેક્ટિસ પરિણામ (Scorecard)</h2>
-    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 30px; font-weight: 600;">તમારું વિગતવાર વિશ્લેષણ નીચે મુજબ છે.</p>
+    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: 600;">તમારું વિગતવાર વિશ્લેષણ નીચે મુજબ છે.</p>
 
-    <!-- Main Circular Score -->
+    <!-- Motivational Quote -->
+    <p id="motivationalQuote" style="color: var(--navy); font-size: 1.15rem; font-weight: bold; margin-bottom: 25px;"></p>
+
+    <!-- Main Circular Score (Percentage) -->
     <div class="score-circle-old">
-      <span class="marks" id="resScore">0</span>
-      <span class="total" id="resTotalText">out of 15</span>
+      <span class="marks"><span id="resScore">0</span>%</span>
+      <span class="total" id="resTotalText">મેળવેલ ટકાવારી</span>
     </div>
 
     <!-- Quick Stats Grid -->
@@ -399,6 +407,12 @@
       <div class="stat-box-old sb-w"><div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા જવાબો</div></div>
       <div class="stat-box-old sb-s"><div style="font-size: 1.8rem;" id="resSkip">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
       <div class="stat-box-old sb-a"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div></div>
+    </div>
+
+    <!-- Review Answers Section -->
+    <div class="topic-analysis-box" id="reviewAnswersBox">
+      <h4>📝 પ્રશ્નો અને સાચા જવાબો (Review)</h4>
+      <div id="reviewContent" style="text-align: left;"></div>
     </div>
 
     <!-- Print Branding -->
@@ -733,15 +747,41 @@
       else if(answers[i] !== undefined) wrong++;
     });
 
-    let accuracy = correct + wrong > 0 ? ((correct / (correct+wrong)) * 100).toFixed(0) : 0;
+    let accuracy = activeQs.length > 0 ? ((correct / activeQs.length) * 100).toFixed(0) : 0;
 
-    // પ્રેક્ટિસ ટેસ્ટમાં કોઈ નેગેટિવ માર્કિંગ નથી રાખ્યું, સાચા જવાબ એટલા માર્ક્સ.
-    document.getElementById('resScore').innerText = correct;
-    document.getElementById('resTotalText').innerText = "out of " + activeQs.length;
+    document.getElementById('resScore').innerText = accuracy;
     document.getElementById('resCorrect').innerText = correct;
     document.getElementById('resWrong').innerText = wrong;
     document.getElementById('resSkip').innerText = activeQs.length - (correct + wrong);
     document.getElementById('resAcc').innerText = accuracy;
+    
+    // Motivational Quote
+    let quote = "";
+    if (accuracy >= 80) quote = "શાનદાર પ્રદર્શન! તમારી તૈયારી એકદમ યોગ્ય દિશામાં છે. 🏆";
+    else if (accuracy >= 50) quote = "સારો પ્રયાસ! થોડી વધુ મહેનતથી તમે ઉત્તમ પરિણામ લાવી શકો છો. 👍";
+    else quote = "નિરાશ ન થશો! વધુ પ્રેક્ટિસ કરો, સફળતા ચોક્કસ મળશે. 💪";
+    document.getElementById('motivationalQuote').innerText = quote;
+
+    // Review Answers (સાચો જવાબ અને તમારો જવાબ)
+    let reviewHtml = '';
+    activeQs.forEach((q, i) => {
+        let userAnsIdx = answers[i];
+        let isSkipped = userAnsIdx === undefined;
+        let isCorrect = userAnsIdx === q.ans;
+        
+        let userAnsText = isSkipped ? "છોડેલ (Skipped)" : q.opts[userAnsIdx];
+        let correctAnsText = q.opts[q.ans];
+        
+        let userAnsColor = isCorrect ? "var(--green)" : (isSkipped ? "var(--text-muted)" : "var(--red)");
+        
+        reviewHtml += `
+        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border);">
+            <div style="font-weight: bold; margin-bottom: 8px; color: var(--navy);">${i+1}. ${q.q}</div>
+            <div style="font-size: 0.95rem; margin-bottom: 4px;">તમારો જવાબ: <span style="color: ${userAnsColor}; font-weight: bold;">${userAnsText}</span></div>
+            <div style="font-size: 0.95rem;">સાચો જવાબ: <span style="color: var(--green); font-weight: bold;">${correctAnsText}</span></div>
+        </div>`;
+    });
+    document.getElementById('reviewContent').innerHTML = reviewHtml;
     
     window.scrollTo(0,0);
   }
