@@ -177,16 +177,53 @@
         <h2 class="section-title">વિષયવાર <em>પ્રેક્ટિસ ટેસ્ટ</em></h2>
       </div>
 
-      <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto;">
-        <div class="p-topic-card"><div><div class="p-topic-icon">🦉</div><h3>શિક્ષણની ફિલસૂફી</h3></div><button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી')">ટેસ્ટ શરૂ કરો</button></div>
-        <div class="p-topic-card"><div><div class="p-topic-icon">🧠</div><h3>શૈક્ષણિક મનોવિજ્ઞાન</h3></div><button class="btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન')">ટેસ્ટ શરૂ કરો</button></div>
-        <div class="p-topic-card"><div><div class="p-topic-icon">👩‍🏫</div><h3>વર્ગવ્યવહાર</h3></div><button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">ટેસ્ટ શરૂ કરો</button></div>
-        <div class="p-topic-card"><div><div class="p-topic-icon">🧩</div><h3>તાર્કિક અભિયોગ્યતા</h3></div><button class="btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા')">ટેસ્ટ શરૂ કરો</button></div>
-        <div class="p-topic-card"><div><div class="p-topic-icon">📜</div><h3>ગુજરાતી ભાષા</h3></div><button class="btn-p-start" onclick="startPracticeTopic('gujarati', 'ગુજરાતી ભાષા')">ટેસ્ટ શરૂ કરો</button></div>
-        <div class="p-topic-card"><div><div class="p-topic-icon">🔠</div><h3>અંગ્રેજી ભાષા</h3></div><button class="btn-p-start" onclick="startPracticeTopic('english', 'અંગ્રેજી ભાષા')">ટેસ્ટ શરૂ કરો</button></div>
-        <div class="p-topic-card" style="grid-column: span 2;"><div><div class="p-topic-icon">🌐</div><h3>સામાન્ય જ્ઞાન અને વર્તમાન પ્રવાહો</h3></div><button class="btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન')">ટેસ્ટ શરૂ કરો</button></div>
-      </div>
-    </div>
+     function startPracticeTopic(topicCode, topicName) {
+    activeQs = practiceDB.filter(q => q.topic === topicCode);
+    
+    // જો ડેટાબેઝમાં 15 પ્રશ્નો ન હોય, તો ઓટોમેટિક નવા પ્રશ્નો ઉમેરીને 15 કરી દેશે.
+    let requiredQs = 15;
+    if(activeQs.length < requiredQs) {
+        let currentLen = activeQs.length;
+        for(let i = currentLen; i < requiredQs; i++) {
+            activeQs.push({
+                q: "પ્રશ્ન " + (i + 1) + ": " + topicName + " નો પ્રેક્ટિસ પ્રશ્ન અહી આવશે.",
+                opts: ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
+                ans: Math.floor(Math.random() * 4),
+                topic: topicCode
+            });
+        }
+    }
+    
+    timeLeft = activeQs.length * 60; // 15 મિનિટ
+    document.getElementById('pTopicName').innerText = topicName;
+    
+    document.getElementById('mainContent').style.display = 'none';
+    document.getElementById('examContainer').style.display = 'flex';
+    currentIdx = 0;
+    answers = {};
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function submitPractice() {
+    clearInterval(timer);
+    document.getElementById('examContainer').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+    
+    let correct = 0, wrong = 0;
+    activeQs.forEach((q, i) => {
+      if(answers[i] === q.ans) correct++;
+      else if(answers[i] !== undefined) wrong++;
+    });
+
+    let accuracy = correct + wrong > 0 ? ((correct / (correct+wrong)) * 100).toFixed(0) : 0;
+
+    document.getElementById('resScore').innerText = correct;
+    document.getElementById('resTotalText').innerText = "out of " + activeQs.length;
+    document.getElementById('resCorrect').innerText = correct;
+    document.getElementById('resWrong').innerText = wrong;
+    document.getElementById('resAcc').innerText = accuracy;
+  }
   </section>
   
   <footer id="standardFooter">
