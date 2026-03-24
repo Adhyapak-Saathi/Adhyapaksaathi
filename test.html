@@ -398,7 +398,7 @@
 <div id="resultScreen" style="display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh;">
   <div class="scorecard-wrapper">
     <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પ્રેક્ટિસ પરિણામ (Scorecard)</h2>
-    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: 600;">તમારું વિગતવાર વિશ્લેષણ નીચે મુજબ છે.</p>
+    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: 600;">તમે આપેલ પ્રેક્ટીસ ટેસ્ટનું વિગતવાર વિશ્લેષણ આ મુજબ છે:</p>
 
     <!-- Motivational Quote -->
     <p id="motivationalQuote" style="color: var(--navy); font-size: 1.15rem; font-weight: bold; margin-bottom: 25px;"></p>
@@ -421,18 +421,19 @@
     <div class="print-branding">
       <h3>Adhyapak Saathi</h3>
       <p style="color: var(--green); font-weight: 800; font-size: 1.05rem;">શિક્ષક બનવાનું તમારું સ્વપ્ન, અમારો સાથ! 🎯</p>
-      <div class="print-url">🌐 www.adhyapaksaathi.in</div>
+      <div class="print-url" style="font-size: 1.15rem; padding: 8px 25px; border-radius: 30px; background: linear-gradient(135deg, var(--navy), var(--navy-mid)); color: var(--gold); box-shadow: 0 4px 15px rgba(29, 52, 97, 0.2); letter-spacing: 1.5px; border: 2px solid var(--gold); display: inline-block; margin-top: 10px;">🌐 www.adhyapaksaathi.in</div>
     </div>
 
     <!-- Actions (Hidden in Print) -->
     <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;" class="print-hide">
       <button class="btn btn-outline" style="padding: 12px 30px;" onclick="window.location.href='test.html'">🏠 પાછા જાઓ</button>
       <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી પ્રેક્ટિસ કરો</button>
+      <button class="btn" style="background: #25D366; color: white; border: none; padding: 12px 30px;" onclick="shareWhatsApp()">📱 સ્કોર શેર કરો</button>
     </div>
 
     <!-- Toggle Button for Answers (Hidden in Print) -->
     <div style="text-align: center; margin-top: 20px;" class="print-hide">
-      <button class="btn btn-outline" onclick="document.getElementById('reviewAnswersBox').style.display='block'; this.style.display='none';" style="border-color: var(--gold); color: var(--navy); border-width: 2px;">👀 સાચા જવાબો જુઓ (Review)</button>
+      <button id="reviewToggleBtn" class="btn btn-outline" onclick="toggleReviewAnswers()" style="border-color: var(--gold); color: var(--navy); border-width: 2px;">👀 સાચા જવાબો જુઓ (Review)</button>
     </div>
 
     <!-- Review Answers Section (Hidden initially, and always hidden in Print) -->
@@ -450,6 +451,26 @@
 
   function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
   function toggleMobilePalette() { document.getElementById('palettePanel').classList.toggle('open'); }
+
+  function toggleReviewAnswers() {
+    const box = document.getElementById('reviewAnswersBox');
+    const btn = document.getElementById('reviewToggleBtn');
+    if (box.style.display === 'none') {
+        box.style.display = 'block';
+        btn.innerHTML = '❌ જવાબો બંધ કરો (Close)';
+    } else {
+        box.style.display = 'none';
+        btn.innerHTML = '👀 સાચા જવાબો જુઓ (Review)';
+    }
+  }
+
+  function shareWhatsApp() {
+    const score = document.getElementById('resScore').innerText;
+    const totalText = document.getElementById('resTotalText').innerText.replace('out of ', '');
+    const topic = document.getElementById('pTopicName').innerText;
+    const textMsg = `મારો ${topic} ની પ્રેક્ટિસ ટેસ્ટનો સ્કોર ${totalText} માંથી ${score} છે! 🎓\nઅધ્યાપક સાથી (Adhyapak Saathi) પ્લેટફોર્મ પર તમે પણ ફ્રી પ્રેક્ટિસ ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapaksaathi.in/test.html`;
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`, '_blank');
+  }
 
   function showModal(title, msg, isConfirm, callback) {
     document.getElementById('modalTitle').innerText = title;
@@ -919,17 +940,19 @@
     else quote = "નિરાશ ન થશો! વધુ પ્રેક્ટિસ કરો, સફળતા ચોક્કસ મળશે. 💪";
     document.getElementById('motivationalQuote').innerText = quote;
 
-    // Review Answers (સાચો જવાબ અને તમારો જવાબ)
+    // Review Answers (માત્ર આપેલા જવાબો જ બતાવવા)
     let reviewHtml = '';
     activeQs.forEach((q, i) => {
         let userAnsIdx = answers[i];
         let isSkipped = userAnsIdx === undefined;
-        let isCorrect = userAnsIdx === q.ans;
         
-        let userAnsText = isSkipped ? "છોડેલ (Skipped)" : q.opts[userAnsIdx];
+        if(isSkipped) return; // ⚠️ છોડેલા પ્રશ્નો રિવ્યુમાં નહિ બતાવે
+
+        let isCorrect = userAnsIdx === q.ans;
+        let userAnsText = q.opts[userAnsIdx];
         let correctAnsText = q.opts[q.ans];
         
-        let userAnsColor = isCorrect ? "var(--green)" : (isSkipped ? "var(--text-muted)" : "var(--red)");
+        let userAnsColor = isCorrect ? "var(--green)" : "var(--red)";
         
         reviewHtml += `
         <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border);">
@@ -938,6 +961,11 @@
             <div style="font-size: 0.95rem;">સાચો જવાબ: <span style="color: var(--green); font-weight: bold;">${correctAnsText}</span></div>
         </div>`;
     });
+
+    if(reviewHtml === '') {
+        reviewHtml = '<div style="text-align:center; color:var(--red); font-weight:bold; font-size:1.1rem;">તમે કોઈ પણ પ્રશ્નનો જવાબ આપ્યો નથી.</div>';
+    }
+
     document.getElementById('reviewContent').innerHTML = reviewHtml;
     
     window.scrollTo(0,0);
