@@ -2,220 +2,223 @@
 <html lang="gu">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Real-Time Mock & Practice Test — Adhyapak Saathi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Topic-wise Practice Test — Adhyapak Saathi</title>
   
-  <!-- SEO & OpenGraph Tags for premium link sharing -->
-  <meta name="description" content="TAT, TET, GSET માટે પ્રીમિયમ મોક ટેસ્ટ અને વિષયવાર પ્રેક્ટિસ ટેસ્ટ. 100 પ્રશ્નો, પેપર 1 સંપૂર્ણ."/>
-  <meta property="og:title" content="Premium Mock Test Portal — Adhyapak Saathi" />
-  <meta property="og:description" content="આપો રિયલ-ટાઇમ મોક ટેસ્ટ અને વિષયવાર પ્રેક્ટિસ! 90 મિનિટ, 100 ગુણ અને નેગેટિવ માર્કિંગ સાથે." />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="description" content="TAT, TET, GSET માટે વિષયવાર પ્રેક્ટિસ ટેસ્ટ."/>
   
   <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='n' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230f172a' /%3E%3Cstop offset='100%25' stop-color='%231d3461' /%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4a017' /%3E%3Cstop offset='100%25' stop-color='%23fbbf24' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='160' height='160' rx='40' fill='%23ffffff'/%3E%3Cg transform='translate(15, 20)'%3E%3Cpath d='M 30 108 Q 80 115 125 102' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='40' r='13' fill='url(%23n)'/%3E%3Cpath d='M 40 108 C 40 70 52 60 76 75' fill='none' stroke='url(%23n)' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='55' r='9' fill='url(%23g)'/%3E%3Cpath d='M 64 108 C 64 90 70 82 76 75' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M 70 82 Q 85 70 98 55' fill='none' stroke='url(%23g)' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E"/>
   
   <style>
-    body {
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      background: #f4f7fb;
-    }
+    body { -webkit-user-select: none; -ms-user-select: none; user-select: none; background: #f4f7fb; }
 
-    /* CUSTOM MODAL SYSTEM (REPLACES ALERT/CONFIRM) */
-    #customModalOverlay {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-      z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px);
-    }
-    .c-modal {
-      background: #fff; width: 90%; max-width: 450px; border-radius: 12px;
-      overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-top: 5px solid var(--navy);
-      animation: modalSlide 0.3s ease-out;
-    }
-    @keyframes modalSlide { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .c-modal-header { padding: 20px; background: #f8fafd; border-bottom: 1px solid #e2e8f0; text-align: center; }
-    .c-modal-header h3 { font-family: var(--font-serif); color: var(--navy); font-size: 1.3rem; }
-    .c-modal-body { padding: 25px; text-align: center; color: var(--text-mid); font-size: 1.05rem; font-weight: 500; line-height: 1.5; }
-    .c-modal-footer { padding: 15px; background: #f8fafd; display: flex; gap: 10px; justify-content: center; }
+    nav { background: var(--navy); padding: 0 20px; position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-md); height: 70px; display: flex; align-items: center; justify-content: center; }
+    .nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
+    .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 5px 10px; transition: 0.3s; border-bottom: 2px solid transparent; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); border-bottom-color: var(--gold-light); background: rgba(255,255,255,0.06); border-radius: var(--radius); }
+    
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
 
-    /* MOCK & PRACTICE TEST UI */
-    .exam-container { display: flex; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
-    .exam-body { display: flex; flex-grow: 1; overflow: hidden; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 1.8rem 1.2rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+    .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
+    .p-topic-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
+    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--navy); margin-bottom: 1.2rem; line-height: 1.4; }
+    .btn-p-start { width: 100%; padding: 10px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; margin-bottom: 0; }
+    .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
+
+    /* EXAM UI */
+    .exam-container { display: none; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
+    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 10px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; }
+    .exam-body { display: flex; flex-grow: 1; overflow: hidden; justify-content: center; }
+    .question-panel { max-width: 800px; width: 100%; display: flex; flex-direction: column; background: #ffffff; position: relative; padding: 20px; overflow-y: auto; }
+    .question-header { background: #f8fafd; padding: 10px 20px; border: 1px solid var(--border); border-radius: 8px 8px 0 0; font-weight: 700; color: var(--navy); font-size: 1rem; display: flex; justify-content: space-between; align-items: center;}
+    .question-content { padding: 20px; flex-grow: 1; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    .question-text { font-size: 1.15rem; font-weight: 700; color: #2d3748; line-height: 1.6; margin-bottom: 18px; }
     
-    .question-panel { flex: 7; display: flex; flex-direction: column; border-right: 1px solid var(--border); background: #ffffff; position: relative; }
-    .question-header { background: #f8fafd; padding: 8px 20px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 1rem; display: flex; justify-content: space-between;}
-    .question-content { padding: 15px 20px; overflow-y: auto; flex-grow: 1; }
-    .question-text { font-size: 1.15rem; font-weight: 700; color: #2d3748; line-height: 1.5; margin-bottom: 15px; }
-    
-    .radio-option { display: flex; align-items: center; padding: 10px 15px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; font-size: 1rem; font-weight: 600; color: #4a5568; background: #fff; }
+    .radio-option { display: flex; align-items: center; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; font-size: 1.05rem; font-weight: 600; color: #4a5568; background: #fff; }
     .radio-option:hover { border-color: var(--navy-light); background: #f8fafd; }
     .radio-option.selected { border-color: var(--navy); background: #ebf4ff; box-shadow: 0 0 0 1px var(--navy); }
-    .radio-option input[type="radio"] { margin-right: 12px; transform: scale(1.2); accent-color: var(--navy); cursor: pointer; }
+    .radio-option input[type="radio"] { margin-right: 12px; transform: scale(1.3); accent-color: var(--navy); cursor: pointer; }
     
-    .btn-exam { padding: 8px 18px; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; transition: 0.2s; font-size: 0.9rem; }
-    .btn-save { background: var(--green); color: white; }
-    .btn-review { background: #805ad5; color: white; }
-    .btn-clear { background: #e2e8f0; color: #4a5568; }
-    .btn-submit { background: var(--navy); color: var(--gold); border: 2px solid var(--gold); font-size: 1rem; padding: 8px 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-    
-    .palette-panel { flex: 3; background: #f8fafd; display: flex; flex-direction: column; overflow-y: auto; }
-    .palette-header { background: var(--navy); color: #fff; padding: 12px; font-weight: 700; text-align: center; font-size: 0.9rem; }
-    .legend-box { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.8rem; font-weight: 600; color: #4a5568; }
-    .legend-item { display: flex; align-items: center; gap: 6px; }
-    .status-badge { width: 20px; height: 20px; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; color: white; font-size: 0.65rem; font-weight: bold; }
-    .s-not-visited { background: #e2e8f0; border: 1px solid #cbd5e0; color: #4a5568; }
-    .s-not-answered { background: #e53e3e; border: 1px solid #c53030; }
-    .s-answered { background: #38a169; border: 1px solid #2f855a; }
-    .s-review { background: #805ad5; border: 1px solid #6b46c1; }
-    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 12px; }
-    .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 6px; font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; color: white; transition: 0.1s; }
+    .practiceFooter { padding: 15px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 
-    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 1.8rem 1.2rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
-    .p-topic-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
-    .btn-p-start { width: 100%; padding: 10px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; }
-    
-    .p-sticky-header { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 3px solid var(--gold); padding: 8px 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 8px 8px; }
-
-    .result-card { background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; max-width: 900px; margin: 30px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    .score-circle { width: 130px; height: 130px; border-radius: 50%; border: 6px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; background: #f8fafd; }
-    .score-circle .marks { font-size: 2.2rem; font-weight: 800; color: var(--navy); line-height: 1; }
-    
-    .stats-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 25px 0; }
-    .stat-box { padding: 12px; border-radius: 8px; font-weight: 700; flex: 1; min-width: 130px; max-width: 160px; }
-    .sb-correct { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-    .sb-wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-    .sb-unattempted { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
-    .sb-time { background: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; }
-    .sb-acc { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
-    
-    .topic-analysis-box { margin-top: 20px; text-align: left; background: #f8fafd; padding: 20px; border-radius: 8px; border: 1px solid var(--border); display: none; }
-    .ta-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #cbd5e0; font-size: 0.95rem; color: #4a5568; font-weight: 600; }
-    
-    .review-item { text-align: left; padding: 15px; background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--navy); margin-bottom: 15px; border-radius: 8px; }
-    .ans-correct-txt { color: var(--green); font-weight: 800; }
-    .ans-wrong-txt { color: var(--red); font-weight: 800; }
-    .exp-box { margin-top: 10px; padding: 10px; background: #fffbeb; border-left: 3px solid var(--gold); border-radius: 4px; font-size: 0.9rem; }
-
-    .hide-during-exam { display: none !important; }
-    .print-only-branding { display: none; }
-
-    /* MOBILE RESPONSIVE (નવું ફોર્મેટ) */
+    /* MOBILE RESPONSIVE */
     @media (max-width: 768px) {
-      .grid-2, .grid-4 { grid-template-columns: 1fr; }
-      
-      /* એક્ઝામ ટોપબારને એકદમ નાનું અને સળંગ કર્યું */
-      .exam-topbar { flex-direction: row; flex-wrap: wrap; padding: 6px 10px; justify-content: space-between; align-items: center; }
-      .exam-brand { font-size: 1.05rem; gap: 6px; }
-      .exam-brand svg { width: 22px !important; height: 22px !important; }
-      .exam-stats { font-size: 0.75rem; gap: 5px; }
-      .stat-badge { padding: 3px 6px; font-size: 0.7rem; }
-      
-      /* ટાઈમર અને સબમિટ બટન એક લાઈનમાં */
-      .exam-actions { width: 100%; justify-content: space-between; margin-top: 5px; }
-      .exam-timer { font-size: 0.95rem; padding: 4px 10px; }
-      .exam-actions .btn { font-size: 0.85rem !important; padding: 6px 12px !important; }
-
-      /* મોબાઈલમાં 1 થી 100 ની પેનલ ગાયબ */
-      .palette-panel { display: none !important; }
-      
-      /* પ્રશ્નો અને વિકલ્પો માટે જગ્યા વધારી */
+      .grid-4 { grid-template-columns: 1fr; }
+      .p-sticky-header { flex-direction: row; flex-wrap: wrap; padding: 6px 10px; justify-content: space-between; }
       .question-panel { padding: 15px 12px; }
-      .q-num-header { padding: 4px 12px; margin-bottom: 12px; font-size: 0.85rem; }
-      .question-text { font-size: 1.05rem; margin-bottom: 15px; line-height: 1.5; }
-      .radio-option { padding: 10px 12px; font-size: 0.95rem; margin-bottom: 8px; }
-      
-      /* નીચેના સેવ/ક્લિયર બટન નાના કર્યા */
-      .question-panel > div:last-child { margin-top: 15px !important; justify-content: center; gap: 6px; padding-top: 10px !important; }
-      .question-panel > div:last-child .btn { padding: 8px 12px !important; font-size: 0.85rem !important; flex: 1; text-align: center; }
-
-      /* હેડર મેનુ */
+      .practiceFooter { padding: 10px; }
+      .practiceFooter .btn { padding: 8px 12px; font-size: 0.85rem; }
       .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--navy); padding: 10px 0; z-index: 999; }
       .nav-links.open { display: flex; }
       .nav-links a { width: 100%; border-radius: 0; padding: 12px 20px; }
       .hamburger { display: flex; }
     }
-
-    @media print {
-      body { background: white; -webkit-print-color-adjust: exact; }
-      #standardNav, .page-banner, #standardFooter, .no-print, #reviewContainer, .review-title-print { display: none !important; }
-      .result-card { box-shadow: none; border: 3px solid var(--navy); margin: 0; max-width: 100%; padding: 20px; }
-      .print-only-branding { display: block; margin-top: 25px; padding-top: 20px; border-top: 2px dashed var(--gold); text-align: center; }
-      .print-only-branding h3 { font-family: var(--font-serif); color: var(--navy); }
-      .print-only-branding .website-link { font-size: 1.4rem; font-weight: 800; color: var(--navy); }
-    }
   </style>
 </head>
 <body>
 
-<!-- CUSTOM MODAL CONTAINER -->
-<div id="customModalOverlay">
-  <div class="c-modal">
-    <div class="c-modal-header"><h3 id="modalTitle">શીર્ષક</h3></div>
-    <div class="c-modal-body" id="modalMsg">સંદેશ અહીં આવશે...</div>
-    <div class="c-modal-footer" id="modalFooter"></div>
-  </div>
-</div>
-
-<!-- STANDARD NAVBAR -->
-<div id="standardNav">
-  <div class="topbar">
-    <div class="topbar-inner">
-      <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
-      <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
-    </div>
-  </div>
-  <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="nav-logo-emblem">
-          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="18" width="22" height="3" rx="1" fill="#1d3461"/><rect x="7" y="6" width="3" height="12" rx="1" fill="#1d3461"/><rect x="18" y="6" width="3" height="12" rx="1" fill="#1d3461"/><path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
-          </svg>
-        </div>
-        <div class="nav-logo-text">
-          <span class="site-name">Adhyapak Saathi</span>
-          <span class="site-tagline">Teacher Exam Preparation Portal</span>
-        </div>
-      </a>
-      <ul class="nav-links" id="navLinks">
+<nav id="standardNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+      <div style="width: 54px; height: 54px; background: #fff; border-radius: 14px; box-shadow: 0 4px 12px rgba(29,52,97,0.15); display: flex; align-items: center; justify-content: center; position: relative;">
+        <svg viewBox="0 0 160 160" style="width: 44px; height: 44px;">
+          <defs>
+            <linearGradient id="nGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0f172a" /><stop offset="100%" stop-color="#1d3461" /></linearGradient>
+            <linearGradient id="gGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#d4a017" /><stop offset="100%" stop-color="#fbbf24" /></linearGradient>
+          </defs>
+          <g transform="translate(15, 20)">
+            <path d="M 30 108 Q 80 115 125 102" fill="none" stroke="url(#gGrad)" stroke-width="4" stroke-linecap="round" stroke-opacity="0.5"/>
+            <circle cx="48" cy="40" r="13" fill="url(#nGrad)"/>
+            <path d="M 40 108 C 40 70 52 60 76 75" fill="none" stroke="url(#nGrad)" stroke-width="11" stroke-linecap="round"/>
+            <circle cx="78" cy="55" r="9" fill="url(#gGrad)"/>
+            <path d="M 64 108 C 64 90 70 82 76 75" fill="none" stroke="url(#gGrad)" stroke-width="8" stroke-linecap="round"/>
+            <path d="M 70 82 Q 85 70 98 55" fill="none" stroke="url(#gGrad)" stroke-width="7" stroke-linecap="round"/>
+            <path d="M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z" fill="url(#gGrad)"/>
+          </g>
+        </svg>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <span style="font-family: system-ui, sans-serif; font-size: 1.35rem; color: #fff; letter-spacing: -0.5px; line-height: 1.1;">
+          <strong style="font-weight: 900;">ADHYAPAK</strong> <span style="font-weight: 300; color: #d4a017;">SAATHI</span>
+        </span>
+        <span style="font-size: 0.65rem; color: #d4a017; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-top: 2px;">Teacher Exam Portal</span>
+      </div>
+    </a>
+    
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="test.html">Practice Test</a></li>
+      <li><a href="test.html" class="active">Practice Test</a></li>
       <li><a href="mocktest.html">Mock Test</a></li>
       <li><a href="news.html">Exam News</a></li>
       <li><a href="materials.html">Study Materials</a></li>
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-      <div class="hamburger" role="button" aria-label="Open Menu" onclick="toggleNav()"><span></span><span></span><span></span></div>
+    
+    <div class="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
     </div>
-  </nav>
+  </div>
+</nav>
 
+<div id="mainContent">
   <div class="page-banner">
     <div class="wrapper">
-      <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Practice Test</div>
-      <h1>Topic-Wise <em>Practice Test</em></h1>
+      <h1>Topic-wise <em>Practice Tests</em></h1>
       <p>તમારી મનપસંદ કેટેગરી પસંદ કરો અને તૈયારીને મજબૂત બનાવો!</p>
     </div>
   </div>
 
-  <section class="section" id="introScreen">
-    <div class="wrapper">
+  <div class="wrapper" style="margin-bottom: 50px;">
+    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto; margin-top: 40px;">
+      <div class="p-topic-card"><div><div class="p-topic-icon">🦉</div><h3>1. શિક્ષણની ફિલસૂફી</h3></div><button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી')">પ્રેક્ટિસ શરૂ કરો</button></div>
+      <div class="p-topic-card"><div><div class="p-topic-icon">🧠</div><h3>2. શૈક્ષણિક મનોવિજ્ઞાન</h3></div><button class="btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન')">પ્રેક્ટિસ શરૂ કરો</button></div>
+      <div class="p-topic-card"><div><div class="p-topic-icon">👩‍🏫</div><h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3></div><button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન')">પ્રેક્ટિસ શરૂ કરો</button></div>
+      <div class="p-topic-card"><div><div class="p-topic-icon">🧩</div><h3>4. તાર્કિક અભિયોગ્યતા</h3></div><button class="btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા')">પ્રેક્ટિસ શરૂ કરો</button></div>
+    </div>
+  </div>
+</div>
 
-      <div class="section-header center">
-        <h2 class="section-title">વિષયવાર <em>પ્રેક્ટિસ ટેસ્ટ</em></h2>
+<div class="exam-container" id="examContainer">
+  <div class="p-sticky-header">
+    <div style="font-weight:800; font-size:1.1rem; color:var(--navy);"><span id="headerIcon">📝</span> <span id="pTopicName">Topic</span></div>
+    <div style="display:flex; gap:8px;">
+       <div style="background:#fdf0ee; color:var(--red); padding:6px 12px; border-radius:20px; font-weight:800; border:2px solid var(--red);">⏱️ <span id="pTimer">15:00</span></div>
+    </div>
+  </div>
+
+  <div class="exam-body">
+    <div class="question-panel">
+      <div class="question-header">
+        <span id="lblQNum" style="background: var(--navy); color: white; padding: 5px 12px; border-radius: 20px;">પ્રશ્ન: 1</span>
+        <span style="font-size: 0.9rem; font-weight: 800; color: var(--navy-mid);">Practice Mode</span>
       </div>
+      <div class="question-content">
+        <div class="question-text" id="lblQText">પ્રશ્ન લોડ થઈ રહ્યો છે...</div>
+        <div id="optionsContainer"></div>
+      </div>
+      <div class="practiceFooter">
+        <button id="pPrevBtn" class="btn btn-outline" style="padding:10px 20px; border-radius:50px; flex: 1;" onclick="prevPQuestion()">⬅️ પાછળ</button>
+        <button id="pNextBtn" class="btn btn-navy" style="padding:10px 20px; border-radius:50px; flex: 1;" onclick="nextPQuestion()">આગળ ➡️</button>
+        <button id="pSubmitBtn" class="btn btn-gold" style="display:none; padding:10px 20px; border-radius:50px; color:var(--navy-dark); flex: 1;" onclick="submitPractice()">પ્રેક્ટિસ પૂરી કરો 🏆</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-     function startPracticeTopic(topicCode, topicName) {
+<div id="resultScreen" style="display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh;">
+  <div style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; border: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center;">
+    <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પ્રેક્ટિસ પરિણામ (Scorecard)</h2>
+    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 30px; font-weight: 600;">તમારું વિગતવાર વિશ્લેષણ નીચે મુજબ છે.</p>
+
+    <div style="width: 160px; height: 160px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 25px; background: #f8fafd; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);">
+      <span style="font-size: 3rem; font-weight: 900; color: var(--navy); line-height: 1;" id="resScore">0</span>
+      <span style="font-size: 1rem; color: var(--text-mid); font-weight: 700; margin-top: 5px;" id="resTotalText">out of 15</span>
+    </div>
+
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 30px 0;">
+      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">
+        <div style="font-size: 1.8rem;" id="resCorrect">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">સાચા જવાબો</div>
+      </div>
+      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca;">
+        <div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા જવાબો</div>
+      </div>
+      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe;">
+        <div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px dashed #cbd5e0; display: flex; flex-direction: column; align-items: center;">
+      <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin: 0;">Adhyapak Saathi</h3>
+      <p style="color: var(--text-mid); font-weight: 600; margin: 5px 0;">Teacher Exam Preparation Portal</p>
+      <div style="background: var(--navy); color: var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; font-size: 0.9rem;">🌐 www.adhyapaksaathi.in</div>
+    </div>
+
+    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+      <button class="btn btn-outline" style="padding: 12px 30px; color: var(--navy); border-color: var(--navy);" onclick="window.location.href='test.html'">🏠 પાછા જાઓ</button>
+      <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી પ્રેક્ટિસ કરો</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  window.onbeforeunload = null;
+
+  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
+  // PRACTICE DATABASE
+  const practiceDB = [
+    {q:"માણસનાં શરીર, મન, આત્મામાં જે કંઈ શ્રેષ્ઠ છે તે બધું બહાર લાવવું એટલે શિક્ષણ. આ વ્યાખ્યા કોણે આપી છે?", opts:["ઋગ્વેદ","કૌટિલ્ય","મહાત્મા ગાંધીજી","સ્વામી વિવેકાનંદ"], ans:2, topic:"philosophy"},
+    {q:"RTE એક્ટ મુજબ, શૈક્ષણિક વર્ષ શરૂ થયા પછી કેટલા મહિના સુધી પ્રવેશ આપી શકાય છે?", opts:["૩ મહિના","૫ મહિના","૬ મહિના","૯ મહિના"], ans:2, topic:"eval"},
+    {q:"'બાળક એ કંઈ પ્રૌઢની લઘુ આવૃત્તિ નથી' - આ વિચાર કોણે રજૂ કર્યો?", opts:["ગાંધીજી","રૂસો","પ્લેટો","પેસ્ટાલોજી"], ans:1, topic:"philosophy"},
+    {q:"સિદ્ધાંતો અને તેના જનકનાં સાચાં જોડકાં બનાવો: બહુ અવયવ સિદ્ધાંત કોણે આપ્યો?", opts:["થર્સ્ટન","ગોલમેન","ગાર્ડનર","સ્ટેર્નબર્ગ"], ans:0, topic:"psych"},
+    {q:"આપેલી શ્રેણી પૂર્ણ કરો: 4, 8, 9, 27, 16, 64, 25 ...?", opts:["101","98","100","125"], ans:3, topic:"reasoning"}
+  ];
+
+  let activeQs = [];
+  let currentIdx = 0;
+  let answers = {};
+  let timeLeft = 0;
+  let timer;
+
+  function startPracticeTopic(topicCode, topicName) {
     activeQs = practiceDB.filter(q => q.topic === topicCode);
     
-    // જો ડેટાબેઝમાં 15 પ્રશ્નો ન હોય, તો ઓટોમેટિક નવા પ્રશ્નો ઉમેરીને 15 કરી દેશે.
+    // 15 પ્રશ્નો પૂરા કરવા
     let requiredQs = 15;
     if(activeQs.length < requiredQs) {
         let currentLen = activeQs.length;
         for(let i = currentLen; i < requiredQs; i++) {
             activeQs.push({
-                q: "પ્રશ્ન " + (i + 1) + ": " + topicName + " નો પ્રેક્ટિસ પ્રશ્ન અહી આવશે.",
+                q: "પ્રશ્ન " + (i + 1) + ": (અહીં તમારી PDF માંથી વધુ પ્રશ્નો નાખવાના રહેશે)",
                 opts: ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
                 ans: Math.floor(Math.random() * 4),
                 topic: topicCode
@@ -233,6 +236,47 @@
     loadQuestion(0);
     startTimer();
   }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      timeLeft--;
+      const m = Math.floor(timeLeft / 60).toString().padStart(2,'0');
+      const s = (timeLeft % 60).toString().padStart(2,'0');
+      document.getElementById('pTimer').innerText = `${m}:${s}`;
+      if(timeLeft <= 0) { clearInterval(timer); submitPractice(); }
+    }, 1000);
+  }
+
+  function loadQuestion(idx) {
+    currentIdx = idx;
+    const q = activeQs[idx];
+    document.getElementById('lblQNum').innerText = `પ્રશ્ન: ${idx + 1} / ${activeQs.length}`;
+    document.getElementById('lblQText').innerText = q.q;
+    
+    let html = '';
+    q.opts.forEach((opt, i) => {
+      const isSel = answers[idx] === i;
+      html += `<label class="radio-option ${isSel?'selected':''}">
+                 <input type="radio" name="opts" ${isSel?'checked':''} onchange="selectOpt(${i})"> <span>${opt}</span>
+               </label>`;
+    });
+    document.getElementById('optionsContainer').innerHTML = html;
+
+    document.getElementById('pPrevBtn').style.display = idx === 0 ? 'none' : 'block';
+    
+    if(idx === activeQs.length - 1) {
+        document.getElementById('pNextBtn').style.display = 'none';
+        document.getElementById('pSubmitBtn').style.display = 'block';
+    } else {
+        document.getElementById('pNextBtn').style.display = 'block';
+        document.getElementById('pSubmitBtn').style.display = 'none';
+    }
+  }
+
+  function selectOpt(i) { answers[currentIdx] = i; loadQuestion(currentIdx); }
+  function nextPQuestion() { if(currentIdx < activeQs.length - 1) loadQuestion(currentIdx + 1); }
+  function prevPQuestion() { if(currentIdx > 0) loadQuestion(currentIdx - 1); }
 
   function submitPractice() {
     clearInterval(timer);
@@ -253,316 +297,6 @@
     document.getElementById('resWrong').innerText = wrong;
     document.getElementById('resAcc').innerText = accuracy;
   }
-  </section>
-  
-  <footer id="standardFooter">
-    <div class="footer-grid">
-      <div class="footer-brand"><div class="footer-brand-name">Adhyapak Saathi</div><p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants.</p></div>
-      <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="test.html">Practice Test</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li></ul></div>
-    </div>
-    <div class="footer-bottom"><p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p></div>
-  </footer>
-</div>
-
-<div class="exam-container" id="examContainer" style="display: none;">
-  <div class="p-sticky-header">
-    <div style="font-weight:800; font-size:1.05rem; color:var(--navy); display: flex; align-items: center; gap: 6px;">
-      <span id="headerIcon">🎓</span> <span id="pTopicName">TAT - પેપર 1 મોક ટેસ્ટ</span>
-    </div>
-    <div style="display:flex; gap:8px; align-items:center;">
-       <div id="attemptedBox" style="background:#eaf5ef; color:var(--green); padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.85rem; border:1px solid #bbf7d0;">✔ જવાબો: <span id="pAttempted">0</span></div>
-       <div style="background:#fdf0ee; color:var(--red); padding:4px 10px; border-radius:20px; font-weight:800; font-size:0.9rem; border:2px solid var(--red);">⏱️ <span id="pTimer">00:00:00</span></div>
-    </div>
-  </div>
-
-  <div class="exam-body">
-    <div class="question-panel">
-      <div id="pProgressBarContainer" style="background:#e2e8f0; height:6px; margin-bottom:0.8rem; overflow:hidden; display:none;"><div id="pProgressBar" style="background:var(--navy); height:100%; width:0%; transition:width 0.4s ease;"></div></div>
-      <div class="question-header"><span id="lblQNum" style="background: var(--navy); color: white; padding: 3px 10px; border-radius: 20px;">પ્રશ્ન ક્રમાંક: 1</span><span>+1, -0.25</span></div>
-      <div class="question-content"><div class="question-text" id="lblQText">પ્રશ્ન લોડ થઈ રહ્યો છે...</div><div id="optionsContainer"></div></div>
-      <div id="practiceFooter" style="padding: 10px 15px; background: #f8fafd; display: none; justify-content: space-between; align-items: center;">
-        <button id="pPrevBtn" class="btn btn-outline" onclick="prevPQuestion()">⬅️ પાછળ</button>
-        <div style="font-size:0.9rem; font-weight:700; color:var(--navy-mid);" id="randomQuote">💡 મહેનત એ જ સફળતાની ચાવી છે!</div>
-        <button id="pNextBtn" class="btn btn-navy" onclick="nextPQuestion()">આગળ ➡️</button>
-        <button id="pSubmitBtn" class="btn btn-gold" style="display:none;" onclick="submitExamConfirmation()">સબમિટ 🏆</button>
-      </div>
-      <div id="mockFooter" style="padding: 10px 15px; background: #f8fafd; display: flex; justify-content: space-between;">
-        <div style="display: flex; gap: 8px;"><button class="btn-exam btn-clear" onclick="clearResponse()">Clear Response</button><button class="btn-exam btn-review" onclick="markReviewAndNext()">Review & Next</button></div>
-        <button class="btn-exam btn-save" onclick="saveAndNext()">Save & Next</button>
-      </div>
-    </div>
-    <div class="palette-panel" id="mockPalette">
-      <div class="palette-header">Question Palette</div>
-      <div class="legend-box">
-        <div class="legend-item"><span class="status-badge s-answered"></span> Ans</div>
-        <div class="legend-item"><span class="status-badge s-not-answered"></span> Not Ans</div>
-      </div>
-      <div class="palette-grid" id="paletteGrid"></div>
-      <div style="padding: 12px; margin-top: auto;"><button class="btn-exam btn-submit" style="width: 100%;" onclick="submitExamConfirmation()">Submit Exam</button></div>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== DETAILED SCORECARD FOR PRACTICE TEST ==================== -->
-<div id="resultScreen" style="display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh;">
-  <div class="scorecard-wrapper" style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; border: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center;">
-    <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પ્રેક્ટિસ પરિણામ (Scorecard)</h2>
-    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 30px; font-weight: 600;">તમારું વિગતવાર વિશ્લેષણ નીચે મુજબ છે.</p>
-
-    <!-- Main Circular Score -->
-    <div style="width: 160px; height: 160px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 25px; background: #f8fafd; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);">
-      <span style="font-size: 3rem; font-weight: 900; color: var(--navy); line-height: 1;" id="resScore">0</span>
-      <span style="font-size: 1rem; color: var(--text-mid); font-weight: 700; margin-top: 5px;" id="resTotalText">out of 15</span>
-    </div>
-
-    <!-- Quick Stats Grid -->
-    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 30px 0;">
-      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">
-        <div style="font-size: 1.8rem;" id="resCorrect">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">સાચા જવાબો</div>
-      </div>
-      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca;">
-        <div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા જવાબો</div>
-      </div>
-      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe;">
-        <div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div>
-      </div>
-    </div>
-
-    <!-- Print Branding -->
-    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px dashed #cbd5e0; display: flex; flex-direction: column; align-items: center;">
-      <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin: 0;">Adhyapak Saathi</h3>
-      <p style="color: var(--text-mid); font-weight: 600; margin: 5px 0;">Teacher Exam Preparation Portal</p>
-      <div style="background: var(--navy); color: var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; font-size: 0.9rem;">🌐 www.adhyapaksaathi.in</div>
-    </div>
-
-    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-      <button class="btn btn-outline" style="padding: 12px 30px; color: var(--navy); border-color: var(--navy);" onclick="window.location.href='test.html'">🏠 પાછા જાઓ</button>
-      <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી પ્રેક્ટિસ કરો</button>
-    </div>
-  </div>
-</div>
-    </div>
-    <div id="reviewContainer"></div>
-  </div>
-</div>
-
-<script>
-/* ================= SECURITY & UTILS ================= */
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.onkeydown = e => { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) return false; };
-
-function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-
-// CUSTOM MODAL SYSTEM
-function showAdhyapakModal(title, msg, type = 'alert', callback = null) {
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalMsg').innerText = msg;
-    const footer = document.getElementById('modalFooter');
-    footer.innerHTML = '';
-    
-    if (type === 'confirm') {
-        const yesBtn = document.createElement('button');
-        yesBtn.className = 'btn btn-navy';
-        yesBtn.innerText = 'હા (Yes)';
-        yesBtn.onclick = () => { closeAdhyapakModal(); if (callback) callback(); };
-        const noBtn = document.createElement('button');
-        noBtn.className = 'btn btn-outline';
-        noBtn.innerText = 'ના (No)';
-        noBtn.onclick = closeAdhyapakModal;
-        footer.append(yesBtn, noBtn);
-    } else {
-        const okBtn = document.createElement('button');
-        okBtn.className = 'btn btn-navy';
-        okBtn.innerText = 'OK';
-        okBtn.onclick = closeAdhyapakModal;
-        footer.append(okBtn);
-    }
-    document.getElementById('customModalOverlay').style.display = 'flex';
-}
-function closeAdhyapakModal() { document.getElementById('customModalOverlay').style.display = 'none'; }
-
-/* ================= DATA BASE ================= */
-const fullDatabase = [];
-const rawDataString = `
-સંવિધાનને વફાદાર રહેવાની અને તેના આદર્શો અને સંસ્થાઓના રાષ્ટ્રધ્વજનો અને રાષ્ટ્રગીતનો આદર કરવાની જોગવાઈ ભારતના સંવિધાનની કઈ કલમમાં દર્શાવવામાં આવી છે?|51 ક (ખ)|51 ક (ઘ)|51 ક (છ)|51 ક (ક)|3|ભારતીય બંધારણના ભાગ 4(A) માં કલમ 51(ક) અંતર્ગત મૂળભૂત ફરજો દર્શાવેલ છે, જેમાં 51(ક)(ક) મુજબ રાષ્ટ્રધ્વજ અને રાષ્ટ્રગીતનો આદર કરવો એ પહેલી ફરજ છે.|સામાન્ય જ્ઞાન
-ભારતીય સંવિધાનના ભાગ-4માં ‘રાજનીતિના માર્ગદર્શક સિદ્ધાંતો' ની જોગવાઈ કઈ કલમથી ક્યાં સુધીની કલમમાં કરવામાં આવેલ છે?|36 થી 45|35 થી 48|34 થી 50|36 થી 51|3|બંધારણના ભાગ-4 માં અનુચ્છેદ 36 થી 51 સુધી રાજ્યનીતિના માર્ગદર્શક સિદ્ધાંતો (DPSP) નો ઉલ્લેખ કરવામાં આવ્યો છે.|સામાન્ય જ્ઞાન
-જયાં સુધી માતૃભાષા (ગુજરાતી)ને હું ઉચ્ચ સ્થાન પર નહીં મૂકું ત્યાં સુધી હું પાઘડી નહીં બાંધુ' એવું કોણે કહ્યું હતું?|કવિ પ્રેમાનંદ|કવિ નર્મદ|કવિ કલાપી|કવિ સુન્દરમ્|0|માતૃભાષાના ઉત્કર્ષ માટે આ પ્રસિદ્ધ પ્રતિજ્ઞા ગુજરાતી સાહિત્યના મહાકવિ પ્રેમાનંદે લીધી હતી.|સામાન્ય જ્ઞાન
-વિશ્વ વસતી દિન (World Population Day) ક્યારે ઉજવવામાં આવે છે?|11 ઑગસ્ટ|11 ઓક્ટોબર|11 જૂન|11 જુલાઈ|3|વિશ્વ વસ્તી દિવસ દર વર્ષે 11 જુલાઈના રોજ ઉજવવામાં આવે છે.|સામાન્ય જ્ઞાન
-દૂરવર્તી શિક્ષણમાં અભ્યાસ કેવી રીતે થઈ શકે?|કૉલેજ ગ્રંથાલયમાં છપાયેલી અધ્યયન સામગ્રી દ્વારા|જ્યાં રહેતા હોય ત્યાં માધ્યમો દ્વારા તથા છપાયેલી અધ્યયન સામગ્રી દ્વારા|કૉલેજમાં અધ્યયનની વિવિધ પદ્ધતિઓ દ્વારા|કૉલેજમાં હાજરી આપ્યા સિવાય સ્વપ્રયત્નો દ્વારા|1|દૂરવર્તી શિક્ષણ (Distance Education) માં વિદ્યાર્થી માધ્યમો અને પ્રિન્ટેડ મટિરિયલ દ્વારા ઘરે બેઠા અભ્યાસ કરે છે.|શિક્ષણની ફિલસૂફી
-ગાંધીજીએ આપેલી શિક્ષણની વ્યાખ્યામાં શિક્ષણનું કયું ધ્યેય પ્રગટ થાય છે?|વ્યક્તિલક્ષી|સામાજિક|વિશિષ્ટ|આધ્યાત્મિક|3|ગાંધીજીના મતે 'શિક્ષણ એટલે બાળકના શરીર, મન અને આત્માનું ઉત્કર્ષ'.|શિક્ષણની ફિલસૂફી
-અધ્યયનના નિયમો (Laws of Learning) સંદર્ભે નીચે પૈકી કયો નિયમ લાગુ પડતો નથી ?|અસરનો નિયમ|પુનરાવર્તનનો નિયમ|ભૂલનો નિયમ|તત્પરતાનો નિયમ|2|થોર્નડાઈકના અધ્યયનના 3 મુખ્ય નિયમો છે: તત્પરતાનો, પુનરાવર્તનનો અને અસરનો નિયમ.|શૈક્ષણિક મનોવિજ્ઞાન
-પોતાના દોષો બીજામાં જોવાનો પ્રયત્ન કરવો.' – આ કયા પ્રકારની બચાવ પ્રયુક્તિ છે?|પ્રક્ષેપણ|દમન|સ્થગિતતા|પ્રાયશ્ચિત|0|પોતાની ભૂલનો દોષ અન્ય પર ઢોળી દેવાની પ્રયુક્તિને 'પ્રક્ષેપણ' (Projection) કહેવાય છે.|શૈક્ષણિક મનોવિજ્ઞાન
-DIKSHA એટલે શું?|Digital Infrastructure for Knowledge Sharing|Digital Initiative for Knowledge Sharing|Digital Interactive for Knowledge Sharing|Digital Interface for Knowledge Sharing|0|DIKSHA નું પૂરું નામ Digital Infrastructure for Knowledge Sharing છે.|વર્ગવ્યવહાર અને મૂલ્યાંકન
-આજે સોમવાર છે. 62 દિવસ પછી કયો વાર આવશે ?|શનિવાર|રવિવાર|મંગળવાર|બુધવાર|1|62 ને 7 વડે ભાગતા 6 શેષ રહે છે. સોમવાર પછીના 6ઠ્ઠા દિવસે રવિવાર આવે.|તાર્કિક અભિયોગ્યતા
-‘પરિરંભ' શબ્દનો સમાનાર્થી શબ્દ શું થાય ?|તેજ|બનાવટ|આલિંગન|લુચ્ચું|2|પરિરંભ એટલે ભેટવું કે આલિંગન આપવું થાય છે.|ગુજરાતી ભાષા
-The lightning has a tongue of flame. Identify the figure of speech.|Irony|Personification|Metaphor|Simile|1|નિર્જીવ વસ્તુ (lightning) માં સજીવના ગુણો હોવાથી Personification છે.|અંગ્રેજી ભાષા
-`;
-// Note: Limited sample for upgrade brevity. In real usage, all 100 Qs are here.
-
-rawDataString.trim().split('\n').forEach(row => {
-  const p = row.split('|');
-  fullDatabase.push({ q: p[0], opts: [p[1], p[2], p[3], p[4]], ans: parseInt(p[5]), exp: p[6], topic: p[7] });
-});
-
-/* ================= CORE LOGIC ================= */
-let activeQuestions = [];
-let currentQIndex = 0;
-let userAnswers = {};
-let qStatus = {};
-let timeRemaining = 0;
-let timerInterval;
-let isMock = true;
-
-window.onload = () => {
-    if (localStorage.getItem('adhyapak_saved_answers')) {
-        showAdhyapakModal("ટેસ્ટ અધૂરી છે!", "અમે તમારા અગાઉના જવાબો શોધી કાઢ્યા છે. શું તમે ત્યાંથી જ ચાલુ કરવા માંગો છો?", 'confirm', resumeTest);
-    }
-};
-
-function resumeTest() {
-    userAnswers = JSON.parse(localStorage.getItem('adhyapak_saved_answers'));
-    qStatus = JSON.parse(localStorage.getItem('adhyapak_saved_status'));
-    isMock = localStorage.getItem('adhyapak_test_mode') === 'true';
-    activeQuestions = JSON.parse(localStorage.getItem('adhyapak_saved_questions'));
-    timeRemaining = parseInt(localStorage.getItem('adhyapak_saved_time'));
-    
-    setupTestUI();
-    loadQuestion(parseInt(localStorage.getItem('adhyapak_current_index') || 0));
-    startTimer();
-}
-
-function startExam(mode) {
-    activeQuestions = [...fullDatabase];
-    timeRemaining = 90 * 60;
-    isMock = true;
-    initTestState();
-}
-
-function startPracticeTopic(code, name) {
-    activeQuestions = fullDatabase.filter(q => q.topic.includes(name) || name.includes(q.topic));
-    if(activeQuestions.length === 0) activeQuestions = [fullDatabase[0]]; // Fallback
-    timeRemaining = activeQuestions.length * 60;
-    isMock = false;
-    document.getElementById('pTopicName').innerText = name;
-    initTestState();
-}
-
-function initTestState() {
-    userAnswers = {};
-    qStatus = {};
-    activeQuestions.forEach((_, i) => qStatus[i] = 'not_visited');
-    setupTestUI();
-    loadQuestion(0);
-    startTimer();
-}
-
-function setupTestUI() {
-    document.getElementById('standardNav').classList.add('hide-during-exam');
-    document.getElementById('introScreen').classList.add('hide-during-exam');
-    document.getElementById('standardFooter').classList.add('hide-during-exam');
-    document.getElementById('examContainer').style.display = 'flex';
-    document.getElementById('mockPalette').style.display = isMock ? 'flex' : 'none';
-    document.getElementById('mockFooter').style.display = isMock ? 'flex' : 'none';
-    document.getElementById('practiceFooter').style.display = isMock ? 'none' : 'flex';
-    document.getElementById('pProgressBarContainer').style.display = isMock ? 'none' : 'block';
-}
-
-function startTimer() {
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-        timeRemaining--;
-        updateTimerDisplay();
-        saveToLocalStorage();
-        if(timeRemaining <= 0) { clearInterval(timerInterval); submitExam(); }
-    }, 1000);
-}
-
-function updateTimerDisplay() {
-    const m = Math.floor(timeRemaining / 60);
-    const s = timeRemaining % 60;
-    document.getElementById('pTimer').innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-}
-
-function loadQuestion(index) {
-    currentQIndex = index;
-    const q = activeQuestions[index];
-    if(qStatus[index] === 'not_visited') qStatus[index] = 'not_answered';
-
-    document.getElementById('lblQNum').innerText = `પ્રશ્ન ક્રમાંક: ${index + 1}`;
-    document.getElementById('lblQText').innerText = q.q;
-    
-    const optionsHtml = q.opts.map((opt, i) => `
-        <label class="radio-option ${userAnswers[index] === i ? 'selected' : ''}">
-            <input type="radio" name="opt" ${userAnswers[index] === i ? 'checked' : ''} onchange="selectOption(${i})">
-            <span>${opt}</span>
-        </label>
-    `).join('');
-    document.getElementById('optionsContainer').innerHTML = optionsHtml;
-
-    if(isMock) renderPalette();
-    else {
-        document.getElementById('pAttempted').innerText = Object.keys(userAnswers).length;
-        document.getElementById('pProgressBar').style.width = `${((index+1)/activeQuestions.length)*100}%`;
-        document.getElementById('pNextBtn').style.display = (index === activeQuestions.length - 1) ? 'none' : 'block';
-        document.getElementById('pSubmitBtn').style.display = (index === activeQuestions.length - 1) ? 'block' : 'none';
-    }
-}
-
-function selectOption(idx) {
-    userAnswers[currentQIndex] = idx;
-    qStatus[currentQIndex] = 'answered';
-    saveToLocalStorage();
-    loadQuestion(currentQIndex);
-}
-
-function saveToLocalStorage() {
-    localStorage.setItem('adhyapak_saved_answers', JSON.stringify(userAnswers));
-    localStorage.setItem('adhyapak_saved_status', JSON.stringify(qStatus));
-    localStorage.setItem('adhyapak_saved_questions', JSON.stringify(activeQuestions));
-    localStorage.setItem('adhyapak_saved_time', timeRemaining);
-    localStorage.setItem('adhyapak_test_mode', isMock);
-    localStorage.setItem('adhyapak_current_index', currentQIndex);
-}
-
-function clearResponse() { delete userAnswers[currentQIndex]; qStatus[currentQIndex] = 'not_answered'; loadQuestion(currentQIndex); }
-function saveAndNext() { if(currentQIndex < activeQuestions.length - 1) loadQuestion(currentQIndex + 1); }
-function markReviewAndNext() { qStatus[currentQIndex] = 'review'; saveAndNext(); }
-function nextPQuestion() { saveAndNext(); }
-function prevPQuestion() { if(currentQIndex > 0) loadQuestion(currentQIndex - 1); }
-
-function renderPalette() {
-    const grid = document.getElementById('paletteGrid');
-    grid.innerHTML = activeQuestions.map((_, i) => `<button class="palette-btn ${qStatus[i]}" onclick="loadQuestion(${i})">${i+1}</button>`).join('');
-}
-
-function submitExamConfirmation() {
-    if(Object.keys(userAnswers).length === 0) return showAdhyapakModal("ચેતવણી", "કૃપા કરીને ઓછામાં ઓછો એક જવાબ આપો!");
-    showAdhyapakModal("પરીક્ષા પૂર્ણ કરવી છે?", "શું તમે ખરેખર ટેસ્ટ સબમિટ કરવા માંગો છો? આ પછી સુધારો થઈ શકશે નહીં.", 'confirm', submitExam);
-}
-
-function submitExam() {
-    clearInterval(timerInterval);
-    localStorage.clear();
-    document.getElementById('examContainer').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'block';
-
-    let correct = 0, wrong = 0;
-    activeQuestions.forEach((q, i) => {
-        if(userAnswers[i] === q.ans) correct++;
-        else if(userAnswers[i] !== undefined) wrong++;
-    });
-
-    const score = correct - (wrong * 0.25);
-    document.getElementById('resScore').innerText = score.toFixed(2);
-    document.getElementById('resCorrect').innerText = correct;
-    document.getElementById('resWrong').innerText = wrong;
-    document.getElementById('resSkip').innerText = activeQuestions.length - (correct + wrong);
-    document.getElementById('resAcc').innerText = (correct + wrong > 0) ? Math.round((correct/(correct+wrong))*100) : 0;
-    window.scrollTo(0,0);
-}
-
-function resetAndReload() { localStorage.clear(); window.location.reload(); }
 </script>
 </body>
 </html>
