@@ -100,11 +100,40 @@
     .hide-during-exam { display: none !important; }
     .print-only-branding { display: none; }
 
+    /* MOBILE RESPONSIVE (નવું ફોર્મેટ) */
     @media (max-width: 768px) {
-      .exam-body { flex-direction: column; }
-      .palette-panel { flex: none; height: 220px; border-top: 2px solid var(--border); }
-      .question-panel { flex: none; height: calc(100vh - 290px); }
-      .p-sticky-header { flex-direction: column; gap: 5px; padding: 8px; text-align: center; }
+      .grid-2, .grid-4 { grid-template-columns: 1fr; }
+      
+      /* એક્ઝામ ટોપબારને એકદમ નાનું અને સળંગ કર્યું */
+      .exam-topbar { flex-direction: row; flex-wrap: wrap; padding: 6px 10px; justify-content: space-between; align-items: center; }
+      .exam-brand { font-size: 1.05rem; gap: 6px; }
+      .exam-brand svg { width: 22px !important; height: 22px !important; }
+      .exam-stats { font-size: 0.75rem; gap: 5px; }
+      .stat-badge { padding: 3px 6px; font-size: 0.7rem; }
+      
+      /* ટાઈમર અને સબમિટ બટન એક લાઈનમાં */
+      .exam-actions { width: 100%; justify-content: space-between; margin-top: 5px; }
+      .exam-timer { font-size: 0.95rem; padding: 4px 10px; }
+      .exam-actions .btn { font-size: 0.85rem !important; padding: 6px 12px !important; }
+
+      /* મોબાઈલમાં 1 થી 100 ની પેનલ ગાયબ */
+      .palette-panel { display: none !important; }
+      
+      /* પ્રશ્નો અને વિકલ્પો માટે જગ્યા વધારી */
+      .question-panel { padding: 15px 12px; }
+      .q-num-header { padding: 4px 12px; margin-bottom: 12px; font-size: 0.85rem; }
+      .question-text { font-size: 1.05rem; margin-bottom: 15px; line-height: 1.5; }
+      .radio-option { padding: 10px 12px; font-size: 0.95rem; margin-bottom: 8px; }
+      
+      /* નીચેના સેવ/ક્લિયર બટન નાના કર્યા */
+      .question-panel > div:last-child { margin-top: 15px !important; justify-content: center; gap: 6px; padding-top: 10px !important; }
+      .question-panel > div:last-child .btn { padding: 8px 12px !important; font-size: 0.85rem !important; flex: 1; text-align: center; }
+
+      /* હેડર મેનુ */
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--navy); padding: 10px 0; z-index: 999; }
+      .nav-links.open { display: flex; }
+      .nav-links a { width: 100%; border-radius: 0; padding: 12px 20px; }
+      .hamburger { display: flex; }
     }
 
     @media print {
