@@ -275,26 +275,44 @@
   </div>
 </div>
 
-<div id="resultScreen" style="display: none; background: #f4f7fb; min-height: 100vh; padding: 20px;">
-  <div class="wrapper">
-    <div class="result-card">
-      <h2 style="font-family: var(--font-serif); font-size: 2rem; color: var(--navy);">પરીક્ષા પરિણામ (Scorecard)</h2>
-      <div class="score-circle"><span class="marks" id="resScore">0.00</span><span class="total">out of <span id="resTotalMarks">100</span></span></div>
-      <div id="resMotivation" style="font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 20px;">અદ્ભુત પ્રયાસ!</div>
-      <div class="stats-grid">
-        <div class="stat-box sb-correct"><div style="font-size: 1.6rem;" id="resCorrect">0</div><div style="font-size: 0.75rem;">સાચા</div></div>
-        <div class="stat-box sb-wrong"><div style="font-size: 1.6rem;" id="resWrong">0</div><div style="font-size: 0.75rem;">ખોટા</div></div>
-        <div class="stat-box sb-unattempted"><div style="font-size: 1.6rem;" id="resSkip">0</div><div style="font-size: 0.75rem;">છોડેલા</div></div>
-        <div class="stat-box sb-acc"><div style="font-size: 1.6rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.75rem;">ચોકસાઈ</div></div>
-        <div class="stat-box sb-time"><div style="font-size: 1.6rem;" id="resTime">00:00</div><div style="font-size: 0.75rem;">સમય</div></div>
+<!-- ==================== DETAILED SCORECARD FOR PRACTICE TEST ==================== -->
+<div id="resultScreen" style="display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh;">
+  <div class="scorecard-wrapper" style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; border: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center;">
+    <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પ્રેક્ટિસ પરિણામ (Scorecard)</h2>
+    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 30px; font-weight: 600;">તમારું વિગતવાર વિશ્લેષણ નીચે મુજબ છે.</p>
+
+    <!-- Main Circular Score -->
+    <div style="width: 160px; height: 160px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 25px; background: #f8fafd; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);">
+      <span style="font-size: 3rem; font-weight: 900; color: var(--navy); line-height: 1;" id="resScore">0</span>
+      <span style="font-size: 1rem; color: var(--text-mid); font-weight: 700; margin-top: 5px;" id="resTotalText">out of 15</span>
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 30px 0;">
+      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;">
+        <div style="font-size: 1.8rem;" id="resCorrect">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">સાચા જવાબો</div>
       </div>
-      <div id="topicAnalysis" class="topic-analysis-box"></div>
-      <div class="print-only-branding"><h3>Adhyapak Saathi</h3><p>શિક્ષક બનવાનું સ્વપ્ન કરો સાકાર! મુલાકાત લો:</p><p class="website-link">🌐 www.adhyapaksaathi.in</p></div>
-      <div class="no-print" style="display: flex; gap: 12px; justify-content: center; margin-top: 25px; flex-wrap: wrap;">
-        <button class="btn btn-outline" onclick="window.location.href='index.html'">🏠 Home</button>
-        <button class="btn btn-navy" onclick="resetAndReload()">🔄 Retry</button>
-        <button class="btn" style="background: var(--navy-mid); color: white;" onclick="window.print()">📥 Download Scorecard (PDF)</button>
+      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca;">
+        <div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા જવાબો</div>
       </div>
+      <div style="padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe;">
+        <div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div>
+      </div>
+    </div>
+
+    <!-- Print Branding -->
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px dashed #cbd5e0; display: flex; flex-direction: column; align-items: center;">
+      <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin: 0;">Adhyapak Saathi</h3>
+      <p style="color: var(--text-mid); font-weight: 600; margin: 5px 0;">Teacher Exam Preparation Portal</p>
+      <div style="background: var(--navy); color: var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; font-size: 0.9rem;">🌐 www.adhyapaksaathi.in</div>
+    </div>
+
+    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+      <button class="btn btn-outline" style="padding: 12px 30px; color: var(--navy); border-color: var(--navy);" onclick="window.location.href='test.html'">🏠 પાછા જાઓ</button>
+      <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી પ્રેક્ટિસ કરો</button>
+    </div>
+  </div>
+</div>
     </div>
     <div id="reviewContainer"></div>
   </div>
