@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Premium Mock Test — Adhyapak Saathi</title>
+  <title>Topic-wise Practice Test — Adhyapak Saathi</title>
+  
+  <meta name="description" content="TAT, TET, GSET માટે વિષયવાર પ્રેક્ટિસ ટેસ્ટ."/>
   
   <link rel="stylesheet" href="style.css"/>
   
@@ -22,55 +24,28 @@
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
     .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
 
-    /* PREMIUM OFFER BANNER */
-    .offer-banner-premium {
-      background: linear-gradient(135deg, #142242 0%, #1d3461 100%);
-      border: 2px solid var(--gold);
-      border-radius: 16px;
-      padding: 30px;
-      margin-bottom: 40px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(29,52,97,0.2);
-    }
-    .offer-banner-premium::before {
-      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 60%);
-      animation: rotateGlow 15s linear infinite; pointer-events: none;
-    }
-    @keyframes rotateGlow { 100% { transform: rotate(360deg); } }
-    .offer-tag {
-      position: absolute; top: 20px; right: -35px; background: #dc2626; color: white;
-      padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
-    /* MOCK TEST CARDS (Premium Look) */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
-    .premium-test-card {
-      background: white; border-radius: 16px; padding: 35px 30px; text-align: center;
-      box-shadow: 0 10px 25px rgba(29,52,97,0.08); position: relative; overflow: hidden;
-      display: flex; flex-direction: column; justify-content: space-between;
-      border: 1px solid var(--border); border-top: 5px solid var(--gold); transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .premium-test-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(29,52,97,0.15); }
-
-    /* MODAL OVERLAYS */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-    .auth-box { background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; border-top: 5px solid var(--navy); box-shadow: 0 15px 30px rgba(0,0,0,0.3); animation: pop 0.3s ease-out; }
-    @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    /* 7 TOPIC CARDS WITH QUESTION SELECTOR */
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 1.8rem 1.2rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+    .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
+    .p-topic-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
+    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--navy); margin-bottom: 1.2rem; line-height: 1.4; }
+    
+    /* New Dropdown Style */
+    .q-count-select { width: 100%; padding: 8px 12px; margin-bottom: 12px; border: 1.5px solid #cbd5e0; border-radius: 6px; font-family: var(--font-sans); font-size: 0.9rem; color: var(--navy); background-color: #f8fafd; outline: none; cursor: pointer; transition: 0.2s; font-weight: 600; text-align: center; }
+    .q-count-select:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(29,52,97,0.1); }
+    
+    .btn-p-start { width: 100%; padding: 10px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; margin-bottom: 0; }
+    .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
 
     /* ================= EXAM UI ================= */
     .exam-container { display: none; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
-    
-    .exam-topbar {
-      background: var(--navy); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-wrap: wrap; gap: 10px;
-    }
+    .exam-topbar { background: var(--navy); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-wrap: wrap; gap: 10px; }
     .exam-brand { font-family: var(--font-serif); font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--gold-light); }
     .exam-stats { display: flex; gap: 15px; font-size: 0.9rem; font-weight: 600; }
-    .stat-badge { padding: 4px 12px; border-radius: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 5px; }
-    .stat-badge.ans { background: rgba(22, 163, 74, 0.2); border-color: #22c55e; color: #bbf7d0; }
-    .stat-badge.pen { background: rgba(220, 38, 38, 0.2); border-color: #ef4444; color: #fecaca; }
+    .stat-badge { padding: 4px 12px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
+    .stat-badge.ans { background: rgba(22, 163, 74, 0.2); border: 1px solid #22c55e; color: #bbf7d0; }
+    .stat-badge.pen { background: rgba(220, 38, 38, 0.2); border: 1px solid #ef4444; color: #fecaca; }
     .exam-actions { display: flex; align-items: center; gap: 15px; }
     .exam-timer { background: #fee2e2; color: #b91c1c; padding: 6px 16px; border-radius: 20px; font-weight: 800; font-family: monospace; font-size: 1.1rem; border: 2px solid #fca5a5; display: flex; align-items: center; gap: 6px; }
 
@@ -97,7 +72,12 @@
     .palette-btn.review { background: #805ad5; }
     .palette-btn.current { outline: 3px solid var(--navy); outline-offset: 2px; }
 
-    /* ================= OLD SCORECARD & RESULT SCREEN ================= */
+    /* MODALS */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+    .auth-box { background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; border-top: 5px solid var(--gold); box-shadow: 0 15px 30px rgba(0,0,0,0.3); animation: pop 0.3s ease-out; }
+    @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* ================= SCORECARD SCREEN ================= */
     #resultScreen { display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh; }
     .scorecard-wrapper { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; border: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center; position: relative; }
     
@@ -112,43 +92,32 @@
     .sb-s { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
     .sb-a { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
 
-    /* TOPIC ANALYSIS */
-    .topic-analysis-box { margin-top: 30px; text-align: left; background: #f8fafd; padding: 25px; border-radius: 12px; border: 1px solid var(--border); }
-    .topic-analysis-box h4 { color: var(--navy); font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; }
-    .topic-row { margin-bottom: 15px; }
-    .topic-name { display: flex; justify-content: space-between; font-weight: 700; color: var(--text); margin-bottom: 5px; font-size: 1.05rem; }
-    .topic-bar-bg { height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; display: flex; }
-    .topic-bar-fill { height: 100%; transition: width 1s ease-in-out; }
-    .topic-feedback { font-size: 0.85rem; font-weight: bold; margin-top: 4px; }
-    .feedback-good { color: var(--green); }
-    .feedback-bad { color: var(--red); }
-
     /* BRANDING PRINT */
-    .print-branding { margin-top: 40px; padding-top: 20px; border-top: 2px dashed var(--border-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .print-branding { margin-top: 40px; padding-top: 20px; border-top: 2px dashed var(--border-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
     .print-branding h3 { font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin: 0; }
     .print-branding p { color: var(--text-mid); font-weight: 600; margin: 5px 0; }
-    .print-url { background: var(--navy); color: var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; font-size: 0.9rem; }
+    .print-url { background: var(--navy); color: var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; font-size: 0.9rem; display: inline-block; }
 
-    /* MOBILE RESPONSIVE (નવું ફોર્મેટ) */
+    /* ================= MOBILE RESPONSIVE ================= */
     @media (max-width: 768px) {
-      .grid-2 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .p-topic-card { padding: 1rem 0.5rem; }
+      .p-topic-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+      .p-topic-card h3 { font-size: 0.9rem; margin-bottom: 0.8rem; }
+      .q-count-select { font-size: 0.8rem; padding: 6px; margin-bottom: 10px; }
+      .btn-p-start { font-size: 0.85rem; padding: 8px; }
       
-      /* એક્ઝામ ટોપબારને એકદમ નાનું અને સળંગ કર્યું (screenshot મુજબ) */
+      /* એક્ઝામ ટોપબારને એકદમ નાનું અને સળંગ કર્યું */
       .exam-topbar { padding: 10px 15px !important; display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; }
-      .exam-brand, .exam-stats { display: none !important; } /* ડેસ્કટોપ બ્રાન્ડ અને સ્ટેટ્સ છુપાવો */
+      .exam-brand, .exam-stats { display: none !important; } 
       .exam-actions { width: 100% !important; display: flex !important; justify-content: space-between !important; margin: 0 !important; }
       .exam-timer { font-size: 1.1rem !important; padding: 6px 15px !important; margin: 0 !important; }
       .exam-actions .btn { font-size: 0.9rem !important; padding: 8px 20px !important; margin: 0 !important; }
 
       /* નવો મોબાઈલ સ્ટેટ્સ બાર અને પ્રશ્નો બટન */
       .mobile-stats-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #ffffff;
-        padding: 12px 15px;
-        border-bottom: 2px solid var(--border);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        display: flex; justify-content: space-between; align-items: center;
+        background: #ffffff; padding: 12px 15px; border-bottom: 2px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       }
       .m-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
       .m-stat .count { font-size: 1.15rem; font-weight: 900; line-height: 1; }
@@ -160,33 +129,32 @@
       .m-stat.grid-btn:active { background: #e2e8f0; }
       .m-stat.grid-btn .lbl { color: var(--navy); }
 
-      /* પ્રશ્નોની પેનલ (Palette) ને મોબાઈલમાં Popup/Modal બનાવ્યું */
+      /* પ્રશ્નોની પેનલ (Palette) ને મોબાઈલમાં Popup બનાવ્યું */
       .palette-panel {
-        display: none !important; /* by default hidden */
-        position: fixed !important;
+        display: none !important; position: fixed !important;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: white !important;
-        z-index: 10000 !important;
-        border: none !important;
-        padding: 20px !important;
-        flex-direction: column;
+        background: white !important; z-index: 10000 !important;
+        border: none !important; padding: 20px !important; flex-direction: column;
       }
       .palette-panel.open { display: flex !important; }
       .close-palette-btn {
-        display: block !important;
-        background: var(--navy); color: white; text-align: center;
+        display: block !important; background: var(--navy); color: white; text-align: center;
         padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1.05rem;
         margin-bottom: 15px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       }
-      .palette-grid { grid-template-columns: repeat(6, 1fr) !important; overflow-y: auto; padding-bottom: 20px; }
+      .palette-grid { grid-template-columns: repeat(5, 1fr) !important; overflow-y: auto; padding-bottom: 20px; }
       
-      /* બાકીની મોબાઈલ ડીઝાઇન */
-      .exam-body { flex-direction: column; }
-      .question-panel { padding: 15px 12px !important; }
-      .q-num-header { padding: 4px 15px !important; margin-bottom: 15px !important; font-size: 0.9rem !important; }
-      .question-text { font-size: 1.05rem !important; margin-bottom: 15px !important; line-height: 1.5 !important; }
+      /* બાકીની મોબાઈલ ડીઝાઇન (No Scroll) */
+      .exam-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; flex-direction: column; background: #fff; }
+      .exam-body { flex-direction: column; flex: 1; overflow: hidden; }
+      .question-panel { padding: 15px 12px !important; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+      
+      .q-num-header { padding: 4px 15px !important; margin-bottom: 10px !important; font-size: 0.9rem !important; }
+      .question-text { font-size: 1.05rem !important; margin-bottom: 10px !important; line-height: 1.5 !important; }
+      #optionsBox { flex: 1; overflow-y: auto; }
       .radio-option { padding: 10px 12px !important; font-size: 0.95rem !important; margin-bottom: 8px !important; }
-      .question-panel > div:last-child { margin-top: 15px !important; justify-content: center; gap: 8px; padding-top: 15px !important; }
+      
+      .question-panel > div:last-child { margin-top: auto !important; justify-content: center; gap: 8px; padding-top: 15px !important; border-top: 1px solid var(--border); }
       .question-panel > div:last-child .btn { padding: 10px !important; font-size: 0.85rem !important; flex: 1; text-align: center; }
       
       .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--navy); padding: 10px 0; z-index: 999; }
@@ -198,40 +166,6 @@
 </head>
 <body>
 
-<!-- LOGIN MODAL (PROMO CODE) -->
-<div class="modal-overlay" id="loginModal">
-  <div class="auth-box">
-    <h3 style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">🎟️ પ્રોમો કોડ દાખલ કરો</h3>
-    <p style="color: var(--text-mid); font-size: 0.95rem; margin-bottom: 20px;">આ પ્રીમિયમ મોક ટેસ્ટ બિલકુલ ફ્રીમાં આપવા માટે નીચે પ્રોમો કોડ દાખલ કરો.</p>
-    
-    <input type="text" id="securityKeyInput" placeholder="Enter Promo Code" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-weight: bold; outline: none;">
-    
-    <button class="btn btn-navy" style="width: 100%; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="verifyKey()">ટેસ્ટ શરૂ કરો 🚀</button>
-    <p id="keyError" style="color: var(--red); font-weight: bold; display: none; margin-top: 15px;">❌ ખોટો પ્રોમો કોડ! કૃપા કરીને સાચો કોડ દાખલ કરો.</p>
-    
-    <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('loginModal').style.display='none'">બંધ કરો</button>
-  </div>
-</div>
-
-<!-- WARNING MODAL (ANTI-BACK) -->
-<div class="modal-overlay" id="warningModal">
-  <div class="auth-box" style="border-top-color: var(--red);">
-    <h3 style="color: var(--red); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">⚠️ ચેતવણી!</h3>
-    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: bold;">પરીક્ષા દરમિયાન બેક (Back) જવાની કે પેજ રિફ્રેશ કરવાની સખત મનાઈ છે!</p>
-    <button class="btn btn-navy" style="width: 100%; padding: 12px; border-radius: 6px;" onclick="document.getElementById('warningModal').style.display='none'">ઓકે, ટેસ્ટ ચાલુ રાખો</button>
-  </div>
-</div>
-
-<!-- CUSTOM CONFIRMATION MODAL -->
-<div class="modal-overlay" id="customModalOverlay">
-  <div class="auth-box" style="border-top-color: var(--gold);">
-    <h3 id="modalTitle" style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">શીર્ષક</h3>
-    <p id="modalMsg" style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: 500; line-height: 1.5;">સંદેશ અહીં આવશે...</p>
-    <div id="modalFooter" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;"></div>
-  </div>
-</div>
-
-<!-- NAVBAR -->
 <nav id="standardNav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
@@ -262,110 +196,128 @@
     
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="test.html">Practice Test</a></li>
-      <li><a href="mocktest.html" class="active">Mock Test</a></li>
+      <li><a href="test.html" class="active">Practice Test</a></li>
+      <li><a href="mocktest.html">Mock Test</a></li>
       <li><a href="news.html">Exam News</a></li>
       <li><a href="materials.html">Study Materials</a></li>
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     
-    <div class="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></div>
+    <div class="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
 
-<!-- મુખ્ય પેનલ (આ બોક્સ એક્ઝામ વખતે ઓટોમેટિક હાઈડ થઈ જશે) -->
 <div id="mainContent">
   <div class="page-banner">
     <div class="wrapper">
-      <h1>Real-Time <em>Premium Mock Test</em></h1>
-      <p>TAT (માધ્યમિક/ઉચ્ચતર માધ્યમિક) માટે ૧૦૦ પ્રશ્નોની સંપૂર્ણ ઓનલાઇન પરીક્ષા.</p>
+      <h1>Topic-wise <em>Practice Tests</em></h1>
+      <p>તમારી મનપસંદ કેટેગરી અને પ્રશ્નોની સંખ્યા પસંદ કરીને લાઈવ પ્રેક્ટિસ શરૂ કરો!</p>
     </div>
   </div>
 
-  <div class="wrapper">
-    <!-- OFFER BANNER -->
-    <div class="offer-banner" style="background: #fffdf5; border: 2px dashed #b8860b; padding: 25px; border-radius: 10px; margin-bottom: 40px; text-align: center;">
-      <h3 style="color: #b8860b; margin-top: 0; font-size: 1.5rem; margin-bottom: 10px;">🎁 રામનવમી સ્પેશિયલ ઓફર!</h3>
-      <p style="color: #2c3e50; font-size: 1.15rem; line-height: 1.6; margin-bottom: 0;">
-        <strong>૧૦૦ પ્રીમીયમ પ્રશ્નો સાથે મોકટેસ્ટ આપો તદ્દન ફ્રિ</strong><br>
-        પ્રોમોકોડ <span style="background: var(--navy); color: var(--gold); padding: 3px 10px; border-radius: 5px; font-weight: 800;">RAMNAVAMI100</span> નો ઉપયોગ કરો.
-      </p>
-    </div>
-
-    <!-- 🚀 5 MOCK TESTS GRID 🚀 -->
-    <div id="paidTestSeries">
-      <h2 style="text-align: center; margin: 20px 0 30px; font-family: var(--font-serif); color: var(--navy); font-size: 2rem;">🚀 પેપર 1 - પ્રીમિયમ સિરીઝ</h2>
+  <div class="wrapper" style="margin-bottom: 50px;">
+    <!-- 7 વિષયના બોક્સ WITH DROPDOWNS -->
+    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto; margin-top: 40px;">
       
-      <div class="grid-2">
-        <!-- TEST 1 (FREE) -->
-        <div class="test-card" style="border-top: 5px solid var(--green); box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-          <div style="position: absolute; top: 15px; right: -35px; background: var(--green); color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">FREE TEST</div>
-          <div style="font-size: 4rem; margin-bottom: 10px;">🎓</div>
-          <h3 style="font-family: var(--font-serif); color: var(--navy); font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 1</h3>
-          <p style="margin: 15px 0; color: var(--text-mid); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો • ફ્રી</p>
-          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 14px 35px; width: 100%; border-radius: 50px;" onclick="openLogin()">ટેસ્ટ 1 શરૂ કરો 🚀</button>
-        </div>
-
-        <!-- TEST 2 (PAID) -->
-        <div class="test-card" style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border: 2px solid #a78bfa; box-shadow: 0 15px 35px rgba(124, 58, 237, 0.3); transform: perspective(1000px) rotateX(2deg); transition: 0.3s;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #fbbf24; color: #4c1d95; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
-          <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔒</div>
-          <h3 style="font-family: var(--font-serif); color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 2</h3>
-          <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #fbbf24; color: #4c1d95; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);" onclick="alert('આ પેઇડ ટેસ્ટને અનલૉક કરવા માટે પેમેન્ટ સિસ્ટમ ટૂંક સમયમાં શરૂ થશે!')">Unlock Test - ₹39</button>
-        </div>
-
-        <!-- TEST 3 (PAID) -->
-        <div class="test-card" style="background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%); border: 2px solid #fca5a5; box-shadow: 0 15px 35px rgba(220, 38, 38, 0.3); transform: perspective(1000px) rotateX(2deg); transition: 0.3s;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #fef08a; color: #991b1b; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
-          <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔒</div>
-          <h3 style="font-family: var(--font-serif); color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 3</h3>
-          <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: white; color: #dc2626; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);" onclick="alert('આ પેઇડ ટેસ્ટને અનલૉક કરવા માટે પેમેન્ટ સિસ્ટમ ટૂંક સમયમાં શરૂ થશે!')">Unlock Test - ₹39</button>
-        </div>
-
-        <!-- TEST 4 (PAID) -->
-        <div class="test-card" style="background: linear-gradient(135deg, #059669 0%, #064e3b 100%); border: 2px solid #6ee7b7; box-shadow: 0 15px 30px rgba(6, 78, 59, 0.3); transform: perspective(1000px) rotateX(2deg); transition: 0.3s;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #fbbf24; color: #064e3b; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
-          <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔒</div>
-          <h3 style="font-family: var(--font-serif); color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 4</h3>
-          <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #fbbf24; color: #064e3b; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);" onclick="alert('આ પેઇડ ટેસ્ટને અનલૉક કરવા માટે પેમેન્ટ સિસ્ટમ ટૂંક સમયમાં શરૂ થશે!')">Unlock Test - ₹39</button>
-        </div>
-
-        <!-- TEST 5 (PAID) -->
-        <div class="test-card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #475569; box-shadow: 0 15px 35px rgba(15, 23, 42, 0.4); transform: perspective(1000px) rotateX(2deg); transition: 0.3s; grid-column: 1 / -1; max-width: 600px; margin: 0 auto; width: 100%;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #38bdf8; color: #0f172a; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">MEGA TEST</div>
-          <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔒</div>
-          <h3 style="font-family: var(--font-serif); color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 5 (મેગા ટેસ્ટ)</h3>
-          <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #38bdf8; color: #0f172a; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);" onclick="alert('આ પેઇડ ટેસ્ટને અનલૉક કરવા માટે પેમેન્ટ સિસ્ટમ ટૂંક સમયમાં શરૂ થશે!')">Unlock Mega Test - ₹39</button>
+      <!-- Box 1 -->
+      <div class="p-topic-card">
+        <div><div class="p-topic-icon">🦉</div><h3>1. શિક્ષણની ફિલસૂફી</h3></div>
+        <div>
+          <select id="qc-philosophy" class="q-count-select">
+            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
+          </select>
+          <button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી', 'qc-philosophy')">પ્રેક્ટિસ શરૂ કરો</button>
         </div>
       </div>
-    </div>
 
+      <!-- Box 2 (PSYCHOLOGY) -->
+      <div class="p-topic-card">
+        <div><div class="p-topic-icon">🧠</div><h3>2. શૈક્ષણિક મનોવિજ્ઞાન</h3></div>
+        <div>
+          <select id="qc-psych" class="q-count-select">
+            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
+          </select>
+          <button class="btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન', 'qc-psych')">પ્રેક્ટિસ શરૂ કરો</button>
+        </div>
+      </div>
+
+      <!-- Box 3 -->
+      <div class="p-topic-card">
+        <div><div class="p-topic-icon">👩‍🏫</div><h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3></div>
+        <div>
+          <select id="qc-eval" class="q-count-select">
+            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
+          </select>
+          <button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન', 'qc-eval')">પ્રેક્ટિસ શરૂ કરો</button>
+        </div>
+      </div>
+
+      <!-- Box 4 -->
+      <div class="p-topic-card">
+        <div><div class="p-topic-icon">🧩</div><h3>4. તાર્કિક અભિયોગ્યતા</h3></div>
+        <div>
+          <select id="qc-reasoning" class="q-count-select">
+            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
+          </select>
+          <button class="btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા', 'qc-reasoning')">પ્રેક્ટિસ શરૂ કરો</button>
+        </div>
+      </div>
+
+      <!-- Box 5 -->
+      <div class="p-topic-card">
+        <div><div class="p-topic-icon">📜</div><h3>5. ગુજરાતી ભાષા</h3></div>
+        <div>
+          <select id="qc-gujarati" class="q-count-select">
+            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
+          </select>
+          <button class="btn-p-start" onclick="startPracticeTopic('gujarati', 'ગુજરાતી ભાષા', 'qc-gujarati')">પ્રેક્ટિસ શરૂ કરો</button>
+        </div>
+      </div>
+
+      <!-- Box 6 -->
+      <div class="p-topic-card">
+        <div><div class="p-topic-icon">🔠</div><h3>6. અંગ્રેજી ભાષા</h3></div>
+        <div>
+          <select id="qc-english" class="q-count-select">
+            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
+          </select>
+          <button class="btn-p-start" onclick="startPracticeTopic('english', 'અંગ્રેજી ભાષા', 'qc-english')">પ્રેક્ટિસ શરૂ કરો</button>
+        </div>
+      </div>
+
+      <!-- Box 7 -->
+      <div class="p-topic-card" style="grid-column: span 2;">
+        <div><div class="p-topic-icon">🌐</div><h3>7. સામાન્ય જ્ઞાન</h3></div>
+        <div style="display:flex; gap:10px;">
+          <select id="qc-gk" class="q-count-select" style="margin-bottom:0;">
+            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
+          </select>
+          <button class="btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન', 'qc-gk')">પ્રેક્ટિસ શરૂ કરો</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<!-- ==================== EXAM UI ==================== -->
+<!-- ==================== EXAM UI (PRACTICE MODE) ==================== -->
 <div class="exam-container" id="examContainer">
   <!-- TOP BAR EXAM -->
   <div class="exam-topbar">
     <div class="exam-brand">
-      <svg viewBox="0 0 160 160" style="width: 28px; height: 28px; background: white; border-radius: 6px; padding: 2px;">
-        <g transform="translate(15, 20)"><path d="M 30 108 Q 80 115 125 102" fill="none" stroke="#d4a017" stroke-width="4" stroke-linecap="round"/><circle cx="48" cy="40" r="13" fill="#1d3461"/><path d="M 40 108 C 40 70 52 60 76 75" fill="none" stroke="#1d3461" stroke-width="11" stroke-linecap="round"/><circle cx="78" cy="55" r="9" fill="#d4a017"/><path d="M 64 108 C 64 90 70 82 76 75" fill="none" stroke="#d4a017" stroke-width="8" stroke-linecap="round"/><path d="M 70 82 Q 85 70 98 55" fill="none" stroke="#d4a017" stroke-width="7" stroke-linecap="round"/><path d="M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z" fill="#d4a017"/></g>
-      </svg>
-      Adhyapak Saathi
+      <span id="headerIcon" style="font-size: 1.5rem;">📝</span> <span id="pTopicName">Topic Name</span>
     </div>
     
     <div class="exam-stats">
       <div class="stat-badge ans">✔️ Answered: <span id="cntAns">0</span></div>
-      <div class="stat-badge pen">⏳ Pending: <span id="cntPen">100</span></div>
+      <div class="stat-badge pen">⏳ Pending: <span id="cntPen">15</span></div>
     </div>
 
     <div class="exam-actions">
-      <div class="exam-timer">⏱️ <span id="timer">90:00</span></div>
+      <div class="exam-timer">⏱️ <span id="timer">15:00</span></div>
       <button class="btn btn-gold" style="padding: 6px 20px; color: var(--navy-dark); font-weight: 800; border-radius: 20px;" onclick="confirmSubmit()">Submit Test</button>
     </div>
   </div>
@@ -381,7 +333,7 @@
       <span class="lbl">છોડેલ</span>
     </div>
     <div class="m-stat pen">
-      <span class="count" id="mPen">100</span>
+      <span class="count" id="mPen">15</span>
       <span class="lbl">બાકી</span>
     </div>
     <div class="m-stat grid-btn" onclick="toggleMobilePalette()">
@@ -392,20 +344,19 @@
 
   <div class="exam-body">
     <div class="question-panel">
-      <div class="q-num-header" id="qNumHeader">પ્રશ્ન: 1 / 100</div>
+      <div class="q-num-header" id="qNumHeader">પ્રશ્ન: 1 / 15</div>
       <div class="question-text" id="qText">પ્રશ્ન લોડ થઈ રહ્યો છે...</div>
       <div id="optionsBox"></div>
       
-      <div style="margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 20px;">
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
         <button class="btn btn-navy" style="width: auto; padding: 10px 30px;" onclick="saveNext()">Save & Next</button>
         <button class="btn btn-outline" style="width: auto; border-color: #805ad5; color: #805ad5; padding: 10px 30px;" onclick="markReview()">Review & Next</button>
-        <button class="btn btn-outline" style="width: auto; border-color: #e2e8f0; color: #4a5568; padding: 10px 30px;" onclick="clearChoice()">Clear Response</button>
+        <button class="btn btn-outline" style="width: auto; border-color: #e2e8f0; color: #4a5568; padding: 10px 30px;" onclick="clearChoice()">Clear</button>
       </div>
     </div>
     
-    <!-- 🔢 QUESTION PALETTE (Also acts as Mobile Popup) -->
+    <!-- 🔢 QUESTION PALETTE (Popup on Mobile) -->
     <div class="palette-panel" id="palettePanel">
-      <!-- Only visible on mobile when opened -->
       <div class="close-palette-btn" onclick="toggleMobilePalette()">❌ પાછા જાઓ (Close Grid)</div>
       
       <div style="font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 5px; color: var(--navy);">Question Palette</div>
@@ -421,61 +372,55 @@
   </div>
 </div>
 
-<!-- ==================== DETAILED SCORECARD ==================== -->
-<div id="resultScreen">
+<!-- WARNING MODAL (ANTI-BACK & SUBMIT) -->
+<div class="modal-overlay" id="customModalOverlay">
+  <div class="auth-box" style="border-top-color: var(--gold);">
+    <h3 id="modalTitle" style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">શીર્ષક</h3>
+    <p id="modalMsg" style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: 500; line-height: 1.5;">સંદેશ અહીં આવશે...</p>
+    <div id="modalFooter" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;"></div>
+  </div>
+</div>
+
+<!-- ==================== DETAILED SCORECARD FOR PRACTICE TEST ==================== -->
+<div id="resultScreen" style="display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh;">
   <div class="scorecard-wrapper">
-    <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પરીક્ષા પરિણામ (Scorecard)</h2>
+    <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પ્રેક્ટિસ પરિણામ (Scorecard)</h2>
     <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 30px; font-weight: 600;">તમારું વિગતવાર વિશ્લેષણ નીચે મુજબ છે.</p>
 
     <!-- Main Circular Score -->
     <div class="score-circle-old">
-      <span class="marks" id="resScore">0.00</span>
-      <span class="total">out of 100</span>
+      <span class="marks" id="resScore">0</span>
+      <span class="total" id="resTotalText">out of 15</span>
     </div>
 
     <!-- Quick Stats Grid -->
     <div class="stats-grid-old">
       <div class="stat-box-old sb-c"><div style="font-size: 1.8rem;" id="resCorrect">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">સાચા જવાબો</div></div>
-      <div class="stat-box-old sb-w"><div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા (-0.25)</div></div>
+      <div class="stat-box-old sb-w"><div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા જવાબો</div></div>
       <div class="stat-box-old sb-s"><div style="font-size: 1.8rem;" id="resSkip">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
       <div class="stat-box-old sb-a"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div></div>
     </div>
 
-    <!-- Topic Wise Analysis -->
-    <div class="topic-analysis-box">
-      <h4>📊 વિષયવાર તમારું પ્રદર્શન (Topic Analysis)</h4>
-      <div id="taContent">
-        <!-- JS will populate this -->
-      </div>
-    </div>
-
-    <!-- Print Branding & Message -->
-    <div class="print-branding" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #cbd5e0; text-align: center;">
-      <h3 style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--navy); margin: 0;">Adhyapak Saathi</h3>
-      <p style="color: var(--green); font-weight: 800; margin: 8px 0; font-size: 1.05rem;">શિક્ષક બનવાનું તમારું સ્વપ્ન, અમારો સાથ! 🎯</p>
-      <p style="color: var(--text-mid); font-weight: 600; margin: 5px 0; font-size: 0.9rem;">ગુજરાતનું #1 પ્રીમિયમ ઓનલાઇન એજ્યુકેશન પ્લેટફોર્મ</p>
-      <div class="print-url" style="background: var(--navy); color: var(--gold); padding: 6px 18px; border-radius: 20px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; font-size: 0.95rem; display: inline-block;">🌐 www.adhyapaksaathi.in</div>
+    <!-- Print Branding -->
+    <div class="print-branding">
+      <h3>Adhyapak Saathi</h3>
+      <p style="color: var(--green); font-weight: 800; font-size: 1.05rem;">શિક્ષક બનવાનું તમારું સ્વપ્ન, અમારો સાથ! 🎯</p>
+      <div class="print-url">🌐 www.adhyapaksaathi.in</div>
     </div>
 
     <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-      <button class="btn btn-outline" style="padding: 12px 30px;" onclick="window.location.href='index.html'">🏠 હોમ પેજ</button>
-      <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી ટેસ્ટ આપો</button>
-      <button class="btn" style="background: #25D366; color: white; border: none; padding: 12px 30px;" onclick="shareWhatsApp()">📱 સ્કોર શેર કરો</button>
+      <button class="btn btn-outline" style="padding: 12px 30px;" onclick="window.location.href='test.html'">🏠 પાછા જાઓ</button>
+      <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી પ્રેક્ટિસ કરો</button>
     </div>
   </div>
 </div>
 
 <script>
-  // SECURITY
   document.addEventListener('contextmenu', e => e.preventDefault());
   window.onbeforeunload = null;
 
-  function toggleMobileNav() { document.getElementById('navLinks').classList.toggle('open'); }
-
-  // 📱 Mobile grid toggle function
-  function toggleMobilePalette() {
-    document.getElementById('palettePanel').classList.toggle('open');
-  }
+  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+  function toggleMobilePalette() { document.getElementById('palettePanel').classList.toggle('open'); }
 
   function showModal(title, msg, isConfirm, callback) {
     document.getElementById('modalTitle').innerText = title;
@@ -493,7 +438,7 @@
         const noBtn = document.createElement('button');
         noBtn.className = 'btn btn-outline'; 
         noBtn.style.padding = '10px 25px';
-        noBtn.innerText = 'ના, ટેસ્ટમાં પાછા જાવ';
+        noBtn.innerText = 'ના, પાછા જાવ';
         noBtn.onclick = () => { document.getElementById('customModalOverlay').style.display='none'; };
         
         footer.append(yesBtn, noBtn);
@@ -508,95 +453,216 @@
     document.getElementById('customModalOverlay').style.display = 'flex';
   }
 
-  function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-  
-  function verifyKey() {
-    const key = document.getElementById('securityKeyInput').value.trim().toUpperCase();
-    if(key === "TAT2026" || key === "RAMNAVAMI100") {
-      document.getElementById('loginModal').style.display = 'none';
-      startExam();
-    } else {
-      document.getElementById('keyError').style.display = 'block';
-      setTimeout(() => document.getElementById('keyError').style.display = 'none', 3000);
-    }
-  }
+  // ⚠️ તમારો વિશાળ પ્રેક્ટિસ ડેટાબેઝ (માત્ર મનોવિજ્ઞાનના 110 પ્રશ્નો સાથે) ⚠️
+  const practiceDB = [
+    // EXISTING DUMMY QUESTIONS FOR OTHER TOPICS
+    {q:"માણસનાં શરીર, મન, આત્મામાં જે કંઈ શ્રેષ્ઠ છે તે બધું બહાર લાવવું એટલે શિક્ષણ. આ વ્યાખ્યા કોણે આપી છે?", opts:["ઋગ્વેદ","કૌટિલ્ય","મહાત્મા ગાંધીજી","સ્વામી વિવેકાનંદ"], ans:2, topic:"philosophy"},
+    {q:"'બાળક એ કંઈ પ્રૌઢની લઘુ આવૃત્તિ નથી' - આ વિચાર કોણે રજૂ કર્યો?", opts:["ગાંધીજી","રૂસો","પ્લેટો","પેસ્ટાલોજી"], ans:1, topic:"philosophy"},
+    {q:"RTE એક્ટ મુજબ, શૈક્ષણિક વર્ષ શરૂ થયા પછી કેટલા મહિના સુધી પ્રવેશ આપી શકાય છે?", opts:["૩ મહિના","૫ મહિના","૬ મહિના","૯ મહિના"], ans:2, topic:"eval"},
+    {q:"આપેલી શ્રેણી પૂર્ણ કરો: 4, 8, 9, 27, 16, 64, 25 ...?", opts:["101","98","100","125"], ans:3, topic:"reasoning"},
 
-  // =======================================================================
-  // ⚠️ તમારો 100 પ્રશ્નોનો ડેટાબેઝ
-  // =======================================================================
-  const mockDB = [
-    {q:"સિંધુ નદીમાંથી નીકળનારી સૌથી મોટી ઉપનદી કઈ છે?", opts:["જેલમ","સતલજ","રાવી","ચિનાબ"], ans:3, topic:"સામાન્ય જ્ઞાન"},
-    {q:"\"માણસનાં શરીર, મન, આત્મામાં જે કંઈ શ્રેષ્ઠ છે તે બધું બહાર લાવવું એટલે શિક્ષણ.\" - આ વ્યાખ્યા કોણે આપી છે?", opts:["ઋગ્વેદ","કૌટિલ્ય","મહાત્મા ગાંધીજી","સ્વામી વિવેકાનંદ"], ans:2, topic:"શિક્ષણની ફિલસૂફી"},
-    {q:"IIM સુધારા બિલ 2025 હેઠળ ₹550 કરોડની ગ્રાન્ટ સાથે કઈ નવી IIMની સ્થાપના થશે?", opts:["પટના","રાંચી","ગુવાહાટી","નાગપુર"], ans:2, topic:"વર્તમાન પ્રવાહો"},
-    {q:"ગીરના જંગલમાં જંબુર ગામમાં કોની વસાહત છે?", opts:["ઠાકોર","દૂબળા","આહીર","સીદી"], ans:3, topic:"સામાન્ય જ્ઞાન"},
-    {q:"RTE એક્ટ મુજબ, શૈક્ષણિક વર્ષ શરૂ થયા પછી કેટલા મહિના સુધી પ્રવેશ આપી શકાય છે?", opts:["૩ મહિના","૫ મહિના","૬ મહિના","૯ મહિના"], ans:2, topic:"શૈક્ષણિક મનોવિજ્ઞાન"}
+    // 🧠 110 NEW PSYCHOLOGY (મનોવિજ્ઞાન) QUESTIONS 🧠
+    {q:"સિદ્ધાંતો અને તેના જનકનાં સાચાં જોડકાં બનાવો: બહુ અવયવ સિદ્ધાંત કોણે આપ્યો?", opts:["થર્સ્ટન","ગોલમેન","ગાર્ડનર","સ્ટેર્નબર્ગ"], ans:0, topic:"psych"},
+    {q:"નીચેના પૈકી કયું વિધાન વારસા માટે સાચું છે?", opts:["વ્યક્તિ જન્મ બાદ મેળવતી તમામ વિશેષતાઓ", "માતા-પિતા અને પૂર્વજો પાસેથી મળેલી જન્મગત વિશિષ્ટતાઓ", "ફક્ત વાતાવરણ દ્વારા પ્રભાવિત થતી વિશેષતાઓ", "વ્યક્તિની શૈક્ષણિક લાયકાત"], ans:1, topic:"psych"},
+    {q:"‘વંશાનુક્રમ’ શબ્દ ક્યા પ્રક્રિયા માટે વપરાય છે?", opts:["વ્યક્તિનો સામાજિક વિકાસ", "માતા-પિતા દ્વારા સંતાનોમાં જૈવિક કે મનોવૈજ્ઞાનિક વિશેષતાઓનું હસ્તાંતરણ", "શાળામાં મળતું શિક્ષણ", "વ્યક્તિની આસપાસનું વાયુમંડળ"], ans:1, topic:"psych"},
+    {q:"નીચે આપેલામાંથી કયો ‘વારસાનો નિયમ’ નથી?", opts:["સમાનતાનો નિયમ", "પ્રત્યાગમનનો નિયમ", "સામાજીકરણનો નિયમ", "મેન્ડલનો નિયમ"], ans:2, topic:"psych"},
+    {q:"‘વડ એવા ટેટા અને બાપ એવા બેટા’ આ કહેવત કયા સિદ્ધાંત તરફ નિર્દેશ કરે છે?", opts:["વાતાવરણનો પ્રભાવ", "પ્રેરણાનું મહત્ત્વ", "વારસાનો પ્રભાવ", "સામાજિક ગુણોનો વિકાસ"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી કોણે વાતાવરણની વ્યાખ્યા ‘એવાં બાહ્ય તત્વોનું સંમિશ્રણ છે કે જે વ્યક્તિને તેના જીવનના આરંભથી અસર કરે છે’ આપી છે?", opts:["બી. એન. ઝા", "રૂથ બૅડિકટ", "વૂડવર્થ", "કગલાસ અને હોવેન્ડ"], ans:2, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. બી. એન. ઝા (a) માતા-પિતા પાસેથી સંતાનને મળતા ગુણ, 2. રૂથ બૅડિકટ (b) વ્યક્તિની જન્મગત વિશિષ્ટતાઓનો સરવાળો, 3. કગલાસ અને હોવેન્ડ (c) શારીરિક બાંધો, વિશિષ્ટતાઓ અને ક્ષમતાઓનો સમાવેશ", opts:["1-(b), 2-(a), 3-(c)", "1-(a), 2-(c), 3-(b)", "1-(c), 2-(b), 3-(a)", "1-(b), 2-(c), 3-(a)"], ans:0, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: વારસો એ વ્યક્તિની જન્મગત વિશિષ્ટતાઓનો સરવાળો છે. વિધાન II: વાતાવરણ ફક્ત વૃદ્ધિને જ અસર કરે છે, વિકાસને નહીં.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:0, topic:"psych"},
+    {q:"નીચેના પૈકી કયું વાતાવરણનું ઉદાહરણ નથી?", opts:["બાળકનો પરિવાર", "બાળકની શાળા", "બાળકની આનુવંશિક ઊંચાઈ", "બાળકની આસપાસનો સમાજ"], ans:2, topic:"psych"},
+    {q:"મેન્ડલનો નિયમ કયા વિષય સાથે સંબંધ ધરાવે છે?", opts:["વાતાવરણ", "પ્રેરણા", "વારસો", "ટેવો"], ans:2, topic:"psych"},
+    {q:"'વ્યક્તિ જન્મ લેતાં જ તેની આસપાસનું વાતાવરણ તેના પર પ્રત્યક્ષ કે અપ્રત્યક્ષ પ્રભાવ જમાવે છે.' આ વિધાન કયા તત્વના મહત્ત્વને દર્શાવે છે?", opts:["વારસો", "પ્રેરણા", "વાતાવરણ", "પરિપક્વતા"], ans:2, topic:"psych"},
+    {q:"'ડિલોરાવસ્થા'ના અધિક્રમની કેટલી વિશેષતાઓ ગણાવવામાં આવી છે?", opts:["10", "11", "12", "13"], ans:3, topic:"psych"},
+    {q:"કિશોરાવસ્થામાં વ્યક્તિગત લિમન્તાની સંતુષ્ટિ માટે શિક્ષણની જરૂરિયાત કયા સંદર્ભે દર્શાવવામાં આવી છે?", opts:["શારીરિક વિકાસ માટે", "સામાજિક સંબંધોની ઉન્નતિ માટે", "કિશોર અવસ્થાની એક વિશેષતા તરીકે", "ધાર્મિક શિક્ષણ માટે"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી કિશોરાવસ્થાના અધિક્રમની કઈ વિશેષતા અપરાધ પર નિયંત્રણ સાથે સંબંધિત છે?", opts:["યોગ્ય શિક્ષણ વિધિ", "કન્યાઓ માટે ઉચિત અધિક્રમ", "અપરાધ પર નિયંત્રણ", "ગુરુવર્ષનું શિક્ષણ"], ans:2, topic:"psych"},
+    {q:"કિશોરાવસ્થા માટે નીચેનામાંથી કયું શિક્ષણ યોન શિક્ષણ સાથે સૌથી વધુ સંબંધિત છે?", opts:["સામાજિક સંબંધોની ઉન્નતિ", "વ્યાવસાયિક સૈયારી", "યોન શિક્ષણ", "માનસિક વિકાસ માટેનો અધિક્રમ"], ans:2, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: કિશોરાવસ્થા માટે સંબંધોના પરિભાજન માટે શિક્ષણ આવશ્યક છે. વિધાન II: આ અવસ્થામાં કિશોર વ્યક્તિત્વને સામાજિક માન્યતા મળવી જોઈએ.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી કયો મુદ્દો કિશોરાવસ્થાના શારીરિક વિકાસ સાથે સૌથી વધુ સંબંધિત છે?", opts:["ધાર્મિક અને નૈતિક શિક્ષણ", "અધ્યયન-અધિક્રમનું આયોજન", "વ્યક્તિગત લિમન્તાની સંતુષ્ટિ", "કન્યાઓ માટે ઉચિત અધિક્રમ"], ans:1, topic:"psych"},
+    {q:"કિશોરાવસ્થાના અધિક્રમની કઈ વિશેષતા વ્યાવસાયિક સૈયારી પર ભાર મૂકે છે?", opts:["સામાજિક સંબંધોની ઉન્નતિ", "ધાર્મિક અને નૈતિક શિક્ષણ", "વ્યાવસાયિક સૈયારી હેતુ માટે શિક્ષણ", "યોગ્ય શિક્ષણ વિધિના માધ્યમથી શિક્ષણ"], ans:2, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. માનસિક વિકાસ માટેનો અધિક્રમ (a) ભવિષ્યના વ્યવસાય માટે તૈયારી, 2. ગુરુવર્ષનું શિક્ષણ (b) શિક્ષણની યોગ્ય રીત અને પદ્ધતિ, 3. યોગ્ય શિક્ષણ વિધિ (c) વ્યક્તિના ચારિત્ર્ય અને વ્યવહારનું માર્ગદર્શન", opts:["1-(b), 2-(c), 3-(a)", "1-(c), 2-(a), 3-(b)", "1-(a), 2-(b), 3-(c)", "1-(b), 2-(a), 3-(c)"], ans:1, topic:"psych"},
+    {q:"નીચેના પૈકી કિશોરાવસ્થાની કઈ વિશેષતા સૌથી મહત્વપૂર્ણ ગણાશે?", opts:["ફક્ત શારીરિક વિકાસ", "ફક્ત વ્યાવસાયિક તૈયારી", "સર્વાંગી વિકાસ માટેનું સંકલિત આયોજન", "ફક્ત ધાર્મિક શિક્ષણ"], ans:2, topic:"psych"},
+    {q:"કિશોરાવસ્થામાં 'કન્યાઓ માટે ઉચિત અધિક્રમ'નો હેતુ શું છે?", opts:["તેમને ગૃહકૃત્ય માટે તૈયાર કરવા", "તેમના લિંગ-વિશિષ્ટ વિકાસ અને જરૂરિયાતોને ધ્યાનમાં લેવા", "તેમને ઉચ્ચ શિક્ષણથી દૂર રાખવા", "તેમને ફક્ત સાંસ્કૃતિક મૂલ્યો શીખવવા"], ans:1, topic:"psych"},
+    {q:"પ્રેરણાને સૌથી યોગ્ય રીતે કયા રૂપમાં વ્યાખ્યાયિત કરી શકાય?", opts:["બાહ્ય દબાણ", "આંતરિક શક્તિ", "શારીરિક ક્ષમતા", "સામાજિક નિયમ"], ans:1, topic:"psych"},
+    {q:"'પ્રેરકો એ માણસોની એવી શારીરિક અને માનસિક સ્થિતિ છે, જે તેને કોઈ એક ચોક્કસ રીતે કાર્ય કરવા પ્રેરે છે.' આ વ્યાખ્યા કોણે આપી છે?", opts:["શેક", "મેક્ડોગલ", "મેક્પ્પાલ", "મેસ્લો"], ans:2, topic:"psych"},
+    {q:"મેસ્લોના પ્રેરણા સિદ્ધાંતમાં સૌથી મૂળભૂત જરૂરિયાત કઈ છે?", opts:["સલામતીની જરૂરિયાત", "પ્રેમની જરૂરિયાત", "શારીરિક જરૂરિયાત", "સ્વ-આવિષ્કારની જરૂરિયાત"], ans:2, topic:"psych"},
+    {q:"'અભિપ્રેરણા એ કાર્ય શરૂ કરવાની, કાર્ય જાળવી રાખવાની કે, ચાલુ રાખવાની અને કાર્ય નિયમિત કરવાની પ્રક્રિયા છે.' આ વ્યાખ્યા કોની છે?", opts:["મેક્પ્પાલ", "શેક", "મેસ્લો", "ફ્રોઈડ"], ans:1, topic:"psych"},
+    {q:"પ્રેરણાના ચક્રમાં 'જરૂરિયાત' પછી સીધું કયું પગલું આવે છે?", opts:["ધ્યેયલક્ષી વ્યવહાર", "સમસ્યાનું સમાધાન", "પ્રેરકની ઉત્પત્તિ", "નવી જરૂરિયાત"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી કયો પ્રેરણાનો બાહ્ય પ્રકાર નથી?", opts:["પુરસ્કાર અને દંડ", "સફળતા અને અસફળતા", "સ્પર્ધા અને મદદ", "રસ-રૂચિનો વિકાસ"], ans:3, topic:"psych"},
+    {q:"મેસ્લોના સિદ્ધાંતમાં 'આદરની જરૂરિયાત' કયા સ્તરે આવે છે?", opts:["પ્રથમ", "ત્રીજા", "ચોથા", "પાંચમા"], ans:2, topic:"psych"},
+    {q:"પ્રેરણાના નીચેના કાર્યોમાંથી કયું એક સૌથી મહત્વપૂર્ણ છે?", opts:["વ્યક્તિગત નિન્નતામાં યોગદાન", "માનસિક વિકાસમાં યોગદાન", "વ્યવહારને ધ્યેયલક્ષી બનાવવો", "ટેવોનો વિકાસ"], ans:2, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. વખાણ અને નિંદા (a) સામાજિક પ્રેરક, 2. ગતિનું વ્યવસ્થિત જ્ઞાન (b) મૂલ્યાંકન પ્રેરક, 3. સ્પર્ધા અને મદદ (c) પ્રતિપુષ્ટિ પ્રેરક", opts:["1-(a), 2-(b), 3-(c)", "1-(b), 2-(c), 3-(a)", "1-(c), 2-(a), 3-(b)", "1-(b), 2-(a), 3-(c)"], ans:1, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: પ્રેરણા એ ફક્ત શારીરિક જરૂરિયાતો સાથે સંબંધિત છે. વિધાન II: મેસ્લોના સિદ્ધાંત મુજબ, સ્વ-આવિષ્કાર એ સર્વોચ્ચ જરૂરિયાત છે.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:1, topic:"psych"},
+    {q:"ટેવની સૌથી યોગ્ય વ્યાખ્યા શું છે?", opts:["એક વખત કરેલું કાર્ય", "સ્વયંસિદ્ધ બની ગયેલું કાર્ય", "દબાણ હેઠળ કરેલું કાર્ય", "મુશ્કેલીપૂર્વક શીખેલું કાર્ય"], ans:1, topic:"psych"},
+    {q:"ટેવોના કેટલા પ્રકાર ગણાવવામાં આવ્યા છે?", opts:["5", "6", "7", "8"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી 'યાંત્રિક ટેવો'નું ઉદાહરણ કયું છે?", opts:["સાચું બોલવું", "લખતી વખતે પેન પકડવાની રીત", "દયા અને કરુણા", "તાર્કિક વિચાર"], ans:1, topic:"psych"},
+    {q:"નીચેના પૈકી કઈ ટેવ ભાવનાઓ સાથે સંબંધિત છે?", opts:["વિચારસંબંધિત ટેવો", "ભાવનાસંબંધિત ટેવો", "ભાષાસંબંધિત ટેવો", "નૈતિક ટેવો"], ans:1, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: ટેવો મનોશારીરિક હોઈ શકે છે. વિધાન II: ભાષાસંબંધિત ટેવો એ યાંત્રિક ટેવોનો એક પ્રકાર છે.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:0, topic:"psych"},
+    {q:"'જ્યારે કોઈ કાર્ય સ્વેચ્છાપૂર્વક શરૂ કરવામાં આવે અને કાયમી ચાલુ રાખવામાં આવે તો તે બની જાય છે.' આ વિધાન કઈ પ્રક્રિયા માટે સાચું છે?", opts:["પ્રેરણા", "ટેવ", "થાક", "વિકાસ"], ans:1, topic:"psych"},
+    {q:"નીચેના પૈકી 'નૈતિક ટેવો'નું ઉદાહરણ કયું છે?", opts:["વાંચવાની આદત", "સમયસર ઊઠવાની આદત", "પ્રમાણિકપણે વર્તવાની આદત", "હસ્તાક્ષર કરવાની રીત"], ans:2, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. સ્નાયુતંત્ર સંબંધિત (a) સ્પષ્ટ બોલવું, 2. ભાષાસંબંધિત (b) ઊભા રહેવાની મુદ્રા, 3. વિચારસંબંધિત (c) સમસ્યાનું તાર્કિક ઉકેલ શોધવું", opts:["1-(b), 2-(a), 3-(c)", "1-(a), 2-(c), 3-(b)", "1-(c), 2-(b), 3-(a)", "1-(b), 2-(c), 3-(a)"], ans:0, topic:"psych"},
+    {q:"થાક એ શારીરિક અને માનસિક સ્થિતિ છે. ટેવોના વિકાસ માટે થાકની અસર શું હોઈ શકે?", opts:["ટેવો વધુ મજબૂત બને છે.", "ટેવો બનાવવાની પ્રક્રિયા ધીમી પડે છે.", "ટેવો પર કોઈ અસર થતી નથી.", "ટેવો આપમેળે બની જાય છે."], ans:1, topic:"psych"},
+    {q:"'સાચું બોલવું' એ કઈ ટેવનો પ્રકાર છે?", opts:["યાંત્રિક", "મનોશારીરિક", "ભાષાસંબંધિત", "નૈતિક"], ans:3, topic:"psych"},
+    {q:"જીવન કૌશલ્યોની યાદી કઈ આંતરરાષ્ટ્રીય સંસ્થા દ્વારા તારવામાં આવી છે?", opts:["યુનેસ્કો (UNESCO)", "યુનિસેફ (UNICEF)", "યમડ (WHO)", "એપીએ (APA)"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી કયું કૌશલ્ય 'સ્વજ્ઞાન' સાથે સૌથી વધુ સંબંધિત છે?", opts:["પોતાની લાગણીઓને ઓળખવી", "અન્યની લાગણીઓ સમજવી", "નિર્ણય લેવો", "સમસ્યા ઉકેલવી"], ans:0, topic:"psych"},
+    {q:"નીચેના પૈકી કયું કૌશલ્ય 'સમાનુભૂતિ - પરાનુભૂતિ' સાથે સૌથી વધુ સંબંધિત છે?", opts:["પોતાની લાગણીઓ વ્યક્ત કરવી", "બીજાના દ્રષ્ટિકોણથી પરિસ્થિતિ જોવી", "તનાવનો સામનો કરવો", "સર્જનાત્મક ચિંતન કરવું"], ans:1, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. વિવેચનાત્મક ચિંતન (a) નવા અને મૌલિક વિચારો ઉત્પન્ન કરવા, 2. સર્જનાત્મક ચિંતન (b) સમસ્યાના ઉકેલ માટે તાર્કિક વિશ્લેષણ, 3. સમસ્યા ઉકેલ (c) અવરોધોને દૂર કરવા માટેની પ્રક્રિયા", opts:["1-(a), 2-(b), 3-(c)", "1-(b), 2-(a), 3-(c)", "1-(c), 2-(b), 3-(a)", "1-(b), 2-(c), 3-(a)"], ans:1, topic:"psych"},
+    {q:"નીચેના પૈકી કયું કૌશલ્ય સીધું 'આંતરમાનવીય વ્યવહાર' સાથે સંબંધિત છે?", opts:["તનાવનું અનુકૂલન", "અસરકારક સંવાદ", "સ્વજ્ઞાન", "નિર્ણયશક્તિ"], ans:1, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: જીવન-કૌશલ્યો હસ્તગત થતાં વ્યક્તિત્વ અને સામાજિકતાનો વિકાસ થાય છે. વિધાન II: જીવન-કૌશલ્યોનો ઉદ્દેશ ફક્ત શૈક્ષણિક સફળતા છે.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:0, topic:"psych"},
+    {q:"'સંવેગાનુકૂલન' કૌશલ્યનો મુખ્ય ઉદ્દેશ શું છે?", opts:["લાગણીઓને દબાવવી", "લાગણીઓને અનુકૂળ રીતે વ્યવસ્થિત કરવી", "લાગણીઓને વ્યક્ત ન થવા દેવી", "ફક્ત સુખદ લાગણીઓ અનુભવવી"], ans:1, topic:"psych"},
+    {q:"WHO દ્વારા તારવેલાં કૌશલ્યોમાં 'નિર્ણયશક્તિ'નો સમાવેશ થાય છે. આ કૌશલ્યનો મુખ્ય હેતુ શું છે?", opts:["ઝડપથી નિર્ણય લેવો", "અન્યના કહેવાથી નિર્ણય લેવો", "ઉપલબ્ધ વિકલ્પોમાંથી યોગ્ય પસંદગી કરવી", "નિર્ણય ન લેવો"], ans:2, topic:"psych"},
+    {q:"'તનાવ અનુકૂલન' કૌશલ્ય કઈ પરિસ્થિતિમાં ઉપયોગી થાય છે?", opts:["આનંદની ક્ષણોમાં", "તણાવપૂર્ણ પરિસ્થિતિમાં", "સામાન્ય દિનચર્યામાં", "રમત-ગમત દરમિયાન"], ans:1, topic:"psych"},
+    {q:"નીચેના પૈકી કયું કૌશલ્ય વિદ્યાર્થીને જવાબદાર અને કાર્યક્ષમ નાગરિક બનાવવામાં સૌથી વધુ ફાળો આપે છે?", opts:["ફક્ત સ્વજ્ઞાન", "ફક્ત નિર્ણયશક્તિ", "તમામ કૌશલ્યોનો સંકલિત વિકાસ", "ફક્ત તનાવ અનુકૂલન"], ans:2, topic:"psych"},
+    {q:"'મૂલ્ય' શબ્દ મૂળરૂપે કયા વિષયનો શબ્દ છે?", opts:["મનોવિજ્ઞાન", "સમાજશાસ્ત્ર", "તત્ત્વજ્ઞાન (Philosophy)", "શિક્ષણશાસ્ત્ર"], ans:2, topic:"psych"},
+    {q:"'મૂલ્યો એ સામાજિક અપેક્ષાઓ છે, લક્ષ્યાંકો છે કે સામાજિકીકરણની પ્રક્રિયા દ્વારા આત્મસાત્ થયા પછી પસંદગી અને કદર કરવા યોગ્ય દોષણોનું સ્વરૂપ ધારણ કરે છે.' આ વ્યાખ્યા કોની છે?", opts:["બ્રૂબેક", "મેસ્લો", "ફ્રોઈડ", "પિયાજે"], ans:0, topic:"psych"},
+    {q:"મૂલ્યોનો સંબંધ નીચેના પૈકી શેની સાથે છે?", opts:["માત્ર ઉપયોગિતા", "માત્ર ગુણવત્તા", "માત્ર કિંમત અને મહત્ત્વ", "ઉપયોગિતા, ગુણવત્તા, કિંમત અને મહત્ત્વ સાથે"], ans:3, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: મૂલ્યો આપણી ઇચ્છાઓ, આવેગો અને આકાંક્ષાઓને માર્ગદર્શન આપે છે. વિધાન II: બ્રૂબેક મૂલ્યોને માનવજીવનની ઇચ્છાઓ સંતોષવાનું એક પરિબળ ગણે છે.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:2, topic:"psych"},
+    {q:"'મૂલ્ય એ એક વિચાર કે સંકલ્પના છે.' આ વાક્યનો અર્થ શું દર્શાવે છે?", opts:["મૂલ્યો મૂર્ત હોય છે.", "મૂલ્યો અમૂર્ત હોય છે અને જીવનના મહત્ત્વપૂર્ણ પાસાઓ વિશેના વિચારો છે.", "મૂલ્યોને જોઈ અને સ્પર્શી શકાય છે.", "મૂલ્યો ભૌતિક વસ્તુઓ છે."], ans:1, topic:"psych"},
+    {q:"મૂલ્ય શિક્ષણનો અંતિમ લક્ષ્ય શું છે?", opts:["પરીક્ષામાં સારા ગુણ મેળવવા", "જીવનને વધુ સારું અને સુંદર બનાવવું", "સમાજના નિયમોનું પાલન કરાવવું", "આર્થિક સફળતા મેળવવી"], ans:1, topic:"psych"},
+    {q:"નીચેના પૈકી કયું મૂલ્યનું ઉદાહરણ નથી?", opts:["પ્રામાણિકતા", "દયા", "પાણી", "સેવા"], ans:2, topic:"psych"},
+    {q:"'મૂલ્યો એ આપણી કામનાઓને ટૂપ કરે છે.' આ વિધાન કોના વિચારોને પ્રતિબિંબિત કરે છે?", opts:["પિયાજે", "ફ્રોઈડ", "બ્રૂબેક", "મેસ્લો"], ans:2, topic:"psych"},
+    {q:"મૂલ્ય શિક્ષણનો ઉદ્દેશ વિદ્યાર્થીઓમાં શું વિકસાવવાનો છે?", opts:["ફક્ત સ્પર્ધાત્મક ભાવના", "સામાજિક અપેક્ષાઓને આત્મસાત્ કરવાની ક્ષમતા", "ફક્ત સૈદ્ધાંતિક જ્ઞાન", "ફક્ત વ્યાવસાયિક કૌશલ્ય"], ans:1, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. સામાજિક અપેક્ષાઓ (a) જીવનની ઇચ્છાઓ, આવેગોને માર્ગદર્શન, 2. બ્રૂબેકનો દૃષ્ટિકોણ (b) મૂલ્યોનો સ્ત્રોત, 3. મૂલ્યોની અમૂર્તતા (c) તેને જોઈ કે સ્પર્શી શકાતી નથી", opts:["1-(a), 2-(b), 3-(c)", "1-(b), 2-(a), 3-(c)", "1-(c), 2-(b), 3-(a)", "1-(b), 2-(c), 3-(a)"], ans:1, topic:"psych"},
+    {q:"'Normal' શબ્દ કઈ ભાષાના કયા શબ્દ પરથી ઉતરી આવ્યો છે?", opts:["ગ્રીક, 'Nomos'", "લેટિન, 'Norma'", "સંસ્કૃત, 'ધર્મ'", "અરબી, 'અદલ'"], ans:1, topic:"psych"},
+    {q:"અસાધારણ વર્તનની વ્યાખ્યા ‘સામાન્ય, પ્રચલિત કે નમૂના સ્વરૂપથી એટલી હદે ભિન્ન વર્તન કે જેને સામાન્ય વર્તનના પ્રચલન તરીકે દર્શાવી શકાય નહીં’ કોણે આપી છે?", opts:["વૂડવર્થ", "વોરેન", "ફ્રોઈડ", "સ્કીનર"], ans:1, topic:"psych"},
+    {q:"આંતરરાષ્ટ્રીય ક્ષેત્રે માનસિક રોગોના વર્ગીકરણ સાથે જોડાયેલી બે સંસ્થાઓ કઈ છે?", opts:["UNESCO અને UNICEF", "WHO અને APA", "ILO અને FAO", "IMF અને World Bank"], ans:1, topic:"psych"},
+    {q:"નીચેના પૈકી કઈ માનસિક વિકૃતિ વારસાગત જોવા મળે છે?", opts:["ફક્ત ડિપ્રેશન", "ફક્ત ચિંતા", "સ્કિઝોફ્રેનિયા (છિન્ન મનોવિકૃતિ)", "ફક્ત ફોબિયા"], ans:2, topic:"psych"},
+    {q:"પેકલેએ 1982માં કઈ વિકૃતિ પર અભ્યાસ કરી તેના માટે વારસાગત કારણો દર્શાવ્યા?", opts:["ચિંતા (Anxiety)", "ખિન્નતા (Depression)", "સ્કિઝોફ્રેનિયા", "ઉન્માદ (Mania)"], ans:1, topic:"psych"},
+    {q:"આધુનિક જૈવિક અભિગમ અસાધારણ વર્તન માટે કયા કારણોને વધુ મહત્ત્વ આપે છે?", opts:["ફક્ત વારસો", "ફક્ત વાતાવરણ", "જૈવરાસાયણિક અને મસ્તિષ્ક વિકાર", "ફક્ત સામાજિક પરિબળો"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી કયો રોગ મસ્તિષ્ક વિકાર સાથે સંબંધિત છે?", opts:["ફલૂ", "પક્ષઘાત", "ટાઇફોઇડ", "મેલેરિયા"], ans:1, topic:"psych"},
+    {q:"'સામાન્યીકૃત ચિંતા વિકૃતિ (GAD)' ને કયા નામથી પણ ઓળખવામાં આવે છે?", opts:["વિશિષ્ટ ચિંતા", "સામાજિક ચિંતા", "મુક્ત રીતે તરતી ચિંતા", "ભયની ચિંતા"], ans:2, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. જૈવિક પ્રતિમાન (a) જે.બી. વોટસન, 2. વર્તનિક પ્રતિમાન (b) મસ્તિષ્ક વિકાર, 3. બોધાત્મક પ્રતિમાન (c) ધ્યાન, સ્મરણ, સંગઠનાત્મક સંરચનાઓ", opts:["1-(b), 2-(a), 3-(c)", "1-(a), 2-(c), 3-(b)", "1-(c), 2-(b), 3-(a)", "1-(b), 2-(c), 3-(a)"], ans:0, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: APA એ અમેરિકન સાયકાયટ્રિક એસોસિયેશન છે જે માનસિક રોગોના ઉપચાર સાથે સંકળાયેલ છે. વિધાન II: વારસો એ અસાધારણ વર્તનનું એકમાત્ર કારણ છે.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:0, topic:"psych"},
+    {q:"'પોતાના મનોભાવોનું બીજા પર આરોપણ કરવું' એ કઈ સંરક્ષણ યંત્રણાની વ્યાખ્યા છે?", opts:["કલ્પનાશીલતા", "બોધિકરણ", "મકેત (પ્રક્ષેપ)", "બોધિકીકરણ"], ans:2, topic:"psych"},
+    {q:"'ભાટી દ્રાક્ષ' ની કહેવત કઈ સંરક્ષણ યંત્રણા સાથે સંબંધિત છે?", opts:["કલિપૂર્તિ", "બોધિકીકરણ", "મકેત", "યુક્તિકરણ"], ans:3, topic:"psych"},
+    {q:"નીચેના પૈકી કયું 'બોધિકરણ'નું ઉદાહરણ છે?", opts:["પોતાની નિષ્ફળતા માટે પરીક્ષા પેપરને દોષ આપવો", "ડૉક્ટર ન બની શકનાર પિતા પુત્રને ડૉક્ટર બનાવવા પ્રયત્ન કરે", "સ્વપ્નમાં પોતાની ઇચ્છાઓ જોવી", "'આ દ્રાક્ષ તો ખાટી છે' એમ કહી સંતોષ માનવો"], ans:2, topic:"psych"},
+    {q:"'કલિપૂર્તિ' યંત્રણામાં વ્યક્તિ શું કરે છે?", opts:["પોતાના ગુણ-દોષ બીજા પર ઢોળે છે.", "એક ક્ષેત્રમાં નિષ્ફળતાની ભરપાઈ બીજા ક્ષેત્રમાં સિદ્ધિ મેળવીને કરે છે.", "અસ્વીકાર્ય ઇચ્છાઓને તર્કસંગત બનાવે છે.", "પોતાની લાગણીઓને સ્વપ્નમાં વ્યક્ત કરે છે."], ans:1, topic:"psych"},
+    {q:"'મીઠું લીંબુ' ની કહેવત કઈ યંત્રણાને દર્શાવે છે?", opts:["મકેત", "કલિપૂર્તિ", "યુક્તિકરણ", "બોધિકરણ"], ans:2, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. મકેત (a) ડૉક્ટર ન બની શક્યો, પણ સારો શિક્ષક બન્યો, 2. કલિપૂર્તિ (b) પરીક્ષામાં નાપાસ થયેલ વિદ્યાર્થી કહે, 'પેપર જ અઘરું હતું.', 3. યુક્તિકરણ (c) શિક્ષક પોતાની ભૂલ માટે વિદ્યાર્થીને દોષ આપે", opts:["1-(c), 2-(a), 3-(b)", "1-(a), 2-(b), 3-(c)", "1-(b), 2-(c), 3-(a)", "1-(c), 2-(b), 3-(a)"], ans:0, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: યુક્તિકરણમાં વ્યક્તિ પોતાના અસ્વીકાર્ય વર્તન માટે તાર્કિક અને સામાજિક રીતે સ્વીકાર્ય કારણો આપે છે. વિધાન II: બોધિકરણમાં વ્યક્તિ પોતાની ઇચ્છાઓને સ્વીકારી લે છે.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:0, topic:"psych"},
+    {q:"'જે વસ્તુ પ્રાપ્ત ન થઈ શકે તે વસ્તુ ખરાબ છે' એવી દલીલ કરવી એ કઈ યંત્રણા છે?", opts:["કલિપૂર્તિ", "મકેત", "ભાટી દ્રાક્ષનું યુક્તિકરણ", "બોધિકરણ"], ans:2, topic:"psych"},
+    {q:"'P.R. કોર્પોરેશનમાં નોકરી ન મળી, તેથી કહ્યું કે મારે તો પંજાબી સરકારમાં કામ કરવું નથી.' આ કઈ યંત્રણાનું ઉદાહરણ છે?", opts:["કલિપૂર્તિ", "ભાટી દ્રાક્ષ યુક્તિકરણ", "મકેત", "બોધિકરણ"], ans:1, topic:"psych"},
+    {q:"'પોતાની નિષ્ફળતાને સ્વીકારવાને બદલે પરિસ્થિતિ કે અન્યને જવાબદાર ઠેરવવા' કઈ યંત્રણાનો ભાગ છે?", opts:["કલિપૂર્તિ", "બોધિકરણ", "મકેત", "યુક્તિકરણ"], ans:2, topic:"psych"},
+    {q:"ફ્રોઈડના મનોજાતીય વિકાસના સિદ્ધાંતમાં કુલ કેટલી અવસ્થાઓ છે?", opts:["4", "5", "6", "7"], ans:2, topic:"psych"},
+    {q:"'મુખ અવસ્થા' કઈ ઉંમર સુધી રહે છે?", opts:["જન્મથી 1 વર્ષ", "જન્મથી 2 વર્ષ", "2 થી 3 વર્ષ", "3 થી 6 વર્ષ"], ans:1, topic:"psych"},
+    {q:"ફ્રોઈડના સિદ્ધાંત અનુસાર, 2 થી 3 વર્ષની ઉંમરે બાળકને કઈ અવસ્થામાં આનંદ મળે છે?", opts:["મુખ અવસ્થા", "લિંગ અવસ્થા", "ગુદા અવસ્થા", "સુધુત અવસ્થા"], ans:2, topic:"psych"},
+    {q:"'લિંગ અવસ્થા' કઈ ઉંમર દરમિયાન હોય છે?", opts:["2 થી 3 વર્ષ", "3 થી 6 વર્ષ", "6 થી 12 વર્ષ", "12 થી 14 વર્ષ"], ans:1, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. સુધુત અવસ્થા (a) 12 થી 14 વર્ષ, 2. સજાતીય અવસ્થા (b) 6 થી 12 વર્ષ, 3. વિજાતીય અવસ્થા (c) 14 થી 18 વર્ષ", opts:["1-(b), 2-(a), 3-(c)", "1-(a), 2-(c), 3-(b)", "1-(c), 2-(b), 3-(a)", "1-(b), 2-(c), 3-(a)"], ans:0, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: ફ્રોઈડના સિદ્ધાંતમાં જનનેન્દ્રિય અવસ્થા 13 વર્ષથી આજીવન રહે છે. વિધાન II: સુધુત અવસ્થામાં બાળક પોતાનાં નવાં કૌશલ્યો અને આવડતોના વિકાસમાં વધુ રસ દાખવે છે.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:2, topic:"psych"},
+    {q:"'સ્તનપાન' નો સંતોષ કઈ અવસ્થા સાથે સંબંધિત છે?", opts:["ગુદા અવસ્થા", "લિંગ અવસ્થા", "મુખ અવસ્થા", "સુધુત અવસ્થા"], ans:2, topic:"psych"},
+    {q:"ફ્રોઈડના સિદ્ધાંત અનુસાર, કઈ અવસ્થામાં બાળકની કામુકતાનું કેન્દ્ર તેની પોતાની જનનેન્દ્રિયો હોય છે?", opts:["ગુદા અવસ્થા", "લિંગ અવસ્થા", "સુધુત અવસ્થા", "સજાતીય અવસ્થા"], ans:1, topic:"psych"},
+    {q:"'જનનેક્રિયાવસ્થા'ની મુખ્ય વિશેષતા શું છે?", opts:["સ્તનપાન દ્વારા સંતોષ", "મળમૂત્ર વિસર્જન દ્વારા આનંદ", "બીજી વ્યક્તિ સાથેના સંબંધથી મહત્તમ સંતોષ અને આનંદ", "નવાં કૌશલ્યોના વિકાસમાં રસ"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી કઈ અવસ્થા ફ્રોઈડના સિદ્ધાંતમાં 'ગુપ્ત અવસ્થા' તરીકે પણ ઓળખાય છે?", opts:["ગુદા અવસ્થા", "લિંગ અવસ્થા", "સુધુત અવસ્થા", "સજાતીય અવસ્થા"], ans:2, topic:"psych"},
+    {q:"જીન પિયાજે કયા દેશના મનોવિજ્ઞાની હતા?", opts:["અમેરિકા", "જર્મની", "સ્વિટ્ઝરલેન્ડ", "ઑસ્ટ્રિયા"], ans:2, topic:"psych"},
+    {q:"પિયાજેના સિદ્ધાંતમાં બૌદ્ધિક વિકાસની કુલ કેટલી અવસ્થાઓ છે?", opts:["3", "4", "5", "6"], ans:1, topic:"psych"},
+    {q:"પિયાજેનો બૌદ્ધિક વિકાસનો સિદ્ધાંત કઈ ઉંમર સુધીનો વિકાસ સમજાવે છે?", opts:["10 વર્ષ", "12 વર્ષ", "15 વર્ષ", "18 વર્ષ"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી પિયાજેના સિદ્ધાંતની અવસ્થાઓનો સાચો ક્રમ કયો છે?", opts:["સંવેદન-ગતીય, પૂર્વ-સંજ્ઞાનાત્મક, મૂર્ત-સંજ્ઞાનાત્મક, અમૂર્ત-સંજ્ઞાનાત્મક", "પૂર્વ-સંજ્ઞાનાત્મક, સંવેદન-ગતીય, મૂર્ત-સંજ્ઞાનાત્મક, અમૂર્ત-સંજ્ઞાનાત્મક", "સંવેદન-ગતીય, મૂર્ત-સંજ્ઞાનાત્મક, પૂર્વ-સંજ્ઞાનાત્મક, અમૂર્ત-સંજ્ઞાનાત્મક", "મૂર્ત-સંજ્ઞાનાત્મક, સંવેદન-ગતીય, પૂર્વ-સંજ્ઞાનાત્મક, અમૂર્ત-સંજ્ઞાનાત્મક"], ans:0, topic:"psych"},
+    {q:"પિયાજેના સિદ્ધાંત અનુસાર, બાળક કઈ અવસ્થામાં અમૂર્ત રીતે વિચારવાનું શરૂ કરે છે?", opts:["સંવેદન-ગતીય અવસ્થા", "પૂર્વ-સંજ્ઞાનાત્મક અવસ્થા", "મૂર્ત-સંજ્ઞાનાત્મક અવસ્થા", "અમૂર્ત-સંજ્ઞાનાત્મક અવસ્થા"], ans:3, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: પિયાજે મુખ્યત્વે શૈશવથી તરુણાવસ્થા સુધીના બૌદ્ધિક વિકાસ પર ભાર મૂકે છે. વિધાન II: પિયાજેના સિદ્ધાંતમાં સંવેદન-ગતીય અવસ્થા એ સૌથી અંતિમ અવસ્થા છે.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:0, topic:"psych"},
+    {q:"'મૂર્ત-સંજ્ઞાનાત્મક અવસ્થા'ની મુખ્ય વિશેષતા શું છે?", opts:["ઇન્દ્રિયો અને ગતિવિધિઓ દ્વારા શીખવું", "વસ્તુઓ અને ઘટનાઓ વિશે તાર્કિક રીતે વિચારવાનું શરૂ કરવું, પણ મૂર્ત ઉદાહરણો સાથે", "ભાષાનો વિકાસ થવો અને પ્રતીકાત્મક રમતો રમવી", "અમૂર્ત અને કાલ્પનિક વિચારો કરવા"], ans:1, topic:"psych"},
+    {q:"પિયાજેના સિદ્ધાંતની 'પૂર્વ-સંજ્ઞાનાત્મક અવસ્થા' કઈ ઉંમર દરમિયાન હોય છે?", opts:["જન્મથી 2 વર્ષ", "2 થી 7 વર્ષ", "7 થી 11 વર્ષ", "11 વર્ષથી ઉપર"], ans:1, topic:"psych"},
+    {q:"'સંવેદન-ગતીય અવસ્થા'માં બાળકનું શીખવાનો મુખ્ય માધ્યમ શું છે?", opts:["ભાષા", "અમૂર્ત ચિંતન", "ઇન્દ્રિયો અને શારીરિક ગતિવિધિઓ", "તાર્કિક વિશ્લેષણ"], ans:2, topic:"psych"},
+    {q:"પિયાજેના સિદ્ધાંતમાં 'અમૂર્ત-સંજ્ઞાનાત્મક અવસ્થા'નો બીજો શબ્દ શું છે?", opts:["સંવેદન-ગતીય અવસ્થા", "પૂર્વ-સંજ્ઞાનાત્મક અવસ્થા", "મૂર્ત-સંજ્ઞાનાત્મક અવસ્થા", "સૌદૃષ્ટિક-સંજ્ઞાનાત્મક અવસ્થા"], ans:3, topic:"psych"},
+    {q:"'Educere' શબ્દનો અર્થ શું થાય છે?", opts:["તાલીમ આપવી", "બહાર કાઢવું", "ઉછેર કરવો", "વિકસિત કરવું"], ans:1, topic:"psych"},
+    {q:"'માણસના શરીર, મન, આત્મામાં જે કાંઈ શ્રેષ્ઠ છે તે ખોદીને બહાર લાવવું એટલે શિક્ષણ.' આ વ્યાખ્યા કોની છે?", opts:["ગાંધીજી", "વિવેકાનંદ", "આર્યુર્વેદ", "આરવિંદ"], ans:3, topic:"psych"},
+    {q:"નીચેના પૈકી કયું 'મૂર્ત' નું ઉદાહરણ છે?", opts:["પ્રેમ", "સ્નેહ", "પાણી", "વિચાર"], ans:2, topic:"psych"},
+    {q:"'પૂર્ણથી ખંડ તરફ' નો સિદ્ધાંત કયા વિચાર પર આધારિત છે?", opts:["વ્યવહારવાદ", "ગેસ્ટાલ્ટનો સમષ્ટિવાદ", "આદર્શવાદ", "ભૌતિકવાદ"], ans:1, topic:"psych"},
+    {q:"નીચેના યુગ્મો યોગ્ય રીતે મેળવો: 1. અધ્યયન-અધ્યાપન પ્રક્રિયા (a) સાદાથી સંકુલ, જાણીતાથી અજાણ્યા તરફ, 2. અધ્યાપન સૂત્રો (b) શિક્ષક અને વિદ્યાર્થી વચ્ચેનો પારસ્પરિક વ્યવહાર, 3. શિક્ષણવ્યવહારની પ્રક્રિયા (c) આયોજન → અધ્યયન-અધ્યાપન → મૂલ્યાંકન", opts:["1-(b), 2-(a), 3-(c)", "1-(a), 2-(c), 3-(b)", "1-(c), 2-(b), 3-(a)", "1-(b), 2-(c), 3-(a)"], ans:0, topic:"psych"},
+    {q:"અધ્યયન પદ્ધતિમાં નીચેના પૈકી કયા ઘટકનો સમાવેશ થતો નથી?", opts:["વિષયવસ્તુ", "ભાષાશૈલી", "શૈક્ષણિક સાધનોનો ઉપયોગ", "વિદ્યાર્થીનું મૂલ્યાંકન"], ans:3, topic:"psych"},
+    {q:"'જે વસ્તુ, વાત કે ઘટનાને સ્પર્શી શકાય, જોઈ શકાય કે અનુભવી શકાય તે' શું કહેવાય?", opts:["અમૂર્ત", "મૂર્ત", "સંવેગ", "પ્રેરક"], ans:1, topic:"psych"},
+    {q:"નીચેના વિધાનો વાંચો: વિધાન I: અધ્યયન-અધ્યાપન પ્રક્રિયા એ વર્ગખંડની પ્રક્રિયા છે. વિધાન II: અધ્યયન એટલે ઊંચે જવું, જ્ઞાન મેળવવું.", opts:["વિધાન I સાચું, વિધાન II ખોટું", "વિધાન I ખોટું, વિધાન II સાચું", "બંને વિધાન સાચાં", "બંને વિધાન ખોટાં"], ans:2, topic:"psych"},
+    {q:"અધ્યાપન સૂત્રોની વાત કોણે સૌપ્રથમ સંસ્થરે કરી?", opts:["જે. વેલ્ટન", "પિયાજે", "સીમથમ હબીટ", "ફ્રોઈડ"], ans:2, topic:"psych"},
+    {q:"નીચેના પૈકી 'અધ્યાપન સૂત્રો'નું કયું ઉદાહરણ 'પૂર્ણથી ખંડ તરફ' સૂત્રને અનુસરે છે?", opts:["સાદા શબ્દો પરથી જોડાકાર શીખવવા", "વાક્ય પરથી કર્તા, કર્મ, ક્રિયાપદ શીખવવા", "સરવાળા પરથી ગુણાકાર શીખવવા", "ગ્રામ પંચાયત પરથી વિધાનસભા શીખવવા"], ans:1, topic:"psych"}
   ];
 
-  if (mockDB.length < 100) {
-      const dummyTopics = ["સામાન્ય જ્ઞાન", "શિક્ષણની ફિલસૂફી", "શૈક્ષણિક મનોવિજ્ઞાન", "તાર્કિક અભિયોગ્યતા", "ભાષા (ગુજરાતી/અંગ્રેજી)"];
-      for (let i = mockDB.length; i < 100; i++) {
-          mockDB.push({
-              q: "પ્રશ્ન " + (i + 1) + ": (અહીં તમારી PDF માંથી બાકીના પ્રશ્નો ઉમેરવાના રહેશે)",
-              opts: ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
-              ans: Math.floor(Math.random() * 4),
-              topic: dummyTopics[Math.floor(Math.random() * dummyTopics.length)]
-          });
-      }
+  // Array Shuffle Function (પ્રશ્નોને આડા-અવળા કરવા માટે)
+  function shuffleArray(array) {
+    let newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
   }
 
+  let activeQs = [];
   let currentIdx = 0;
   let answers = {};
-  let status = {}; 
-  let timeLeft = 90 * 60;
+  let status = {};
+  let timeLeft = 0;
   let timer;
 
-  function startExam() {
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1);
-        document.getElementById('warningModal').style.display = 'flex';
-    };
-
-    // આનાથી મેઈન પેજ ગાયબ થઈ જશે અને પેઇડ બોક્સ પણ નહિ દેખાય
-    document.getElementById('mainContent').style.display = 'none';
-    if(document.getElementById('paidTestSeries')) { document.getElementById('paidTestSeries').style.display = 'none'; }
+  function startPracticeTopic(topicCode, topicName, selectId) {
+    // વિદ્યાર્થીએ ડ્રોપડાઉનમાંથી જેટલા પ્રશ્નો પસંદ કર્યા હોય તે રકમ લેવી
+    let requiredQs = parseInt(document.getElementById(selectId).value);
     
-    document.getElementById('standardNav').style.display = 'none';
+    // ડેટાબેઝમાંથી માત્ર એ વિષયના પ્રશ્નો કાઢો
+    let topicQuestions = practiceDB.filter(q => q.topic === topicCode);
+    
+    // પ્રશ્નોને આડા-અવળા (Shuffle) કરી દો
+    topicQuestions = shuffleArray(topicQuestions);
+    
+    activeQs = [];
+    
+    // જો ડેટાબેઝમાં પૂરતા પ્રશ્નો હોય તો, પસંદ કરેલા આંકડા જેટલા પ્રશ્નો લો 
+    if(topicQuestions.length >= requiredQs) {
+        activeQs = topicQuestions.slice(0, requiredQs);
+    } 
+    // જો ડેટાબેઝમાં ઓછા પ્રશ્નો હોય, તો ખૂટતા પ્રશ્નો માટે ડમી (ખાલી) પ્રશ્નો ઉમેરો
+    else {
+        activeQs = [...topicQuestions];
+        let currentLen = activeQs.length;
+        for(let i = currentLen; i < requiredQs; i++) {
+            activeQs.push({
+                q: "પ્રશ્ન " + (i + 1) + ": (અહીં ભવિષ્યમાં " + topicName + " ના પ્રશ્નો ઉમેરવાના રહેશે)",
+                opts: ["વિકલ્પ A", "વિકલ્પ B", "વિકલ્પ C", "વિકલ્પ D"],
+                ans: Math.floor(Math.random() * 4),
+                topic: topicCode
+            });
+        }
+    }
+    
+    timeLeft = activeQs.length * 60; // 1 મિનિટ પ્રતિ પ્રશ્ન
+    document.getElementById('pTopicName').innerText = topicName;
+    document.getElementById('cntPen').innerText = activeQs.length;
+    document.getElementById('mPen').innerText = activeQs.length;
+    
+    document.getElementById('mainContent').style.display = 'none';
     document.getElementById('examContainer').style.display = 'flex';
     
     currentIdx = 0; answers = {}; status = {};
-    mockDB.forEach((_, i) => status[i] = 'not-visited');
+    activeQs.forEach((_, i) => status[i] = 'not-visited');
     
     loadQuestion(0);
     startTimer();
   }
 
   function startTimer() {
+    clearInterval(timer);
     timer = setInterval(() => {
       timeLeft--;
-      const m = Math.floor(timeLeft / 3600).toString().padStart(2,'0');
-      const mm = Math.floor((timeLeft % 3600) / 60).toString().padStart(2,'0');
-      const ss = (timeLeft % 60).toString().padStart(2,'0');
-      document.getElementById('timer').innerText = `${m}:${mm}:${ss}`;
-      if(timeLeft <= 0) submitTest();
+      const m = Math.floor(timeLeft / 60).toString().padStart(2,'0');
+      const s = (timeLeft % 60).toString().padStart(2,'0');
+      document.getElementById('timer').innerText = `${m}:${s}`;
+      if(timeLeft <= 0) { clearInterval(timer); submitPractice(); }
     }, 1000);
   }
 
-  // 📱 લાઈવ સ્ટેટ્સ અપડેટ (મોબાઈલ અને ડેસ્કટોપ બંનેમાં)
+  // 📱 લાઈવ સ્ટેટ્સ અપડેટ
   function updateTopStats() {
     let ans = 0, notAns = 0, rev = 0, pen = 0;
-    mockDB.forEach((_, i) => {
+    activeQs.forEach((_, i) => {
       if(status[i] === 'answered') ans++;
       else if(status[i] === 'not-answered') notAns++;
       else if(status[i] === 'review') rev++;
       else pen++;
     });
 
-    // Desktop Topbar Update
+    // Desktop
     if(document.getElementById('cntAns')) document.getElementById('cntAns').innerText = ans;
-    if(document.getElementById('cntPen')) document.getElementById('cntPen').innerText = mockDB.length - ans;
+    if(document.getElementById('cntPen')) document.getElementById('cntPen').innerText = activeQs.length - ans;
 
-    // Mobile Row Update
+    // Mobile
     if(document.getElementById('mAns')) document.getElementById('mAns').innerText = ans;
     if(document.getElementById('mSkip')) document.getElementById('mSkip').innerText = notAns;
     if(document.getElementById('mPen')) document.getElementById('mPen').innerText = pen;
@@ -604,8 +670,8 @@
 
   function loadQuestion(idx) {
     currentIdx = idx;
-    const q = mockDB[idx];
-    document.getElementById('qNumHeader').innerText = `પ્રશ્ન: ${idx + 1} / 100`;
+    const q = activeQs[idx];
+    document.getElementById('qNumHeader').innerText = `પ્રશ્ન: ${idx + 1} / ${activeQs.length}`;
     document.getElementById('qText').innerText = q.q;
     
     let html = '';
@@ -619,7 +685,6 @@
     
     if (status[idx] === 'not-visited') status[idx] = 'not-answered';
     
-    // જો મોબાઈલમાં ગ્રિડ ઓપન હોય અને પ્રશ્ન સિલેક્ટ કરે તો ગ્રિડ બંધ કરી દો
     if(window.innerWidth <= 768) {
       document.getElementById('palettePanel').classList.remove('open');
     }
@@ -629,13 +694,13 @@
   }
 
   function selectOpt(i) { answers[currentIdx] = i; status[currentIdx] = 'answered'; loadQuestion(currentIdx); }
-  function saveNext() { if(currentIdx < mockDB.length - 1) loadQuestion(currentIdx + 1); else renderPalette(); }
-  function markReview() { status[currentIdx] = 'review'; if(currentIdx < mockDB.length - 1) loadQuestion(currentIdx + 1); else renderPalette(); }
+  function saveNext() { if(currentIdx < activeQs.length - 1) loadQuestion(currentIdx + 1); else renderPalette(); }
+  function markReview() { status[currentIdx] = 'review'; if(currentIdx < activeQs.length - 1) loadQuestion(currentIdx + 1); else renderPalette(); }
   function clearChoice() { delete answers[currentIdx]; status[currentIdx] = 'not-answered'; loadQuestion(currentIdx); }
 
   function renderPalette() {
     let html = '';
-    mockDB.forEach((_, i) => {
+    activeQs.forEach((_, i) => {
       let cls = status[i] || 'not-visited';
       if(i === currentIdx) cls += ' current';
       html += `<button class="palette-btn ${cls}" onclick="loadQuestion(${i})">${i+1}</button>`;
@@ -645,77 +710,40 @@
 
   function confirmSubmit() {
     let answered = Object.keys(answers).length;
-    let skipped = mockDB.length - answered;
+    let skipped = activeQs.length - answered;
     let msg = "";
     
     if (skipped > 0) {
-        msg = `ચેતવણી: તમે હજુ ${skipped} પ્રશ્નો છોડી દીધા છે (જવાબ આપ્યા નથી).\nશું તમે ખરેખર ટેસ્ટ સબમિટ કરવા માંગો છો? સબમિટ કર્યા પછી કોઈ ફેરફાર થઈ શકશે નહીં.`;
+        msg = `ચેતવણી: તમે હજુ ${skipped} પ્રશ્નો છોડી દીધા છે (જવાબ આપ્યા નથી).\nશું તમે ખરેખર ટેસ્ટ સબમિટ કરવા માંગો છો?`;
     } else {
         msg = "તમે બધા જ પ્રશ્નોના જવાબ આપી દીધા છે. શું તમે ટેસ્ટ સબમિટ કરવા માંગો છો?";
     }
     
-    showModal("ટેસ્ટ સબમિટ કરવી છે?", msg, true, submitTest);
+    showModal("ટેસ્ટ સબમિટ કરવી છે?", msg, true, submitPractice);
   }
 
-  function submitTest() {
+  function submitPractice() {
     clearInterval(timer);
-    window.onpopstate = null; 
     document.getElementById('examContainer').style.display = 'none';
     document.getElementById('resultScreen').style.display = 'block';
     
     let correct = 0, wrong = 0;
-    let topicData = {};
-
-    mockDB.forEach((q, i) => {
-      let t = q.topic || "અન્ય";
-      if(!topicData[t]) topicData[t] = { total: 0, correct: 0 };
-      topicData[t].total++;
-
-      if(answers[i] === q.ans) {
-          correct++;
-          topicData[t].correct++;
-      } else if(answers[i] !== undefined) {
-          wrong++;
-      }
+    activeQs.forEach((q, i) => {
+      if(answers[i] === q.ans) correct++;
+      else if(answers[i] !== undefined) wrong++;
     });
 
-    const score = correct - (wrong * 0.25);
-    const accuracy = correct + wrong > 0 ? ((correct / (correct+wrong)) * 100).toFixed(0) : 0;
-    
-    document.getElementById('resScore').innerText = score.toFixed(2);
+    let accuracy = correct + wrong > 0 ? ((correct / (correct+wrong)) * 100).toFixed(0) : 0;
+
+    // પ્રેક્ટિસ ટેસ્ટમાં કોઈ નેગેટિવ માર્કિંગ નથી રાખ્યું, સાચા જવાબ એટલા માર્ક્સ.
+    document.getElementById('resScore').innerText = correct;
+    document.getElementById('resTotalText').innerText = "out of " + activeQs.length;
     document.getElementById('resCorrect').innerText = correct;
     document.getElementById('resWrong').innerText = wrong;
-    document.getElementById('resSkip').innerText = mockDB.length - (correct + wrong);
+    document.getElementById('resSkip').innerText = activeQs.length - (correct + wrong);
     document.getElementById('resAcc').innerText = accuracy;
-
-    // 📊 TOPIC WISE ANALYSIS RENDER
-    let taHtml = '';
-    for(const [topic, data] of Object.entries(topicData)) {
-        let pct = Math.round((data.correct / data.total) * 100);
-        let color = pct >= 70 ? 'var(--green)' : (pct >= 40 ? 'var(--gold)' : 'var(--red)');
-        let feedback = pct >= 70 ? '<span class="feedback-good">ખૂબ સરસ તૈયારી છે.</span>' : (pct >= 40 ? '<span style="color:#b45309">વધુ પ્રેક્ટિસ કરો.</span>' : '<span class="feedback-bad">ખૂબ વધુ મહેનતની જરૂર છે! ⚠️</span>');
-        
-        taHtml += `
-        <div class="topic-row">
-            <div class="topic-name">
-                <span>${topic}</span>
-                <span>${data.correct} / ${data.total}</span>
-            </div>
-            <div class="topic-bar-bg">
-                <div class="topic-bar-fill" style="width: ${pct}%; background: ${color};"></div>
-            </div>
-            <div class="topic-feedback">${feedback}</div>
-        </div>`;
-    }
-    document.getElementById('taContent').innerHTML = taHtml;
-    window.scrollTo(0, 0);
-  }
-
-  // 📱 WhatsApp Share Function 
-  function shareWhatsApp() {
-    const score = document.getElementById('resScore').innerText;
-    const textMsg = `મારો TAT પેપર-1 પ્રીમિયમ મોક ટેસ્ટનો સ્કોર 100 માંથી ${score} છે! 🎓\nઅધ્યાપક સાથી (Adhyapak Saathi) પ્લેટફોર્મ પર તમે પણ ફ્રી અને પેઇડ ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapaksaathi.in/mocktest.html`;
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`, '_blank');
+    
+    window.scrollTo(0,0);
   }
 </script>
 </body>
