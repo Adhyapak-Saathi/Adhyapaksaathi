@@ -82,7 +82,7 @@
     .scorecard-wrapper { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; border: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center; position: relative; }
     
     .score-circle-old { width: 160px; height: 160px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 25px; background: #f8fafd; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05); }
-    .score-circle-old .marks { font-size: 3rem; font-weight: 900; color: var(--navy); line-height: 1; }
+    .score-circle-old .marks { font-size: 3.5rem; font-weight: 900; color: var(--navy); line-height: 1; }
     .score-circle-old .total { font-size: 1rem; color: var(--text-mid); font-weight: 700; margin-top: 5px; }
     
     .stats-grid-old { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 30px 0; }
@@ -92,7 +92,7 @@
     .sb-s { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
     .sb-a { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
 
-    /* TOPIC ANALYSIS */
+    /* TOPIC ANALYSIS (REVIEW ANSWERS) */
     .topic-analysis-box { margin-top: 30px; text-align: left; background: #f8fafd; padding: 25px; border-radius: 12px; border: 1px solid var(--border); }
     .topic-analysis-box h4 { color: var(--navy); font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; }
 
@@ -101,6 +101,14 @@
     .print-branding h3 { font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin: 0; }
     .print-branding p { color: var(--text-mid); font-weight: 600; margin: 5px 0; }
     .print-url { background: var(--navy); color: var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; font-size: 0.9rem; display: inline-block; }
+
+    /* ================= CSS FOR PRINT/PDF ================= */
+    @media print {
+      body { background: #fff; }
+      nav, .page-banner, .btn, .print-hide, #reviewAnswersBox { display: none !important; }
+      .scorecard-wrapper { box-shadow: none; border: 2px solid var(--navy); margin: 0; padding: 20px; max-width: 100%; }
+      #resultScreen { padding: 0; background: transparent; }
+    }
 
     /* ================= MOBILE RESPONSIVE ================= */
     @media (max-width: 768px) {
@@ -222,10 +230,10 @@
     </div>
   </div>
 
-  <!-- Added padding-bottom to ensure enough space for dropdowns to open downwards -->
-  <div class="wrapper" style="margin-bottom: 120px;">
+  <!-- Added padding-bottom: 250px to ensure enough space for dropdowns to open downwards -->
+  <div class="wrapper" style="margin-bottom: 50px;">
     <!-- 7 વિષયના બોક્સ WITH DROPDOWNS -->
-    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto; margin-top: 40px; padding-bottom: 100px;">
+    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto; margin-top: 40px; padding-bottom: 250px;">
       
       <!-- Box 1 -->
       <div class="p-topic-card">
@@ -395,10 +403,10 @@
     <!-- Motivational Quote -->
     <p id="motivationalQuote" style="color: var(--navy); font-size: 1.15rem; font-weight: bold; margin-bottom: 25px;"></p>
 
-    <!-- Main Circular Score (Percentage) -->
+    <!-- Main Circular Score (Marks) -->
     <div class="score-circle-old">
-      <span class="marks"><span id="resScore">0</span>%</span>
-      <span class="total" id="resTotalText">મેળવેલ ટકાવારી</span>
+      <span class="marks" id="resScore">0</span>
+      <span class="total" id="resTotalText">out of 15</span>
     </div>
 
     <!-- Quick Stats Grid -->
@@ -409,12 +417,6 @@
       <div class="stat-box-old sb-a"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div></div>
     </div>
 
-    <!-- Review Answers Section -->
-    <div class="topic-analysis-box" id="reviewAnswersBox">
-      <h4>📝 પ્રશ્નો અને સાચા જવાબો (Review)</h4>
-      <div id="reviewContent" style="text-align: left;"></div>
-    </div>
-
     <!-- Print Branding -->
     <div class="print-branding">
       <h3>Adhyapak Saathi</h3>
@@ -422,10 +424,23 @@
       <div class="print-url">🌐 www.adhyapaksaathi.in</div>
     </div>
 
-    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+    <!-- Actions (Hidden in Print) -->
+    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;" class="print-hide">
       <button class="btn btn-outline" style="padding: 12px 30px;" onclick="window.location.href='test.html'">🏠 પાછા જાઓ</button>
       <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી પ્રેક્ટિસ કરો</button>
     </div>
+
+    <!-- Toggle Button for Answers (Hidden in Print) -->
+    <div style="text-align: center; margin-top: 20px;" class="print-hide">
+      <button class="btn btn-outline" onclick="document.getElementById('reviewAnswersBox').style.display='block'; this.style.display='none';" style="border-color: var(--gold); color: var(--navy); border-width: 2px;">👀 સાચા જવાબો જુઓ (Review)</button>
+    </div>
+
+    <!-- Review Answers Section (Hidden initially, and always hidden in Print) -->
+    <div class="topic-analysis-box" id="reviewAnswersBox" style="display: none;">
+      <h4>📝 પ્રશ્નો અને સાચા જવાબો (Review)</h4>
+      <div id="reviewContent" style="text-align: left;"></div>
+    </div>
+
   </div>
 </div>
 
@@ -749,7 +764,8 @@
 
     let accuracy = activeQs.length > 0 ? ((correct / activeQs.length) * 100).toFixed(0) : 0;
 
-    document.getElementById('resScore').innerText = accuracy;
+    document.getElementById('resScore').innerText = correct;
+    document.getElementById('resTotalText').innerText = "out of " + activeQs.length;
     document.getElementById('resCorrect').innerText = correct;
     document.getElementById('resWrong').innerText = wrong;
     document.getElementById('resSkip').innerText = activeQs.length - (correct + wrong);
