@@ -22,39 +22,10 @@
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
     .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
 
-    /* PREMIUM OFFER BANNER */
-    .offer-banner-premium {
-      background: linear-gradient(135deg, #142242 0%, #1d3461 100%);
-      border: 2px solid var(--gold);
-      border-radius: 16px;
-      padding: 30px;
-      margin-bottom: 40px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(29,52,97,0.2);
-    }
-    .offer-banner-premium::before {
-      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 60%);
-      animation: rotateGlow 15s linear infinite; pointer-events: none;
-    }
-    @keyframes rotateGlow { 100% { transform: rotate(360deg); } }
-    .offer-tag {
-      position: absolute; top: 20px; right: -35px; background: #dc2626; color: white;
-      padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
     /* MOCK TEST CARDS (Premium Look) */
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
-    .premium-test-card {
-      background: white; border-radius: 16px; padding: 35px 30px; text-align: center;
-      box-shadow: 0 10px 25px rgba(29,52,97,0.08); position: relative; overflow: hidden;
-      display: flex; flex-direction: column; justify-content: space-between;
-      border: 1px solid var(--border); border-top: 5px solid var(--gold); transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .premium-test-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(29,52,97,0.15); }
-
+    .test-card { background: white; border-radius: 16px; padding: 35px 30px; text-align: center; box-shadow: 0 10px 25px rgba(29,52,97,0.08); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    
     /* MODAL OVERLAYS */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
     .auth-box { background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; border-top: 5px solid var(--navy); box-shadow: 0 15px 30px rgba(0,0,0,0.3); animation: pop 0.3s ease-out; }
@@ -62,15 +33,12 @@
 
     /* ================= EXAM UI ================= */
     .exam-container { display: none; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
-    
-    .exam-topbar {
-      background: var(--navy); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-wrap: wrap; gap: 10px;
-    }
+    .exam-topbar { background: var(--navy); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-wrap: wrap; gap: 10px; }
     .exam-brand { font-family: var(--font-serif); font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--gold-light); }
     .exam-stats { display: flex; gap: 15px; font-size: 0.9rem; font-weight: 600; }
-    .stat-badge { padding: 4px 12px; border-radius: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 5px; }
-    .stat-badge.ans { background: rgba(22, 163, 74, 0.2); border-color: #22c55e; color: #bbf7d0; }
-    .stat-badge.pen { background: rgba(220, 38, 38, 0.2); border-color: #ef4444; color: #fecaca; }
+    .stat-badge { padding: 4px 12px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
+    .stat-badge.ans { background: rgba(22, 163, 74, 0.2); border: 1px solid #22c55e; color: #bbf7d0; }
+    .stat-badge.pen { background: rgba(220, 38, 38, 0.2); border: 1px solid #ef4444; color: #fecaca; }
     .exam-actions { display: flex; align-items: center; gap: 15px; }
     .exam-timer { background: #fee2e2; color: #b91c1c; padding: 6px 16px; border-radius: 20px; font-weight: 800; font-family: monospace; font-size: 1.1rem; border: 2px solid #fca5a5; display: flex; align-items: center; gap: 6px; }
 
@@ -274,7 +242,7 @@
   </div>
 </nav>
 
-<!-- મુખ્ય પેનલ (આ બોક્સ એક્ઝામ વખતે ઓટોમેટિક હાઈડ થઈ જશે) -->
+<!-- મુખ્ય પેનલ -->
 <div id="mainContent">
   <div class="page-banner">
     <div class="wrapper">
@@ -313,7 +281,7 @@
           <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔒</div>
           <h3 style="font-family: var(--font-serif); color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 2</h3>
           <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #fbbf24; color: #4c1d95; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);" onclick="buyPaidTest('test2')">Unlock Test - ₹49</button>
+          <button class="btn" style="background: #fbbf24; color: #4c1d95; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);" onclick="buyPaidTest()">Unlock Test - ₹39</button>
         </div>
 
         <!-- TEST 3 (PAID) -->
@@ -322,7 +290,7 @@
           <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔒</div>
           <h3 style="font-family: var(--font-serif); color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 3</h3>
           <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: white; color: #dc2626; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);" onclick="buyPaidTest('test3')">Unlock Test - ₹49</button>
+          <button class="btn" style="background: white; color: #dc2626; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);" onclick="buyPaidTest()">Unlock Test - ₹39</button>
         </div>
 
         <!-- TEST 4 (PAID) -->
@@ -331,7 +299,7 @@
           <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔒</div>
           <h3 style="font-family: var(--font-serif); color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 4</h3>
           <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #fbbf24; color: #064e3b; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);" onclick="buyPaidTest('test4')">Unlock Test - ₹49</button>
+          <button class="btn" style="background: #fbbf24; color: #064e3b; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);" onclick="buyPaidTest()">Unlock Test - ₹39</button>
         </div>
 
         <!-- TEST 5 (PAID) -->
@@ -340,7 +308,7 @@
           <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔥</div>
           <h3 style="font-family: var(--font-serif); color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 5 (મેગા ટેસ્ટ)</h3>
           <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • 100 પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #38bdf8; color: #0f172a; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);" onclick="buyPaidTest('test5')">Unlock Mega Test - ₹99</button>
+          <button class="btn" style="background: #38bdf8; color: #0f172a; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);" onclick="buyPaidTest()">Unlock Mega Test - ₹39</button>
         </div>
       </div>
     </div>
@@ -470,22 +438,12 @@
   document.addEventListener('contextmenu', e => e.preventDefault());
   window.onbeforeunload = null;
 
-  // 🔗 તમારી INSTAMOJO ની લિંક્સ અહીં નાખો 🔗
-  const instamojoLinks = {
-    test2: "https://imjo.in/D8Vz3K",
-    test3: "https://imjo.in/kxs2dC",
-    test4: "https://imjo.in/y6DZvy",
-    test5: "https://imjo.in/y6DZvy"
-  };
+  // 🔗 તમારી એક જ (Common) INSTAMOJO પેમેન્ટ લિંક અહીં નાખો 🔗
+  const commonPaymentLink = "https://imjo.in/y6DZvy"; 
 
   // પેઇડ ટેસ્ટના બટન માટેનું ફંક્શન
-  function buyPaidTest(testId) {
-    let link = instamojoLinks[testId];
-    if(link.includes("અહીં_")) {
-        alert("અહીં તમારી Instamojo પેમેન્ટ લિંક સેટ કરવાની બાકી છે! જ્યારે તમે લિંક નાખશો ત્યારે સીધું પેમેન્ટ પેજ ખુલશે.");
-    } else {
-        window.open(link, '_blank');
-    }
+  function buyPaidTest() {
+    window.open(commonPaymentLink, '_blank');
   }
 
   function toggleMobileNav() { document.getElementById('navLinks').classList.toggle('open'); }
