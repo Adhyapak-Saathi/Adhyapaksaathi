@@ -49,12 +49,36 @@
     .practiceFooter { padding: 15px; border: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #f8fafd; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 
     /* MOBILE RESPONSIVE */
+/* 📱 મોબાઇલ સ્ક્રીન ફિક્સ (એક જ પેજમાં દેખાશે, સ્ક્રોલ નહિ કરવું પડે) */
     @media (max-width: 768px) {
-      .grid-4 { grid-template-columns: 1fr; }
-      .p-sticky-header { flex-direction: row; flex-wrap: wrap; padding: 6px 10px; justify-content: space-between; }
-      .question-panel { padding: 15px 12px; }
-      .practiceFooter { padding: 10px; }
-      .practiceFooter .btn { padding: 8px 12px; font-size: 0.85rem; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .p-topic-card { padding: 1rem 0.5rem; }
+      .p-topic-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+      .p-topic-card h3 { font-size: 0.9rem; }
+      
+      /* એક્ઝામની ડીઝાઇન ફૂલ સ્ક્રીન (No Scroll) */
+      .exam-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; flex-direction: column; background: #fff; }
+      .exam-topbar { padding: 6px 10px !important; flex-wrap: wrap; }
+      .exam-brand { font-size: 1rem !important; }
+      .exam-brand svg { width: 20px !important; height: 20px !important; }
+      .exam-stats { font-size: 0.75rem !important; gap: 5px !important; margin: 0 auto; }
+      .stat-badge { padding: 2px 8px !important; }
+      
+      .exam-actions { width: 100%; justify-content: space-between; margin-top: 5px; }
+      .exam-timer { font-size: 0.9rem !important; padding: 2px 10px !important; }
+      .exam-actions .btn { font-size: 0.8rem !important; padding: 4px 12px !important; }
+
+      .exam-body { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+      .question-panel { padding: 10px !important; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+      .question-header { padding: 6px 10px !important; margin-bottom: 10px !important; }
+      
+      .question-content { padding: 0 5px !important; flex: 1; overflow-y: auto; border: none !important; margin-bottom: 10px; }
+      .question-text { font-size: 1rem !important; margin-bottom: 10px !important; line-height: 1.4 !important; }
+      .radio-option { padding: 8px 12px !important; font-size: 0.9rem !important; margin-bottom: 6px !important; }
+      
+      .practiceFooter { padding: 10px !important; margin-bottom: 0 !important; }
+      .practiceFooter .btn { padding: 8px 15px !important; font-size: 0.85rem !important; }
+
       .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--navy); padding: 10px 0; z-index: 999; }
       .nav-links.open { display: flex; }
       .nav-links a { width: 100%; border-radius: 0; padding: 12px 20px; }
