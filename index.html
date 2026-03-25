@@ -245,5 +245,28 @@ function toggleNav() {
   document.getElementById('navLinks').classList.toggle('open'); 
 }
 </script>
+  <script>
+    // 🛑 અહી તમારી ગૂગલ સ્ક્રિપ્ટની નવી લિંક નાખજો 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZIz1xzzbZ3E1fJwPt-ce-oLncG310pLc5o45gEN2cSvVfpWuAeoJ12_XQd-6I2hdv/exec"; 
+
+    window.addEventListener('DOMContentLoaded', function() {
+        if (SCRIPT_URL.trim() !== "") {
+            // ચેક કરો કે વિદ્યાર્થી પહેલીવાર આવ્યો છે કે નહિ (Local Storage)
+            let hasVisited = localStorage.getItem('adhyapaksaathi_visited');
+            let reqAction = hasVisited ? 'getVisits' : 'logVisit';
+            
+            fetch(`${SCRIPT_URL}?action=${reqAction}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('website-visitor-count').innerText = data.visitors;
+                // મુલાકાત નોંધાઈ જાય એટલે બ્રાઉઝરમાં સેવ કરી લો
+                if (!hasVisited) {
+                    localStorage.setItem('adhyapaksaathi_visited', 'true');
+                }
+            })
+            .catch(e => console.log("Visitor Counter Error:", e));
+        }
+    });
+</script>
 </body>
 </html>
