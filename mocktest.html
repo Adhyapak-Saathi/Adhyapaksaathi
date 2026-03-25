@@ -6,7 +6,6 @@
   <title>Premium Mock Test — Adhyapak Saathi</title>
   
   <link rel="stylesheet" href="style.css"/>
-  
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='n' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230f172a' /%3E%3Cstop offset='100%25' stop-color='%231d3461' /%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4a017' /%3E%3Cstop offset='100%25' stop-color='%23fbbf24' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='160' height='160' rx='40' fill='%23ffffff'/%3E%3Cg transform='translate(15, 20)'%3E%3Cpath d='M 30 108 Q 80 115 125 102' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='40' r='13' fill='url(%23n)'/%3E%3Cpath d='M 40 108 C 40 70 52 60 76 75' fill='none' stroke='url(%23n)' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='55' r='9' fill='url(%23g)'/%3E%3Cpath d='M 64 108 C 64 90 70 82 76 75' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M 70 82 Q 85 70 98 55' fill='none' stroke='url(%23g)' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E"/>
   
   <style>
@@ -15,7 +14,7 @@
     nav { background: var(--navy, #1d3461); padding: 0 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 70px; display: flex; align-items: center; justify-content: center; }
     .nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
-    .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; }
+    .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; margin: 0;}
     .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 5px 10px; transition: 0.3s; border-bottom: 2px solid transparent; }
     .nav-links a:hover, .nav-links a.active { color: #d4a017; border-bottom-color: #d4a017; background: rgba(255,255,255,0.06); border-radius: 4px; }
     
@@ -25,19 +24,23 @@
     /* ================= 3D RAM NAVAMI POSTER ================= */
     .poster-3d {
       position: relative; 
-      /* Gradient and Image combined perfectly to show Ram photo with low opacity */
-      background: linear-gradient(135deg, rgba(255, 102, 0, 0.88), rgba(211, 47, 47, 0.92)), url('https://upload.wikimedia.org/wikipedia/commons/3/3b/Rama_in_a_Raja_Ravi_Varma_painting.jpg') center 20% / cover no-repeat;
+      background: linear-gradient(135deg, #ff6600, #d32f2f);
       padding: 40px 20px; border-radius: 20px; text-align: center; color: white;
       box-shadow: 0 20px 40px rgba(211, 47, 47, 0.4), inset 0 -5px 15px rgba(0,0,0,0.2);
       border: 3px solid #ffd54f; transform: perspective(1000px) rotateX(2deg);
-      animation: float 4s ease-in-out infinite; margin-bottom: 40px; overflow: hidden; z-index: 1;
+      animation: float 4s ease-in-out infinite; margin-bottom: 40px; overflow: hidden;
     }
+    /* Fixed Ram Photo Visibility */
+    .poster-3d img.bg-image {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.25; z-index: 0;
+    }
+    .poster-content { position: relative; z-index: 2; }
     @keyframes float { 
       0%, 100% { transform: translateY(0) perspective(1000px) rotateX(2deg); } 
       50% { transform: translateY(-10px) perspective(1000px) rotateX(5deg); box-shadow: 0 30px 50px rgba(211, 47, 47, 0.5); } 
     }
     .highlight-box {
-      background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; display: inline-block; margin-top: 15px; border: 1px dashed #ffd54f; backdrop-filter: blur(3px);
+      background: rgba(0,0,0,0.5); padding: 15px; border-radius: 15px; display: inline-block; margin-top: 15px; border: 1px dashed #ffd54f; backdrop-filter: blur(2px);
     }
 
     /* MOCK TEST CARDS */
@@ -116,7 +119,7 @@
     .print-branding p { color: #16a34a; font-weight: 800; margin: 8px 0; font-size: 1.05rem; }
     .print-url { background: #1d3461; color: #d4a017; padding: 6px 18px; border-radius: 20px; font-weight: bold; letter-spacing: 1px; margin-top: 10px; font-size: 0.95rem; display: inline-block; }
 
-    /* Button styles for fallback */
+    /* Button styles */
     .btn { display: inline-block; padding: 10px 20px; font-weight: bold; text-align: center; border-radius: 6px; cursor: pointer; transition: 0.3s; border: none; text-decoration: none;}
     .btn-navy { background: #1d3461; color: white; }
     .btn-navy:hover { background: #2b4c8a; }
@@ -164,48 +167,6 @@
   </style>
 </head>
 <body>
-
-<!-- 1. LOGIN MODAL (PROMO CODE) -->
-<div class="modal-overlay" id="loginModal">
-  <div class="auth-box">
-    <h3 style="color: #1d3461; font-size: 1.5rem; margin-bottom: 10px;">🎟️ પ્રોમો કોડ દાખલ કરો</h3>
-    <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">આ પ્રીમિયમ મોક ટેસ્ટ બિલકુલ ફ્રીમાં આપવા માટે નીચે પ્રોમો કોડ દાખલ કરો.</p>
-    
-    <input type="text" id="securityKeyInput" placeholder="Enter Promo Code" style="width: 100%; padding: 12px; border: 2px solid #cbd5e0; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-weight: bold; outline: none; box-sizing: border-box;">
-    
-    <button class="btn btn-navy" style="width: 100%; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="verifyKey()">ટેસ્ટ શરૂ કરો 🚀</button>
-    <p id="keyError" style="color: #dc2626; font-weight: bold; display: none; margin-top: 15px;">❌ ખોટો પ્રોમો કોડ! કૃપા કરીને સાચો કોડ દાખલ કરો.</p>
-    
-    <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('loginModal').style.display='none'">બંધ કરો</button>
-  </div>
-</div>
-
-<!-- 2. LOADING MODAL (ગૂગલ શીટમાંથી ડેટા લાવવા માટે) -->
-<div class="modal-overlay" id="loadingModal">
-  <div class="auth-box" style="border-top-color: #d4a017;">
-    <div class="loader-spinner"></div>
-    <h3 style="color: #1d3461; font-size: 1.5rem; margin-bottom: 10px;">પ્રશ્નો લોડ થઈ રહ્યા છે...</h3>
-    <p style="color: #64748b; font-size: 1.05rem; font-weight: bold;">કૃપા કરીને રાહ જુઓ, ગૂગલ શીટમાંથી ડેટા આવી રહ્યો છે ⏳</p>
-  </div>
-</div>
-
-<!-- 3. WARNING MODAL (ANTI-BACK) -->
-<div class="modal-overlay" id="warningModal">
-  <div class="auth-box" style="border-top-color: #dc2626;">
-    <h3 style="color: #dc2626; font-size: 1.5rem; margin-bottom: 10px;">⚠️ ચેતવણી!</h3>
-    <p style="color: #64748b; font-size: 1.05rem; margin-bottom: 20px; font-weight: bold;">પરીક્ષા દરમિયાન બેક (Back) જવાની કે પેજ રિફ્રેશ કરવાની સખત મનાઈ છે!</p>
-    <button class="btn btn-navy" style="width: 100%; padding: 12px; border-radius: 6px;" onclick="document.getElementById('warningModal').style.display='none'">ઓકે, ટેસ્ટ ચાલુ રાખો</button>
-  </div>
-</div>
-
-<!-- 4. CUSTOM CONFIRMATION MODAL -->
-<div class="modal-overlay" id="customModalOverlay">
-  <div class="auth-box" style="border-top-color: #d4a017;">
-    <h3 id="modalTitle" style="color: #1d3461; font-size: 1.5rem; margin-bottom: 10px;">શીર્ષક</h3>
-    <p id="modalMsg" style="color: #64748b; font-size: 1.05rem; margin-bottom: 20px; font-weight: 500; line-height: 1.5;">સંદેશ અહીં આવશે...</p>
-    <div id="modalFooter" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;"></div>
-  </div>
-</div>
 
 <!-- NAVBAR -->
 <nav id="standardNav">
@@ -259,19 +220,22 @@
 
   <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
     
-    <!-- 🚀 1. 3D RAM NAVAMI POSTER 🚀 -->
+    <!-- 🚀 1. 3D RAM NAVAMI POSTER (Fixed Ram Photo) 🚀 -->
     <div class="poster-3d">
-      <h1 style="font-size: 2.6rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); margin: 0 0 10px; color: #fffde7; font-family: system-ui, sans-serif;">જય શ્રી રામ 🚩 🏹</h1>
-      <p style="font-size: 1.3rem; font-weight: bold; margin: 5px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">રામનવમી નિમિત્તે વિશેષ ઑફર! 🪔</p>
-      <div class="highlight-box">
-        <p style="margin: 0; font-size: 1.15rem; color: #fff; line-height: 1.6;">
-          પ્રીમીયમ પ્રશ્નો સાથે મોકટેસ્ટ આપો તદ્દન ફ્રી<br>
-          પ્રોમોકોડ <strong style="color: #ffd54f; font-size: 1.4rem; letter-spacing: 1px; background: #1d3461; padding: 4px 12px; border-radius: 8px; margin: 0 5px;">RAMNAVAMI100</strong> નો ઉપયોગ કરો.
-        </p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Rama_in_a_Raja_Ravi_Varma_painting.jpg" class="bg-image" alt="Lord Rama">
+      <div class="poster-content">
+          <h1 style="font-size: 2.6rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); margin: 0 0 10px; color: #fffde7; font-family: system-ui, sans-serif;">જય શ્રી રામ 🚩 🏹</h1>
+          <p style="font-size: 1.3rem; font-weight: bold; margin: 5px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">રામનવમી નિમિત્તે વિશેષ ઑફર! 🪔</p>
+          <div class="highlight-box">
+            <p style="margin: 0; font-size: 1.15rem; color: #fff; line-height: 1.6;">
+              પ્રીમીયમ પ્રશ્નો સાથે મોકટેસ્ટ આપો તદ્દન ફ્રી<br>
+              પ્રોમોકોડ <strong style="color: #ffd54f; font-size: 1.4rem; letter-spacing: 1px; background: #1d3461; padding: 4px 12px; border-radius: 8px; margin: 0 5px;">RAMNAVAMI100</strong> નો ઉપયોગ કરો.
+            </p>
+          </div>
       </div>
     </div>
 
-    <!-- 🚀 5 MOCK TESTS GRID 🚀 -->
+    <!-- 🚀 5 MOCK TESTS GRID (2,3,4,5 are Coming Soon) 🚀 -->
     <div id="paidTestSeries">
       <h2 style="text-align: center; margin: 20px 0 30px; color: #1d3461; font-size: 2rem;">🚀 પેપર 1 - પ્રીમિયમ સિરીઝ</h2>
       
@@ -282,7 +246,7 @@
           <div style="font-size: 4rem; margin-bottom: 10px;">🎓</div>
           <h3 style="color: #1d3461; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 1</h3>
           <p style="margin: 15px 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો • ફ્રી</p>
-          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 14px 35px; width: 100%; border-radius: 50px;" onclick="openLogin()">ટેસ્ટ 1 શરૂ કરો 🚀</button>
+          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 14px 35px; width: 100%; border-radius: 50px;" onclick="openFreeLogin()">ટેસ્ટ 1 શરૂ કરો 🚀</button>
         </div>
 
         <!-- TEST 2 (COMING SOON) -->
@@ -312,11 +276,11 @@
           <button class="btn" style="background: #e2e8f0; color: #64748b; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; cursor: not-allowed; border: none;" disabled>Coming Soon</button>
         </div>
 
-        <!-- TEST 5 (COMING SOON) -->
+        <!-- TEST 5 (MEGA TEST - COMING SOON) -->
         <div class="test-card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #475569; box-shadow: 0 15px 35px rgba(15, 23, 42, 0.4); transform: perspective(1000px) rotateX(2deg); transition: 0.3s; grid-column: 1 / -1; max-width: 600px; margin: 0 auto; width: 100%;">
           <div style="position: absolute; top: 15px; right: -35px; background: #e2e8f0; color: #64748b; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">MEGA TEST</div>
           <div style="font-size: 4rem; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3);">🔥</div>
-          <h3 style="color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 5 </h3>
+          <h3 style="color: white; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 5 (મેગા ટેસ્ટ)</h3>
           <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
           <button class="btn" style="background: #e2e8f0; color: #64748b; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; cursor: not-allowed; border: none;" disabled>Coming Soon</button>
         </div>
@@ -326,9 +290,51 @@
   </div>
 </div>
 
+<!-- 1. MODAL FOR FREE TEST (MOCKTEST 1) -->
+<div class="modal-overlay" id="loginModal">
+  <div class="auth-box">
+    <h3 style="color: #1d3461; font-size: 1.5rem; margin-bottom: 10px;">🎟️ મોકટેસ્ટ 1 (ફ્રી)</h3>
+    <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">ટેસ્ટ ફ્રીમાં આપવા માટે તમારું નામ અને પ્રોમો કોડ દાખલ કરો.</p>
+    
+    <input type="text" id="freeStudentName" placeholder="તમારું પૂરું નામ" style="width: 100%; padding: 12px; border: 2px solid #cbd5e0; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 10px; box-sizing: border-box;">
+    <input type="text" id="securityKeyInput" placeholder="Enter Promo Code" style="width: 100%; padding: 12px; border: 2px solid #cbd5e0; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-weight: bold; outline: none; box-sizing: border-box;">
+    
+    <button class="btn btn-navy" style="width: 100%; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="verifyFreeKey()">ટેસ્ટ શરૂ કરો 🚀</button>
+    <p id="keyError" style="color: #dc2626; font-weight: bold; display: none; margin-top: 15px;">❌ ખોટો પ્રોમો કોડ! (RAMNAVAMI100)</p>
+    
+    <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('loginModal').style.display='none'">બંધ કરો</button>
+  </div>
+</div>
+
+<!-- 2. LOADING MODAL -->
+<div class="modal-overlay" id="loadingModal">
+  <div class="auth-box" style="border-top-color: #d4a017;">
+    <div class="loader-spinner"></div>
+    <h3 style="color: #1d3461; font-size: 1.5rem; margin-bottom: 10px;">પ્રશ્નો લોડ થઈ રહ્યા છે...</h3>
+    <p style="color: #64748b; font-size: 1.05rem; font-weight: bold;">કૃપા કરીને રાહ જુઓ, ગૂગલ શીટમાંથી ડેટા આવી રહ્યો છે ⏳</p>
+  </div>
+</div>
+
+<!-- 3. WARNING MODAL (ANTI-BACK) -->
+<div class="modal-overlay" id="warningModal">
+  <div class="auth-box" style="border-top-color: #dc2626;">
+    <h3 style="color: #dc2626; font-size: 1.5rem; margin-bottom: 10px;">⚠️ ચેતવણી!</h3>
+    <p style="color: #64748b; font-size: 1.05rem; margin-bottom: 20px; font-weight: bold;">પરીક્ષા દરમિયાન બેક (Back) જવાની કે પેજ રિફ્રેશ કરવાની સખત મનાઈ છે!</p>
+    <button class="btn btn-navy" style="width: 100%; padding: 12px; border-radius: 6px;" onclick="document.getElementById('warningModal').style.display='none'">ઓકે, ટેસ્ટ ચાલુ રાખો</button>
+  </div>
+</div>
+
+<!-- 4. CUSTOM CONFIRMATION MODAL -->
+<div class="modal-overlay" id="customModalOverlay">
+  <div class="auth-box" style="border-top-color: #d4a017;">
+    <h3 id="modalTitle" style="color: #1d3461; font-size: 1.5rem; margin-bottom: 10px;">શીર્ષક</h3>
+    <p id="modalMsg" style="color: #64748b; font-size: 1.05rem; margin-bottom: 20px; font-weight: 500; line-height: 1.5;">સંદેશ અહીં આવશે...</p>
+    <div id="modalFooter" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;"></div>
+  </div>
+</div>
+
 <!-- ==================== EXAM UI ==================== -->
 <div class="exam-container" id="examContainer">
-  <!-- TOP BAR EXAM -->
   <div class="exam-topbar">
     <div class="exam-brand">
       <svg viewBox="0 0 160 160" style="width: 28px; height: 28px; background: white; border-radius: 6px; padding: 2px;">
@@ -336,19 +342,16 @@
       </svg>
       Adhyapak Saathi
     </div>
-    
     <div class="exam-stats">
       <div class="stat-badge ans">✔️ Answered: <span id="cntAns">0</span></div>
       <div class="stat-badge pen">⏳ Pending: <span id="cntPen">0</span></div>
     </div>
-
     <div class="exam-actions">
       <div class="exam-timer">⏱️ <span id="timer">90:00</span></div>
       <button class="btn btn-gold" style="padding: 6px 20px; font-weight: 800; border-radius: 20px;" onclick="confirmSubmit()">Submit Test</button>
     </div>
   </div>
 
-  <!-- 📱 MOBILE ONLY: STATS ROW & GRID TOGGLE BUTTON -->
   <div class="mobile-stats-row">
     <div class="m-stat ans">
       <span class="count" id="mAns">0</span>
@@ -381,13 +384,10 @@
       </div>
     </div>
     
-    <!-- 🔢 QUESTION PALETTE -->
     <div class="palette-panel" id="palettePanel">
       <div class="close-palette-btn" onclick="toggleMobilePalette()">❌ પાછા જાઓ (Close Grid)</div>
-      
       <div style="font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #d4a017; padding-bottom: 5px; color: #1d3461;">Question Palette</div>
       <div class="palette-grid" id="paletteGrid"></div>
-      
       <div style="margin-top: auto; padding: 15px; background: white; border-radius: 8px; border: 1px solid #cbd5e0;">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; font-weight: bold; color: #64748b;"><span style="width: 16px; height: 16px; background: #16a34a; border-radius: 4px;"></span> Answered</div>
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; font-weight: bold; color: #64748b;"><span style="width: 16px; height: 16px; background: #dc2626; border-radius: 4px;"></span> Not Answered (છોડેલ)</div>
@@ -417,7 +417,7 @@
       <div class="stat-box-old sb-a"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div></div>
     </div>
 
-    <!-- REVIEWS / EXPLANATIONS BOX -->
+    <!-- ONLY ANSWERED REVIEWS / EXPLANATIONS BOX -->
     <div style="margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
       <button class="btn btn-outline" style="border-color: #d4a017; color: #1d3461; padding: 12px 30px; width: 100%; font-weight: bold; margin-bottom: 10px; background: white;" onclick="toggleReview()">👀 સાચા જવાબો અને સમજૂતી જુઓ</button>
       <div id="reviewBox" style="display:none; text-align: left; background: #f8fafd; padding: 20px; border-radius: 12px; border: 1px solid #cbd5e0; max-height: 400px; overflow-y: auto;">
@@ -428,23 +428,23 @@
     <!-- Topic Wise Analysis -->
     <div class="topic-analysis-box">
       <h4>📊 વિષયવાર તમારું પ્રદર્શન (Topic Analysis)</h4>
-      <div id="taContent">
-        <!-- JS will populate this -->
-      </div>
+      <div id="taContent"></div>
     </div>
 
-    <!-- Print Branding & Message -->
-    <div class="print-branding">
-      <h3 style="font-size: 1.6rem; color: #1d3461; margin: 0;">Adhyapak Saathi</h3>
-      <p style="color: #16a34a; font-weight: 800; margin: 8px 0; font-size: 1.05rem;">શિક્ષક બનવાનું તમારું સ્વપ્ન, અમારો સાથ! 🎯</p>
-      <p style="color: #64748b; font-weight: 600; margin: 5px 0; font-size: 0.9rem;">ગુજરાતનું #1 પ્રીમિયમ ઓનલાઇન એજ્યુકેશન પ્લેટફોર્મ</p>
-      <div class="print-url">🌐 www.adhyapaksaathi.in</div>
+    <!-- TEXT FOR WA, TG AND GOOGLE SEARCH -->
+    <div style="margin-top: 40px; padding: 20px; background: #e0e7ff; border-radius: 12px; border: 2px dashed #1d3461;">
+        <p style="color: #1d3461; font-weight: bold; margin: 0; font-size: 1.15rem; line-height: 1.6;">
+            વધુ માહિતી માટે અમારી WhatsApp અને Telegram ચેનલ નીચે આપેલી લિંકથી જોડાઓ અથવા ગૂગલ પર <strong style="color: #d32f2f;">'Adhyapak Saathi'</strong> સર્ચ કરો. 
+        </p>
+        <div style="margin-top: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://whatsapp.com/channel/0029Vb7t7si6mYPJIPQSzw1X" target="_blank" class="btn" style="background: #25D366; color: white;">💬 WhatsApp માં જોડાઓ</a>
+            <a href="https://t.me/+Kf1sJhEs9E43MWU1" target="_blank" class="btn" style="background: #0088cc; color: white;">✈️ Telegram માં જોડાઓ</a>
+        </div>
     </div>
 
     <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
       <button class="btn btn-outline" style="padding: 12px 30px; background:white;" onclick="window.location.href='index.html'">🏠 હોમ પેજ</button>
       <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી ટેસ્ટ આપો</button>
-      <button class="btn" style="background: #25D366; color: white; border: none; padding: 12px 30px;" onclick="shareWhatsApp()">📱 સ્કોર શેર કરો</button>
     </div>
   </div>
 </div>
@@ -456,14 +456,8 @@
 
   // -------------------------------------------------------------
   // 🛑 અહી તમારી WEB APP URL નાખો (Google Apps Script ની લિંક)
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyV42OjON3hEfmSmRWhgTRDZ9TWIqWFjA3UCrQt2-590bh3h8-lkdNrzeEJLFPHXq_k/exec"; 
+  const SCRIPT_URL = ""; 
   // -------------------------------------------------------------
-
-  const commonPaymentLink = "https://imjo.in/y6DZvy"; 
-
-  function buyPaidTest() {
-    window.location.href = commonPaymentLink;
-  }
 
   function toggleMobileNav() { document.getElementById('navLinks').classList.toggle('open'); }
   function toggleMobilePalette() { document.getElementById('palettePanel').classList.toggle('open'); }
@@ -499,13 +493,19 @@
     document.getElementById('customModalOverlay').style.display = 'flex';
   }
 
-  function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+  // --- FREE TEST LOGIN (TEST 1) ---
+  function openFreeLogin() { 
+    document.getElementById('loginModal').style.display = 'flex'; 
+  }
   
-  function verifyKey() {
+  function verifyFreeKey() {
     const key = document.getElementById('securityKeyInput').value.trim().toUpperCase();
+    const name = document.getElementById('freeStudentName').value.trim();
+    if(!name) { alert("નામ દાખલ કરવું ફરજિયાત છે."); return; }
+
     if(key === "TAT2026" || key === "RAMNAVAMI100" || key === "MOCK2PASS") {
       document.getElementById('loginModal').style.display = 'none';
-      fetchQuestionsAndStart(); // ગૂગલ શીટમાંથી ડેટા લાવવા જશે
+      fetchQuestionsAndStart(); 
     } else {
       document.getElementById('keyError').style.display = 'block';
       setTimeout(() => document.getElementById('keyError').style.display = 'none', 3000);
@@ -530,22 +530,22 @@
     
     document.getElementById('loadingModal').style.display = 'flex';
     
-    fetch(`${SCRIPT_URL}?action=getQuestions`)
+    fetch(`${SCRIPT_URL}?action=getQuestions&testId=1`)
       .then(res => res.json())
       .then(data => {
           if(data && data.length > 0) {
               mockDB = data.map(item => ({
                   q: item.q,
                   opts: [item.a, item.b, item.c, item.d],
-                  ans: parseInt(item.ans), // 0, 1, 2, 3
+                  ans: parseInt(item.ans), 
                   topic: item.topic || "સામાન્ય જ્ઞાન",
-                  exp: item.exp || "" // સમજૂતી
+                  exp: item.exp || "" 
               }));
               
               document.getElementById('loadingModal').style.display = 'none';
               startExam(); 
           } else {
-              alert("ગૂગલ શીટમાં કોઈ પ્રશ્નો મળ્યા નથી.");
+              alert(`ગૂગલ શીટમાં Test 1 માટે કોઈ પ્રશ્નો મળ્યા નથી.`);
               window.location.reload();
           }
       })
@@ -678,26 +678,32 @@
       if(isCorrect) {
           correct++;
           topicData[t].correct++;
-      } else if(uAns !== undefined) {
+      } else if(uAns !== undefined && uAns !== null) {
           wrong++;
       }
 
-      // --- Review HTML Generation ---
-      let userText = (uAns !== undefined && uAns !== null) ? q.opts[uAns] : "જવાબ આપ્યો નથી (Skipped)";
-      let userColor = isCorrect ? "green" : "red";
-      let correctText = (q.ans >= 0 && q.ans < 4) ? q.opts[q.ans] : "જવાબ ઉપલબ્ધ નથી";
-      let expText = (q.exp && q.exp.trim() !== "") ? q.exp : "કોઈ સમજૂતી ઉપલબ્ધ નથી.";
+      // --- ONLY Show Review If Question Was Answered ---
+      if(uAns !== undefined && uAns !== null) {
+          let userText = q.opts[uAns];
+          let userColor = isCorrect ? "green" : "red";
+          let correctText = (q.ans >= 0 && q.ans < 4) ? q.opts[q.ans] : "જવાબ ઉપલબ્ધ નથી";
+          let expText = (q.exp && q.exp.trim() !== "") ? q.exp : "કોઈ સમજૂતી ઉપલબ્ધ નથી.";
 
-      reviewHtml += `
-      <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; text-align: left;">
-          <div style="font-weight:bold; color:#1d3461; margin-bottom:8px; font-size:1.1rem;">પ્રશ્ન ${i+1}: ${q.q}</div>
-          <div style="font-size:1rem; margin-bottom:5px;">તમારો જવાબ: <span style="color:${userColor}; font-weight:bold;">${userText}</span></div>
-          <div style="font-size:1rem; margin-bottom:10px;">સાચો જવાબ: <span style="color:green; font-weight:bold;">${correctText}</span></div>
-          <div style="font-size:0.95rem; color:#334155; background:white; padding:12px; border-radius:8px; border:1px dashed #cbd5e0;">
-              💡 <b>સમજૂતી:</b> ${expText}
-          </div>
-      </div>`;
+          reviewHtml += `
+          <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; text-align: left;">
+              <div style="font-weight:bold; color:#1d3461; margin-bottom:8px; font-size:1.1rem;">પ્રશ્ન ${i+1}: ${q.q}</div>
+              <div style="font-size:1rem; margin-bottom:5px;">તમારો જવાબ: <span style="color:${userColor}; font-weight:bold;">${userText}</span></div>
+              <div style="font-size:1rem; margin-bottom:10px;">સાચો જવાબ: <span style="color:green; font-weight:bold;">${correctText}</span></div>
+              <div style="font-size:0.95rem; color:#334155; background:white; padding:12px; border-radius:8px; border:1px dashed #cbd5e0;">
+                  💡 <b>સમજૂતી:</b> ${expText}
+              </div>
+          </div>`;
+      }
     });
+
+    if (reviewHtml === '') {
+        reviewHtml = '<div style="text-align:center; padding:20px; font-weight:bold; color:#dc2626;">તમે એક પણ પ્રશ્નનો જવાબ આપ્યો નથી.</div>';
+    }
 
     const score = correct - (wrong * 0.25);
     const accuracy = correct + wrong > 0 ? ((correct / (correct+wrong)) * 100).toFixed(0) : 0;
@@ -740,13 +746,6 @@
     box.style.display = (box.style.display === 'block') ? 'none' : 'block';
   }
 
-  function shareWhatsApp() {
-    const score = document.getElementById('resScore').innerText;
-    const total = mockDB.length;
-    const textMsg = `મારો TAT પેપર-1 પ્રીમિયમ મોક ટેસ્ટનો સ્કોર ${total} માંથી ${score} છે! 🎓\nઅધ્યાપક સાથી (Adhyapak Saathi) પ્લેટફોર્મ પર તમે પણ ફ્રી અને પેઇડ ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapaksaathi.in/mocktest.html`;
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`, '_blank');
-  }
 </script>
 </body>
 </html>
-```
