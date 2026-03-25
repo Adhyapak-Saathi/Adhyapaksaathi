@@ -24,23 +24,18 @@
     /* ================= 3D RAM NAVAMI POSTER ================= */
     .poster-3d {
       position: relative; 
-      background: linear-gradient(135deg, #ff6600, #d32f2f);
+      background: linear-gradient(135deg, rgba(255, 102, 0, 0.88), rgba(211, 47, 47, 0.92)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Rama_in_a_Raja_Ravi_Varma_painting.jpg/800px-Rama_in_a_Raja_Ravi_Varma_painting.jpg') center 20% / cover no-repeat;
       padding: 40px 20px; border-radius: 20px; text-align: center; color: white;
       box-shadow: 0 20px 40px rgba(211, 47, 47, 0.4), inset 0 -5px 15px rgba(0,0,0,0.2);
       border: 3px solid #ffd54f; transform: perspective(1000px) rotateX(2deg);
-      animation: float 4s ease-in-out infinite; margin-bottom: 40px; overflow: hidden;
+      animation: float 4s ease-in-out infinite; margin-bottom: 40px; overflow: hidden; z-index: 1;
     }
-    /* Fixed Ram Photo Visibility */
-    .poster-3d img.bg-image {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.25; z-index: 0;
-    }
-    .poster-content { position: relative; z-index: 2; }
     @keyframes float { 
       0%, 100% { transform: translateY(0) perspective(1000px) rotateX(2deg); } 
       50% { transform: translateY(-10px) perspective(1000px) rotateX(5deg); box-shadow: 0 30px 50px rgba(211, 47, 47, 0.5); } 
     }
     .highlight-box {
-      background: rgba(0,0,0,0.5); padding: 15px; border-radius: 15px; display: inline-block; margin-top: 15px; border: 1px dashed #ffd54f; backdrop-filter: blur(2px);
+      background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; display: inline-block; margin-top: 15px; border: 1px dashed #ffd54f; backdrop-filter: blur(3px);
     }
 
     /* MOCK TEST CARDS */
@@ -220,9 +215,8 @@
 
   <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
     
-    <!-- 🚀 1. 3D RAM NAVAMI POSTER (Fixed Ram Photo) 🚀 -->
+    <!-- 🚀 1. 3D RAM NAVAMI POSTER 🚀 -->
     <div class="poster-3d">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Rama_in_a_Raja_Ravi_Varma_painting.jpg" class="bg-image" alt="Lord Rama">
       <div class="poster-content">
           <h1 style="font-size: 2.6rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); margin: 0 0 10px; color: #fffde7; font-family: system-ui, sans-serif;">જય શ્રી રામ 🚩 🏹</h1>
           <p style="font-size: 1.3rem; font-weight: bold; margin: 5px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">રામનવમી નિમિત્તે વિશેષ ઑફર! 🪔</p>
@@ -284,6 +278,24 @@
           <p style="margin: 15px 0; color: rgba(255,255,255,0.9); font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
           <button class="btn" style="background: #e2e8f0; color: #64748b; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; cursor: not-allowed; border: none;" disabled>Coming Soon</button>
         </div>
+      </div>
+    </div>
+    
+    <!-- 🚀 6. LIVE SCOREBOARD IN MOCKTEST PAGE 🚀 -->
+    <div class="board" style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin: 40px 0 30px; border-top: 6px solid #d4a017;">
+      <h2 style="text-align: center; margin-top: 0; font-size: 1.8rem; color: #1d3461;">🏆 લાઈવ સ્કોરબોર્ડ</h2>
+      <div style="text-align: center; color: #d32f2f; font-weight: bold; font-style: italic; margin-bottom: 25px; font-size: 1.1rem;">"તમારો આજનો સંઘર્ષ એ તમારી આવતીકાલની તાકાત છે! 🚩"</div>
+      
+      <div id="leaderboard-list">
+          <div style="text-align: center; padding: 30px 10px; background: #f8fafd; border: 2px dashed #cbd5e0; border-radius: 12px; color: #64748b; font-weight: bold; font-size: 1.1rem; line-height: 1.6;">
+              સ્કોરબોર્ડ લોડ થઈ રહ્યું છે...
+          </div>
+      </div>
+      
+      <div class="pagination" id="pagination-controls" style="display: none; justify-content: center; align-items: center; gap: 15px; margin-top: 20px;">
+          <button class="btn btn-outline" style="padding: 8px 20px; border-radius: 8px;" onclick="prevPage()">◀ પાછળ</button>
+          <span id="page-num" style="font-size: 1.2rem; font-weight: bold; color: #1d3461;">1</span>
+          <button class="btn btn-outline" style="padding: 8px 20px; border-radius: 8px;" onclick="nextPage()">આગળ ▶</button>
       </div>
     </div>
 
@@ -400,8 +412,8 @@
 <!-- ==================== DETAILED SCORECARD ==================== -->
 <div id="resultScreen">
   <div class="scorecard-wrapper">
-    <h2 style="font-size: 2.2rem; color: #1d3461; margin-bottom: 5px;">પરીક્ષા પરિણામ (Scorecard)</h2>
-    <p style="color: #64748b; font-size: 1.05rem; margin-bottom: 30px; font-weight: 600;">તમારું વિગતવાર વિશ્લેષણ નીચે મુજબ છે.</p>
+    <h2 style="font-size: 2.2rem; color: #1d3461; margin-bottom: 5px;">પરિણામ (Scorecard)</h2>
+    <p style="color: #1d3461; font-size: 1.15rem; margin-bottom: 30px; font-weight: 700;"><span id="analysis-name">વિદ્યાર્થી</span>, તમારું વિશ્લેષણ આ મુજબ છે:</p>
 
     <!-- Main Circular Score -->
     <div class="score-circle-old">
@@ -431,14 +443,27 @@
       <div id="taContent"></div>
     </div>
 
-    <!-- TEXT FOR WA, TG AND GOOGLE SEARCH -->
+    <!-- TEXT FOR WA, TG AND GOOGLE SEARCH & SHARE BUTTONS -->
     <div style="margin-top: 40px; padding: 20px; background: #e0e7ff; border-radius: 12px; border: 2px dashed #1d3461;">
         <p style="color: #1d3461; font-weight: bold; margin: 0; font-size: 1.15rem; line-height: 1.6;">
             વધુ માહિતી માટે અમારી WhatsApp અને Telegram ચેનલ નીચે આપેલી લિંકથી જોડાઓ અથવા ગૂગલ પર <strong style="color: #d32f2f;">'Adhyapak Saathi'</strong> સર્ચ કરો. 
         </p>
         <div style="margin-top: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <a href="https://whatsapp.com/channel/0029Vb7t7si6mYPJIPQSzw1X" target="_blank" class="btn" style="background: #25D366; color: white;">💬 WhatsApp માં જોડાઓ</a>
-            <a href="https://t.me/+Kf1sJhEs9E43MWU1" target="_blank" class="btn" style="background: #0088cc; color: white;">✈️ Telegram માં જોડાઓ</a>
+            
+            <a href="https://whatsapp.com/channel/0029Vb7t7si6mYPJIPQSzw1X" target="_blank" class="btn" style="background: #25D366; color: white; display: flex; align-items: center; gap: 8px;">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.993L2 22l5.233-1.237a9.994 9.994 0 004.779 1.216h.004c5.502 0 9.985-4.48 9.985-9.984C21.999 6.485 17.518 2 12.012 2zm0 16.5c-1.525 0-3.023-.413-4.331-1.196l-.311-.184-3.218.761.859-3.134-.202-.321A8.256 8.256 0 013.731 11.98c.001-4.555 3.715-8.265 8.283-8.265 4.563 0 8.27 3.712 8.27 8.271 0 4.562-3.707 8.274-8.272 8.274zm4.536-6.195c-.248-.124-1.472-.727-1.7-.81-.228-.083-.393-.124-.559.124-.165.248-.642.81-.787.976-.144.165-.29.186-.537.062-1.077-.54-2.197-1.203-3.018-2.523-.083-.135-.008-.21.114-.332.112-.112.248-.289.372-.434.124-.144.165-.248.248-.413.083-.165.041-.31-.02-.434-.062-.124-.559-1.347-.765-1.844-.2-.482-.404-.417-.559-.424-.144-.006-.31-.008-.475-.008a.91.91 0 00-.661.31c-.228.248-.869.847-.869 2.065 0 1.218.89 2.396 1.014 2.562.124.165 1.748 2.668 4.234 3.738 1.106.475 1.716.544 2.302.492.659-.059 1.472-.6 1.679-1.178.206-.578.206-1.074.144-1.178-.062-.104-.228-.165-.475-.29z"/></svg>
+                WhatsApp ચેનલ
+            </a>
+            
+            <a href="https://t.me/+Kf1sJhEs9E43MWU1" target="_blank" class="btn" style="background: #0088cc; color: white; display: flex; align-items: center; gap: 8px;">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.42.91-4.01 2.66-.38.25-.72.38-1.03.37-.34-.01-.99-.19-1.48-.35-.6-.2-1.07-.3-1.05-.64.01-.18.27-.36.77-.55 3.01-1.31 5.01-2.18 6.01-2.59 2.85-1.18 3.44-1.39 3.82-1.39.08 0 .27.02.39.1.1.07.13.16.14.24.01.07.01.15 0 .26z"/></svg>
+                Telegram ચેનલ
+            </a>
+
+            <button class="btn" style="background: #25D366; color: white; border: none; padding: 12px 30px; display: flex; align-items: center; gap: 8px;" onclick="shareWhatsApp()">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.993L2 22l5.233-1.237a9.994 9.994 0 004.779 1.216h.004c5.502 0 9.985-4.48 9.985-9.984C21.999 6.485 17.518 2 12.012 2zm0 16.5c-1.525 0-3.023-.413-4.331-1.196l-.311-.184-3.218.761.859-3.134-.202-.321A8.256 8.256 0 013.731 11.98c.001-4.555 3.715-8.265 8.283-8.265 4.563 0 8.27 3.712 8.27 8.271 0 4.562-3.707 8.274-8.272 8.274zm4.536-6.195c-.248-.124-1.472-.727-1.7-.81-.228-.083-.393-.124-.559.124-.165.248-.642.81-.787.976-.144.165-.29.186-.537.062-1.077-.54-2.197-1.203-3.018-2.523-.083-.135-.008-.21.114-.332.112-.112.248-.289.372-.434.124-.144.165-.248.248-.413.083-.165.041-.31-.02-.434-.062-.124-.559-1.347-.765-1.844-.2-.482-.404-.417-.559-.424-.144-.006-.31-.008-.475-.008a.91.91 0 00-.661.31c-.228.248-.869.847-.869 2.065 0 1.218.89 2.396 1.014 2.562.124.165 1.748 2.668 4.234 3.738 1.106.475 1.716.544 2.302.492.659-.059 1.472-.6 1.679-1.178.206-.578.206-1.074.144-1.178-.062-.104-.228-.165-.475-.29z"/></svg>
+                સ્કોર શેર કરો
+            </button>
         </div>
     </div>
 
@@ -456,11 +481,66 @@
 
   // -------------------------------------------------------------
   // 🛑 અહી તમારી WEB APP URL નાખો (Google Apps Script ની લિંક)
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyV42OjON3hEfmSmRWhgTRDZ9TWIqWFjA3UCrQt2-590bh3h8-lkdNrzeEJLFPHXq_k/exec"; 
+  const SCRIPT_URL = ""; 
   // -------------------------------------------------------------
 
   function toggleMobileNav() { document.getElementById('navLinks').classList.toggle('open'); }
   function toggleMobilePalette() { document.getElementById('palettePanel').classList.toggle('open'); }
+
+  // --- SCOREBOARD FETCH ON LOAD ---
+  let liveLeaderboard = [];
+  let currentPage = 1;
+  const rowsPerPage = 10;
+
+  window.onload = function() {
+    if (SCRIPT_URL.trim() !== "") {
+        fetch(`${SCRIPT_URL}?action=getLeaderboard`)
+        .then(res => res.json())
+        .then(data => {
+            liveLeaderboard = data.leaderboard || [];
+            renderLeaderboard();
+        }).catch(e => console.log(e));
+    } else {
+        renderLeaderboard(); // Show empty board if no script url
+    }
+  };
+
+  function renderLeaderboard() {
+      const list = document.getElementById('leaderboard-list');
+      list.innerHTML = "";
+
+      if (liveLeaderboard.length === 0) {
+          list.innerHTML = `<div style="text-align: center; padding: 30px 10px; background: #fffde7; border: 2px dashed #ff9933; border-radius: 12px; color: #1d3461; font-weight: bold; font-size: 1.1rem; line-height: 1.6;">હજુ સુધી કોઈ વિદ્યાર્થીએ ટેસ્ટ આપી નથી.<br>મોકટેસ્ટ આપીને તમારું નામ સ્કોરબોર્ડમાં સૌથી પહેલા લાવો! 🚀</div>`;
+          document.getElementById('pagination-controls').style.display = 'none';
+          return;
+      }
+
+      document.getElementById('pagination-controls').style.display = 'flex';
+      let start = (currentPage - 1) * rowsPerPage;
+      let pageData = liveLeaderboard.slice(start, start + rowsPerPage);
+
+      pageData.forEach((student, index) => {
+          let actualRank = start + index + 1;
+          let emoji = "🎗️";
+          let bgStyle = "background: #f8fafc; border: 1px solid #e2e8f0; color: #334155;";
+          
+          if (actualRank === 1) { emoji = "🥇"; bgStyle = "background: linear-gradient(90deg, #fffde7, white); border-left: 6px solid #fbc02d; color: #f57f17;"; }
+          else if (actualRank === 2) { emoji = "🥈"; bgStyle = "background: linear-gradient(90deg, #f5f5f5, white); border-left: 6px solid #9e9e9e; color: #616161;"; }
+          else if (actualRank === 3) { emoji = "🥉"; bgStyle = "background: linear-gradient(90deg, #efebe9, white); border-left: 6px solid #8d6e63; color: #5d4037;"; }
+
+          list.innerHTML += `
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; margin-bottom: 12px; border-radius: 12px; font-weight: 600; ${bgStyle} transition: 0.2s;">
+                  <div><strong style="color:#1d3461; margin-right:10px;">#${actualRank}</strong> ${emoji} &nbsp;${student.name}</div>
+                  <div><strong style="color:#d32f2f; font-size:1.1rem;">${student.score}</strong></div>
+              </div>
+          `;
+      });
+      document.getElementById('page-num').innerText = currentPage;
+  }
+
+  function nextPage() { if ((currentPage * rowsPerPage) < liveLeaderboard.length) { currentPage++; renderLeaderboard(); } }
+  function prevPage() { if (currentPage > 1) { currentPage--; renderLeaderboard(); } }
+
 
   function showModal(title, msg, isConfirm, callback) {
     document.getElementById('modalTitle').innerText = title;
@@ -663,6 +743,10 @@
     document.getElementById('examContainer').style.display = 'none';
     document.getElementById('resultScreen').style.display = 'block';
     
+    // Set Student Name
+    const stuName = document.getElementById('freeStudentName').value.trim() || "વિદ્યાર્થી";
+    document.getElementById('analysis-name').innerText = stuName;
+
     let correct = 0, wrong = 0;
     let topicData = {};
     let reviewHtml = '';
@@ -738,6 +822,14 @@
     document.getElementById('taContent').innerHTML = taHtml;
     document.getElementById('reviewBox').innerHTML = reviewHtml;
     window.scrollTo(0, 0);
+
+    // Save Score Live to Google Sheet
+    if (SCRIPT_URL.trim() !== "") {
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({ name: stuName, promo: document.getElementById('securityKeyInput').value.trim(), score: score })
+        }).catch(e => console.log(e));
+    }
   }
 
   // --- Toggle Review Box ---
@@ -746,6 +838,12 @@
     box.style.display = (box.style.display === 'block') ? 'none' : 'block';
   }
 
+  function shareWhatsApp() {
+    const score = document.getElementById('resScore').innerText;
+    const total = mockDB.length;
+    const textMsg = `મારો TAT પેપર-1 પ્રીમિયમ મોક ટેસ્ટનો સ્કોર ${total} માંથી ${score} છે! 🎓\nઅધ્યાપક સાથી (Adhyapak Saathi) પ્લેટફોર્મ પર તમે પણ ફ્રી અને પેઇડ ટેસ્ટ આપી શકો છો.\n\nવેબસાઇટની મુલાકાત લો: https://www.adhyapaksaathi.in`;
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`, '_blank');
+  }
 </script>
 </body>
 </html>
