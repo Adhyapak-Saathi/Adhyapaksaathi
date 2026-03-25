@@ -23,18 +23,18 @@
     }
 
     /* Get In Touch Banner */
-    .contact-info-banner {
-      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      color: white;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      box-shadow: var(--shadow-lg);
-      border-bottom: 4px solid var(--gold);
-      margin-bottom: 3rem;
-    }
+   .contact-info-banner {
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 👈 આ સુધારો છે */
+    gap: 2rem;
+    box-shadow: var(--shadow-lg);
+    border-bottom: 4px solid var(--gold);
+    margin-bottom: 3rem;
+}
     .info-block { display: flex; align-items: center; gap: 1.2rem; }
     .info-icon-lg { 
       font-size: 2.5rem; 
