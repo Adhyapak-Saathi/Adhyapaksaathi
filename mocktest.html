@@ -158,8 +158,8 @@
 <div class="modal-overlay" id="loadingModal">
   <div class="auth-box" style="border-top-color: var(--gold);">
     <div class="loader-spinner"></div>
-    <h3 style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">પ્રશ્નો લોડ થઈ રહ્યા છે...</h3>
-    <p style="color: var(--text-mid); font-size: 1.05rem; font-weight: bold;">કૃપા કરીને રાહ જુઓ, ગૂગલ શીટમાંથી ડેટા આવી રહ્યો છે ⏳</p>
+    <h3 style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">પ્રશ્નો આવી રહ્યા છે...</h3>
+    <p style="color: var(--text-mid); font-size: 1.05rem; font-weight: bold;">કૃપા કરીને રાહ જુઓ, પ્રશ્નો આવી રહ્યા છે ⏳</p>
   </div>
 </div>
 
@@ -388,7 +388,11 @@
       <div class="stat-box-old sb-s"><div style="font-size: 1.8rem;" id="resSkip">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
       <div class="stat-box-old sb-a"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div></div>
     </div>
-
+<div style="margin-top: 30px;">
+  <button class="btn btn-outline" style="border-color: #d4a017; color: #1d3461; padding: 12px 30px; width: 100%; font-weight: bold; margin-bottom: 10px;" onclick="toggleReview()">👀 સાચા જવાબો અને સમજૂતી જુઓ</button>
+  <div id="reviewBox" style="display:none; text-align: left; background: #f8fafd; padding: 20px; border-radius: 12px; border: 1px solid #cbd5e0; max-height: 400px; overflow-y: auto;">
+    </div>
+</div>
     <!-- Topic Wise Analysis -->
     <div class="topic-analysis-box">
       <h4>📊 વિષયવાર તમારું પ્રદર્શન (Topic Analysis)</h4>
@@ -423,7 +427,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyV42OjON3hEfmSmRWhgTRDZ9TWIqWFjA3UCrQt2-590bh3h8-lkdNrzeEJLFPHXq_k/exec"; 
   // -------------------------------------------------------------
 
-  const commonPaymentLink = "https://imjo.in/y6DZvy"; 
+  const commonPaymentLink = ""; 
 
   function buyPaidTest() {
     window.location.href = commonPaymentLink;
@@ -505,7 +509,7 @@
               document.getElementById('loadingModal').style.display = 'none';
               startExam(); // ટેસ્ટ શરૂ કરો
           } else {
-              alert("ગૂગલ શીટમાં કોઈ પ્રશ્નો મળ્યા નથી. કૃપા કરીને એડમિનનો સંપર્ક કરો.");
+              alert( કોઈ પ્રશ્નો મળ્યા નથી. કૃપા કરીને એડમિનનો સંપર્ક કરો.");
               window.location.reload();
           }
       })
@@ -626,18 +630,38 @@
     
     let correct = 0, wrong = 0;
     let topicData = {};
+    let reviewHtml = ''; // સમજૂતી માટેનો નવો કોડ
 
     mockDB.forEach((q, i) => {
       let t = q.topic || "અન્ય";
       if(!topicData[t]) topicData[t] = { total: 0, correct: 0 };
       topicData[t].total++;
 
-      if(answers[i] === q.ans) {
+      let uAns = answers[i];
+      let isCorrect = (uAns === q.ans);
+
+      if(isCorrect) {
           correct++;
           topicData[t].correct++;
-      } else if(answers[i] !== undefined) {
+      } else if(uAns !== undefined) {
           wrong++;
       }
+
+      // --- સમજૂતી (Review) તૈયાર કરવાનો કોડ ---
+      let userText = (uAns !== undefined) ? q.opts[uAns] : "જવાબ આપ્યો નથી (Skipped)";
+      let userColor = isCorrect ? "green" : "red";
+      let correctText = q.opts[q.ans];
+      let expText = q.exp ? q.exp : "કોઈ સમજૂતી ઉપલબ્ધ નથી.";
+
+      reviewHtml += `
+      <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; text-align: left;">
+          <div style="font-weight:bold; color:#1d3461; margin-bottom:8px; font-size:1.1rem;">પ્રશ્ન ${i+1}: ${q.q}</div>
+          <div style="font-size:1rem; margin-bottom:5px;">તમારો જવાબ: <span style="color:${userColor}; font-weight:bold;">${userText}</span></div>
+          <div style="font-size:1rem; margin-bottom:10px;">સાચો જવાબ: <span style="color:green; font-weight:bold;">${correctText}</span></div>
+          <div style="font-size:0.95rem; color:#334155; background:white; padding:12px; border-radius:8px; border:1px dashed #cbd5e0;">
+              💡 <b>સમજૂતી:</b> ${expText}
+          </div>
+      </div>`;
     });
 
     const score = correct - (wrong * 0.25);
@@ -669,7 +693,9 @@
             <div class="topic-feedback">${feedback}</div>
         </div>`;
     }
+    
     document.getElementById('taContent').innerHTML = taHtml;
+    document.getElementById('reviewBox').innerHTML = reviewHtml; // સમજૂતી સ્ક્રીન પર મૂકવા
     window.scrollTo(0, 0);
   }
 
@@ -678,6 +704,10 @@
     const total = mockDB.length;
     const textMsg = `મારો TAT પેપર-1 પ્રીમિયમ મોક ટેસ્ટનો સ્કોર ${total} માંથી ${score} છે! 🎓\nઅધ્યાપક સાથી (Adhyapak Saathi) પ્લેટફોર્મ પર તમે પણ ફ્રી અને પેઇડ ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapaksaathi.in/mocktest.html`;
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`, '_blank');
+  }
+  function toggleReview() {
+    const box = document.getElementById('reviewBox');
+    box.style.display = (box.style.display === 'block') ? 'none' : 'block';
   }
 </script>
 </body>
