@@ -440,7 +440,7 @@
 
   // -------------------------------------------------------------
   // 🛑 🛑 🛑 અહી તમારી ગૂગલ સ્ક્રિપ્ટની લિંક ફરજિયાત નાખો 🛑 🛑 🛑
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrNMEpaIH0NXgdmUwYT6w47XqHsnSzC_oyo1ghMtxGFOKWzQx0EK7Lj2eBsZpaEQSf/exec"; 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhgx4F9w3zabkVSKoPzNhAqIR0YepUIYNUxdAtvh84DAC0YV70RDJmecIhxHujaJ53/exec"; 
   // -------------------------------------------------------------
 
   // --- LEADERBOARD LOGIC ON LOAD ---
@@ -449,7 +449,7 @@
   const rowsPerPage = 10;
 
   window.onload = function() {
-    if (SCRIPT_URL && SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbyrNMEpaIH0NXgdmUwYT6w47XqHsnSzC_oyo1ghMtxGFOKWzQx0EK7Lj2eBsZpaEQSf/exec") {
+    if (SCRIPT_URL && SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbxhgx4F9w3zabkVSKoPzNhAqIR0YepUIYNUxdAtvh84DAC0YV70RDJmecIhxHujaJ53/exec") {
         fetch(`${SCRIPT_URL}?action=getLeaderboard`)
         .then(res => res.json())
         .then(data => {
