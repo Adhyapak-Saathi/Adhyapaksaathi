@@ -258,7 +258,7 @@
         <div class="test-card" style="background: #f8fafc; border: 2px solid #cbd5e1; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.3s; grid-column: 1 / -1; max-width: 600px; margin: 0 auto; width: 100%;">
           <div style="position: absolute; top: 15px; right: -35px; background: #94a3b8; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">MEGA TEST</div>
           <div style="font-size: 4rem; margin-bottom: 10px; opacity: 0.7;">🔥</div>
-          <h3 style="color: #334155; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 5 (મેગા ટેસ્ટ)</h3>
+          <h3 style="color: #334155; font-size: 1.7rem; margin-bottom: 10px;">મોક ટેસ્ટ 5 </h3>
           <p style="margin: 15px 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
           <button class="btn" style="background: #e2e8f0; color: #64748b; font-size: 1.1rem; font-weight: 900; padding: 14px 35px; width: 100%; border-radius: 50px; cursor: not-allowed; border: none;">Coming Soon</button>
         </div>
@@ -438,7 +438,7 @@
 
   // -------------------------------------------------------------
   // 🛑 🛑 🛑 અહી તમારી ગૂગલ સ્ક્રિપ્ટની લિંક ફરજિયાત નાખો 🛑 🛑 🛑
-  const SCRIPT_URL = "YOUR_WEB_APP_URL_HERE"; 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrNMEpaIH0NXgdmUwYT6w47XqHsnSzC_oyo1ghMtxGFOKWzQx0EK7Lj2eBsZpaEQSf/exec"; 
   // -------------------------------------------------------------
 
   // --- LEADERBOARD LOGIC ON LOAD ---
@@ -447,7 +447,7 @@
   const rowsPerPage = 10;
 
   window.onload = function() {
-    if (SCRIPT_URL && SCRIPT_URL !== "YOUR_WEB_APP_URL_HERE") {
+    if (SCRIPT_URL && SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbyrNMEpaIH0NXgdmUwYT6w47XqHsnSzC_oyo1ghMtxGFOKWzQx0EK7Lj2eBsZpaEQSf/exec") {
         fetch(`${SCRIPT_URL}?action=getLeaderboard`)
         .then(res => res.json())
         .then(data => {
