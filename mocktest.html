@@ -153,6 +153,20 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
     }
+    /* ================= 3D POSTER ================= */
+    .poster-3d {
+      position: relative; 
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(29, 52, 97, 0.95)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop') center / cover no-repeat;
+      padding: 40px 20px; border-radius: 20px; text-align: center; color: white;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.7);
+      border: 2px solid #d4a017; transform: perspective(1000px) rotateX(2deg);
+      animation: float 4s ease-in-out infinite; margin-bottom: 40px; overflow: hidden; z-index: 1;
+    }
+    @keyframes float { 
+      0%, 100% { transform: translateY(0) perspective(1000px) rotateX(2deg); } 
+      50% { transform: translateY(-10px) perspective(1000px) rotateX(5deg); box-shadow: 0 25px 45px rgba(15, 23, 42, 0.5); } 
+    }
+    .highlight-box { background: rgba(212, 160, 23, 0.15); padding: 15px; border-radius: 15px; display: inline-block; margin-top: 15px; border: 1px dashed #ffd54f; backdrop-filter: blur(3px); }
   </style>
 </head>
 <body>
@@ -209,15 +223,13 @@
 
   <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
     
-    <!-- 3D RAM NAVAMI POSTER -->
-    <div class="poster-3d">
+   <div class="poster-3d">
       <div class="poster-content">
-          <h1 style="font-size: 2.6rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); margin: 0 0 10px; color: #fffde7; font-family: system-ui, sans-serif;">જય શ્રી રામ 🚩 🏹</h1>
-          <p style="font-size: 1.3rem; font-weight: bold; margin: 5px 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">રામનવમી નિમિત્તે વિશેષ ઑફર! 🪔</p>
+          <h1 style="font-size: 2.6rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); margin: 0 0 10px; color: #fffde7; font-family: system-ui, sans-serif;">🎯 એક્સક્લુઝિવ <em>પ્રીમિયમ</em> મોકટેસ્ટ 🚀</h1>
+          <p style="font-size: 1.3rem; font-weight: bold; margin: 5px 0; color: #cbd5e0;">તમારી તૈયારીને આપો <span style="color: #ffd54f; font-size: 1.4rem;">આખરી ઓપ!</span> ✨</p>
           <div class="highlight-box">
-            <p style="margin: 0; font-size: 1.15rem; color: #fff; line-height: 1.6;">
-              પ્રીમીયમ પ્રશ્નો સાથે મોકટેસ્ટ આપો તદ્દન ફ્રી<br>
-              પ્રોમોકોડ <strong style="color: #ffd54f; font-size: 1.4rem; letter-spacing: 1px; background: #1d3461; padding: 4px 12px; border-radius: 8px; margin: 0 5px;">RAMNAVAMI100</strong> નો ઉપયોગ કરો.
+            <p style="margin: 0; font-size: 1.15rem; color: #fff; line-height: 1.6; font-weight: bold;">
+              ✅ પ્રીમિયમ પ્રશ્નો &nbsp;•&nbsp; ⏱️ લાઈવ ટાઈમર &nbsp;•&nbsp; 📉 નેગેટિવ માર્કિંગ &nbsp;•&nbsp; 📊 સ્કોરકાર્ડ
             </p>
           </div>
       </div>
