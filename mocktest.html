@@ -187,9 +187,8 @@
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact Us</a></li>
       <li class="auth-dropdown">
-        <!-- 🛑 અહીંથી ડાયરેક્ટ ક્લિક કાઢી નાખ્યું છે જેથી લૉગઆઉટ મેનુ દેખાઈ શકે 🛑 -->
-        <button class="auth-dropbtn" id="mainUserBtn">Login 👤</button>
-        <div class="auth-dropdown-content" id="loginDropdownBox"></div>
+        <button class="auth-dropbtn" id="mainUserBtn" onclick="document.getElementById('emailAuthModal').style.display='flex'">Login 👤</button>
+        <div class="auth-dropdown-content" id="loginDropdownBox" style="display:none;"></div>
       </li>
     </ul>
     
@@ -231,7 +230,6 @@
       <h2 style="text-align: center; margin: 20px 0 30px; color: #1d3461; font-size: 2rem;">🚀 પેપર 1 - પ્રીમિયમ સિરીઝ</h2>
       
       <div class="grid-cards">
-        <!-- TEST 1 (FREE - DISABLED) -->
         <div class="test-card" style="border-top: 5px solid #16a34a;">
           <div style="position: absolute; top: 15px; right: -35px; background: #16a34a; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">FREE TEST</div>
           <div style="font-size: 4rem; margin-bottom: 0px;">🎓</div>
@@ -240,17 +238,17 @@
           <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto;" onclick="document.getElementById('loginModal').style.display = 'flex';">ટેસ્ટ 1 શરૂ કરો 🚀</button>
         </div>
 
-        <!-- TEST 2 (PAID) -->
         <div id="test2Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
           <div id="test2Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
           <div id="test2Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
           <h3 id="test2Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 2</h3>
           <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button id="payTest2Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;">Buy Now - ₹39</button>
+          
+          <button id="payTest2Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(2)">Buy Now - ₹39</button>
+          
           <button id="startTest2Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(2)">ટેસ્ટ 2 શરૂ કરો 🚀</button>
         </div>
 
-        <!-- TEST 3 to 6 Disabled -->
         <div class="test-card" style="background: #f8fafc; border: 2px solid #e2e8f0;">
           <div style="position: absolute; top: 15px; right: -35px; background: #94a3b8; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">SOON</div>
           <div style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.3; filter: grayscale(100%);">🔒</div>
@@ -285,7 +283,6 @@
       </div>
     </div>
     
-    <!-- SINGLE LIVE SCOREBOARD -->
     <div class="scoreboard-container">
       <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.03;">🏆</div>
       <h2 style="text-align: center; margin-top: 0; font-size: 2.2rem; color: #1d3461; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">🏆 લાઈવ સ્કોરબોર્ડ 🏆</h2>
@@ -310,11 +307,10 @@
   </div>
 </div>
 
-<!-- ================= MODALS ================= -->
 <div class="modal-overlay" id="loginModal">
   <div class="auth-box" style="border-top-color: #dc2626;">
     <h3 style="color: #dc2626; font-size: 1.5rem; margin-bottom: 10px;">⏳ ઑફર પૂર્ણ થઈ ગઈ છે</h3>
-    <p style="color: #1d3461; font-size: 1.1rem; margin-bottom: 20px; font-weight: bold; line-height: 1.6;">ફ્રી મોકટેસ્ટની ઑફર હવે ટૂંક જ સ્મયમમાં શરૂ કરવામાં આવશે.<br><br>કૃપા કરીને નીચે આપેલ પ્રીમિયમ 'મોક ટેસ્ટ 2' નો લાભ લો.</p>
+    <p style="color: #1d3461; font-size: 1.1rem; margin-bottom: 20px; font-weight: bold; line-height: 1.6;">રામનવમી નિમિત્તે રાખવામાં આવેલી ફ્રી મોકટેસ્ટની ઑફર હવે પૂર્ણ થઈ ગઈ છે.<br><br>કૃપા કરીને નીચે આપેલ પ્રીમિયમ 'મોક ટેસ્ટ 2' નો લાભ લો.</p>
     <button class="btn btn-outline" style="width: 100%; border: 2px solid #1d3461; color: #1d3461; font-weight: bold;" onclick="document.getElementById('loginModal').style.display='none'">બંધ કરો</button>
   </div>
 </div>
@@ -323,13 +319,12 @@
   <div class="auth-box" style="border-top-color: #16a34a;">
     <h3 style="color: #16a34a; font-size: 1.5rem; margin-bottom: 10px;">✅ ટેસ્ટ અનલૉક છે!</h3>
     <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">સ્કોરબોર્ડમાં દેખાડવા માટે તમારું નામ અથવા રોલ નંબર દાખલ કરો.</p>
-    <input type="text" id="paidStudentName" placeholder=" " style="width: 100%; padding: 12px; border: 2px solid #16a34a; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; font-weight: bold; box-sizing: border-box;">
+    <input type="text" id="paidStudentName" placeholder="દા.ત. 128 Ashutosh" style="width: 100%; padding: 12px; border: 2px solid #16a34a; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; font-weight: bold; box-sizing: border-box;">
     <button class="btn" style="width: 100%; background: #16a34a; color: white; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="startPaidTest()">ટેસ્ટ શરૂ કરો 🚀</button>
     <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('paidNameModal').style.display='none'">બંધ કરો</button>
   </div>
 </div>
 
-<!-- AUTO RESUME MODAL -->
 <div class="modal-overlay" id="resumeModal">
   <div class="auth-box" style="border-top-color: #16a34a;">
     <h3 style="color: #16a34a; font-size: 1.5rem; margin-bottom: 10px;">અધૂરી ટેસ્ટ ચાલુ છે!</h3>
@@ -365,37 +360,28 @@
   </div>
 </div>
 
-<!-- 🛑 નવું માસ્ટર લૉગિન બોક્સ (ગૂગલ + ઈમેલ બંને એકસાથે) 🛑 -->
 <div class="modal-overlay" id="emailAuthModal">
   <div class="auth-box" style="border-top-color: #1d3461; padding: 35px 30px;">
     <h3 style="color: #1d3461; font-size: 1.6rem; margin-bottom: 20px; font-weight: 800;">તમારું એકાઉન્ટ લૉગિન કરો</h3>
-    
-    <!-- 1. ગૂગલ લૉગિન બટન (હવે બોક્સની અંદર જ) -->
     <button id="modalGoogleLoginBtn" class="btn" style="width: 100%; margin-bottom: 20px; background: white; color: #334155; border: 2px solid #cbd5e0; display: flex; align-items: center; justify-content: center; gap: 12px; font-weight: bold; border-radius: 8px; font-size: 1.1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
       <img src="https://www.svgrepo.com/show/475656/google-color.svg" style="width: 24px; height: 24px;" alt="Google"> ગૂગલથી લૉગિન કરો
     </button>
-
     <div style="display: flex; align-items: center; margin-bottom: 20px;">
         <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
         <span style="padding: 0 15px; color: #94a3b8; font-size: 0.9rem; font-weight: bold; text-transform: uppercase;">અથવા ઈમેલથી</span>
         <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
     </div>
-
-    <!-- 2. ઈમેલ લૉગિન સેક્શન -->
     <input type="email" id="emailInput" placeholder="તમારું Email" style="width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; border: 2px solid #cbd5e0; box-sizing: border-box; font-size: 1.05rem;">
     <input type="password" id="pwdInput" placeholder="પાસવર્ડ (ઓછામાં ઓછા 6 અક્ષર)" style="width: 100%; padding: 14px; margin-bottom: 10px; border-radius: 8px; border: 2px solid #cbd5e0; box-sizing: border-box; font-size: 1.05rem;">
     <div style="text-align: right; margin-bottom: 20px;">
       <a id="forgotPwdBtn" style="color: #1d3461; font-size: 0.95rem; cursor: pointer; font-weight: bold; text-decoration: underline;">પાસવર્ડ ભૂલી ગયા છો?</a>
     </div>
-
     <button class="btn btn-navy" id="btnEmailSignIn" style="width: 100%; margin-bottom: 12px; border-radius: 8px; font-size: 1.1rem; padding: 14px;">લૉગિન કરો 🚀</button>
     <button class="btn btn-outline" id="btnEmailSignUp" style="width: 100%; margin-bottom: 15px; border-radius: 8px; border-color: #16a34a; color: #16a34a; font-weight: bold; font-size: 1.1rem; padding: 14px;">નવું એકાઉન્ટ બનાવો</button>
-    
     <button class="btn btn-outline" style="width: 100%; border: none; font-size: 1rem; color: #64748b;" onclick="document.getElementById('emailAuthModal').style.display='none'">બંધ કરો ❌</button>
   </div>
 </div>
 
-<!-- ==================== EXAM UI ==================== -->
 <div class="exam-container" id="examContainer">
   <div class="exam-topbar">
     <div class="exam-brand">Adhyapak Saathi</div>
@@ -437,11 +423,9 @@
   </div>
 </div>
 
-<!-- ==================== DETAILED SCORECARD ==================== -->
 <div id="resultScreen">
   <div class="scorecard-wrapper" id="scoreCardScreen">
     <h2 style="font-size: 2.2rem; color: #1d3461; margin-bottom: 5px;">પરિણામ (Scorecard)</h2>
-    <!-- ૫. તમારું નામ -->
     <p style="color: #1d3461; font-size: 1.15rem; margin-bottom: 30px; font-weight: 700;"><span id="analysis-name" style="color:#dc2626; text-transform: uppercase;">વિદ્યાર્થી</span>, તમારું વિશ્લેષણ આ મુજબ છે:</p>
 
     <div class="score-circle-old">
@@ -468,9 +452,7 @@
 
     <div style="margin-top: 30px; max-width: 800px; margin-left: auto; margin-right: auto;" class="action-buttons">
       <button class="btn btn-outline" style="border-color: #d4a017; color: #1d3461; padding: 12px 30px; width: 100%; font-weight: bold; margin-bottom: 10px; background: white;" onclick="toggleReview()">👀 સાચા જવાબો અને સમજૂતી જુઓ</button>
-      <div id="reviewBox" style="display:none; text-align: left; background: #f8fafd; padding: 20px; border-radius: 12px; border: 1px solid #cbd5e0; max-height: 400px; overflow-y: auto;">
-        <!-- Reviews injected here -->
-      </div>
+      <div id="reviewBox" style="display:none; text-align: left; background: #f8fafd; padding: 20px; border-radius: 12px; border: 1px solid #cbd5e0; max-height: 400px; overflow-y: auto;"></div>
     </div>
 
     <div class="topic-analysis-box">
@@ -478,7 +460,6 @@
       <div id="taContent"></div>
     </div>
 
-    <!-- QR CODES AND COMMUNITY LINKS -->
     <div style="margin-top: 40px; padding: 20px; background: #e0e7ff; border-radius: 12px; border: 2px dashed #1d3461;" class="action-buttons">
         <p style="color: #1d3461; font-weight: bold; margin: 0; font-size: 1.15rem; line-height: 1.6;">
             વધુ માહિતી માટે અમારી WhatsApp અને Telegram ચેનલ નીચે આપેલી લિંકથી જોડાઓ અથવા ગૂગલ પર <strong style="color: #d32f2f;">'Adhyapak Saathi'</strong> સર્ચ કરો. 
@@ -496,9 +477,8 @@
   </div>
 </div>
 
-<!-- ==================== EXAM SCRIPT ENGINE ==================== -->
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymdVHPJTrNjPygPX75YYm59BCAvpKCpbKsfIAHRjExT_iIgjGhhcoDTHJ6yxfZYEIc/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymdVHPJtrNjPygPX75YYm59BCAvpKCPbKsfiAHRjExT_iIgjGhhcoDTHJ6yxfZYEIc/exec";
 
   let currentPage = 1;
   const rowsPerPage = 10;
@@ -836,7 +816,7 @@
     currentPage = 1;
     renderLeaderboard();
     
-    if(SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbymdVHPJtrNjPygPX75YYm59BCAvpKCPbKsfiAHRjExT_iIgjGhhcoDTHJ6yxfZYEIc/exec") {
+    if(SCRIPT_URL !== "") {
         fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name: stuName, score: finalScore, testId: currentTestId }) }).catch(e=>console.log(e));
     }
   }
@@ -892,7 +872,8 @@
   }
 </script>
 
-<!-- ==================== FIREBASE & LOGIN ==================== -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -911,23 +892,58 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  // 🛑 મોબાઈલ ગૂગલ લૉગિન (Redirect) માટેનું ખાસ સેટિંગ 🛑
-  getRedirectResult(auth).then((result) => {
-    if (result) { location.reload(); }
-  }).catch((error) => { console.error("Google Login Error:", error); });
+  // 🛑 ડાયરેક્ટ પેમેન્ટ હેન્ડલર (આનાથી બટન ક્લિક કરતા જ લાઈવ ચેક થશે) 🛑
+  window.handlePayment = function(testId) {
+     const user = auth.currentUser;
+     if (!user) {
+         alert("કૃપા કરીને ટેસ્ટ ખરીદવા માટે પહેલા લૉગિન કરો!");
+         document.getElementById('emailAuthModal').style.display = 'flex';
+         return;
+     }
 
-  // નવું માસ્ટર બોક્સ ગૂગલ બટન
-  const modalGoogleBtn = document.getElementById("modalGoogleLoginBtn");
-  if (modalGoogleBtn) {
-    modalGoogleBtn.addEventListener("click", () => {
-        const provider = new GoogleAuthProvider();
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            signInWithRedirect(auth, provider);
-        } else {
-            signInWithPopup(auth, provider).then(() => location.reload()).catch(e => console.log(e));
-        }
-    });
+     var options = {
+         "key": "rzp_live_SXv0rd8UH5nn6w", 
+         "amount": "3900",
+         "currency": "INR",
+         "name": "Adhyapak Saathi",
+         "description": `Premium Mock Test ${testId}`,
+         "handler": function (response) {
+             const userRef = doc(db, "users", user.uid);
+             let updateData = {}; updateData[`paid_test${testId}`] = true;
+             setDoc(userRef, updateData, { merge: true }).then(() => {
+                 alert(`મોક ટેસ્ટ ${testId} સફળતાપૂર્વક અનલૉક થઈ ગયો છે!`);
+                 location.reload();
+             }).catch(err => {
+                 console.error(err);
+                 alert("પેમેન્ટ નોંધવામાં ભૂલ. કૃપા કરીને એડમિનનો સંપર્ક કરો.");
+             });
+         },
+         "prefill": { "name": user.displayName || "Student", "email": user.email },
+         "theme": { "color": "#1d3461" }
+     };
+     var rzp = new Razorpay(options);
+     rzp.on('payment.failed', function (response){
+         alert("પેમેન્ટ નિષ્ફળ! " + response.error.description);
+     });
+     rzp.open();
+  };
+
+  function triggerGoogleLogin() {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider).then(() => {
+          const modal = document.getElementById('emailAuthModal');
+          if(modal) modal.style.display = 'none'; 
+      }).catch(e => {
+          console.error(e);
+          alert("Google Login Error: કૃપા કરીને ઈન્ટરનેટ ચેક કરો અથવા pop-up allow કરો.");
+      });
   }
+
+  const modalGoogleBtn = document.getElementById("modalGoogleLoginBtn");
+  if (modalGoogleBtn) { modalGoogleBtn.addEventListener("click", triggerGoogleLogin); }
+
+  const navGoogleBtn = document.getElementById("navGoogleLogin");
+  if (navGoogleBtn) { navGoogleBtn.addEventListener("click", triggerGoogleLogin); }
 
   const emailLoginBtn = document.getElementById("navEmailLoginBtn");
   if (emailLoginBtn) { emailLoginBtn.addEventListener("click", () => { document.getElementById('emailAuthModal').style.display = 'flex'; }); }
@@ -937,7 +953,9 @@
     btnEmailSignIn.addEventListener("click", () => {
       const email = document.getElementById("emailInput").value; const pwd = document.getElementById("pwdInput").value;
       if(!email || !pwd) { alert("ઈમેલ અને પાસવર્ડ નાખવા ફરજિયાત છે!"); return; }
-      signInWithEmailAndPassword(auth, email, pwd).then(() => location.reload()).catch(() => alert("ભૂલ: ઈમેલ કે પાસવર્ડ ખોટો છે અથવા એકાઉન્ટ નથી. પહેલા 'નવું એકાઉન્ટ બનાવો' પર ક્લિક કરો."));
+      signInWithEmailAndPassword(auth, email, pwd).then(() => {
+          document.getElementById('emailAuthModal').style.display = 'none'; 
+      }).catch(() => alert("ભૂલ: ઈમેલ કે પાસવર્ડ ખોટો છે અથવા એકાઉન્ટ નથી. પહેલા 'નવું એકાઉન્ટ બનાવો' પર ક્લિક કરો."));
     });
   }
   
@@ -946,7 +964,9 @@
     btnEmailSignUp.addEventListener("click", () => {
       const email = document.getElementById("emailInput").value; const pwd = document.getElementById("pwdInput").value;
       if(!email || !pwd || pwd.length < 6) { alert("ઈમેલ અને ઓછામાં ઓછો 6 અક્ષરનો પાસવર્ડ નાખવો ફરજિયાત છે!"); return; }
-      createUserWithEmailAndPassword(auth, email, pwd).then(() => location.reload()).catch((e) => alert("ભૂલ: આ ઈમેલ પર પહેલેથી એકાઉન્ટ છે અથવા વિગતો અમાન્ય છે!"));
+      createUserWithEmailAndPassword(auth, email, pwd).then(() => {
+          document.getElementById('emailAuthModal').style.display = 'none'; 
+      }).catch((e) => alert("ભૂલ: આ ઈમેલ પર પહેલેથી એકાઉન્ટ છે અથવા વિગતો અમાન્ય છે!"));
     });
   }
 
@@ -970,7 +990,6 @@
         mainBtn.innerHTML = `Hi, ${displayName.split(" ")[0]} 👤`;
         mainBtn.style.maxWidth = "140px"; mainBtn.style.whiteSpace = "nowrap"; mainBtn.style.overflow = "hidden"; mainBtn.style.textOverflow = "ellipsis"; mainBtn.style.padding = "8px 20px";
         
-        // 🛑 સુધારો: બટન પર ક્લિક કરતા મેનુ ખુલશે (લૉગઆઉટ માટે) 🛑
         mainBtn.onclick = () => {
             dropBox.style.display = (dropBox.style.display === 'block') ? '' : 'block';
         };
@@ -979,49 +998,32 @@
         document.getElementById("navLogout").addEventListener("click", () => signOut(auth).then(() => location.reload()));
       }
 
-      const userRef = doc(db, "users", user.uid);
-      await setDoc(userRef, { email: user.email, name: user.displayName || user.email.split("@")[0], lastLogin: new Date().toISOString() }, { merge: true });
-      const userSnap = await getDoc(userRef);
-      const userData = userSnap.exists() ? userSnap.data() : {};
+      try {
+          const userRef = doc(db, "users", user.uid);
+          await setDoc(userRef, { email: user.email, lastLogin: new Date().toISOString() }, { merge: true });
 
-      for (let i = 2; i <= 2; i++) {
-        let payBtn = document.getElementById(`payTest${i}Btn`);
-        let startBtn = document.getElementById(`startTest${i}Btn`);
-        let card = document.getElementById(`test${i}Card`);
-        let emoji = document.getElementById(`test${i}Emoji`);
-        let label = document.getElementById(`test${i}Label`);
+          const userSnap = await getDoc(userRef);
+          const userData = userSnap.exists() ? userSnap.data() : {};
 
-        if (userData[`paid_test${i}`] === true) {
-          if (payBtn) payBtn.style.display = "none";
-          if (startBtn) { startBtn.style.display = "block"; }
-          if (card) { card.style.background = "#f0fdf4"; card.style.borderColor = "#16a34a"; card.style.borderTop = "6px solid #16a34a"; }
-          if (emoji) { emoji.innerText = "🔓"; emoji.style.opacity = "1"; emoji.style.filter = "grayscale(0%)"; }
-          if (label) { label.innerText = "UNLOCKED"; label.style.background = "#16a34a"; }
-        } else {
-          if (payBtn) {
-            payBtn.onclick = () => {
-              let adminCode = prompt("જો તમે ડેવલપર છો તો પાસવર્ડ નાખો, અન્યથા ખાલી છોડી OK દબાવો:");
-              if (adminCode === "ADMIN123") {
-                  let updateData = {}; updateData[`paid_test${i}`] = true;
-                  setDoc(userRef, updateData, { merge: true }).then(() => { alert(`અનલૉક સફળ!`); location.reload(); });
-                  return;
-              }
-              var options = {
-                "key": "rzp_test_SWKoQzr9rED1vw", 
-                "amount": "3900", "currency": "INR", "name": "Adhyapak Saathi", "description": `Premium Mock Test ${i}`,
-                "handler": function (response) {
-                  let updateData = {}; updateData[`paid_test${i}`] = true;
-                  setDoc(userRef, updateData, { merge: true }).then(() => { alert(`મોક ટેસ્ટ ${i} સફળતાપૂર્વક અનલૉક થઈ ગયો છે.`); location.reload(); });
-                },
-                "prefill": { "name": user.displayName, "email": user.email }, "theme": { "color": "#1d3461" }
-              };
-              new Razorpay(options).open();
-            };
+          for (let i = 2; i <= 2; i++) {
+            let payBtn = document.getElementById(`payTest${i}Btn`);
+            let startBtn = document.getElementById(`startTest${i}Btn`);
+            let card = document.getElementById(`test${i}Card`);
+            let emoji = document.getElementById(`test${i}Emoji`);
+            let label = document.getElementById(`test${i}Label`);
+
+            if (userData[`paid_test${i}`] === true) {
+              if (payBtn) payBtn.style.display = "none";
+              if (startBtn) { startBtn.style.display = "block"; }
+              if (card) { card.style.background = "#f0fdf4"; card.style.borderColor = "#16a34a"; card.style.borderTop = "6px solid #16a34a"; }
+              if (emoji) { emoji.innerText = "🔓"; emoji.style.opacity = "1"; emoji.style.filter = "grayscale(0%)"; }
+              if (label) { label.innerText = "UNLOCKED"; label.style.background = "#16a34a"; }
+            }
           }
-        }
+      } catch (e) {
+          console.error("Firestore Error:", e);
       }
     } else {
-      // 🛑 જો યુઝર લૉગિન ન હોય તો મેનુમાં Login સેટ કરો અને પેમેન્ટ બટન દબાવતા બોક્સ ખોલો 🛑
       if (mainBtn) {
           mainBtn.innerHTML = `Login 👤`;
           mainBtn.onclick = () => {
@@ -1029,21 +1031,6 @@
           };
       }
       if (dropBox) dropBox.innerHTML = '';
-
-      for (let i = 2; i <= 2; i++) {
-        let payBtn = document.getElementById(`payTest${i}Btn`);
-        if (payBtn) {
-          payBtn.onclick = () => {
-            alert("કૃપા કરીને ટેસ્ટ ખરીદવા માટે પહેલા લૉગિન કરો!");
-            
-            const emailModal = document.getElementById('emailAuthModal');
-            if (emailModal) emailModal.style.display = 'flex';
-            
-            const navLinks = document.getElementById('navLinks');
-            if(navLinks) navLinks.classList.remove('open');
-          };
-        }
-      }
     }
   });
 </script>
