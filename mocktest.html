@@ -329,7 +329,7 @@
   <div class="auth-box" style="border-top-color: #16a34a;">
     <h3 style="color: #16a34a; font-size: 1.5rem; margin-bottom: 10px;">✅ ટેસ્ટ અનલૉક છે!</h3>
     <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">સ્કોરબોર્ડમાં દેખાડવા માટે તમારું નામ અથવા રોલ નંબર દાખલ કરો.</p>
-    <input type="text" id="paidStudentName" placeholder="દા.ત. 128 Ashutosh" style="width: 100%; padding: 12px; border: 2px solid #16a34a; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; font-weight: bold; box-sizing: border-box;">
+    <input type="text" id="paidStudentName" placeholder="" style="width: 100%; padding: 12px; border: 2px solid #16a34a; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; font-weight: bold; box-sizing: border-box;">
     <button class="btn" style="width: 100%; background: #16a34a; color: white; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="startPaidTest()">ટેસ્ટ શરૂ કરો 🚀</button>
     <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('paidNameModal').style.display='none'">બંધ કરો</button>
   </div>
@@ -545,7 +545,7 @@
       .catch(e => console.error("News fetch error:", e));
   }
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymdVHPJTrNjPygPX75YYm59BCAvpKCPbKsfiAHRjExT_iIgjGhhcoDTHJ6yxfZYEIc/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymdVHPJtrNjPygPX75YYm59BCAvpKCPbKsfiAHRjExT_iIgjGhhcoDTHJ6yxfZYEIc/exec";
 
   let currentPage = 1;
   const rowsPerPage = 10;
@@ -670,7 +670,7 @@
           if(data && data.length > 0 && !data.error) {
               const validQuestions = data.filter(item => (item.q || item.Question) && String(item.q || item.Question).trim() !== "");
               if(validQuestions.length === 0) {
-                  alert(`ટેસ્ટ ${testId} માં કોઈ પ્રશ્નો મળ્યા નથી. ગૂગલ શીટમાં પ્રશ્નો નાખો.`);
+                  alert(`ટેસ્ટ ${testId} માં કોઈ પ્રશ્નો મળ્યા નથી`);
                   document.getElementById('loadingModal').style.display = 'none';
                   return;
               }
@@ -688,10 +688,10 @@
               
               document.getElementById('loadingModal').style.display = 'none';
               startExamEngine(); 
-          } else { alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી! ગૂગલ શીટમાં Questions_${testId} નામની શીટ બનાવી પ્રશ્નો નાખો.`); document.getElementById('loadingModal').style.display = 'none'; }
+          } else { alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથીાં Questions_${testId}`); document.getElementById('loadingModal').style.display = 'none'; }
       }).catch(err => { 
           console.error(err);
-          alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી! ગૂગલ શીટમાં Questions_${testId} નામની શીટ બનાવી પ્રશ્નો નાખો.`); 
+          alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથીાં Questions_${testId}`); 
           document.getElementById('loadingModal').style.display = 'none'; 
       });
   }
@@ -884,7 +884,7 @@
     currentPage = 1;
     renderLeaderboard();
     
-    if(SCRIPT_URL !== "") {
+    if(SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbymdVHPJtrNjPygPX75YYm59BCAvpKCPbKsfiAHRjExT_iIgjGhhcoDTHJ6yxfZYEIc/exec") {
         fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name: stuName, score: finalScore, testId: currentTestId }) }).catch(e=>console.log(e));
     }
   }
