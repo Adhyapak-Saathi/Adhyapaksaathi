@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='n' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230f172a' /%3E%3Cstop offset='100%25' stop-color='%231d3461' /%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4a017' /%3E%3Cstop offset='100%25' stop-color='%23fbbf24' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='160' height='160' rx='40' fill='%23ffffff'/%3E%3Cg transform='translate(15, 20)'%3E%3Cpath d='M 30 108 Q 80 115 125 102' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='40' r='13' fill='url(%23n)'/%3E%3Cpath d='M 40 108 C 40 70 52 60 76 75' fill='none' stroke='url(%23n)' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='55' r='9' fill='url(%23g)'/%3E%3Cpath d='M 64 108 C 64 90 70 82 76 75' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M 70 82 Q 85 70 98 55' fill='none' stroke='url(%23g)' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E"/>
   <style>
     body {
       -webkit-user-select: none;
@@ -151,18 +151,33 @@
   
   <nav>
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="nav-logo-emblem">
-          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="18" width="22" height="3" rx="1" fill="#1d3461"/>
-            <rect x="7" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
-            <rect x="18" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
-            <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
-          </svg>
-        </div>
-        <div class="nav-logo-text">
-        <span class="site-name">Adhyapak Saathi</span>
-        <span class="site-tagline">Teacher Exam Preparation Portal</span>
+      <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+      <div style="width: 54px; height: 54px; background: #fff; border-radius: 14px; box-shadow: 0 4px 12px rgba(29,52,97,0.15); display: flex; align-items: center; justify-content: center; position: relative;">
+        <svg viewBox="0 0 160 160" style="width: 44px; height: 44px;">
+          <defs>
+            <linearGradient id="nGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#0f172a" /><stop offset="100%" stop-color="#1d3461" />
+            </linearGradient>
+            <linearGradient id="gGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#d4a017" /><stop offset="100%" stop-color="#fbbf24" />
+            </linearGradient>
+          </defs>
+          <g transform="translate(15, 20)">
+            <path d="M 30 108 Q 80 115 125 102" fill="none" stroke="url(#gGrad)" stroke-width="4" stroke-linecap="round" stroke-opacity="0.5"/>
+            <circle cx="48" cy="40" r="13" fill="url(#nGrad)"/>
+            <path d="M 40 108 C 40 70 52 60 76 75" fill="none" stroke="url(#nGrad)" stroke-width="11" stroke-linecap="round"/>
+            <circle cx="78" cy="55" r="9" fill="url(#gGrad)"/>
+            <path d="M 64 108 C 64 90 70 82 76 75" fill="none" stroke="url(#gGrad)" stroke-width="8" stroke-linecap="round"/>
+            <path d="M 70 82 Q 85 70 98 55" fill="none" stroke="url(#gGrad)" stroke-width="7" stroke-linecap="round"/>
+            <path d="M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z" fill="url(#gGrad)"/>
+          </g>
+        </svg>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <span style="font-family: system-ui, sans-serif; font-size: clamp(1rem, 4vw, 1.35rem); color: #fff; letter-spacing: -0.5px; line-height: 1.1;">
+          <strong style="font-weight: 900;">ADHYAPAK</strong> <span style="font-weight: 300; color: #d4a017;">SAATHI</span>
+        </span>
+        <span style="font-size: clamp(0.55rem, 2vw, 0.65rem); color: #d4a017; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-top: 2px; white-space: nowrap;">Teacher Exam Portal</span>
       </div>
     </a>
     <ul class="nav-links" id="navLinks">
@@ -172,7 +187,7 @@
       <li><a href="news.html">Exam News</a></li>
       <li><a href="materials.html">Study Materials</a></li>
       <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="contact.html" class="active">Contact Us</a></li>
     </ul>
     <!-- Accessibility improvement (role and aria-label) -->
     <div class="hamburger" role="button" tabindex="0" aria-label="Open Mobile Menu" onclick="toggleNav()">
@@ -463,7 +478,7 @@
         <li><a href="news.html">Exam News</a></li>
         <li><a href="materials.html">Study Materials</a></li>
         <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </div>
     <div>
