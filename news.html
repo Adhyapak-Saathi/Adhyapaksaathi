@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="gu">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0BKEFLEQTQ"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0BKEFLEQTQ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -15,7 +14,7 @@
   <title>Exam News — Adhyapak Saathi</title>
   <meta name="description" content="Latest notifications for TAT, TET, UGC NET, GSET, CTET — application dates, admit cards, results, and official updates."/>
   <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='n' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230f172a' /%3E%3Cstop offset='100%25' stop-color='%231d3461' /%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4a017' /%3E%3Cstop offset='100%25' stop-color='%23fbbf24' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='160' height='160' rx='40' fill='%23ffffff'/%3E%3Cg transform='translate(15, 20)'%3E%3Cpath d='M 30 108 Q 80 115 125 102' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='40' r='13' fill='url(%23n)'/%3E%3Cpath d='M 40 108 C 40 70 52 60 76 75' fill='none' stroke='url(%23n)' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='55' r='9' fill='url(%23g)'/%3E%3Cpath d='M 64 108 C 64 90 70 82 76 75' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M 70 82 Q 85 70 98 55' fill='none' stroke='url(%23g)' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E"/>
   <style>
     /* Security: Prevent text selection across the whole page */
     body {
@@ -26,12 +25,12 @@
 
     /* Fixed News Card to contain absolute badges */
     .news-card {
-      position: relative; /* This completely fixes the floating badge glitch! */
+      position: relative; 
     }
 
     /* SEAMLESS DYNAMIC TICKER CSS */
     .safe-ticker {
-      background: var(--navy-dark); 
+      background: var(--navy-dark);
       color: #fff; 
       padding: 10px 0; 
       overflow: hidden; 
@@ -42,7 +41,7 @@
     
     .ticker-viewport {
       overflow: hidden; 
-      flex-grow: 1; 
+      flex-grow: 1;
       display: flex;
     }
 
@@ -54,7 +53,7 @@
 
     .safe-ticker-content {
       white-space: nowrap;
-      padding-right: 30px; /* Space before it repeats */
+      padding-right: 30px; 
     }
 
     @keyframes seamlessTicker { 
@@ -62,15 +61,20 @@
       100% { transform: translateX(-50%); } 
     }
     
-    /* Ensure images always center perfectly */
     .news-card-img {
-      width: 100%; height: 200px; object-fit: cover; object-position: center; border-bottom: 3px solid var(--gold);
+      width: 100%;
+      height: 200px; object-fit: cover; object-position: center; border-bottom: 3px solid var(--gold);
     }
+
+    /* 🛑 નવા ડાયનેમિક ન્યૂઝની મસ્ત ડિઝાઈન 🛑 */
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    .news-item { display: flex; align-items: flex-start; gap: 15px; padding: 20px 25px; border-bottom: 1px solid #e2e8f0; transition: 0.3s; text-decoration: none; color: #1e293b; background: white; }
+    .news-item:hover { background: #f8fafc; border-left: 5px solid var(--gold); transform: translateX(3px); }
+    .news-icon { background: #f1f5f9; color: var(--navy); min-width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: 1px solid #cbd5e0; }
   </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-inner">
     <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
@@ -78,30 +82,43 @@
   </div>
 </div>
 
-<!-- NAVBAR -->
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-emblem">
-        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="18" width="22" height="3" rx="1" fill="#1d3461"/>
-          <rect x="7" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
-          <rect x="18" y="6" width="3" height="12" rx="1" fill="#1d3461"/>
-          <path d="M14 4 L21 9 H7 Z" fill="#b8860b"/>
+    <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+      <div style="width: 54px; height: 54px; background: #fff; border-radius: 14px; box-shadow: 0 4px 12px rgba(29,52,97,0.15); display: flex; align-items: center; justify-content: center; position: relative;">
+        <svg viewBox="0 0 160 160" style="width: 44px; height: 44px;">
+          <defs>
+            <linearGradient id="nGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+               <stop offset="0%" stop-color="#0f172a" /><stop offset="100%" stop-color="#1d3461" />
+            </linearGradient>
+            <linearGradient id="gGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#d4a017" /><stop offset="100%" stop-color="#fbbf24" />
+            </linearGradient>
+          </defs>
+          <g transform="translate(15, 20)">
+            <path d="M 30 108 Q 80 115 125 102" fill="none" stroke="url(#gGrad)" stroke-width="4" stroke-linecap="round" stroke-opacity="0.5"/>
+            <circle cx="48" cy="40" r="13" fill="url(#nGrad)"/>
+            <path d="M 40 108 C 40 70 52 60 76 75" fill="none" stroke="url(#nGrad)" stroke-width="11" stroke-linecap="round"/>
+            <circle cx="78" cy="55" r="9" fill="url(#gGrad)"/>
+            <path d="M 64 108 C 64 90 70 82 76 75" fill="none" stroke="url(#gGrad)" stroke-width="8" stroke-linecap="round"/>
+            <path d="M 70 82 Q 85 70 98 55" fill="none" stroke="url(#gGrad)" stroke-width="7" stroke-linecap="round"/>
+            <path d="M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z" fill="url(#gGrad)"/>
+          </g>
         </svg>
       </div>
-    <div class="nav-logo-text">
-        <span class="site-name">Adhyapak Saathi</span>
-        <span class="site-tagline">Teacher Exam Preparation Portal</span>
+      <div style="display: flex; flex-direction: column;">
+        <span style="font-family: system-ui, sans-serif; font-size: clamp(1rem, 4vw, 1.35rem); color: #fff; letter-spacing: -0.5px; line-height: 1.1;">
+          <strong style="font-weight: 900;">ADHYAPAK</strong> <span style="font-weight: 300; color: #d4a017;">SAATHI</span>
+        </span>
+        <span style="font-size: clamp(0.55rem, 2vw, 0.65rem); color: #d4a017; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-top: 2px; white-space: nowrap;">Teacher Exam Portal</span>
       </div>
     </a>
     
-   <!-- FIXED NAVIGATION MENU -->
-  <ul class="nav-links" id="navLinks">
+   <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="test.html">Practice Test</a></li>
       <li><a href="mocktest.html">Mock Test</a></li>
-      <li><a href="news.html">Exam News</a></li>
+      <li><a href="news.html" class="active">Exam News</a></li>
       <li><a href="materials.html">Study Materials</a></li>
       <li><a href="about.html">About Us</a></li>
       <li><a href="contact.html">Contact</a></li>
@@ -111,7 +128,6 @@
   </div>
 </nav>
 
-<!-- BANNER -->
 <div class="page-banner">
   <div class="wrapper">
     <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Exam News</div>
@@ -120,20 +136,16 @@
   </div>
 </div>
 
-<!-- BULLETPROOF & DYNAMIC TICKER -->
 <div class="safe-ticker">
   <div class="wrapper" style="display: flex; align-items: center; width: 100%;">
     <span style="background: var(--gold); color: var(--navy-dark); font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 4px; z-index: 10; position: relative; margin-right: 15px; flex-shrink: 0; text-transform: uppercase;">LIVE UPDATES</span>
     <div class="ticker-viewport">
-      <!-- JavaScript will automatically clone the titles from the news cards and inject them here -->
       <div class="safe-ticker-track" id="dynamicTickerTrack">
-        <!-- Content gets loaded here -->
-      </div>
+        </div>
     </div>
   </div>
 </div>
 
-<!-- FILTER BUTTONS -->
 <section class="section-sm" style="border-bottom: 1px solid var(--border); background: var(--white);">
   <div class="wrapper">
     <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;" id="newsTabs">
@@ -147,102 +159,33 @@
   </div>
 </section>
 
-<!-- MAIN NEWS GRID -->
-<section class="section">
-  <div class="wrapper">
-    <div class="grid-3" id="newsGrid">
-
-      <!-- LATEST TAT (SECONDARY) NEWS -->
-      <div class="card news-card" data-cat="tat">
-        <div style="position: absolute; top: 10px; right: 10px; background: var(--red); color: white; font-size: 0.7rem; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">🔥 Latest</div>
-        <img class="news-card-img" src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&q=80" alt="TAT Secondary Updates"/>
-        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
-          <span class="card-tag">TAT (S) · Exam Date</span>
-          <div class="card-title">TAT (Secondary) 2026 Prelims Exam Date Announced</div>
-          <div class="card-text" style="flex-grow: 1;">
-            The State Examination Board (SEB) has officially announced the Preliminary Examination date for TAT (Secondary). The exam is scheduled to be held in late April 2026. Candidates will be able to download their hall tickets from the OJAS portal 7 days prior to the exam.
-          </div>
-          <a href="https://ojas.gujarat.gov.in/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Download Hall Ticket →</a>
+<div style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
+    <div style="background: white; border-radius: 16px; box-shadow: 0 15px 35px rgba(29, 52, 97, 0.1); overflow: hidden; border: 1px solid #cbd5e1; border-top: 5px solid var(--navy);">
+        
+        <div style="background: #f8fafc; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0;">
+            <h3 style="margin: 0; font-size: 1.5rem; color: var(--navy); font-weight: 800; display: flex; align-items: center; gap: 10px;">
+                <span>🔔</span> લેટેસ્ટ પરીક્ષા અપડેટ્સ
+            </h3>
+            <span style="background: var(--gold); color: var(--navy); padding: 5px 15px; border-radius: 30px; font-size: 0.85rem; font-weight: 900; animation: pulse 2s infinite; letter-spacing: 1px;">LIVE NOW</span>
         </div>
-      </div>
-
-      <!-- LATEST TAT (HIGHER SECONDARY) NEWS -->
-      <div class="card news-card" data-cat="tat">
-        <div style="position: absolute; top: 10px; right: 10px; background: var(--navy); color: white; font-size: 0.7rem; font-weight: bold; padding: 4px 10px; border-radius: 4px; z-index: 5; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">📢 Important</div>
-        <img class="news-card-img" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80" alt="TAT HS Updates"/>
-        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
-          <span class="card-tag">TAT (HS) · Notification</span>
-          <div class="card-title">TAT (Higher Secondary) 2026 Application Window</div>
-          <div class="card-text" style="flex-grow: 1;">
-            SEB has released the official notification for the TAT (Higher Secondary) 2026 examination. The preliminary exam is tentatively scheduled for mid-May 2026. Eligible candidates can submit their online applications through the OJAS portal before the deadline.
-          </div>
-          <a href="https://www.sebexam.org/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Read Official Notice →</a>
+        
+        <div id="dynamicNewsList" style="max-height: 600px; overflow-y: auto;">
+            <div style="text-align: center; padding: 50px; color: #64748b; font-weight: bold; font-size: 1.1rem;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">⏳</div> ન્યૂઝ લોડ થઈ રહ્યા છે...
+            </div>
         </div>
-      </div>
-      
-      <!-- GSET NEWS -->
-      <div class="card news-card" data-cat="gset">
-        <img class="news-card-img" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80" alt="GSET Exam"/>
-        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
-          <span class="card-tag">GSET · E-Certificate</span>
-          <div class="card-title">GSET E-Certificates Available for Download</div>
-          <div class="card-text" style="flex-grow: 1;">
-            The Gujarat State Eligibility Test (GSET) Agency has activated the portal to download E-Certificates for qualified candidates. Enter your credentials on the official link below to retrieve your certificate for Assistant Professor eligibility.
-          </div>
-          <a href="https://gujaratset.ac.in/certificate/ecerti25" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Download E-Certificate →</a>
+        
+        <div style="background: var(--navy); padding: 12px; text-align: center;">
+            <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; font-weight: 600;">તાજેતરની માહિતી માટે પેજ રીફ્રેશ કરતા રહો.</p>
         </div>
-      </div>
-
-      <!-- TET NEWS -->
-      <div class="card news-card" data-cat="tet">
-        <img class="news-card-img" src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&q=80" alt="TET Primary School"/>
-        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
-          <span class="card-tag">TET I & II · Syllabus</span>
-          <div class="card-title">TET Exam Guidelines & Syllabi Updates</div>
-          <div class="card-text" style="flex-grow: 1;">
-            Primary and Upper Primary teacher eligibility tests (TET 1 & 2) are conducted by the SEB. Aspirants are advised to download the latest official exam structure and syllabus directly from the SEB portal to align their preparation.
-          </div>
-          <a href="https://www.sebexam.org/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Check SEB Portal →</a>
-        </div>
-      </div>
-
-      <!-- UGC NET NEWS -->
-      <div class="card news-card" data-cat="ugcnet">
-        <img class="news-card-img" src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80" alt="UGC NET Exam"/>
-        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
-          <span class="card-tag">UGC NET · National</span>
-          <div class="card-title">UGC NET Upcoming Cycle Notification</div>
-          <div class="card-text" style="flex-grow: 1;">
-            The National Testing Agency (NTA) is expected to release the schedule for the next UGC NET cycle soon. Candidates aiming for JRF and Assistant Professor roles should frequently monitor the official NTA website for registration details.
-          </div>
-          <a href="https://ugcnet.nta.ac.in/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Visit NTA Portal →</a>
-        </div>
-      </div>
-
-      <!-- CTET NEWS -->
-      <div class="card news-card" data-cat="ctet">
-        <img class="news-card-img" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80" alt="CTET Education"/>
-        <div class="card-body" style="display: flex; flex-direction: column; height: calc(100% - 200px);">
-          <span class="card-tag">CTET · CBSE</span>
-          <div class="card-title">Central Teacher Eligibility Test (CTET)</div>
-          <div class="card-text" style="flex-grow: 1;">
-            The CBSE manages the CTET for teaching positions in central government schools (KVS, NVS). Access the latest information bulletin, application status, and admit cards exclusively via the CTET official web portal.
-          </div>
-          <a href="https://ctet.nic.in/" target="_blank" class="btn btn-outline-gold btn-sm btn-full" style="margin-top: 10px;">Visit CTET Portal →</a>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
+</div>
 
-<!-- QUICK DEADLINES & LINKS SECTION -->
 <hr class="divider"/>
 <section class="section-sm" style="background: var(--white);">
   <div class="wrapper">
     <div class="grid-2">
       
-      <!-- Important Notice Box -->
       <div style="background: var(--navy); border-radius: var(--radius-lg); padding: 2.5rem; color: var(--white); box-shadow: var(--shadow-md);">
         <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem;">⚠️ Beware of Fake News</h3>
         <p style="font-size: 0.95rem; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 1.5rem;">
@@ -253,7 +196,6 @@
         </p>
       </div>
 
-      <!-- Quick Official Links Box -->
       <div style="background: #f8fafd; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm);">
         <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin-bottom: 1.5rem;">Trusted Official Portals</h3>
         
@@ -280,7 +222,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -329,81 +270,110 @@
 // --- SECURITY FEATURES ---
 
 // 1. Disable Right-Click (Context Menu)
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-});
-
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 // 2. Disable Specific Keyboard Shortcuts
 document.onkeydown = function(e) {
-  // F12 (DevTools)
-  if (e.key === 'F12') {
-    return false;
-  }
-  // Ctrl+Shift+I or Cmd+Option+I (Inspect)
-  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-    return false;
-  }
-  // Ctrl+Shift+J or Cmd+Option+J (Console)
-  if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
-    return false;
-  }
-  // Ctrl+U or Cmd+Option+U (View Source)
-  if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-    return false;
-  }
-  // Ctrl+S or Cmd+S (Save Page)
-  if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-    return false;
-  }
+  if (e.key === 'F12') { return false; }
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) { return false; }
+  if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) { return false; }
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) { return false; }
+  if (e.ctrlKey && (e.key === 'S' || e.key === 's')) { return false; }
 };
-
 // 3. Disable Copying Text
-document.addEventListener('copy', function(e) {
-  e.preventDefault();
-});
+document.addEventListener('copy', function(e) { e.preventDefault(); });
 
 
 // --- REGULAR PAGE SCRIPTS ---
-
 function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
+// 🛑 ફિલ્ટર બટન્સનું ફંક્શન 🛑
 function filterNews(cat, btn) {
-  // Reset all buttons to outline
+  // બધા બટનમાંથી કલર કાઢો
   document.querySelectorAll('.filter-btn').forEach(b => {
     b.classList.remove('btn-navy');
     b.classList.add('btn-outline');
   });
-  
-  // Set clicked button to navy
+
+  // જે બટન દબાવ્યું તેમાં કલર કરો
   btn.classList.remove('btn-outline');
   btn.classList.add('btn-navy');
   
-  // Filter cards
-  document.querySelectorAll('.news-card').forEach(el => {
-    if (cat === 'all' || el.dataset.cat === cat) {
-      el.style.display = 'block'; 
+  // નવા ડાયનેમિક ન્યૂઝ લિસ્ટને ફિલ્ટર કરો (Google Sheet માંથી આવેલા)
+  document.querySelectorAll('.news-item').forEach(el => {
+    let itemCat = el.getAttribute('data-category') || "all";
+    if (cat === 'all' || itemCat.toLowerCase().includes(cat.toLowerCase())) {
+      el.style.display = 'flex'; 
     } else {
       el.style.display = 'none';
     }
   });
 }
 
-// --- DYNAMIC TICKER GENERATOR ---
-document.addEventListener("DOMContentLoaded", function() {
-  // 1. બનેલા બધા જ ન્યૂઝ કાર્ડ્સના ટાઇટલ શોધો
-  const cardTitles = document.querySelectorAll('.news-card .card-title');
-  const titleArray = Array.from(cardTitles).map(el => el.innerText);
+// કોમા (,) વાળા વાક્યો માટે સ્પેશિયલ CSV પાર્સર
+function parseCSVRow(str) {
+    let arr = []; let quote = false; let col = '';
+    for (let i = 0; i < str.length; i++) {
+        let c = str[i];
+        if (c === '"') { quote = !quote; } 
+        else if (c === ',' && !quote) { arr.push(col.trim()); col = ''; } 
+        else { col += c; }
+    }
+    arr.push(col.trim()); return arr;
+}
 
-  // 2. તેમને જોડીને એક લાંબી લાઈન બનાવો
-  const tickerString = titleArray.map(title => '📢 ' + title).join(' &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp; ';
+// 🛑 તમારી ગૂગલ શીટ CSV લિંક 🛑
+const FULL_NEWS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQsoeliHU3p9d4cu3-34YZSRvKlzsh1MPfevMWztX4ZcrdjlGWeDiKNZ4iDg1rVIGpSYvyDzNzxatn7/pub?gid=0&single=true&output=csv"; 
 
-  // 3. સીમલેસ સ્માર્ટ લૂપ માટે એ જ લાઈનને 2 વાર ટિકરમાં મૂકી દો!
-  const track = document.getElementById('dynamicTickerTrack');
-  track.innerHTML = `
-    <div class="safe-ticker-content">${tickerString}</div>
-    <div class="safe-ticker-content">${tickerString}</div>
-  `;
-});
+if (FULL_NEWS_URL !== "") {
+    fetch(FULL_NEWS_URL)
+    .then(response => response.text())
+    .then(csvText => {
+        let rows = csvText.split('\n').filter(line => line.trim() !== "");
+        let html = "";
+        let tickerArr = [];
+        
+        // રિવર્સ લૂપ જેથી નવો ન્યૂઝ સૌથી ઉપર આવે
+        for (let i = rows.length - 1; i >= 0; i--) {
+            let cols = parseCSVRow(rows[i]);
+            
+            let newsTitle = cols[0] ? cols[0].replace(/^"|"$/g, '') : "નવી અપડેટ";
+            let newsLink  = cols[1] ? cols[1].replace(/^"|"$/g, '') : "#";
+            let newsDesc  = cols[2] ? cols[2].replace(/^"|"$/g, '') : "";
+            let newsCat   = cols[3] ? cols[3].replace(/^"|"$/g, '').toLowerCase() : "all"; 
+            
+            tickerArr.push(newsTitle);
+            
+            html += `
+                <a href="${newsLink}" target="_blank" class="news-item" data-category="${newsCat}">
+                    <div class="news-icon">📢</div>
+                    <div style="flex-grow: 1;">
+                        <div style="font-weight: 800; font-size: 1.25rem; color: var(--navy); line-height: 1.4;">${newsTitle}</div>
+                        ${newsDesc ? `<div style="font-size: 0.95rem; color: #64748b; margin-top: 5px; line-height: 1.6; font-weight: 500;">${newsDesc}</div>` : ''}
+                        <div style="font-size: 0.95rem; color: var(--gold); font-weight: 800; margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #fffbeb; border-radius: 6px; border: 1px solid #fef3c7;">
+                            વધુ જાણવા માટે અહી ક્લિક કરો <span style="font-size: 1.2rem;">➔</span>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+        document.getElementById('dynamicNewsList').innerHTML = html;
+
+        // ઉપર ફરતી લાઈન (Ticker) માં હેડિંગ સેટ કરવા માટે
+        if(tickerArr.length > 0) {
+            const tickerString = tickerArr.map(title => '📢 ' + title).join(' &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp; ';
+            const track = document.getElementById('dynamicTickerTrack');
+            if(track) {
+                track.innerHTML = `
+                    <div class="safe-ticker-content">${tickerString}</div>
+                    <div class="safe-ticker-content">${tickerString}</div>
+                `;
+            }
+        }
+    })
+    .catch(e => {
+        document.getElementById('dynamicNewsList').innerHTML = "<p style='text-align:center; padding:20px; color:#dc2626; font-weight:bold;'>ન્યૂઝ લોડ કરવામાં ભૂલ આવી. કૃપા કરીને ઇન્ટરનેટ ચેક કરો.</p>";
+    });
+}
 </script>
 </body>
 </html>
