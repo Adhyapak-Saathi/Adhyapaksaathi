@@ -18,7 +18,10 @@
 
   <style>
     :root { --navy: #1d3461; --gold: #d4a017; --bg: #f4f7fb; --success: #16a34a; --danger: #dc2626; }
-    body { -webkit-user-select: none; -ms-user-select: none; user-select: none; background: var(--bg); margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+    
+    /* 🛑 સિક્યુરિટી 🛑 */
+    body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background: var(--bg); margin: 0; font-family: system-ui, -apple-system, sans-serif; -webkit-touch-callout: none; }
+    @media print { body { display: none !important; } html { background: white; } }
 
     /* ================= NAVBAR ================= */
     nav { background: var(--navy); padding: 0 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 70px; display: flex; align-items: center; justify-content: center; }
@@ -222,7 +225,7 @@
     <div id="paidTestSeries">
       <div style="background: #0f172a; color: white; padding: 10px 20px; display: flex; align-items: center; border-bottom: 2px solid #d4a017; margin-bottom: 30px; border-radius: 8px;">
           <span style="background: #d4a017; color: #1d3461; padding: 5px 15px; font-weight: 900; border-radius: 5px; margin-right: 15px; white-space: nowrap;">LIVE UPDATES</span>
-          <marquee behavior="scroll" direction="left" style="font-weight: 600; font-size: 1.1rem; color: #e2e8f0;">
+          <marquee id="liveNewsMarquee" behavior="scroll" direction="left" style="font-weight: 600; font-size: 1.1rem; color: #e2e8f0;">
               📢 પ્રીમિયમ મોકટેસ્ટ સિરીઝ હવે લાઈવ છે! • 📢 TAT પેપર 1 મોકટેસ્ટ 100% સિલેબસ મુજબ • 📢 અત્યારે જ તમારો ટેસ્ટ અનલોક કરો અને તૈયારી ચકાસો!
           </marquee>
       </div>
@@ -233,9 +236,9 @@
         <div class="test-card" style="border-top: 5px solid #16a34a;">
           <div style="position: absolute; top: 15px; right: -35px; background: #16a34a; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">FREE TEST</div>
           <div style="font-size: 4rem; margin-bottom: 0px;">🎓</div>
-          <h3 style="color: #1d3461; font-size: 1.7rem; margin: 0;">મોક ટેસ્ટ 1</h3>
+          <h3 style="color: #1d3461; font-size: 1.7rem; margin: 0;">ફ્રી મોક ટેસ્ટ 1</h3>
           <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો • ફ્રી</p>
-          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto;" onclick="document.getElementById('loginModal').style.display = 'flex';">ટેસ્ટ 1 શરૂ કરો 🚀</button>
+          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto;" onclick="openPaidModal(1)">ટેસ્ટ 1 શરૂ કરો 🚀</button>
         </div>
 
         <div id="test2Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
@@ -243,42 +246,44 @@
           <div id="test2Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
           <h3 id="test2Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 2</h3>
           <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          
           <button id="payTest2Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(2)">Buy Now - ₹39</button>
-          
           <button id="startTest2Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(2)">ટેસ્ટ 2 શરૂ કરો 🚀</button>
         </div>
 
-        <div class="test-card" style="background: #f8fafc; border: 2px solid #e2e8f0;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #94a3b8; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">SOON</div>
-          <div style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.3; filter: grayscale(100%);">🔒</div>
-          <h3 style="color: #94a3b8; font-size: 1.6rem; margin: 0; font-weight: 600;">મોક ટેસ્ટ 3</h3>
-          <p style="margin: 0; color: #cbd5e1; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #e2e8f0; color: #94a3b8; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; cursor: not-allowed; border: none;" disabled>Coming Soon ⏳</button>
+        <div id="test3Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
+          <div id="test3Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
+          <div id="test3Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
+          <h3 id="test3Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 3</h3>
+          <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
+          <button id="payTest3Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(3)">Buy Now - ₹39</button>
+          <button id="startTest3Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(3)">ટેસ્ટ 3 શરૂ કરો 🚀</button>
         </div>
 
-        <div class="test-card" style="background: #f8fafc; border: 2px solid #e2e8f0;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #94a3b8; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">SOON</div>
-          <div style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.3; filter: grayscale(100%);">🔒</div>
-          <h3 style="color: #94a3b8; font-size: 1.6rem; margin: 0; font-weight: 600;">મોક ટેસ્ટ 4</h3>
-          <p style="margin: 0; color: #cbd5e1; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #e2e8f0; color: #94a3b8; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; cursor: not-allowed; border: none;" disabled>Coming Soon ⏳</button>
+        <div id="test4Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
+          <div id="test4Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
+          <div id="test4Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
+          <h3 id="test4Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 4</h3>
+          <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
+          <button id="payTest4Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(4)">Buy Now - ₹39</button>
+          <button id="startTest4Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(4)">ટેસ્ટ 4 શરૂ કરો 🚀</button>
         </div>
 
-        <div class="test-card" style="background: #f8fafc; border: 2px solid #e2e8f0;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #94a3b8; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">SOON</div>
-          <div style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.3; filter: grayscale(100%);">🔒</div>
-          <h3 style="color: #94a3b8; font-size: 1.6rem; margin: 0; font-weight: 600;">મોક ટેસ્ટ 5</h3>
-          <p style="margin: 0; color: #cbd5e1; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #e2e8f0; color: #94a3b8; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; cursor: not-allowed; border: none;" disabled>Coming Soon ⏳</button>
+        <div id="test5Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
+          <div id="test5Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
+          <div id="test5Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
+          <h3 id="test5Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 5</h3>
+          <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
+          <button id="payTest5Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(5)">Buy Now - ₹39</button>
+          <button id="startTest5Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(5)">ટેસ્ટ 5 શરૂ કરો 🚀</button>
         </div>
 
-        <div class="test-card" style="background: #f8fafc; border: 2px solid #e2e8f0;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #94a3b8; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">SOON</div>
-          <div style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.3; filter: grayscale(100%);">🔒</div>
-          <h3 style="color: #94a3b8; font-size: 1.6rem; margin: 0; font-weight: 600;">મોક ટેસ્ટ 6</h3>
-          <p style="margin: 0; color: #cbd5e1; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button class="btn" style="background: #e2e8f0; color: #94a3b8; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; cursor: not-allowed; border: none;" disabled>Coming Soon ⏳</button>
+        <div id="test6Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
+          <div id="test6Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
+          <div id="test6Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
+          <h3 id="test6Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 6</h3>
+          <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
+          <button id="payTest6Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(6)">Buy Now - ₹39</button>
+          <button id="startTest6Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(6)">ટેસ્ટ 6 શરૂ કરો 🚀</button>
         </div>
       </div>
     </div>
@@ -289,7 +294,12 @@
       <div style="text-align: center; color: #dc2626; font-weight: 800; margin-bottom: 25px; font-size: 1.15rem; letter-spacing: 0.5px;">"તમારો આજનો સંઘર્ષ એ તમારી આવતીકાલની તાકાત છે! 🚩"</div>
       
       <div id="lbTabs" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap;">
-        <button class="btn" style="background: var(--navy); color: white; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(2, this)">મોક ટેસ્ટ 2 (Premium)</button>
+        <button class="btn" style="background: var(--navy); color: white; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(1, this)">ફ્રી ટેસ્ટ 1</button>
+        <button class="btn" style="background: #e2e8f0; color: #475569; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(2, this)">ટેસ્ટ 2</button>
+        <button class="btn" style="background: #e2e8f0; color: #475569; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(3, this)">ટેસ્ટ 3</button>
+        <button class="btn" style="background: #e2e8f0; color: #475569; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(4, this)">ટેસ્ટ 4</button>
+        <button class="btn" style="background: #e2e8f0; color: #475569; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(5, this)">ટેસ્ટ 5</button>
+        <button class="btn" style="background: #e2e8f0; color: #475569; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(6, this)">ટેસ્ટ 6</button>
       </div>
 
       <div id="leaderboardPlaceholder" style="text-align: center; padding: 30px 10px; background: #fffde7; border: 2px dashed #fbc02d; border-radius: 12px; color: #f57f17; font-weight: bold; font-size: 1.1rem; display: none;">હજુ સુધી કોઈએ ટેસ્ટ આપી નથી. તમે પહેલી વ્યક્તિ બનો! 🚀</div>
@@ -307,19 +317,11 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="loginModal">
-  <div class="auth-box" style="border-top-color: #dc2626;">
-    <h3 style="color: #dc2626; font-size: 1.5rem; margin-bottom: 10px;">⏳ ઑફર પૂર્ણ થઈ ગઈ છે</h3>
-    <p style="color: #1d3461; font-size: 1.1rem; margin-bottom: 20px; font-weight: bold; line-height: 1.6;">રામનવમી નિમિત્તે રાખવામાં આવેલી ફ્રી મોકટેસ્ટની ઑફર હવે પૂર્ણ થઈ ગઈ છે.<br><br>કૃપા કરીને નીચે આપેલ પ્રીમિયમ 'મોક ટેસ્ટ 2' નો લાભ લો.</p>
-    <button class="btn btn-outline" style="width: 100%; border: 2px solid #1d3461; color: #1d3461; font-weight: bold;" onclick="document.getElementById('loginModal').style.display='none'">બંધ કરો</button>
-  </div>
-</div>
-
 <div class="modal-overlay" id="paidNameModal">
   <div class="auth-box" style="border-top-color: #16a34a;">
     <h3 style="color: #16a34a; font-size: 1.5rem; margin-bottom: 10px;">✅ ટેસ્ટ અનલૉક છે!</h3>
     <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">સ્કોરબોર્ડમાં દેખાડવા માટે તમારું નામ અથવા રોલ નંબર દાખલ કરો.</p>
-    <input type="text" id="paidStudentName" placeholder="દા.ત. 128 Ashutosh" style="width: 100%; padding: 12px; border: 2px solid #16a34a; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; font-weight: bold; box-sizing: border-box;">
+    <input type="text" id="paidStudentName" placeholder=" " style="width: 100%; padding: 12px; border: 2px solid #16a34a; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; font-weight: bold; box-sizing: border-box;">
     <button class="btn" style="width: 100%; background: #16a34a; color: white; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="startPaidTest()">ટેસ્ટ શરૂ કરો 🚀</button>
     <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('paidNameModal').style.display='none'">બંધ કરો</button>
   </div>
@@ -379,6 +381,23 @@
     <button class="btn btn-navy" id="btnEmailSignIn" style="width: 100%; margin-bottom: 12px; border-radius: 8px; font-size: 1.1rem; padding: 14px;">લૉગિન કરો 🚀</button>
     <button class="btn btn-outline" id="btnEmailSignUp" style="width: 100%; margin-bottom: 15px; border-radius: 8px; border-color: #16a34a; color: #16a34a; font-weight: bold; font-size: 1.1rem; padding: 14px;">નવું એકાઉન્ટ બનાવો</button>
     <button class="btn btn-outline" style="width: 100%; border: none; font-size: 1rem; color: #64748b;" onclick="document.getElementById('emailAuthModal').style.display='none'">બંધ કરો ❌</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="rulesModal">
+  <div class="auth-box" style="border-top-color: #d4a017; max-width: 500px; padding: 25px; text-align: left;">
+    <h3 style="color: #1d3461; font-size: 1.5rem; margin-bottom: 15px; text-align: center; font-weight: 800;">📝 અગત્યની સૂચનાઓ અને નિયમો</h3>
+    <div style="font-size: 0.95rem; color: #475569; line-height: 1.6; max-height: 60vh; overflow-y: auto; padding-right: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px;">
+        <p><b>૧. ઇન્ટરનેટ:</b> સ્થિર અને સારી સ્પીડ (4G/5G/WiFi) નો ઉપયોગ કરવો.</p>
+        <p><b>૨. ઉપકરણ:</b> સારા અનુભવ માટે લેપટોપ/કમ્પ્યુટર આગ્રહણીય છે (મોબાઈલમાં પણ ચાલશે).</p>
+        <p><b>૩. પેમેન્ટ અને રિફંડ (Refund Policy):</b> આ એક ડિજિટલ પ્રોડક્ટ હોવાથી, <b>પેમેન્ટ કર્યા બાદ કોઈ રિફંડ આપવામાં આવશે નહિ.</b> જો ટેકનિકલ ખામીને લીધે બે વાર પેમેન્ટ (Double Payment) થઈ જશે, તો ચકાસણી કર્યા બાદ ૫ થી ૭ કામકાજના દિવસોમાં વધારાની રકમ પરત કરવામાં આવશે.</p>
+        <p><b>૪. ટેસ્ટ લૉક:</b> પેમેન્ટ સફળ થયા બાદ, જો ટેસ્ટ તરત અનલૉક ન થાય તો ૧૦-૧૫ મિનિટ રાહ જોવી. <b>ફરીથી પેમેન્ટ ન કરવું.</b></p>
+        <p><b>૫. એન્ટી-ચીટ:</b> ટેસ્ટ દરમિયાન 'Back' કે 'Refresh' ન કરવું. કોપી-પેસ્ટ કે સ્ક્રીનશોટ લેવાની સખત મનાઈ છે.</p>
+    </div>
+    <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+      <button class="btn btn-navy" id="agreeAndPayBtn" style="flex: 1; padding: 12px; font-size: 1.05rem;">હું સહમત છું - Pay ₹39</button>
+      <button class="btn btn-outline" style="flex: 1; padding: 12px; font-size: 1.05rem;" onclick="document.getElementById('rulesModal').style.display='none'">રદ કરો</button>
+    </div>
   </div>
 </div>
 
@@ -535,10 +554,10 @@
       }).catch(e => { list.innerHTML = `<div style="text-align:center; color:red; font-weight:bold;">ડેટા લાવી શકાયો નથી. ઇન્ટરનેટ ચેક કરો.</div>`; });
   }
 
-  setTimeout(() => { let tabs = document.getElementById('lbTabs'); if(tabs && tabs.children.length > 0) loadLeaderboardData(2, tabs.children[0]); }, 1000);
+  setTimeout(() => { let tabs = document.getElementById('lbTabs'); if(tabs && tabs.children.length > 0) loadLeaderboardData(1, tabs.children[0]); }, 1000);
 
   let mockDB = [];
-  let currentTestId = 2;
+  let currentTestId = 1;
   let currentIdx = 0; 
   let answers = {}; 
   let statusObj = {}; 
@@ -620,10 +639,10 @@
               
               document.getElementById('loadingModal').style.display = 'none';
               startExamEngine(); 
-          } else { alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી!`); document.getElementById('loadingModal').style.display = 'none'; }
+          } else { alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી! Questions_${testId} નામની શીટ બનાવી પ્રશ્નો નાખો.`); document.getElementById('loadingModal').style.display = 'none'; }
       }).catch(err => { 
           console.error(err);
-          alert("કનેક્શન એરર. ઇન્ટરનેટ ચેક કરો અથવા ગૂગલ સ્ક્રિપ્ટમાં ભૂલ છે."); 
+          alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી! Questions_${testId} નામની શીટ બનાવી પ્રશ્નો નાખો.`); 
           document.getElementById('loadingModal').style.display = 'none'; 
       });
   }
@@ -892,8 +911,17 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  // 🛑 ડાયરેક્ટ પેમેન્ટ હેન્ડલર (આનાથી બટન ક્લિક કરતા જ લાઈવ ચેક થશે) 🛑
+  getRedirectResult(auth).then((result) => {
+    if (result) { location.reload(); }
+  }).catch((error) => { console.error("Google Login Error:", error); });
+
+  // 🛑 નવું પેમેન્ટ હેન્ડલર: પહેલા રૂલ્સ બોક્સ ખોલશે 🛑
   window.handlePayment = function(testId) {
+     if (testId > 2) {
+         alert("આ મોક ટેસ્ટના પ્રશ્નો હજુ મુકવાના બાકી છે. પ્રશ્નો મુકાયા બાદ પેમેન્ટ સિસ્ટમ ચાલુ કરવામાં આવશે. આભાર!");
+         return;
+     }
+
      const user = auth.currentUser;
      if (!user) {
          alert("કૃપા કરીને ટેસ્ટ ખરીદવા માટે પહેલા લૉગિન કરો!");
@@ -901,6 +929,22 @@
          return;
      }
 
+     // યુઝર લોગીન છે, તો સીધું પેમેન્ટ નહિ, પહેલા Rules Modal ખોલો
+     const rulesModal = document.getElementById('rulesModal');
+     const agreeBtn = document.getElementById('agreeAndPayBtn');
+     
+     if(rulesModal && agreeBtn) {
+         rulesModal.style.display = 'flex';
+         // સહમત થાય પછી જ Razorpay ખુલશે
+         agreeBtn.onclick = function() {
+             rulesModal.style.display = 'none';
+             openRazorpay(testId, user);
+         };
+     }
+  };
+
+  // અસલી Razorpay પેમેન્ટ ફંક્શન
+  function openRazorpay(testId, user) {
      var options = {
          "key": "rzp_live_SXv0rd8UH5nn6w", 
          "amount": "3900",
@@ -926,17 +970,21 @@
          alert("પેમેન્ટ નિષ્ફળ! " + response.error.description);
      });
      rzp.open();
-  };
+  }
 
   function triggerGoogleLogin() {
       const provider = new GoogleAuthProvider();
-      signInWithPopup(auth, provider).then(() => {
-          const modal = document.getElementById('emailAuthModal');
-          if(modal) modal.style.display = 'none'; 
-      }).catch(e => {
-          console.error(e);
-          alert("Google Login Error: કૃપા કરીને ઈન્ટરનેટ ચેક કરો અથવા pop-up allow કરો.");
-      });
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          signInWithRedirect(auth, provider);
+      } else {
+          signInWithPopup(auth, provider).then(() => {
+              const modal = document.getElementById('emailAuthModal');
+              if(modal) modal.style.display = 'none'; 
+          }).catch(e => {
+              console.error(e);
+              alert("Google Login Error: કૃપા કરીને ઈન્ટરનેટ ચેક કરો અથવા pop-up allow કરો.");
+          });
+      }
   }
 
   const modalGoogleBtn = document.getElementById("modalGoogleLoginBtn");
@@ -1005,7 +1053,7 @@
           const userSnap = await getDoc(userRef);
           const userData = userSnap.exists() ? userSnap.data() : {};
 
-          for (let i = 2; i <= 2; i++) {
+          for (let i = 1; i <= 6; i++) {
             let payBtn = document.getElementById(`payTest${i}Btn`);
             let startBtn = document.getElementById(`startTest${i}Btn`);
             let card = document.getElementById(`test${i}Card`);
