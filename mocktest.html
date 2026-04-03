@@ -19,11 +19,9 @@
   <style>
     :root { --navy: #1d3461; --gold: #d4a017; --bg: #f4f7fb; --success: #16a34a; --danger: #dc2626; }
     
-    /* 🛑 સિક્યુરિટી 🛑 */
     body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background: var(--bg); margin: 0; font-family: system-ui, -apple-system, sans-serif; -webkit-touch-callout: none; }
     @media print { body { display: none !important; } html { background: white; } }
 
-    /* ================= NAVBAR ================= */
     nav { background: var(--navy); padding: 0 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 70px; display: flex; align-items: center; justify-content: center; }
     .nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
     .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; margin: 0;}
@@ -32,12 +30,10 @@
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
     .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
 
-    /* ================= 3D POSTER ================= */
     .poster-3d { position: relative; background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(29, 52, 97, 0.95)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop') center / cover no-repeat; padding: 40px 20px; border-radius: 20px; text-align: center; color: white; box-shadow: 0 15px 35px rgba(15, 23, 42, 0.7); border: 2px solid #d4a017; transform: perspective(1000px) rotateX(2deg); animation: float 4s ease-in-out infinite; margin-bottom: 40px; overflow: hidden; z-index: 1; }
     @keyframes float { 0%, 100% { transform: translateY(0) perspective(1000px) rotateX(2deg); } 50% { transform: translateY(-10px) perspective(1000px) rotateX(5deg); box-shadow: 0 25px 45px rgba(15, 23, 42, 0.5); } }
     .highlight-box { background: rgba(212, 160, 23, 0.15); padding: 15px; border-radius: 15px; display: inline-block; margin-top: 15px; border: 1px dashed #ffd54f; backdrop-filter: blur(3px); }
 
-    /* ================= CARDS & GRIDS ================= */
     .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 50px; }
     @media (max-width: 768px) { .grid-cards { grid-template-columns: 1fr; gap: 20px; } }
     .test-card { background: white; border-radius: 16px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 25px rgba(29,52,97,0.08); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 15px; transition: 0.4s; height: 100%; min-height: 320px; box-sizing: border-box; }
@@ -46,14 +42,12 @@
     .btn-navy { background: var(--navy); color: white; } .btn-navy:hover { background: #2b4c8a; }
     .btn-outline { background: transparent; border: 2px solid #cbd5e0; color: #475569; } .btn-outline:hover { background: #f1f5f9; }
 
-    /* ================= MODALS ================= */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
     .auth-box { background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; border-top: 5px solid var(--navy); box-shadow: 0 15px 30px rgba(0,0,0,0.3); animation: pop 0.3s ease-out; }
     @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     .loader-spinner { border: 5px solid #f3f3f3; border-top: 5px solid var(--navy); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    /* ================= EXAM UI ================= */
     .exam-container { display: none; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
     .exam-topbar { background: var(--navy); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-wrap: wrap; gap: 10px; }
     .exam-brand { font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--gold); }
@@ -84,7 +78,6 @@
     .palette-btn.review { background: #805ad5 !important; color: white !important; border: none; }
     .palette-btn.current { outline: 3px solid var(--navy) !important; outline-offset: 2px; }
 
-    /* ================= SCORECARD ================= */
     #resultScreen { display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh; }
     .scorecard-wrapper { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; border: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center; position: relative; }
     .score-circle-old { width: 160px; height: 160px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 25px; background: #f8fafd; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05); }
@@ -103,7 +96,6 @@
 
     .scoreboard-container { background: linear-gradient(to bottom, #ffffff, #f8fafc); padding: 35px 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); margin: 60px auto 30px; border: 3px solid #dc2626; position: relative; overflow: hidden; width: 100%; box-sizing: border-box; }
 
-    /* MOBILE RESPONSIVE */
     .mobile-stats-row { display: none; }
     .close-palette-btn { display: none; }
 
@@ -131,7 +123,6 @@
       .hamburger { display: flex; }
     }
 
-    /* ================= LOGIN DROPDOWN ================= */
     .auth-dropdown { position: relative; display: inline-block; margin-left: 10px; }
     .auth-dropbtn { background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-weight: 900; padding: 8px 22px; border-radius: 25px; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1rem; box-shadow: 0 4px 10px rgba(212, 160, 23, 0.3); transition: 0.3s; }
     .auth-dropbtn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(212, 160, 23, 0.5); }
@@ -233,7 +224,6 @@
       <h2 style="text-align: center; margin: 20px 0 30px; color: #1d3461; font-size: 2rem;">🚀 પેપર 1 - પ્રીમિયમ સિરીઝ</h2>
       
       <div class="grid-cards">
-        <!-- TEST 1 (FREE) -->
         <div class="test-card" style="border-top: 5px solid #16a34a;">
           <div style="position: absolute; top: 15px; right: -35px; background: #16a34a; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">FREE TEST</div>
           <div style="font-size: 4rem; margin-bottom: 0px;">🎓</div>
@@ -242,7 +232,6 @@
           <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto;" onclick="openPaidModal(1)">ટેસ્ટ 1 શરૂ કરો 🚀</button>
         </div>
 
-        <!-- TEST 2 (PAID) -->
         <div id="test2Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
           <div id="test2Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
           <div id="test2Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
@@ -252,7 +241,6 @@
           <button id="startTest2Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(2)">ટેસ્ટ 2 શરૂ કરો 🚀</button>
         </div>
 
-        <!-- TEST 3 (PAID) -->
         <div id="test3Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
           <div id="test3Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
           <div id="test3Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
@@ -262,7 +250,6 @@
           <button id="startTest3Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(3)">ટેસ્ટ 3 શરૂ કરો 🚀</button>
         </div>
 
-        <!-- TEST 4 (PAID) -->
         <div id="test4Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
           <div id="test4Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
           <div id="test4Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
@@ -272,7 +259,6 @@
           <button id="startTest4Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(4)">ટેસ્ટ 4 શરૂ કરો 🚀</button>
         </div>
 
-        <!-- TEST 5 (PAID) -->
         <div id="test5Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
           <div id="test5Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
           <div id="test5Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
@@ -282,7 +268,6 @@
           <button id="startTest5Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(5)">ટેસ્ટ 5 શરૂ કરો 🚀</button>
         </div>
 
-        <!-- TEST 6 (PAID) -->
         <div id="test6Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
           <div id="test6Label" style="position: absolute; top: 15px; right: -35px; background: #dc2626; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.8rem; font-weight: 900; letter-spacing: 1px;">PAID TEST</div>
           <div id="test6Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
@@ -294,13 +279,12 @@
       </div>
     </div>
     
-    <!-- SINGLE LIVE SCOREBOARD -->
     <div class="scoreboard-container">
-      <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.03;">🏆</div>
+      <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.03; pointer-events: none;">🏆</div>
       <h2 style="text-align: center; margin-top: 0; font-size: 2.2rem; color: #1d3461; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">🏆 લાઈવ સ્કોરબોર્ડ 🏆</h2>
       <div style="text-align: center; color: #dc2626; font-weight: 800; margin-bottom: 25px; font-size: 1.15rem; letter-spacing: 0.5px;">"તમારો આજનો સંઘર્ષ એ તમારી આવતીકાલની તાકાત છે! 🚩"</div>
       
-      <div id="lbTabs" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap;">
+      <div id="lbTabs" style="display: flex; gap: 12px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; position: relative; z-index: 10;">
         <button class="btn" style="background: var(--navy); color: white; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(1, this)">ફ્રી ટેસ્ટ 1</button>
         <button class="btn" style="background: #e2e8f0; color: #475569; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(2, this)">ટેસ્ટ 2</button>
         <button class="btn" style="background: #e2e8f0; color: #475569; border-radius: 30px; padding: 10px 25px; font-weight: bold;" onclick="loadLeaderboardData(3, this)">ટેસ્ટ 3</button>
@@ -324,12 +308,11 @@
   </div>
 </div>
 
-<!-- ================= MODALS ================= -->
 <div class="modal-overlay" id="paidNameModal">
   <div class="auth-box" style="border-top-color: #16a34a;">
     <h3 style="color: #16a34a; font-size: 1.5rem; margin-bottom: 10px;">✅ ટેસ્ટ અનલૉક છે!</h3>
     <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 20px;">સ્કોરબોર્ડમાં દેખાડવા માટે તમારું નામ અથવા રોલ નંબર દાખલ કરો.</p>
-    <input type="text" id="paidStudentName" placeholder="" style="width: 100%; padding: 12px; border: 2px solid #16a34a; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; font-weight: bold; box-sizing: border-box;">
+    <input type="text" id="paidStudentName" placeholder="દા.ત. 128 Ashutosh" style="width: 100%; padding: 12px; border: 2px solid #16a34a; border-radius: 6px; font-size: 1.1rem; text-align: center; margin-bottom: 15px; font-weight: bold; box-sizing: border-box;">
     <button class="btn" style="width: 100%; background: #16a34a; color: white; padding: 12px; font-size: 1.1rem; border-radius: 6px;" onclick="startPaidTest()">ટેસ્ટ શરૂ કરો 🚀</button>
     <button class="btn btn-outline" style="width: 100%; margin-top: 10px; border: none;" onclick="document.getElementById('paidNameModal').style.display='none'">બંધ કરો</button>
   </div>
@@ -370,7 +353,6 @@
   </div>
 </div>
 
-<!-- 🛑 નવું માસ્ટર લૉગિન બોક્સ 🛑 -->
 <div class="modal-overlay" id="emailAuthModal">
   <div class="auth-box" style="border-top-color: #1d3461; padding: 35px 30px;">
     <h3 style="color: #1d3461; font-size: 1.6rem; margin-bottom: 20px; font-weight: 800;">તમારું એકાઉન્ટ લૉગિન કરો</h3>
@@ -398,7 +380,6 @@
   </div>
 </div>
 
-<!-- 🛑 Rules & Agreement Modal 🛑 -->
 <div class="modal-overlay" id="rulesModal">
   <div class="auth-box" style="border-top-color: #d4a017; max-width: 500px; padding: 25px; text-align: left;">
     <h3 style="color: #1d3461; font-size: 1.5rem; margin-bottom: 15px; text-align: center; font-weight: 800;">📝 અગત્યની સૂચનાઓ અને નિયમો</h3>
@@ -416,7 +397,6 @@
   </div>
 </div>
 
-<!-- ==================== EXAM UI ==================== -->
 <div class="exam-container" id="examContainer">
   <div class="exam-topbar">
     <div class="exam-brand">Adhyapak Saathi</div>
@@ -513,7 +493,6 @@
 </div>
 
 <script>
-  // --- સિક્યોરિટી ફીચર્સ ---
   document.addEventListener('contextmenu', event => event.preventDefault()); 
   document.addEventListener('copy', event => event.preventDefault()); 
   document.addEventListener('cut', event => event.preventDefault()); 
@@ -532,7 +511,6 @@
       }
   });
 
-  // 🛑 લાઈવ ન્યૂઝ માટેનું સેટિંગ (Google Sheet CSV) 🛑
   const NEWS_CSV_URL = ""; 
   if (NEWS_CSV_URL.trim() !== "") {
       fetch(NEWS_CSV_URL)
@@ -599,10 +577,9 @@
           liveLeaderboard = data.leaderboard || [];
           currentPage = 1;
           renderLeaderboard();
-      }).catch(e => { list.innerHTML = `<div style="text-align:center; color:red; font-weight:bold;">ડેટા લાવી શકાયો નથી. ઇન્ટરનેટ ચેક કરો.</div>`; });
+      }).catch(e => { list.innerHTML = `<div style="text-align:center; color:red; font-weight:bold;">ડેટા લાવી શકાયો નથી. ઇન્ટરનેટ ચેક કરો અથવા ગૂગલ શીટમાં આ ટેસ્ટનું Leaderboard ટેબ નથી.</div>`; });
   }
 
-  // લોડ થાય ત્યારે ફ્રી ટેસ્ટ 1 નું સ્કોરબોર્ડ બતાવો
   setTimeout(() => { let tabs = document.getElementById('lbTabs'); if(tabs && tabs.children.length > 0) loadLeaderboardData(1, tabs.children[0]); }, 1000);
 
   let mockDB = [];
@@ -670,7 +647,7 @@
           if(data && data.length > 0 && !data.error) {
               const validQuestions = data.filter(item => (item.q || item.Question) && String(item.q || item.Question).trim() !== "");
               if(validQuestions.length === 0) {
-                  alert(`ટેસ્ટ ${testId} માં કોઈ પ્રશ્નો મળ્યા નથી`);
+                  alert(`ટેસ્ટ ${testId} માં કોઈ પ્રશ્નો મળ્યા નથી. ગૂગલ શીટમાં પ્રશ્નો નાખો.`);
                   document.getElementById('loadingModal').style.display = 'none';
                   return;
               }
@@ -688,10 +665,10 @@
               
               document.getElementById('loadingModal').style.display = 'none';
               startExamEngine(); 
-          } else { alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથીાં Questions_${testId}`); document.getElementById('loadingModal').style.display = 'none'; }
+          } else { alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી! ગૂગલ શીટમાં Questions_${testId} નામની શીટ બનાવી પ્રશ્નો નાખો.`); document.getElementById('loadingModal').style.display = 'none'; }
       }).catch(err => { 
           console.error(err);
-          alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથીાં Questions_${testId}`); 
+          alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી! ગૂગલ શીટમાં Questions_${testId} નામની શીટ બનાવી પ્રશ્નો નાખો.`); 
           document.getElementById('loadingModal').style.display = 'none'; 
       });
   }
@@ -884,7 +861,7 @@
     currentPage = 1;
     renderLeaderboard();
     
-    if(SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbymdVHPJtrNjPygPX75YYm59BCAvpKCPbKsfiAHRjExT_iIgjGhhcoDTHJ6yxfZYEIc/exec") {
+    if(SCRIPT_URL !== "") {
         fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ name: stuName, score: finalScore, testId: currentTestId }) }).catch(e=>console.log(e));
     }
   }
@@ -942,7 +919,6 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-<!-- ==================== FIREBASE & LOGIN ==================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -961,9 +937,8 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  // 🛑 નવું પેમેન્ટ હેન્ડલર: પહેલા રૂલ્સ બોક્સ ખોલશે 🛑
   window.handlePayment = function(testId) {
-     if (testId > 2) {
+     if (testId > 3) {
          alert("પ્રશ્નો મૂકવાનું કામ ચાલુ છે, ટૂંક સમયમાં આ મોકટેસ્ટ શરૂ થઈ જશે.");
          return;
      }
@@ -975,13 +950,11 @@
          return;
      }
 
-     // યુઝર લોગીન છે, તો સીધું પેમેન્ટ નહિ, પહેલા Rules Modal ખોલો
      const rulesModal = document.getElementById('rulesModal');
      const agreeBtn = document.getElementById('agreeAndPayBtn');
      
      if(rulesModal && agreeBtn) {
          rulesModal.style.display = 'flex';
-         // સહમત થાય પછી જ Razorpay ખુલશે
          agreeBtn.onclick = function() {
              rulesModal.style.display = 'none';
              openRazorpay(testId, user);
@@ -989,7 +962,6 @@
      }
   };
 
-  // અસલી Razorpay પેમેન્ટ ફંક્શન
   window.openRazorpay = function(testId, user) {
      var options = {
          "key": "rzp_live_SXv0rd8UH5nn6w", 
@@ -1018,7 +990,7 @@
      rzp.open();
   };
 
-  // 🛑 માત્ર Popup વાળું લૉગિન, રિલોડ વગર 🛑
+  // ગૂગલ લૉગિન ફંક્શન
   function triggerGoogleLogin() {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider).then(() => {
@@ -1026,7 +998,7 @@
           if(modal) modal.style.display = 'none'; 
       }).catch(e => {
           console.error(e);
-          alert("Google Login Error: કૃપા કરીને ઈન્ટરનેટ ચેક કરો અથવા બ્રાઉઝરમાં pop-up allow કરો.");
+          alert("ગૂગલ લૉગિનમાં એરર: કૃપા કરીને બ્રાઉઝરમાં પોપઅપ એલાઉ કરો. \n\n(જો આ એરર આવતી હોય તો સાઇટ એડમિનને ફાયરબેઝમાં ડોમેઇન એડ કરવા જણાવો).");
       });
   }
 
@@ -1039,38 +1011,51 @@
   const emailLoginBtn = document.getElementById("navEmailLoginBtn");
   if (emailLoginBtn) { emailLoginBtn.addEventListener("click", () => { document.getElementById('emailAuthModal').style.display = 'flex'; }); }
   
+  // ઈમેલ અને પાસવર્ડ લૉગિન
   const btnEmailSignIn = document.getElementById("btnEmailSignIn");
   if(btnEmailSignIn) {
     btnEmailSignIn.addEventListener("click", () => {
-      const email = document.getElementById("emailInput").value; const pwd = document.getElementById("pwdInput").value;
+      const email = document.getElementById("emailInput").value.trim(); 
+      const pwd = document.getElementById("pwdInput").value;
       if(!email || !pwd) { alert("ઈમેલ અને પાસવર્ડ નાખવા ફરજિયાત છે!"); return; }
       signInWithEmailAndPassword(auth, email, pwd).then(() => {
           document.getElementById('emailAuthModal').style.display = 'none'; 
-      }).catch(() => alert("ભૂલ: ઈમેલ કે પાસવર્ડ ખોટો છે અથવા એકાઉન્ટ નથી. પહેલા 'નવું એકાઉન્ટ બનાવો' પર ક્લિક કરો."));
+      }).catch((e) => {
+          alert("લૉગિન ભૂલ: ઈમેલ કે પાસવર્ડ ખોટો છે, અથવા તમે અગાઉ સીધું ગૂગલ બટન વાપરીને એકાઉન્ટ બનાવ્યું છે.");
+      });
     });
   }
   
+  // નવું એકાઉન્ટ બનાવવું
   const btnEmailSignUp = document.getElementById("btnEmailSignUp");
   if(btnEmailSignUp) {
     btnEmailSignUp.addEventListener("click", () => {
-      const email = document.getElementById("emailInput").value; const pwd = document.getElementById("pwdInput").value;
+      const email = document.getElementById("emailInput").value.trim(); 
+      const pwd = document.getElementById("pwdInput").value;
       if(!email || !pwd || pwd.length < 6) { alert("ઈમેલ અને ઓછામાં ઓછો 6 અક્ષરનો પાસવર્ડ નાખવો ફરજિયાત છે!"); return; }
       createUserWithEmailAndPassword(auth, email, pwd).then(() => {
           document.getElementById('emailAuthModal').style.display = 'none'; 
-      }).catch((e) => alert("ભૂલ: આ ઈમેલ પર પહેલેથી એકાઉન્ટ છે અથવા વિગતો અમાન્ય છે!"));
+      }).catch((e) => {
+          alert("રજીસ્ટ્રેશન ભૂલ: આ ઈમેલ આઈડી પહેલેથી જ રજીસ્ટર થયેલું છે. કૃપા કરીને લૉગિન કરો.");
+      });
     });
   }
 
+  // પાસવર્ડ ભૂલી જવા પર
   const forgotPwdBtn = document.getElementById("forgotPwdBtn");
   if(forgotPwdBtn) {
     forgotPwdBtn.addEventListener("click", () => {
-      const email = document.getElementById("emailInput").value.trim();
+      const email = document.getElementById("emailInput").value.trim(); 
       if(!email) { alert("કૃપા કરીને પાસવર્ડ બદલવા માટે પહેલા તમારું Email દાખલ કરો!"); return; }
-      sendPasswordResetEmail(auth, email).then(() => { alert("✅ પાસવર્ડ બદલવા માટેની લિંક તમારા ઈમેલ પર મોકલી દેવામાં આવી છે. કૃપા કરીને તમારું ઈમેલ ચેક કરો (Spam ફોલ્ડર પણ ચેક કરજો).");
-      }).catch(e => alert("ભૂલ: આ ઈમેલ આઈડી રજીસ્ટર થયેલ નથી અથવા ખોટું છે."));
+      sendPasswordResetEmail(auth, email).then(() => { 
+          alert("✅ પાસવર્ડ બદલવા માટેની લિંક તમારા ઈમેલ પર મોકલી દેવામાં આવી છે. કૃપા કરીને તમારું ઈમેલ ચેક કરો (Spam ફોલ્ડર પણ ચેક કરજો).");
+      }).catch(e => {
+          alert("ભૂલ: આ ઈમેલ આઈડી સિસ્ટમમાં મળતું નથી.");
+      });
     });
   }
 
+  // ઓથ સ્ટેટ ચેન્જ (લૉગિન ચેકિંગ અને ટેસ્ટ અનલૉક)
   onAuthStateChanged(auth, async (user) => {
     const mainBtn = document.getElementById("mainUserBtn");
     const dropBox = document.getElementById("loginDropdownBox");
@@ -1086,7 +1071,6 @@
         };
 
         dropBox.innerHTML = `<a id="navLogout" style="color: #dc2626; font-weight: bold; cursor: pointer;">🚪 લૉગઆઉટ (Logout)</a>`;
-        // લૉગઆઉટ પર જ પેજ રિફ્રેશ થશે
         document.getElementById("navLogout").addEventListener("click", () => signOut(auth).then(() => location.reload()));
       }
 
@@ -1111,7 +1095,6 @@
               if (emoji) { emoji.innerText = "🔓"; emoji.style.opacity = "1"; emoji.style.filter = "grayscale(0%)"; }
               if (label) { label.innerText = "UNLOCKED"; label.style.background = "#16a34a"; }
             } else {
-              // 🛑 જો અનલૉક ન હોય તો Pay બટન એક્ટિવ કરો 🛑
               if (payBtn) {
                   payBtn.onclick = () => window.handlePayment(i);
               }
