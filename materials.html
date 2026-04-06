@@ -1,34 +1,212 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="gu">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0BKEFLEQTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0BKEFLEQTQ');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0BKEFLEQTQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0BKEFLEQTQ');
+  </script>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Study Materials & PDFs — Adhyapak Saathi</title>
-  <meta name="description" content="Download free study materials, GCERT/NCERT notes, previous year question papers (PYQs), and syllabi for TAT, TET, UGC NET, and CTET."/>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Study Materials & Previous Year Papers — Adhyapak Saathi</title>
+  <meta name="description" content="Download free PDF notes, official syllabi, and previous year question papers for TAT, TET, GSET, and UGC NET."/>
+  
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='n' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230f172a' /%3E%3Cstop offset='100%25' stop-color='%231d3461' /%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4a017' /%3E%3Cstop offset='100%25' stop-color='%23fbbf24' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='160' height='160' rx='40' fill='%23ffffff'/%3E%3Cg transform='translate(15, 20)'%3E%3Cpath d='M 30 108 Q 80 115 125 102' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='40' r='13' fill='url(%23n)'/%3E%3Cpath d='M 40 108 C 40 70 52 60 76 75' fill='none' stroke='url(%23n)' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='55' r='9' fill='url(%23g)'/%3E%3Cpath d='M 64 108 C 64 90 70 82 76 75' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M 70 82 Q 85 70 98 55' fill='none' stroke='url(%23g)' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E"/>
+
+  <style>
+    /* ================= CSS VARIABLES & RESET ================= */
+    :root {
+      --navy: #1d3461; --navy-mid: #2b4c8a; --navy-light: #e8eef8; --navy-dark: #0f172a;
+      --gold: #d4a017; --gold-light: #fbbf24; --green: #16a34a; --red: #dc2626;
+      --border: #e2e8f0; --text: #1e293b; --text-mid: #475569; --text-muted: #94a3b8;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-serif: "Georgia", serif;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); }
+    body { background: #f4f7fb; color: var(--text); -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+    
+    /* ================= TOP BAR & NAVBAR ================= */
+    .topbar-inner { background-color: #1e293b; color: #cbd5e1; font-size: 13px; padding: 8px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); }
+    nav { background: var(--navy); padding: 0 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 70px; display: flex; align-items: center; justify-content: center; }
+    .nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; margin: 0; }
+    .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 5px 10px; transition: 0.3s; border-bottom: 2px solid transparent; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); border-bottom-color: var(--gold-light); background: rgba(255,255,255,0.06); border-radius: 12px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
+
+    /* ================= HERO SECTION ================= */
+    .materials-hero {
+      position: relative;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(29, 52, 97, 0.9)), url('https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+      padding: 70px 20px; border-bottom: 5px solid var(--gold);
+    }
+    .hero-content-flex { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; gap: 40px; }
+    .hero-text { flex: 1; color: white; }
+    .hero-text p.breadcrumb { color: #cbd5e0; font-size: 0.95rem; margin-bottom: 10px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+    .hero-text h1 { font-family: var(--font-serif); font-size: 3.5rem; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    .hero-text h1 em { color: var(--gold); font-style: italic; }
+    .hero-text p.desc { color: #e2e8f0; font-size: 1.15rem; line-height: 1.6; max-width: 600px; }
+
+    /* ================= 3D SEARCH BAR ================= */
+    .hero-search-box { flex: 1; display: flex; justify-content: flex-end; }
+    .search-container-3d {
+      display: flex; background: white; border-radius: 50px; padding: 6px 6px 6px 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 2px 5px rgba(255,255,255,0.8);
+      border: 3px solid var(--gold); width: 100%; max-width: 450px; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .search-container-3d:hover, .search-container-3d:focus-within { transform: scale(1.03) translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: var(--gold-light); }
+    .search-input { flex: 1; border: none; outline: none; font-size: 1.1rem; font-weight: 600; color: var(--navy); background: transparent; }
+    .search-input::placeholder { color: #94a3b8; font-weight: 500; }
+    .search-btn-3d { background: linear-gradient(135deg, #f59e0b, var(--gold)); border: none; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(212, 160, 23, 0.4); transition: 0.3s; font-size: 1.3rem; margin-left: 10px; }
+    .search-btn-3d:hover { transform: scale(1.1) rotate(15deg); }
+
+    /* ================= FILTERS & MATERIALS ================= */
+    .materials-container { max-width: 1200px; margin: 40px auto 50px; position: relative; z-index: 10; background: white; border-radius: 20px; padding: 40px 30px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); border: 1px solid var(--border); min-height: 500px; }
+    .filters-container-centered { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; flex-wrap: wrap; z-index: 2000; position: relative; }
+
+    /* 🛑 HOVER/CLICK DROPDOWNS & SUBMENUS 🛑 */
+    .dropdown-container { position: relative; display: inline-block; }
+    .dropdown-container::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 25px; background: transparent; z-index: 1500; }
+    
+    .large-dropdown-btn {
+      padding: 18px 30px; font-size: 1.2rem; border-radius: 50px; font-weight: 900; 
+      border: 3px solid; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.2); 
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex; align-items: center; gap: 10px; letter-spacing: 0.5px; white-space: nowrap;
+    }
+    
+    /* Buttons Colors */
+    .btn-pyq { background: linear-gradient(135deg, var(--navy), var(--navy-mid)); color: white; border-color: var(--gold); }
+    .btn-pyq:hover, .dropdown-container:hover .btn-pyq { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--navy-dark); border-color: var(--navy); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(212, 160, 23, 0.5); }
+    .btn-latest { background: linear-gradient(135deg, #16a34a, #15803d); color: white; border-color: #86efac; }
+    .btn-latest:hover, .dropdown-container:hover .btn-latest { background: linear-gradient(135deg, #86efac, #4ade80); color: #14532d; border-color: #15803d; transform: translateY(-5px); box-shadow: 0 15px 35px rgba(22, 163, 74, 0.5); }
+    .btn-notes { background: linear-gradient(135deg, #805ad5, #6b46c1); color: white; border-color: #d6bcfa; }
+    .btn-notes:hover, .dropdown-container:hover .btn-notes { background: linear-gradient(135deg, #d6bcfa, #b794f4); color: #44337a; border-color: #6b46c1; transform: translateY(-5px); box-shadow: 0 15px 35px rgba(128, 90, 213, 0.5); }
+
+    /* Main Menu */
+    .dropdown-menu {
+      display: none; position: absolute; top: calc(100% + 15px); left: 50%; transform: translateX(-50%);
+      background: white; min-width: 280px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); border-radius: 16px;
+      z-index: 2000; border: 3px solid var(--gold); padding: 10px 0; list-style: none; margin: 0;
+      opacity: 0; animation: fadeIn 0.3s forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; transform: translateX(-50%) translateY(-5px); } }
+    
+    /* Hover triggers block on Desktop ONLY */
+    @media (min-width: 769px) {
+      .dropdown-container:hover .dropdown-menu { display: block; }
+      .has-submenu:hover > .submenu { display: block; opacity: 1; transform: translateX(0); }
+    }
+    
+    /* Toggle Class for Mobile */
+    .dropdown-menu.show-mobile { display: block !important; opacity: 1; transform: translateX(-50%) translateY(-5px); }
+    .submenu.show-mobile { display: block !important; opacity: 1; transform: none; }
+
+    .dropdown-menu > li { position: relative; }
+    
+    .dropdown-menu > li > a {
+      display: flex; align-items: center; justify-content: space-between; padding: 12px 25px; color: var(--navy); 
+      text-decoration: none; font-weight: 800; cursor: pointer; transition: 0.2s; 
+      border-bottom: 1px solid #f1f5f9; font-size: 1.05rem;
+    }
+    .dropdown-menu > li:last-child > a { border-bottom: none; }
+    .dropdown-menu > li > a:hover { background: linear-gradient(90deg, var(--navy-light), white); color: var(--navy-mid); padding-left: 30px; border-left: 5px solid var(--gold); }
+    
+    .arrow { font-size: 0.8rem; color: #94a3b8; transition: 0.3s; pointer-events: none; }
+    .dropdown-menu > li > a:hover .arrow { color: var(--gold); transform: translateX(3px); }
+
+    /* 🛑 SUB-MENU (Nested Dropdown) 🛑 */
+    .submenu {
+      display: none; position: absolute; left: 100%; top: -3px; background: white;
+      min-width: 250px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); border-radius: 12px;
+      border: 2px solid var(--gold); z-index: 2100; list-style: none; padding: 5px 0; margin: 0;
+      opacity: 0; transform: translateX(10px); transition: all 0.3s ease;
+    }
+    .submenu::before { content: ''; position: absolute; top: 0; left: -15px; width: 15px; height: 100%; }
+
+    .submenu li a {
+      display: block; padding: 10px 20px; color: var(--text-mid); text-decoration: none;
+      font-weight: 700; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; transition: 0.2s;
+    }
+    .submenu li:last-child a { border-bottom: none; }
+    .submenu li a:hover { background: #f8fafd; color: var(--navy); padding-left: 25px; }
+
+    /* 🛑 ZOHO iFrame Container 🛑 */
+    .drive-iframe-wrapper { width: 100%; height: 650px; border-radius: 16px; overflow: hidden; border: 3px solid var(--border); box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); background: #f8fafd; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+    .drive-iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
+    
+    .welcome-text { text-align: center; margin: 50px 20px; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
+    .welcome-text h2 { color: var(--navy); font-size: 1.8rem; margin-bottom: 15px; font-family: var(--font-serif); }
+    .welcome-text p { color: var(--text-mid); font-size: 1.1rem; max-width: 600px; margin: 0 auto 25px; line-height: 1.6; }
+    .welcome-tip { font-size: 0.95rem; color: #64748b; display: inline-block; background: #f8fafd; padding: 10px 25px; border-radius: 30px; border: 1px solid #e2e8f0; font-weight: 600; letter-spacing: 0.5px; }
+
+    /* ================= FORMS ================= */
+    .forms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+    .form-box { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 2px solid var(--border); transition: 0.3s; position: relative; overflow: hidden; }
+    .form-box:hover { box-shadow: 0 10px 15px rgba(0,0,0,0.1); transform: translateY(-5px); border-color: #cbd5e1; }
+    .form-box.request { border-top: 6px solid var(--navy); }
+    .form-box.contribute { border-top: 6px solid var(--gold); }
+    .form-box h3 { font-family: var(--font-serif); font-size: 1.7rem; color: var(--navy); margin-bottom: 10px; display: flex; align-items: center; font-weight: 900; }
+    .form-box p { color: var(--text-mid); font-size: 1rem; margin-bottom: 25px; font-weight: 600; line-height: 1.5; }
+    .f-input, .f-textarea { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; margin-bottom: 15px; font-size: 1.05rem; outline: none; font-family: inherit; transition: 0.2s; box-sizing: border-box; font-weight: 500; }
+    .f-input:focus, .f-textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 4px rgba(29,52,97,0.1); }
+    .f-textarea { resize: vertical; min-height: 120px; }
+    .f-btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 900; color: white; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; letter-spacing: 0.5px; }
+    .f-btn.req-btn { background: var(--navy); } .f-btn.req-btn:hover { background: var(--navy-mid); box-shadow: 0 8px 20px rgba(29,52,97,0.3); transform: scale(1.02); }
+    .f-btn.cont-btn { background: linear-gradient(135deg, #f59e0b, var(--gold)); color: var(--navy-dark); } .f-btn.cont-btn:hover { box-shadow: 0 8px 20px rgba(212,160,23,0.4); transform: scale(1.02); }
+
+    /* ================= FOOTER ================= */
+    footer { background: var(--navy-dark); color: #cbd5e1; padding: 50px 20px 20px; font-family: var(--font-sans); margin-top: 40px; border-top: 4px solid var(--gold); }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; text-align: left; }
+    .footer-brand-name { font-size: 1.8rem; font-family: var(--font-serif); font-weight: bold; color: white; margin-bottom: 10px; }
+    .footer-brand-tag { color: var(--gold); font-size: 0.85rem; text-transform: uppercase; font-weight: 800; margin-bottom: 15px; letter-spacing: 1px; }
+    .footer-col-title { color: var(--gold); font-size: 1rem; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+    .footer-links { list-style: none; padding: 0; margin: 0; } .footer-links li { margin-bottom: 12px; }
+    .footer-links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; font-size: 0.95rem; } .footer-links a:hover { color: var(--gold); padding-left: 5px; }
+    .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #334155; text-align: left; font-size: 0.9rem; }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .hero-content-flex { flex-direction: column; text-align: center; }
+      .hero-search-box { width: 100%; justify-content: center; }
+      .forms-grid { grid-template-columns: 1fr; }
+    }
+    
+    @media (max-width: 768px) {
+      .topbar-inner { flex-direction: column !important; justify-content: center !important; gap: 5px; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--navy); padding: 10px 0; z-index: 999; }
+      .nav-links.open { display: flex; } .nav-links a { width: 100%; text-align: center; padding: 12px 20px; }
+      .hamburger { display: flex; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-bottom { text-align: center; }
+      .filters-container-centered { flex-direction: column; gap: 15px; }
+      .large-dropdown-btn { width: 100%; justify-content: center; padding: 15px 10px; font-size: 1.1rem; }
+      .dropdown-menu { width: 100%; }
+      
+      /* Mobile Submenu Accordion Style */
+      .submenu { 
+        position: static; box-shadow: none; border: none; border-left: 3px solid var(--gold); 
+        border-radius: 0; margin-left: 15px; width: 90%; transform: none; opacity: 1; margin-top: 5px;
+      }
+      .dropdown-menu > li:hover .submenu, .has-submenu:active .submenu { display: block; }
+      .arrow { transform: rotate(90deg); }
+    }
+  </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
-    <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
-  </div>
+<div class="topbar-inner">
+  <div>📍 Serving Teacher Aspirants Across Gujarat & India</div>
+  <div>✉️ info@adhyapaksaathi.in</div>
 </div>
 
-<nav>
+<nav id="standardNav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+    <a href="index" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
       <div style="width: 54px; height: 54px; background: #fff; border-radius: 14px; box-shadow: 0 4px 12px rgba(29,52,97,0.15); display: flex; align-items: center; justify-content: center; position: relative;">
         <svg viewBox="0 0 160 160" style="width: 44px; height: 44px;">
           <defs>
@@ -58,186 +236,246 @@
       </div>
     </a>
     
-    <!-- STANDARDIZED NAVIGATION LINKS -->
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="test.html">Practice Test</a></li>
-      <li><a href="mocktest.html">Mock Test</a></li>
-      <li><a href="news.html">Exam News</a></li>
-      <li><a href="materials.html" class="active">Study Materials</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="index">Home</a></li>
+      <li><a href="test">Practice Test</a></li>
+      <li><a href="mocktest">Mock Test</a></li>
+      <li><a href="news">Exam News</a></li>
+      <li><a href="materials" class="active">Study Materials</a></li>
+      <li><a href="about">About Us</a></li>
+      <li><a href="contact">Contact</a></li>
     </ul>
     
-    <!-- ADDED MISSING HAMBURGER AND CLOSING TAGS -->
     <div class="hamburger" onclick="toggleNav()">
       <span></span><span></span><span></span>
     </div>
   </div>
 </nav>
-    
-<div class="page-banner">
-  <div class="wrapper">
-    <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> Study Materials</div>
-    <h1>Study <em>Materials</em></h1>
-    <p>Download free PDF notes, official syllabi, and previous year question papers (PYQs) for your exam preparation.</p>
-  </div>
-</div>
 
-<section class="section-sm">
-  <div class="wrapper">
-    <div class="notice notice-info">
-      <strong>Instructions:</strong> Click "View & Download" to open the PDF in a new tab. You can save or print these materials directly from your browser.
+<header class="materials-hero">
+  <div class="hero-content-flex">
+    <div class="hero-text">
+      <p class="breadcrumb">Home › Study Materials</p>
+      <h1>Study <em>Materials</em></h1>
+      <p class="desc">Download free PDF notes, official syllabi, and previous year papers for your exam preparation.</p>
+    </div>
+    <div class="hero-search-box">
+      <div class="search-container-3d">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search exams here...">
+        <button class="search-btn-3d" onclick="searchExams()">🔍</button>
+      </div>
     </div>
   </div>
+</header>
+
+<section class="materials-container" id="menuSection">
+  
+  <div class="filters-container-centered">
+    
+    <div class="dropdown-container">
+      <button class="large-dropdown-btn btn-pyq" onclick="toggleDropdown(this)">📄 Previous Year Papers (PYP) ▼</button>
+      <ul class="dropdown-menu">
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🏫 10th Board Papers <span class="arrow">▶</span></a>
+            <ul class="submenu">
+                <li><a onclick="loadZohoFolder('PYP', '10th_2023')">📅 2023 Papers</a></li>
+                <li><a onclick="loadZohoFolder('PYP', '10th_2024')">📅 2024 Papers</a></li>
+                <li><a onclick="loadZohoFolder('PYP', '10th_2025')">📅 2025 Papers</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🏫 12th Board Papers <span class="arrow">▶</span></a>
+            <ul class="submenu">
+                <li><a onclick="loadZohoFolder('PYP', '12th_2023')">📅 2023 Papers</a></li>
+                <li><a onclick="loadZohoFolder('PYP', '12th_2024')">📅 2024 Papers</a></li>
+                <li><a onclick="loadZohoFolder('PYP', '12th_2025')">📅 2025 Papers</a></li>
+            </ul>
+        </li>
+        <li><a onclick="loadZohoFolder('PYP', 'TET1')">👨‍🏫 TET 1 Papers</a></li>
+        <li><a onclick="loadZohoFolder('PYP', 'TET2')">👨‍🏫 TET 2 Papers</a></li>
+        
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">👨‍🏫 TAT (Sec.) Papers <span class="arrow">▶</span></a>
+            <ul class="submenu">
+                <li><a onclick="loadZohoFolder('PYP', 'TATS_P1')">📄 Paper 1 (Common)</a></li>
+                <li><a onclick="loadZohoFolder('PYP', 'TATS_P2')">📄 Paper 2 (Subject)</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">👨‍🏫 TAT (Higher Sec.) Papers <span class="arrow">▶</span></a>
+            <ul class="submenu">
+                <li><a onclick="loadZohoFolder('PYP', 'TATHS_P1')">📄 Paper 1 (Common)</a></li>
+                <li><a onclick="loadZohoFolder('PYP', 'TATHS_P2')">📄 Paper 2 (Subject)</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 GSET Papers <span class="arrow">▶</span></a>
+            <ul class="submenu">
+                <li><a onclick="loadZohoFolder('PYP', 'GSET_P1')">📄 Paper 1 (Common)</a></li>
+                <li><a onclick="loadZohoFolder('PYP', 'GSET_P2')">📄 Paper 2 (Subject)</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 UGC NET Papers <span class="arrow">▶</span></a>
+            <ul class="submenu">
+                <li><a onclick="loadZohoFolder('PYP', 'UGCNET_P1')">📄 Paper 1 (Common)</a></li>
+                <li><a onclick="loadZohoFolder('PYP', 'UGCNET_P2')">📄 Paper 2 (Subject)</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 CTET Papers <span class="arrow">▶</span></a>
+            <ul class="submenu">
+                <li><a onclick="loadZohoFolder('PYP', 'CTET_P1')">📄 Paper 1</a></li>
+                <li><a onclick="loadZohoFolder('PYP', 'CTET_P2')">📄 Paper 2</a></li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="dropdown-container">
+      <button class="large-dropdown-btn btn-latest" onclick="toggleDropdown(this)">🆕 Latest Papers ▼</button>
+      <ul class="dropdown-menu" style="border-color: #16a34a;">
+        <li><a onclick="loadZohoFolder('Latest', '10th_2026')">🏫 10th Board Papers (2026)</a></li>
+        <li><a onclick="loadZohoFolder('Latest', '12th_2026')">🏫 12th Board Papers (2026)</a></li>
+        <li><a onclick="loadZohoFolder('Latest', 'TET1_2026')">👨‍🏫 TET 1 Papers (2026)</a></li>
+        <li><a onclick="loadZohoFolder('Latest', 'TET2_2026')">👨‍🏫 TET 2 Papers (2026)</a></li>
+        
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">👨‍🏫 TAT (Sec.) 2026 <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #16a34a;">
+                <li><a onclick="loadZohoFolder('Latest', 'TATS_P1_2026')">📄 Paper 1 (Common) - 2026</a></li>
+                <li><a onclick="loadZohoFolder('Latest', 'TATS_P2_2026')">📄 Paper 2 (Subject) - 2026</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">👨‍🏫 TAT (Higher Sec.) 2026 <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #16a34a;">
+                <li><a onclick="loadZohoFolder('Latest', 'TATHS_P1_2026')">📄 Paper 1 (Common) - 2026</a></li>
+                <li><a onclick="loadZohoFolder('Latest', 'TATHS_P2_2026')">📄 Paper 2 (Subject) - 2026</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 GSET 2026 <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #16a34a;">
+                <li><a onclick="loadZohoFolder('Latest', 'GSET_P1_2026')">📄 Paper 1 (Common) - 2026</a></li>
+                <li><a onclick="loadZohoFolder('Latest', 'GSET_P2_2026')">📄 Paper 2 (Subject) - 2026</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 UGC NET 2026 <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #16a34a;">
+                <li><a onclick="loadZohoFolder('Latest', 'UGCNET_P1_2026')">📄 Paper 1 (Common) - 2026</a></li>
+                <li><a onclick="loadZohoFolder('Latest', 'UGCNET_P2_2026')">📄 Paper 2 (Subject) - 2026</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 CTET 2026 <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #16a34a;">
+                <li><a onclick="loadZohoFolder('Latest', 'CTET_P1_2026')">📄 Paper 1 (2026)</a></li>
+                <li><a onclick="loadZohoFolder('Latest', 'CTET_P2_2026')">📄 Paper 2 (2026)</a></li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="dropdown-container">
+      <button class="large-dropdown-btn btn-notes" onclick="toggleDropdown(this)">📚 Study Notes ▼</button>
+      <ul class="dropdown-menu" style="border-color: #805ad5;">
+        <li><a onclick="loadZohoFolder('Notes', '10th')">🏫 10th Board Notes</a></li>
+        <li><a onclick="loadZohoFolder('Notes', '12th')">🏫 12th Board Notes</a></li>
+        <li><a onclick="loadZohoFolder('Notes', 'TET1')">👨‍🏫 TET 1 Notes</a></li>
+        <li><a onclick="loadZohoFolder('Notes', 'TET2')">👨‍🏫 TET 2 Notes</a></li>
+        
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">👨‍🏫 TAT (Sec.) Notes <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #805ad5;">
+                <li><a onclick="loadZohoFolder('Notes', 'TATS_P1')">📄 Paper 1 (Common)</a></li>
+                <li><a onclick="loadZohoFolder('Notes', 'TATS_P2')">📄 Paper 2 (Subject)</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">👨‍🏫 TAT (Higher Sec.) Notes <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #805ad5;">
+                <li><a onclick="loadZohoFolder('Notes', 'TATHS_P1')">📄 Paper 1 (Common)</a></li>
+                <li><a onclick="loadZohoFolder('Notes', 'TATHS_P2')">📄 Paper 2 (Subject)</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 GSET Notes <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #805ad5;">
+                <li><a onclick="loadZohoFolder('Notes', 'GSET_P1')">📄 Paper 1 (Common)</a></li>
+                <li><a onclick="loadZohoFolder('Notes', 'GSET_P2')">📄 Paper 2 (Subject)</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 UGC NET Notes <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #805ad5;">
+                <li><a onclick="loadZohoFolder('Notes', 'UGCNET_P1')">📄 Paper 1 (Common)</a></li>
+                <li><a onclick="loadZohoFolder('Notes', 'UGCNET_P2')">📄 Paper 2 (Subject)</a></li>
+            </ul>
+        </li>
+        <li class="has-submenu">
+            <a onclick="toggleSubmenu(this)">🎓 CTET Notes <span class="arrow">▶</span></a>
+            <ul class="submenu" style="border-color: #805ad5;">
+                <li><a onclick="loadZohoFolder('Notes', 'CTET_P1')">📄 Paper 1</a></li>
+                <li><a onclick="loadZohoFolder('Notes', 'CTET_P2')">📄 Paper 2</a></li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div id="driveContainer">
+      <div class="welcome-text">
+          <h2 style="color: var(--navy); margin-bottom: 10px;">Select Your Exam Material</h2>
+          <p style="color: var(--text-mid); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Click or Hover over the menus above to explore categorized PDFs for <b>Previous Year Papers (PYP)</b>, <b>Latest Papers</b>, or <b>Study Notes</b>.</p>
+          <span class="welcome-tip" style="margin-top: 25px;">Tip: Double-click any PDF or Folder to open it in a larger view.</span>
+      </div>
+  </div>
+
 </section>
 
-<section class="section" style="padding-top: 0;">
-  <div class="wrapper">
+<script>
+    let reqSubmitted = false;
+    let contSubmitted = false;
+</script>
+<iframe name="hidden_iframe_req" id="hidden_iframe_req" style="display:none;" onload="if(reqSubmitted){alert('✅ Request Sent! તમારી રિક્વેસ્ટ મોકલાઈ ગઈ છે!\n\n(અમે જલ્દીથી મટિરિયલ ઉમેરીશું. તમારો આભાર.)'); reqSubmitted=false; document.getElementById('reqForm').reset(); document.getElementById('btnReq').innerHTML='Send Request <span style=\'font-size: 1.4rem; margin-left: 10px;\'>📤✨</span>';}"></iframe>
+<iframe name="hidden_iframe_cont" id="hidden_iframe_cont" style="display:none;" onload="if(contSubmitted){alert('✅ Material Submitted! તમારું મટિરિયલ મોકલવા બદલ ખૂબ ખૂબ આભાર! 🤝'); contSubmitted=false; document.getElementById('contForm').reset(); document.getElementById('btnCont').innerHTML='Submit Material <span style=\'font-size: 1.4rem; margin-left: 10px;\'>🚀📥</span>';}"></iframe>
+
+<section class="forms-grid">
+  <div class="form-box request">
+    <h3><span style="font-size: 2rem; margin-right: 12px;">🙋‍♂️</span> Request Material</h3>
+    <p>Can't find what you need? Tell us and we will upload it.</p>
     
-    <!-- CATEGORY 1: SYLLABUS -->
-    <div class="section-header" style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem;">
-      <h2 class="section-title" style="font-size: 1.5rem;">Official <em>Syllabi</em></h2>
-    </div>
-    
-    <div class="grid-3" style="margin-bottom: 3rem;">
-      <!-- PDF Card 1 (TAT Syllabus) -->
-      <div class="card" style="display:flex; flex-direction:column;">
-        <div style="background:var(--navy); padding:2rem; text-align:center; color:white; border-bottom:3px solid var(--gold);">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">📄</div>
-          <div style="font-family:var(--font-serif); font-weight:700; letter-spacing:1px;">PDF FILE</div>
-        </div>
-        <div class="card-body" style="flex-grow:1; display:flex; flex-direction:column;">
-          <span class="card-tag">TAT (Secondary) </span>
-          <div class="card-title">TAT 2025-26 Official Syllabus (Gujarati)</div>
-          <div class="card-text" style="flex-grow:1;">Detailed breakdown of the Paper 1 & Paper 2 syllabus for Secondary exams by GSSB.</div>
-          <a href="https://workdrive.zohoexternal.in/external/d493a3f42fc4ca661ffb000d796c0defbea368fc2cd0608967a1a46988494b4f" target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">📥 View & Download</a>
-        </div>
-      </div>
+    <form id="reqForm" action="https://formsubmit.co/info@adhyapaksaathi.in" method="POST" target="hidden_iframe_req" onsubmit="reqSubmitted=true; document.getElementById('btnReq').innerHTML='Sending... ⏳';">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" value="New Material Request - Adhyapak Saathi">
 
-      <!-- PDF Card 2 -->
-      <div class="card" style="display:flex; flex-direction:column;">
-        <div style="background:var(--navy); padding:2rem; text-align:center; color:white; border-bottom:3px solid var(--gold);">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">📄</div>
-          <div style="font-family:var(--font-serif); font-weight:700; letter-spacing:1px;">PDF FILE</div>
-        </div>
-        <div class="card-body" style="flex-grow:1; display:flex; flex-direction:column;">
-          <span class="card-tag">TAT (Higher Secondary) </span>
-          <div class="card-title">TAT 2025-26 Official Syllabus (Gujarati)</div>
-          <div class="card-text" style="flex-grow:1;">Detailed breakdown of the Paper 1 & Paper 2 syllabus for Higher Secondary exams by GSSB.</div>
-           <a href="https://workdrive.zohoexternal.in/external/9b6597497a9e46f5720c6b9dd75489441b8f4f06310a34744edee04fcab362be"target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;"> 📥 View & Download</a>
-        </div>
-      </div>
-
-      <!-- PDF Card 3 -->
-      <div class="card" style="display:flex; flex-direction:column;">
-        <div style="background:var(--navy); padding:2rem; text-align:center; color:white; border-bottom:3px solid var(--gold);">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">📄</div>
-          <div style="font-family:var(--font-serif); font-weight:700; letter-spacing:1px;">PDF FILE</div>
-        </div>
-        <div class="card-body" style="flex-grow:1; display:flex; flex-direction:column;">
-          <span class="card-tag">UGC NET</span>
-          <div class="card-title">UGC NET Paper 1 Syllabus</div>
-          <div class="card-text" style="flex-grow:1;">Latest updated syllabus for General Paper on Teaching and Research Aptitude.</div>
-          <a href="ugcnet-syllabus.pdf" target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">📥 View & Download</a>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- CATEGORY 2: STUDY NOTES -->
-    <div class="section-header" style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem;">
-      <h2 class="section-title" style="font-size: 1.5rem;">Preparation <em>Notes</em></h2>
-    </div>
-    
-    <div class="grid-3" style="margin-bottom: 3rem;">
-      <!-- PDF Card 4 (Psychology Materials) -->
-      <div class="card" style="display:flex; flex-direction:column;">
-        <div style="background:var(--navy); padding:2rem; text-align:center; color:white; border-bottom:3px solid var(--gold);">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">🧠</div>
-          <div style="font-family:var(--font-serif); font-weight:700; letter-spacing:1px;">STUDY MATERIAL</div>
-        </div>
-        <div class="card-body" style="flex-grow:1; display:flex; flex-direction:column;">
-          <span class="card-tag">Child Dev. & Psychology</span>
-          <div class="card-title">Psychology Infographic & Notes</div>
-          <div class="card-text" style="flex-grow:1;">Detailed infographic and notes on educational psychology and child development for TAT/TET.</div>
-          <a href="https://workdrive.zohoexternal.in/external/240845f15ac6e5f207c130a228342faf966b614ed76bf696e8c6c3d57361db2a" target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">📥 View & Download</a>
-        </div>
-      </div>
-
-      <!-- PDF Card 5 -->
-      <div class="card" style="display:flex; flex-direction:column;">
-        <div style="background:var(--navy); padding:2rem; text-align:center; color:white; border-bottom:3px solid var(--gold);">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">📘</div>
-          <div style="font-family:var(--font-serif); font-weight:700; letter-spacing:1px;">STUDY MATERIAL</div>
-        </div>
-        <div class="card-body" style="flex-grow:1; display:flex; flex-direction:column;">
-          <span class="card-tag">Famous sentences and ideologies</span>
-          <div class="card-title">Famous sentences and ideologies</div>
-          <div class="card-text" style="flex-grow:1;">Comprehensive notes on sentences and ideologies required for TAT Paper 1 & 2.</div>
-          <a href="https://workdrive.zohoexternal.in/external/0c60b5846b97f067c2c05507adfd927775a40c9138c1d72816d24acdcaca70da" target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">📥 View & Download</a>
-        </div>
-      </div>
-
-      <!-- PDF Card 6 -->
-      <div class="card" style="display:flex; flex-direction:column;">
-        <div style="background:var(--navy); padding:2rem; text-align:center; color:white; border-bottom:3px solid var(--gold);">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">📘</div>
-          <div style="font-family:var(--font-serif); font-weight:700; letter-spacing:1px;">STUDY MATERIAL</div>
-        </div>
-        <div class="card-body" style="flex-grow:1; display:flex; flex-direction:column;">
-          <span class="card-tag">Grammar</span>
-          <div class="card-title">Gujarati Vyakaran (વ્યાકરણ)</div>
-          <div class="card-text" style="flex-grow:1;">Essential grammar rules, idioms, and vocabulary for TET and TAT language sections.</div>
-          <a href="gujarati-vyakaran.pdf" target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">📥 View & Download</a>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- CATEGORY 3: PREVIOUS YEAR PAPERS -->
-    <div class="section-header" style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem;">
-      <h2 class="section-title" style="font-size: 1.5rem;">Previous Year <em>Papers (PYQs)</em></h2>
-    </div>
-    
-    <div class="grid-3">
-      <!-- PDF Card 7 -->
-      <div class="card" style="display:flex; flex-direction:column;">
-        <div style="background:var(--navy); padding:2rem; text-align:center; color:white; border-bottom:3px solid var(--gold);">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">📝</div>
-          <div style="font-family:var(--font-serif); font-weight:700; letter-spacing:1px;">EXAM PAPER</div>
-        </div>
-        <div class="card-body" style="flex-grow:1; display:flex; flex-direction:column;">
-          <span class="card-tag">TAT (HS)</span>
-          <div class="card-title">TAT (HS) 2023 - Previous Paper</div>
-          <div class="card-text" style="flex-grow:1;">Original question paper for the Higher Secondary Teacher Aptitude Test conducted in 2023.</div>
-          <a href="tat-hs-2023-paper.pdf" target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">📥 View & Download</a>
-        </div>
-      </div>
-
-      <!-- PDF Card 8 -->
-      <div class="card" style="display:flex; flex-direction:column;">
-        <div style="background:var(--navy); padding:2rem; text-align:center; color:white; border-bottom:3px solid var(--gold);">
-          <div style="font-size: 3rem; margin-bottom: 0.5rem;">📝</div>
-          <div style="font-family:var(--font-serif); font-weight:700; letter-spacing:1px;">EXAM PAPER</div>
-        </div>
-        <div class="card-body" style="flex-grow:1; display:flex; flex-direction:column;">
-          <span class="card-tag">TET II</span>
-          <div class="card-title">TET II 2022 - Previous Paper</div>
-          <div class="card-text" style="flex-grow:1;">Original question paper for Upper Primary Teacher Eligibility Test conducted in 2022.</div>
-          <a href="tet-2-2022-paper.pdf" target="_blank" class="btn btn-outline btn-sm btn-full" style="justify-content:center;">📥 View & Download</a>
-        </div>
-      </div>
+      <input type="text" name="Name" class="f-input" placeholder="Your Full Name (Required)" required>
+      <input type="email" name="Email" class="f-input" placeholder="Your Email ID (Required)" required>
+      <textarea name="Message" class="f-textarea" placeholder="Which exam's material do you need? Please detail..." required></textarea>
       
-      <!-- Suggestion Box Prompt -->
-      <div style="background:var(--gold-bg); border:1px solid #e0c060; border-radius:var(--radius-lg); padding:2.5rem; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-        <div style="font-size:2rem; margin-bottom:1rem;">💡</div>
-        <h3 style="font-family:var(--font-serif); font-size:1.2rem; color:var(--navy); margin-bottom:0.5rem;">Need a Specific Material?</h3>
-        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">Can't find the syllabus or notes you are looking for? Let us know!</p>
-        <a href="contact.html" class="btn btn-navy btn-sm" style="align-self:center;">Request Material →</a>
-      </div>
-    </div>
+      <button type="submit" id="btnReq" class="f-btn req-btn">Send Request <span style="font-size: 1.4rem; margin-left: 10px;">📤✨</span></button>
+    </form>
+  </div>
 
+  <div class="form-box contribute">
+    <h3><span style="font-size: 2rem; margin-right: 12px;">🤝</span> Contribute Material</h3>
+    <p>Have good study notes? Share the link with us to help others.</p>
+    
+    <form id="contForm" action="https://formsubmit.co/info@adhyapaksaathi.in" method="POST" target="hidden_iframe_cont" onsubmit="contSubmitted=true; document.getElementById('btnCont').innerHTML='Sending... ⏳';">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" value="New Material Contribution - Adhyapak Saathi">
+
+      <input type="text" name="Name" class="f-input" placeholder="Your Full Name (Required)" required>
+      <input type="email" name="Email" class="f-input" placeholder="Your Email ID (Required)" required>
+      <textarea name="Link" class="f-textarea" placeholder="Paste Zoho Drive or PDF link here..." required></textarea>
+      
+      <button type="submit" id="btnCont" class="f-btn cont-btn">Submit Material <span style="font-size: 1.4rem; margin-left: 10px;">🚀📥</span></button>
+    </form>
   </div>
 </section>
 
@@ -246,21 +484,185 @@
     <div class="footer-brand">
       <div class="footer-brand-name">Adhyapak Saathi</div>
       <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
-      <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
+      <p style="margin:0; line-height:1.5;">Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
     </div>
-    <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="test.html">Practice Test</a></li><li><a href="mocktest.html">Mock Test</a></li><li><a href="news.html">Exam News</a></li><li><a href="materials.html">Study Materials</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-    <div><div class="footer-col-title">Examinations</div><ul class="footer-links"><li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li><li><a href="news.html">TET I &amp; TET II</a></li><li><a href="news.html">UGC NET</a></li><li><a href="news.html">GSET</a></li><li><a href="news.html">CTET</a></li></ul></div>
-    <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li><li><a href="contact.html">Send a Message</a></li><li><a href="contact.html">Suggestion Box</a></li></ul></div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="index">Home</a></li>
+        <li><a href="test">Practice Test</a></li>
+        <li><a href="mocktest">Mock Test</a></li>
+        <li><a href="news">Exam News</a></li>
+        <li><a href="materials">Study Materials</a></li>
+        <li><a href="about">About Us</a></li>
+        <li><a href="contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Examinations</div>
+      <ul class="footer-links">
+        <li><a href="news">TAT (S) & TAT (HS)</a></li>
+        <li><a href="news">TET I & TET II</a></li>
+        <li><a href="news">UGC NET</a></li>
+        <li><a href="news">GSET</a></li>
+        <li><a href="news">CTET</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
+        <li><a href="contact">Send a Message</a></li>
+        <li><a href="contact">Suggestion Box</a></li>
+      </ul>
+    </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
+    <p>© 2026 <span style="color:var(--gold);">Adhyapak Saathi</span>. All rights reserved.</p>
   </div>
 </footer>
 
 <script>
-// --- SECURITY FEATURES REMOVED AS REQUESTED ---
-// --- REGULAR SCRIPTS ---
-function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+  // 🛑 Security: Prevent Copy & Right Click 🛑
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('copy', e => e.preventDefault());
+  document.onkeydown = function(e) {
+    if (e.key === 'F12') return false;
+    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) return false;
+    if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
+  };
+
+  function toggleNav() { 
+    document.getElementById('navLinks').classList.toggle('open'); 
+  }
+
+  // 🛑 Mobile Dropdown Toggle Logic 🛑
+  function toggleDropdown(btn) {
+      if (window.innerWidth <= 768) {
+          let menu = btn.nextElementSibling;
+          let isCurrentlyOpen = menu.classList.contains('show-mobile');
+          
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show-mobile'));
+          document.querySelectorAll('.submenu').forEach(s => s.classList.remove('show-mobile'));
+          
+          if (!isCurrentlyOpen) {
+              menu.classList.add('show-mobile');
+          }
+      }
+  }
+
+  function toggleSubmenu(btn) {
+      if (window.innerWidth <= 768) {
+          let submenu = btn.nextElementSibling;
+          let isCurrentlyOpen = submenu.classList.contains('show-mobile');
+          
+          document.querySelectorAll('.submenu').forEach(s => s.classList.remove('show-mobile'));
+          
+          if (!isCurrentlyOpen) {
+              submenu.classList.add('show-mobile');
+          }
+      }
+  }
+
+  document.addEventListener('click', function(event) {
+      let isClickInsideMenu = event.target.closest('.filters-container-centered');
+      if (!isClickInsideMenu && window.innerWidth <= 768) {
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show-mobile'));
+          document.querySelectorAll('.submenu').forEach(s => s.classList.remove('show-mobile'));
+      }
+  });
+
+
+  // ========================================================================
+  // 🛑 ZOHO WORKDRIVE LINKS 🛑
+  // ========================================================================
+  
+  const zohoFolders = {
+      "PYP": {
+          "10th_2023": "https://workdrive.zohoexternal.in/embed/4yuma866f431026394954a16cf0155abdc51a?toolbar=false&layout=grid&appearance=light&themecolor=green", "10th_2024": "https://workdrive.zohoexternal.in/embed/4yumaa58282448b8548dd96bd887b9e48f8eb?toolbar=false&layout=grid&appearance=light&themecolor=green", "10th_2025": "https://workdrive.zohoexternal.in/embed/4yumae353477a70824be9966caf6dd4565afb?toolbar=false&layout=grid&appearance=light&themecolor=green", 
+          "12th_2023": "https://workdrive.zohoexternal.in/embed/4yuma14c483c31c804bbfb1cc860d1cebe973?toolbar=false&layout=grid&appearance=light&themecolor=green", "12th_2024": "https://workdrive.zohoexternal.in/embed/4yumacd6621936a9f4b23aed94045ca56abd4?toolbar=false&layout=grid&appearance=light&themecolor=green", "12th_2025": "https://workdrive.zohoexternal.in/embed/4yuma36a49ac4f00e4d9a92c60374c032fdf3?toolbar=false&layout=grid&appearance=light&themecolor=green", 
+          "TET1": "https://workdrive.zohoexternal.in/embed/4yuma01c87585eacf432aa298c7f306d3240d?toolbar=false&layout=grid&appearance=light&themecolor=green", 
+          "TET2": "https://workdrive.zohoexternal.in/embed/4yuma9b8b125beeef49dc8aab48dba38fc9aa?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          
+          "TATS_P1": "https://workdrive.zohoexternal.in/embed/4yuma68b601a4f60e408593c1f14bfb213f69?toolbar=false&layout=grid&appearance=light&themecolor=green", // 👈 Zoho Embed લિંકનું ઉદાહરણ 
+          "TATS_P2": "https://workdrive.zohoexternal.in/embed/4yuma99b89c6be1994e7c968b6d09e66a6cac?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "TATHS_P1": "https://workdrive.zohoexternal.in/embed/4yuma726f2c73504849b9a9be3c6136071fef?toolbar=false&layout=grid&appearance=light&themecolor=green", "TATHS_P2": "https://workdrive.zohoexternal.in/embed/4yuma5086422d676b46d89849c03cdebc3f0f?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "GSET_P1": "https://workdrive.zohoexternal.in/embed/4yuma15ac477e88914ba592c69eea7df55710?toolbar=false&layout=grid&appearance=light&themecolor=green", "GSET_P2": "https://workdrive.zohoexternal.in/embed/4yuma6306e0eeee9c473c8596195f8368016c?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "UGCNET_P1": "https://workdrive.zohoexternal.in/embed/4yumabf7d43fb196b4e94a2f062fd797184f5?toolbar=false&layout=grid&appearance=light&themecolor=green", "UGCNET_P2": "https://workdrive.zohoexternal.in/embed/4yuma607bdda3405049c6b70eecf9125ab6c4?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "CTET_P1": "https://workdrive.zohoexternal.in/embed/4yumaaf8a260b04b5467fa5ef8fde40a908df?toolbar=false&layout=grid&appearance=light&themecolor=green", "CTET_P2": "https://workdrive.zohoexternal.in/embed/4yumaebc03c2acad446129bbb120561f05f43?toolbar=false&layout=grid&appearance=light&themecolor=green"
+      },
+      "Latest": {
+          "10th_2026": "https://workdrive.zohoexternal.in/embed/4yumacfd46ef5ed104436b4ea1f55d006ad0f?toolbar=false&layout=grid&appearance=light&themecolor=green", 
+          "12th_2026": "https://workdrive.zohoexternal.in/embed/4yumaf8334680f9734456b8882bad2d234027?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "TET1_2026": "https://workdrive.zohoexternal.in/embed/4yumae39ea72bf9f24377b43c4d28bb709b33?toolbar=false&layout=grid&appearance=light&themecolor=green", 
+          "TET2_2026": "https://workdrive.zohoexternal.in/embed/4yumaa814dbbb95154dcfaeb0797b569c4f05?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "TATS_P1_2026": "https://workdrive.zohoexternal.in/embed/4yuma94ce2b1367d44441a1f16ef9546bff83?toolbar=false&layout=grid&appearance=light&themecolor=green", "TATS_P2_2026": "https://workdrive.zohoexternal.in/embed/4yumadfd4baf84db94b5da7d5d683951ba80f?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "TATHS_P1_2026": "https://workdrive.zohoexternal.in/embed/4yumafbafc58d2363419ca3bff4f6247488c4?toolbar=false&layout=grid&appearance=light&themecolor=green", "TATHS_P2_2026": "https://workdrive.zohoexternal.in/embed/4yuma383ddb0e901e4dedaaf0ae2f61645bc2?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "GSET_P1_2026": "https://workdrive.zohoexternal.in/embed/4yuma93eab048676d4d49866ce60ac087284a?toolbar=false&layout=grid&appearance=light&themecolor=green", "GSET_P2_2026": "https://workdrive.zohoexternal.in/embed/4yuma9379bcd6f43a4c2eb320efa0a40f76c2?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "UGCNET_P1_2026": "https://workdrive.zohoexternal.in/embed/4yumaa578034b62a84ad9a5fc2cf55475ae1b?toolbar=false&layout=grid&appearance=light&themecolor=green", "UGCNET_P2_2026": "https://workdrive.zohoexternal.in/embed/4yuma4b709680a04f4687a973e2c7d0ad6be7?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "CTET_P1_2026": "https://workdrive.zohoexternal.in/embed/4yuma872000a7267b46ed83329c8b3861a37d?toolbar=false&layout=grid&appearance=light&themecolor=green", "CTET_P2_2026": "https://workdrive.zohoexternal.in/embed/4yuma5c546c21e0b44994a40958b76e99291b?toolbar=false&layout=grid&appearance=light&themecolor=green"
+      },
+      "Notes": {
+          "10th": "અહીં_ZOHO_LINK_નાખો",
+          "12th": "અહીં_ZOHO_LINK_નાખો",
+          "TET1": "https://workdrive.zohoexternal.in/embed/4yuma091e2232b470460cab11b81b287d918c?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "TET2": "https://workdrive.zohoexternal.in/embed/4yuma4ce4c6b987f047b4aa88a4ceae51ae46?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "TATS_P1": "https://workdrive.zohoexternal.in/embed/4yuma39fb476dd47743a381175d4484fba7e4?toolbar=false&layout=grid&appearance=light&themecolor=green", "TATS_P2": "https://workdrive.zohoexternal.in/embed/4yuma7b2653fd9abd4a82941d1f4be721be5f?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "TATHS_P1": "https://workdrive.zohoexternal.in/embed/4yumad3fdce1afc8e49dfb3bc46fc2e98382e?toolbar=false&layout=grid&appearance=light&themecolor=green", "TATHS_P2": "https://workdrive.zohoexternal.in/embed/4yumaee20ad3448cb43e8a146233ebc57b02e?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "GSET_P1": "https://workdrive.zohoexternal.in/embed/4yumae3eb50ea384d40dcbf65171d4f4a48ab?toolbar=false&layout=grid&appearance=light&themecolor=green", "GSET_P2": "https://workdrive.zohoexternal.in/embed/4yumad7c38ea87cdf4b3c846e3161d339946d?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "UGCNET_P1": "https://workdrive.zohoexternal.in/embed/4yuma8f353d3f238443a0a46f30e974ee29eb?toolbar=false&layout=grid&appearance=light&themecolor=green", "UGCNET_P2": "https://workdrive.zohoexternal.in/embed/4yuma4706e31f06334e719a080e524c2a60ff?toolbar=false&layout=grid&appearance=light&themecolor=green",
+          "CTET_P1": "https://workdrive.zohoexternal.in/embed/4yumabbfdaf27ece14afda2d704bd52854196?toolbar=false&layout=grid&appearance=light&themecolor=green", "CTET_P2": "https://workdrive.zohoexternal.in/embed/4yuma261e95bd2fa34856a817f6829c8a13f8?toolbar=false&layout=grid&appearance=light&themecolor=green"
+      }
+  };
+
+  function loadZohoFolder(category, examKey) {
+      // મોબાઈલમાં ક્લિક કર્યા પછી મેનુ જાતે બંધ થઈ જાય તે માટે:
+      if (window.innerWidth <= 768) {
+          document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show-mobile'));
+          document.querySelectorAll('.submenu').forEach(s => s.classList.remove('show-mobile'));
+      }
+
+      const container = document.getElementById('driveContainer');
+      let link = zohoFolders[category][examKey];
+
+      let displayTitle = examKey.replace(/_/g, ' '); 
+      
+      if(!link || link.includes("અહીં_") || link === "") {
+          container.innerHTML = `
+            <div class="drive-iframe-wrapper" style="flex-direction: column; text-align: center; background: #fff5f5; border-color: var(--red);">
+                <span style="font-size: 3.5rem; margin-bottom: 10px;">🚧</span>
+                <h3 style="color: var(--navy); margin-bottom: 5px; font-size: 1.5rem;">${displayTitle} - ${category}</h3>
+                <p style="color: var(--red); font-weight: bold; font-size: 1.1rem;">આ ફોલ્ડર હજુ કનેક્ટ કર્યું નથી.</p>
+                <p style="color: var(--text-mid); font-size: 0.95rem; margin-top: 10px;">(એડમિન: કૃપા કરીને કોડમાં સાચી લિંક ઉમેરો)</p>
+            </div>
+          `;
+          return;
+      }
+
+      // સીધી જ Zoho ની લિંક iframe માં સેટ થાય છે
+      container.innerHTML = `
+        <h3 style="color: var(--navy); text-align: center; margin-bottom: 20px; font-family: var(--font-serif); font-size: 1.8rem;">
+            ${displayTitle} - ${category} 📂
+        </h3>
+        <div class="drive-iframe-wrapper">
+            <iframe src="${link}" allowfullscreen="true" allow="autoplay"></iframe>
+        </div>
+      `;
+      
+      // ફોલ્ડર ખુલે એટલે પેજ જાતે જ નીચે સ્લાઈડ થઈ જાય
+      document.getElementById('menuSection').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // 🛑 સર્ચ બાર 🛑
+  function searchExams() {
+      let searchText = document.getElementById('searchInput').value.toLowerCase();
+      if (!searchText) {
+          alert('કૃપા કરીને સર્ચ કરવા માટે પરીક્ષાનું નામ લખો.');
+          return;
+      }
+      
+      alert(`તમે '${searchText}' સર્ચ કર્યું છે.\n\nટેકનિકલ કારણોસર, ચોક્કસ PDF શોધવા માટે કૃપા કરીને ઉપર આપેલા મેનુમાંથી પરીક્ષા સિલેક્ટ કરો અથવા ફોલ્ડર ખુલ્યા પછી તેની અંદર આપેલા સર્ચ(🔍) નો ઉપયોગ કરો.`);
+  }
 </script>
 </body>
 </html>
