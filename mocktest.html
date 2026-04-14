@@ -225,11 +225,12 @@
       
       <div class="grid-cards">
         <div class="test-card" style="border-top: 5px solid #16a34a;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #16a34a; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">FREE TEST</div>
-          <div style="font-size: 4rem; margin-bottom: 0px;">🎓</div>
-          <h3 style="color: #1d3461; font-size: 1.7rem; margin: 0;">ફ્રી મોક ટેસ્ટ 1</h3>
-          <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો • ફ્રી</p>
-          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto;" onclick="openPaidModal(1)">ટેસ્ટ 1 શરૂ કરો 🚀</button>
+          <div style="position: absolute; top: 15px; right: -35px; background: #16a34a; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">FREE PRACTICE</div>
+          <div style="font-size: 4rem; margin-bottom: 0px;">📝</div>
+          <h3 style="color: #1d3461; font-size: 1.7rem; margin: 0;">PYQ (S) 2023</h3>
+          <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 (2023) • પ્રેક્ટિસ ટેસ્ટ</p>
+          <!-- સુધારો: હવે ફ્રી ટેસ્ટમાં પણ લૉગિન ફરજિયાત છે -->
+          <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto;" onclick="window.handleTestAction(1)">ટેસ્ટ શરૂ કરો 🚀</button>
         </div>
 
         <div id="test2Card" class="test-card" style="background: #fff5f5; border: 2px solid #dc2626; border-top: 6px solid #dc2626;">
@@ -237,7 +238,7 @@
           <div id="test2Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
           <h3 id="test2Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 2</h3>
           <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button id="payTest2Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(2)">Buy Now - ₹39</button>
+          <button id="payTest2Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handleTestAction(2)">Buy Now - ₹39</button>
           <button id="startTest2Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(2)">ટેસ્ટ 2 શરૂ કરો 🚀</button>
         </div>
 
@@ -246,7 +247,7 @@
           <div id="test3Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
           <h3 id="test3Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 3</h3>
           <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button id="payTest3Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(3)">Buy Now - ₹39</button>
+          <button id="payTest3Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handleTestAction(3)">Buy Now - ₹39</button>
           <button id="startTest3Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(3)">ટેસ્ટ 3 શરૂ કરો 🚀</button>
         </div>
 
@@ -255,7 +256,7 @@
           <div id="test4Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
           <h3 id="test4Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 4</h3>
           <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button id="payTest4Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(4)">Buy Now - ₹39</button>
+          <button id="payTest4Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handleTestAction(4)">Buy Now - ₹39</button>
           <button id="startTest4Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(4)">ટેસ્ટ 4 શરૂ કરો 🚀</button>
         </div>
 
@@ -264,7 +265,7 @@
           <div id="test5Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
           <h3 id="test5Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 5</h3>
           <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button id="payTest5Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(5)">Buy Now - ₹39</button>
+          <button id="payTest5Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handleTestAction(5)">Buy Now - ₹39</button>
           <button id="startTest5Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(5)">ટેસ્ટ 5 શરૂ કરો 🚀</button>
         </div>
 
@@ -273,7 +274,7 @@
           <div id="test6Emoji" style="font-size: 3.5rem; margin-bottom: 0px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s;">🔒</div>
           <h3 id="test6Title" style="color: #475569; font-size: 1.6rem; margin: 0; font-weight: 600; transition: 0.4s;">મોક ટેસ્ટ 6</h3>
           <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 • પ્રીમિયમ પ્રશ્નો</p>
-          <button id="payTest6Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handlePayment(6)">Buy Now - ₹39</button>
+          <button id="payTest6Btn" class="btn" style="background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-size: 1.1rem; font-weight: 900; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="window.handleTestAction(6)">Buy Now - ₹39</button>
           <button id="startTest6Btn" class="btn btn-navy" style="display: none; font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto; border: none;" onclick="openPaidModal(6)">ટેસ્ટ 6 શરૂ કરો 🚀</button>
         </div>
       </div>
@@ -577,7 +578,7 @@
           liveLeaderboard = data.leaderboard || [];
           currentPage = 1;
           renderLeaderboard();
-      }).catch(e => { list.innerHTML = `<div style="text-align:center; color:red; font-weight:bold;">ડેટા લાવી શકાયો નથી. ઇન્ટરનેટ ચેક કરો અથવા ગૂગલ શીટમાં આ ટેસ્ટનું Leaderboard ટેબ નથી.</div>`; });
+      }).catch(e => { list.innerHTML = `<div style="text-align:center; color:red; font-weight:bold;">સ્કોરબોર્ડનો ડેટા લાવી શકાયો નથી. કૃપા કરીને ઇન્ટરનેટ ચેક કરો અથવા થોડીવાર પછી પ્રયત્ન કરો.</div>`; });
   }
 
   setTimeout(() => { let tabs = document.getElementById('lbTabs'); if(tabs && tabs.children.length > 0) loadLeaderboardData(1, tabs.children[0]); }, 1000);
@@ -647,7 +648,7 @@
           if(data && data.length > 0 && !data.error) {
               const validQuestions = data.filter(item => (item.q || item.Question) && String(item.q || item.Question).trim() !== "");
               if(validQuestions.length === 0) {
-                  alert(`ટેસ્ટ ${testId} માં કોઈ પ્રશ્નો મળ્યા નથી. ગૂગલ શીટમાં પ્રશ્નો નાખો.`);
+                  alert(`ટેસ્ટ ${testId} ના પ્રશ્નો ટૂંક સમયમાં અપડેટ કરવામાં આવશે. જોડાયેલા રહો!`);
                   document.getElementById('loadingModal').style.display = 'none';
                   return;
               }
@@ -665,10 +666,9 @@
               
               document.getElementById('loadingModal').style.display = 'none';
               startExamEngine(); 
-          } else { alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી! ગૂગલ શીટમાં Questions_${testId} નામની શીટ બનાવી પ્રશ્નો નાખો.`); document.getElementById('loadingModal').style.display = 'none'; }
+          } else { alert(`ટેસ્ટ ${testId} ના પ્રશ્નો ટૂંક સમયમાં અપડેટ કરવામાં આવશે. જોડાયેલા રહો!`); document.getElementById('loadingModal').style.display = 'none'; }
       }).catch(err => { 
-          console.error(err);
-          alert(`ટેસ્ટ ${testId} ના પ્રશ્નો હજુ મુકાયા નથી! ગૂગલ શીટમાં Questions_${testId} નામની શીટ બનાવી પ્રશ્નો નાખો.`); 
+          alert(`ટેસ્ટ ${testId} ના પ્રશ્નો ટૂંક સમયમાં અપડેટ કરવામાં આવશે. જોડાયેલા રહો!`); 
           document.getElementById('loadingModal').style.display = 'none'; 
       });
   }
@@ -920,6 +920,10 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script type="module">
+  // 🛑 ૫. પેમેન્ટ સિસ્ટમ ચાલુ કે બંધ કરવાની સ્વીચ 🛑
+  // હાલમાં આને false રાખ્યું છે એટલે કોઈ પેમેન્ટ નહિ થાય. ભવિષ્યમાં ચાલુ કરવા આને માત્ર true કરી દેજો.
+  const IS_PAYMENT_ACTIVE = false;
+
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
   import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -937,28 +941,36 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  window.handlePayment = function(testId) {
-     if (testId > 3) {
-         alert("પ્રશ્નો મૂકવાનું કામ ચાલુ છે, ટૂંક સમયમાં આ મોકટેસ્ટ શરૂ થઈ જશે.");
-         return;
-     }
-
+  // 🛑 ૪. બધા ટેસ્ટ માટે કોમન હેન્ડલર (લૉગિન ચેક કરવા માટે) 🛑
+  window.handleTestAction = function(testId) {
      const user = auth.currentUser;
+     
      if (!user) {
-         alert("કૃપા કરીને ટેસ્ટ ખરીદવા માટે પહેલા લૉગિન કરો!");
+         alert("કૃપા કરીને ટેસ્ટ શરૂ કરવા માટે પહેલા લૉગિન કરો.");
          document.getElementById('emailAuthModal').style.display = 'flex';
          return;
      }
 
-     const rulesModal = document.getElementById('rulesModal');
-     const agreeBtn = document.getElementById('agreeAndPayBtn');
-     
-     if(rulesModal && agreeBtn) {
-         rulesModal.style.display = 'flex';
-         agreeBtn.onclick = function() {
-             rulesModal.style.display = 'none';
-             openRazorpay(testId, user);
-         };
+     if (testId === 1) {
+         // ફ્રી ટેસ્ટ 1 માટે ડાયરેક્ટ મોડલ ખોલો
+         openPaidModal(1);
+     } else {
+         // પેઇડ ટેસ્ટ 2 થી 6 માટે
+         if (!IS_PAYMENT_ACTIVE) {
+             alert("નવા પ્રશ્નો અને સિસ્ટમ અપડેટ કરવાનું કામ ચાલુ છે. આ મોકટેસ્ટ ટૂંક સમયમાં શરૂ થશે. જોડાયેલા રહો!");
+             return;
+         }
+
+         const rulesModal = document.getElementById('rulesModal');
+         const agreeBtn = document.getElementById('agreeAndPayBtn');
+         
+         if(rulesModal && agreeBtn) {
+             rulesModal.style.display = 'flex';
+             agreeBtn.onclick = function() {
+                 rulesModal.style.display = 'none';
+                 openRazorpay(testId, user);
+             };
+         }
      }
   };
 
@@ -971,13 +983,15 @@
          "description": `Premium Mock Test ${testId}`,
          "handler": function (response) {
              const userRef = doc(db, "users", user.uid);
-             let updateData = {}; updateData[`paid_test${testId}`] = true;
+             let updateData = {}; 
+             // નવું સિઝન (જૂના યુઝર્સ માટે ફરી પેમેન્ટ કરાવવા નવું નામ)
+             updateData[`paid_test${testId}_new_v2`] = true; 
              setDoc(userRef, updateData, { merge: true }).then(() => {
                  alert(`મોક ટેસ્ટ ${testId} સફળતાપૂર્વક અનલૉક થઈ ગયો છે!`);
                  location.reload();
              }).catch(err => {
                  console.error(err);
-                 alert("પેમેન્ટ નોંધવામાં ભૂલ. કૃપા કરીને એડમિનનો સંપર્ક કરો.");
+                 alert("પેમેન્ટ પ્રક્રિયામાં તકલીફ છે. કૃપા કરીને થોડી વાર પછી પ્રયત્ન કરો.");
              });
          },
          "prefill": { "name": user.displayName || "Student", "email": user.email },
@@ -985,7 +999,7 @@
      };
      var rzp = new Razorpay(options);
      rzp.on('payment.failed', function (response){
-         alert("પેમેન્ટ નિષ્ફળ! " + response.error.description);
+         alert("પેમેન્ટ નિષ્ફળ! કૃપા કરીને ફરીથી પ્રયત્ન કરો.");
      });
      rzp.open();
   };
@@ -997,8 +1011,7 @@
           const modal = document.getElementById('emailAuthModal');
           if(modal) modal.style.display = 'none'; 
       }).catch(e => {
-          console.error(e);
-          alert("ગૂગલ લૉગિનમાં એરર: કૃપા કરીને બ્રાઉઝરમાં પોપઅપ એલાઉ કરો. \n\n(જો આ એરર આવતી હોય તો સાઇટ એડમિનને ફાયરબેઝમાં ડોમેઇન એડ કરવા જણાવો).");
+          alert("લૉગિન પ્રક્રિયામાં કોઈ ટેકનિકલ ખામી આવી છે. કૃપા કરીને બ્રાઉઝરમાં પોપ-અપ (Pop-up) એલાઉ કરો અથવા અન્ય બ્રાઉઝરનો ઉપયોગ કરો.");
       });
   }
 
@@ -1021,7 +1034,7 @@
       signInWithEmailAndPassword(auth, email, pwd).then(() => {
           document.getElementById('emailAuthModal').style.display = 'none'; 
       }).catch((e) => {
-          alert("લૉગિન ભૂલ: ઈમેલ કે પાસવર્ડ ખોટો છે, અથવા તમે અગાઉ સીધું ગૂગલ બટન વાપરીને એકાઉન્ટ બનાવ્યું છે.");
+          alert("લૉગિન નિષ્ફળ: ઈમેલ કે પાસવર્ડ ખોટો છે, અથવા તમે અગાઉ 'ગૂગલથી લૉગિન કરો' વિકલ્પ પસંદ કર્યો હતો. કૃપા કરીને સાચી વિગતો દાખલ કરો.");
       });
     });
   }
@@ -1036,7 +1049,7 @@
       createUserWithEmailAndPassword(auth, email, pwd).then(() => {
           document.getElementById('emailAuthModal').style.display = 'none'; 
       }).catch((e) => {
-          alert("રજીસ્ટ્રેશન ભૂલ: આ ઈમેલ આઈડી પહેલેથી જ રજીસ્ટર થયેલું છે. કૃપા કરીને લૉગિન કરો.");
+          alert("રજીસ્ટ્રેશન નિષ્ફળ: આ ઈમેલ આઈડીથી પહેલેથી જ એકાઉન્ટ બનાવેલું છે. કૃપા કરીને 'લૉગિન કરો' બટન પર ક્લિક કરો.");
       });
     });
   }
@@ -1048,9 +1061,9 @@
       const email = document.getElementById("emailInput").value.trim(); 
       if(!email) { alert("કૃપા કરીને પાસવર્ડ બદલવા માટે પહેલા તમારું Email દાખલ કરો!"); return; }
       sendPasswordResetEmail(auth, email).then(() => { 
-          alert("✅ પાસવર્ડ બદલવા માટેની લિંક તમારા ઈમેલ પર મોકલી દેવામાં આવી છે. કૃપા કરીને તમારું ઈમેલ ચેક કરો (Spam ફોલ્ડર પણ ચેક કરજો).");
+          alert("✅ પાસવર્ડ બદલવા માટેની લિંક તમારા ઈમેલ પર મોકલી દેવામાં આવી છે. કૃપા કરીને તમારું ઈમેલ ચેક કરો (Spam ફોલ્ડરમાં પણ ચેક કરજો).");
       }).catch(e => {
-          alert("ભૂલ: આ ઈમેલ આઈડી સિસ્ટમમાં મળતું નથી.");
+          alert("પાસવર્ડ રિસેટ નિષ્ફળ: આ ઈમેલ આઈડી અમારા પ્લેટફોર્મ પર નોંધાયેલું નથી. કૃપા કરીને નવું એકાઉન્ટ બનાવો અથવા સાચું ઈમેલ દાખલ કરો.");
       });
     });
   }
@@ -1088,20 +1101,25 @@
             let emoji = document.getElementById(`test${i}Emoji`);
             let label = document.getElementById(`test${i}Label`);
 
-            if (userData[`paid_test${i}`] === true) {
+            // જો યુઝર પાસે નવો ટેસ્ટ અનલૉક કરેલો હશે તો જ બોક્સ ખુલશે 
+            if (userData[`paid_test${i}_new_v2`] === true && i >= 2) {
               if (payBtn) payBtn.style.display = "none";
-              if (startBtn) { startBtn.style.display = "block"; }
+              if (startBtn) { 
+                  startBtn.style.display = "block"; 
+                  startBtn.onclick = () => openPaidModal(i);
+              }
               if (card) { card.style.background = "#f0fdf4"; card.style.borderColor = "#16a34a"; card.style.borderTop = "6px solid #16a34a"; }
               if (emoji) { emoji.innerText = "🔓"; emoji.style.opacity = "1"; emoji.style.filter = "grayscale(0%)"; }
               if (label) { label.innerText = "UNLOCKED"; label.style.background = "#16a34a"; }
             } else {
               if (payBtn) {
-                  payBtn.onclick = () => window.handlePayment(i);
+                  payBtn.onclick = () => window.handleTestAction(i);
               }
             }
           }
       } catch (e) {
-          console.error("Firestore Error:", e);
+          // એડમિન/ફાયરબેસ નામો છુપાવ્યા છે
+          console.log("Initialization issue encountered.");
       }
     } else {
       if (mainBtn) {
@@ -1115,7 +1133,7 @@
       for (let i = 1; i <= 6; i++) {
         let payBtn = document.getElementById(`payTest${i}Btn`);
         if (payBtn) {
-          payBtn.onclick = () => window.handlePayment(i);
+          payBtn.onclick = () => window.handleTestAction(i);
         }
       }
     }
