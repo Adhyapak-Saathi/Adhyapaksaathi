@@ -38,6 +38,8 @@
     @media (max-width: 768px) { .grid-cards { grid-template-columns: 1fr; gap: 20px; } }
     .test-card { background: white; border-radius: 16px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 25px rgba(29,52,97,0.08); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 15px; transition: 0.4s; height: 100%; min-height: 320px; box-sizing: border-box; }
     
+    .test-card [style*="rotate(45deg)"] { background: #15803d !important; color: white !important; font-size: 0.9rem !important; font-weight: 900 !important; text-shadow: 1px 1px 2px black; right: -30px !important; top: 20px !important; }
+    
     .btn { display: inline-block; padding: 12px 25px; font-weight: bold; text-align: center; border-radius: 6px; cursor: pointer; transition: 0.3s; border: none; text-decoration: none; font-size: 1.1rem;}
     .btn-navy { background: var(--navy); color: white; } .btn-navy:hover { background: #2b4c8a; }
     .btn-outline { background: transparent; border: 2px solid #cbd5e0; color: #475569; } .btn-outline:hover { background: #f1f5f9; }
@@ -63,10 +65,14 @@
     .palette-panel { flex: 3; background: #f8fafd; border-left: 1px solid #cbd5e0; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
     
     .q-num-header { background: #ebf4ff; color: var(--navy); display: inline-block; padding: 6px 18px; border-radius: 20px; font-weight: 800; margin-bottom: 20px; border: 1px solid #bfdbfe; }
-    .question-text { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; color: #1e293b; line-height: 1.7; }
-    .radio-option { display: flex; align-items: center; padding: 14px 20px; border: 2px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; font-size: 1.1rem; font-weight: 600; color: #334155; background: #fff; }
+    .question-text { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; color: #1e293b; line-height: 1.7; word-wrap: break-word; } 
+    
+    .question-image { max-width: 100%; max-height: 400px; border-radius: 8px; margin-bottom: 20px; border: 2px solid #cbd5e0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: block; margin-left: auto; margin-right: auto; pointer-events: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+    
+    .radio-option { display: flex; align-items: center; padding: 14px 20px; border: 2px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; font-size: 1.1rem; font-weight: 600; color: #334155; background: #fff; word-wrap: break-word; }
     .radio-option:hover { background: #f8fafd; border-color: #94a3b8; }
     .radio-option.selected { background: #eff6ff !important; border-color: var(--navy) !important; box-shadow: 0 0 0 1px var(--navy); }
+    .radio-option.e-selected { background: #f1f5f9 !important; border-color: #64748b !important; box-shadow: 0 0 0 1px #64748b; color: #475569; }
     .radio-option input { margin-right: 15px; transform: scale(1.3); accent-color: var(--navy); pointer-events: none; }
 
     .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
@@ -217,19 +223,18 @@
       <div style="background: #0f172a; color: white; padding: 10px 20px; display: flex; align-items: center; border-bottom: 2px solid #d4a017; margin-bottom: 30px; border-radius: 8px;">
           <span style="background: #d4a017; color: #1d3461; padding: 5px 15px; font-weight: 900; border-radius: 5px; margin-right: 15px; white-space: nowrap;">LIVE UPDATES</span>
           <marquee id="liveNewsMarquee" behavior="scroll" direction="left" style="font-weight: 600; font-size: 1.1rem; color: #e2e8f0;">
-              📢 પ્રીમિયમ મોકટેસ્ટ સિરીઝ હવે લાઈવ છે! • 📢 TAT પેપર 1 મોકટેસ્ટ 100% સિલેબસ મુજબ • 📢 અત્યારે જ તમારો ટેસ્ટ અનલોક કરો અને તૈયારી ચકાસો!
+              📢 પ્રીમિયમ મોકટેસ્ટ સિરીઝ 2026 હવે લાઈવ છે! • 📢 TAT પેપર 1 મોકટેસ્ટ 100% સિલેબસ મુજબ • 📢 અત્યારે જ તમારો ટેસ્ટ અનલોક કરો અને તૈયારી ચકાસો!
           </marquee>
       </div>
 
-      <h2 style="text-align: center; margin: 20px 0 30px; color: #1d3461; font-size: 2rem;">🚀 પેપર 1 - પ્રીમિયમ સિરીઝ</h2>
+      <h2 style="text-align: center; margin: 20px 0 30px; color: #1d3461; font-size: 2rem;">🚀 પેપર 1 - પ્રીમિયમ સિરીઝ (નવી બેચ)</h2>
       
       <div class="grid-cards">
-        <div class="test-card" style="border-top: 5px solid #16a34a;">
-          <div style="position: absolute; top: 15px; right: -35px; background: #16a34a; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">FREE PRACTICE</div>
+        <div class="test-card" style="border-top: 5px solid #15803d;">
+          <div style="position: absolute; top: 15px; right: -35px; background: #15803d; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.85rem; font-weight: 900; letter-spacing: 1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">FREE TEST</div>
           <div style="font-size: 4rem; margin-bottom: 0px;">📝</div>
           <h3 style="color: #1d3461; font-size: 1.7rem; margin: 0;">PYQ (S) 2023</h3>
-          <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 (2023) • પ્રેક્ટિસ ટેસ્ટ</p>
-          <!-- સુધારો: હવે ફ્રી ટેસ્ટમાં પણ લૉગિન ફરજિયાત છે -->
+          <p style="margin: 0; color: #64748b; font-weight: 600; font-size: 1.05rem;">પેપર 1 (2023) • મોક ટેસ્ટ</p>
           <button class="btn btn-navy" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: 50px; margin-top: auto;" onclick="window.handleTestAction(1)">ટેસ્ટ શરૂ કરો 🚀</button>
         </div>
 
@@ -452,7 +457,7 @@
     <div class="stats-grid-old">
       <div class="stat-box-old sb-c"><div style="font-size: 1.8rem;" id="resCorrect">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">સાચા જવાબો</div></div>
       <div class="stat-box-old sb-w"><div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા (-0.25)</div></div>
-      <div class="stat-box-old sb-s"><div style="font-size: 1.8rem;" id="resSkip">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
+      <div class="stat-box-old sb-s"><div style="font-size: 1.5rem;" id="resSkip">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
       <div class="stat-box-old sb-a"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div></div>
     </div>
     
@@ -578,7 +583,7 @@
           liveLeaderboard = data.leaderboard || [];
           currentPage = 1;
           renderLeaderboard();
-      }).catch(e => { list.innerHTML = `<div style="text-align:center; color:red; font-weight:bold;">સ્કોરબોર્ડનો ડેટા લાવી શકાયો નથી. કૃપા કરીને ઇન્ટરનેટ ચેક કરો અથવા થોડીવાર પછી પ્રયત્ન કરો.</div>`; });
+      }).catch(e => { list.innerHTML = `<div style="text-align:center; color:red; font-weight:bold;">સ્કોરબોર્ડનો ડેટા લાવી શકાયો નથી. કૃપા કરીને ઇન્ટરનેટ ચેક કરો.</div>`; });
   }
 
   setTimeout(() => { let tabs = document.getElementById('lbTabs'); if(tabs && tabs.children.length > 0) loadLeaderboardData(1, tabs.children[0]); }, 1000);
@@ -718,19 +723,47 @@
     }, 100);
   }
 
+  // 🛑 100% BULLETPROOF IMAGE SCANNER (Smart Regex) 🛑
   function loadQuestion(idx) {
     currentIdx = idx; 
     const q = mockDB[idx];
     if(!q) return;
 
     document.getElementById('qNumHeader').innerText = `પ્રશ્ન: ${idx + 1} / ${mockDB.length}`;
-    document.getElementById('qText').innerText = q.q;
+    
+    let qStr = String(q.q || "").trim();
+    let htmlContent = '';
+    let imgUrl = '';
+
+    // આ સ્માર્ટ સ્કેનર ગમે ત્યાંથી "http" વાળી લિંક પકડી લેશે (IMG: લખ્યું હોય કે ના લખ્યું હોય)
+    let urlRegex = /(https?:\/\/[^\s]+)/g;
+    let urls = qStr.match(urlRegex);
+
+    if (urls && urls.length > 0) {
+        imgUrl = urls[0]; 
+        
+        // પ્રશ્નમાંથી લિંક અને 'IMG:' શબ્દ કાઢીને બાકીનું લખાણ અલગ કરશે
+        let textPart = qStr.replace(imgUrl, '').replace(/IMG:|img:|Img:|Image:/gi, '').trim();
+
+        if (textPart.length > 0) {
+            htmlContent += `<div style="margin-bottom:15px;">${textPart}</div>`;
+        }
+        
+        htmlContent += `<img src="${imgUrl}" class="question-image" alt="Question Image" onerror="this.onerror=null; alert('આકૃતિ લોડ થઈ શકી નથી. લિંક ચેક કરો.');">`;
+    } else {
+        htmlContent = qStr;
+    }
+    
+    document.getElementById('qText').innerHTML = htmlContent;
     
     let html = '';
-    let optionsList = q.opts || ["A", "B", "C", "D"];
+    let optionsList = [...q.opts, "E - જવાબ આપવા માંગતો/માંગતી નથી"];
     optionsList.forEach((opt, i) => {
       let isSel = (answers[idx] === i);
-      html += `<div class="radio-option ${isSel ? 'selected' : ''}" onclick="selectOpt(${i})">
+      let bgClass = isSel ? 'selected' : '';
+      if(i === 4 && isSel) bgClass += ' e-selected'; 
+      
+      html += `<div class="radio-option ${bgClass}" onclick="selectOpt(${i})">
                  <input type="radio" name="opts" ${isSel ? 'checked' : ''} style="pointer-events:none;"> 
                  ${opt}
                </div>`;
@@ -818,7 +851,7 @@
     localStorage.removeItem('adhyapakExamState');
     
     let stuName = document.getElementById('analysis-name').innerText;
-    let correct = 0, wrong = 0, topicData = {}, reviewHtml = '';
+    let correct = 0, wrong = 0, skippedE = 0, topicData = {}, reviewHtml = '';
     
     mockDB.forEach((q, i) => {
       let t = q.topic || "અન્ય"; if(!topicData[t]) topicData[t] = { total: 0, correct: 0 }; topicData[t].total++;
@@ -826,14 +859,27 @@
       let isReview = (statusObj[i] === 'review');
       let isAnswered = (uAns !== undefined);
       
-      let isCorrect = (uAns === q.ans);
-      if(isCorrect) { correct++; topicData[t].correct++; } else if(isAnswered) { wrong++; }
+      if(uAns === 4) { 
+          skippedE++; 
+      } else if(uAns === q.ans) { 
+          correct++; topicData[t].correct++; 
+      } else if(isAnswered) { 
+          wrong++; 
+      }
 
       if(isAnswered || isReview) {
-          let uColor = isCorrect ? "green" : "red"; 
+          let uColor = (uAns === q.ans) ? "green" : (uAns === 4 ? "#64748b" : "red"); 
           let cText = (q.ans >= 0 && q.ans < 4) ? q.opts[q.ans] : "જવાબ ઉપલબ્ધ નથી";
-          let uText = isAnswered ? q.opts[uAns] : "કોઈ જવાબ આપ્યો નથી (Review માં મૂકેલ)";
-          reviewHtml += `<div style="margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid #e2e8f0;"><div style="font-weight:bold; color:#1d3461;">પ્રશ્ન ${i+1}: ${q.q}</div><div style="margin:5px 0;">તમારો જવાબ: <span style="color:${uColor}; font-weight:bold;">${uText}</span></div><div>સાચો જવાબ: <span style="color:green; font-weight:bold;">${cText}</span></div><div style="margin-top:10px; font-size:0.9rem; background:white; padding:10px; border-radius:6px; border:1px dashed #cbd5e0;">💡 <b>સમજૂતી:</b> ${q.exp || "ઉપલબ્ધ નથી"}</div></div>`;
+          
+          let uText = "કોઈ જવાબ આપ્યો નથી (Review માં મૂકેલ)";
+          if (uAns === 4) uText = "E - જવાબ આપવા માંગતા નથી";
+          else if (isAnswered) uText = q.opts[uAns];
+          
+          // રિવ્યુમાં પણ ઈમેજની લિંક ન દેખાય તે માટે સ્માર્ટ ક્લીનિંગ
+          let qStr = String(q.q || "");
+          let qTextClean = qStr.replace(/(https?:\/\/[^\s]+)/g, '').replace(/IMG:|img:|Img:|Image:/gi, '').trim();
+
+          reviewHtml += `<div style="margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid #e2e8f0;"><div style="font-weight:bold; color:#1d3461;">પ્રશ્ન ${i+1}: ${qTextClean}</div><div style="margin:5px 0;">તમારો જવાબ: <span style="color:${uColor}; font-weight:bold;">${uText}</span></div><div>સાચો જવાબ: <span style="color:green; font-weight:bold;">${cText}</span></div><div style="margin-top:10px; font-size:0.9rem; background:white; padding:10px; border-radius:6px; border:1px dashed #cbd5e0;">💡 <b>સમજૂતી:</b> ${q.exp || "ઉપલબ્ધ નથી"}</div></div>`;
       }
     });
 
@@ -844,7 +890,10 @@
     const finalScore = score < 0 ? 0 : score;
     document.getElementById('resScore').innerText = finalScore.toFixed(2);
     document.getElementById('resTotalText').innerText = "out of " + mockDB.length;
-    document.getElementById('resCorrect').innerText = correct; document.getElementById('resWrong').innerText = wrong; document.getElementById('resSkip').innerText = mockDB.length - (correct + wrong);
+    document.getElementById('resCorrect').innerText = correct; document.getElementById('resWrong').innerText = wrong; 
+    
+    let totalSkipped = mockDB.length - (correct + wrong + skippedE);
+    document.getElementById('resSkip').innerHTML = `${totalSkipped} <br><span style="font-size:0.8rem; color:#64748b;">(E: ${skippedE})</span>`;
     document.getElementById('resAcc').innerText = (correct + wrong > 0) ? ((correct / (correct+wrong)) * 100).toFixed(0) : 0;
 
     let taHtml = '';
@@ -920,8 +969,6 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script type="module">
-  // 🛑 ૫. પેમેન્ટ સિસ્ટમ ચાલુ કે બંધ કરવાની સ્વીચ 🛑
-  // હાલમાં આને false રાખ્યું છે એટલે કોઈ પેમેન્ટ નહિ થાય. ભવિષ્યમાં ચાલુ કરવા આને માત્ર true કરી દેજો.
   const IS_PAYMENT_ACTIVE = false;
 
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -941,7 +988,6 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  // 🛑 ૪. બધા ટેસ્ટ માટે કોમન હેન્ડલર (લૉગિન ચેક કરવા માટે) 🛑
   window.handleTestAction = function(testId) {
      const user = auth.currentUser;
      
@@ -952,10 +998,8 @@
      }
 
      if (testId === 1) {
-         // ફ્રી ટેસ્ટ 1 માટે ડાયરેક્ટ મોડલ ખોલો
          openPaidModal(1);
      } else {
-         // પેઇડ ટેસ્ટ 2 થી 6 માટે
          if (!IS_PAYMENT_ACTIVE) {
              alert("નવા પ્રશ્નો અને સિસ્ટમ અપડેટ કરવાનું કામ ચાલુ છે. આ મોકટેસ્ટ ટૂંક સમયમાં શરૂ થશે. જોડાયેલા રહો!");
              return;
@@ -984,7 +1028,6 @@
          "handler": function (response) {
              const userRef = doc(db, "users", user.uid);
              let updateData = {}; 
-             // નવું સિઝન (જૂના યુઝર્સ માટે ફરી પેમેન્ટ કરાવવા નવું નામ)
              updateData[`paid_test${testId}_new_v2`] = true; 
              setDoc(userRef, updateData, { merge: true }).then(() => {
                  alert(`મોક ટેસ્ટ ${testId} સફળતાપૂર્વક અનલૉક થઈ ગયો છે!`);
@@ -1004,7 +1047,6 @@
      rzp.open();
   };
 
-  // ગૂગલ લૉગિન ફંક્શન
   function triggerGoogleLogin() {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider).then(() => {
@@ -1024,7 +1066,6 @@
   const emailLoginBtn = document.getElementById("navEmailLoginBtn");
   if (emailLoginBtn) { emailLoginBtn.addEventListener("click", () => { document.getElementById('emailAuthModal').style.display = 'flex'; }); }
   
-  // ઈમેલ અને પાસવર્ડ લૉગિન
   const btnEmailSignIn = document.getElementById("btnEmailSignIn");
   if(btnEmailSignIn) {
     btnEmailSignIn.addEventListener("click", () => {
@@ -1039,7 +1080,6 @@
     });
   }
   
-  // નવું એકાઉન્ટ બનાવવું
   const btnEmailSignUp = document.getElementById("btnEmailSignUp");
   if(btnEmailSignUp) {
     btnEmailSignUp.addEventListener("click", () => {
@@ -1054,7 +1094,6 @@
     });
   }
 
-  // પાસવર્ડ ભૂલી જવા પર
   const forgotPwdBtn = document.getElementById("forgotPwdBtn");
   if(forgotPwdBtn) {
     forgotPwdBtn.addEventListener("click", () => {
@@ -1068,7 +1107,6 @@
     });
   }
 
-  // ઓથ સ્ટેટ ચેન્જ (લૉગિન ચેકિંગ અને ટેસ્ટ અનલૉક)
   onAuthStateChanged(auth, async (user) => {
     const mainBtn = document.getElementById("mainUserBtn");
     const dropBox = document.getElementById("loginDropdownBox");
@@ -1101,7 +1139,6 @@
             let emoji = document.getElementById(`test${i}Emoji`);
             let label = document.getElementById(`test${i}Label`);
 
-            // જો યુઝર પાસે નવો ટેસ્ટ અનલૉક કરેલો હશે તો જ બોક્સ ખુલશે 
             if (userData[`paid_test${i}_new_v2`] === true && i >= 2) {
               if (payBtn) payBtn.style.display = "none";
               if (startBtn) { 
@@ -1118,7 +1155,6 @@
             }
           }
       } catch (e) {
-          // એડમિન/ફાયરબેસ નામો છુપાવ્યા છે
           console.log("Initialization issue encountered.");
       }
     } else {
