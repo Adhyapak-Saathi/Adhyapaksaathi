@@ -1,10 +1,12 @@
-let currentFile = null;
-let preparedBlob = null;
-let currentUncertain = [];
-let currentDocumentType = "OTHER";
-let previewUrl = null;
+let queuedFiles = [];
+let queueSeq = 0;
+let processedDocuments = 0;
+let cumulativeUncertain = new Set();
+let documentTypes = new Set();
+let draftConflicts = [];
 let targetRow = null;
 let forceNew = false;
+let previewUrl = null;
 
 const $ = id => document.getElementById(id);
 
@@ -12,15 +14,6 @@ function setStatus(id, msg, cls) {
   const el = $(id);
   el.textContent = msg || "";
   el.className = "status" + (cls ? " " + cls : "");
-}
-
-function clearFields() {
-  FIELD_KEYS.forEach(k => {
-    const el = $("f_" + k);
-    if (el) el.value = "";
-    const wrap = $("wrap_" + k);
-    if (wrap) wrap.classList.remove("scanned");
-  });
 }
 
 function collect() {
@@ -32,17 +25,85 @@ function collect() {
   return out;
 }
 
-function fillScanned(data) {
-  clearFields();
+function clearFields() {
   FIELD_KEYS.forEach(k => {
-    const val = (data && data[k]) || "";
     const el = $("f_" + k);
-    if (el) el.value = val;
-    if (val) {
-      const wrap = $("wrap_" + k);
-      if (wrap) wrap.classList.add("scanned");
-    }
+    const wrap = $("wrap_" + k);
+    if (el) el.value = "";
+    if (wrap) wrap.classList.remove("scanned", "conflict");
   });
+}
+
+function compact(v) {
+  return String(v || "").toLowerCase().replace(/[^0-9a-z\u0A80-\u0AFF\u0900-\u097F]+/g, "");
+}
+
+function labelFor(key) {
+  return FIELD_LABELS[key] || key;
+}
+
+function applyIncoming(data) {
+  FIELD_KEYS.forEach(k => {
+    const incoming = String((data && data[k]) || "").trim();
+    if (!incoming) return;
+
+    const el = $("f_" + k);
+    const wrap = $("wrap_" + k);
+    const current = el.value.trim();
+
+    if (!current) {
+      el.value = incoming;
+      if (wrap) wrap.classList.add("scanned");
+      cumulativeUncertain.delete(k);
+      return;
+    }
+
+    if (compact(current) === compact(incoming)) {
+      if (wrap) wrap.classList.add("scanned");
+      cumulativeUncertain.delete(k);
+      return;
+    }
+
+    const exists = draftConflicts.some(c =>
+      c.field === k && compact(c.existing) === compact(current) && compact(c.newValue) === compact(incoming)
+    );
+    if (!exists) {
+      draftConflicts.push({ field: k, existing: current, newValue: incoming });
+    }
+    cumulativeUncertain.add(k);
+    if (wrap) wrap.classList.add("conflict");
+  });
+
+  refreshSummary();
+  renderReview();
+}
+
+function refreshSummary() {
+  const data = collect();
+  const fieldCount = FIELD_KEYS.filter(k => data[k]).length;
+  const reviewKeys = new Set([
+    ...Array.from(cumulativeUncertain),
+    ...draftConflicts.map(c => c.field)
+  ]);
+  $("docCount").textContent = String(processedDocuments);
+  $("fieldCount").textContent = String(fieldCount);
+  $("reviewCount").textContent = String(reviewKeys.size);
+  $("saveBtn").disabled = fieldCount === 0;
+}
+
+function renderReview() {
+  const lines = [];
+  if (cumulativeUncertain.size) {
+    lines.push("ચકાસવા જેવા fields: " + Array.from(cumulativeUncertain).map(labelFor).join(", "));
+  }
+  if (draftConflicts.length) {
+    lines.push("દસ્તાવેજો વચ્ચે ફરક:");
+    draftConflicts.forEach(c => {
+      lines.push("• " + labelFor(c.field) + ': "' + c.existing + '" ↔ "' + c.newValue + '"');
+    });
+    lines.push("જે value સાચી હોય તે ઉપરના fieldમાં manually રાખો.");
+  }
+  $("verify").textContent = lines.join("\n");
 }
 
 function candidateText(c) {
@@ -58,60 +119,56 @@ function chooseCandidate(c) {
   targetRow = c.row;
   forceNew = false;
   $("selected").textContent = "પસંદ કરેલ વિદ્યાર્થી: " + candidateText(c);
-  renderMatch({
-    status: "matched",
-    row: c.row,
-    candidate: c,
-    score: c.score || 0
-  });
-  $("saveBtn").disabled = !hasScannedData();
+  renderMatch({ status: "matched", row: c.row, candidate: c, score: c.score || 0 });
+  refreshSummary();
 }
 
 function chooseNewRow() {
   targetRow = null;
   forceNew = true;
   $("selected").textContent = "નવી row તરીકે save કરવાનું પસંદ કર્યું.";
-  const box = $("matchBox");
-  box.innerHTML = '<div class="match new">નવો વિદ્યાર્થી તરીકે નવી row બનાવાશે.</div>';
-  $("saveBtn").disabled = !hasScannedData();
+  $("matchBox").innerHTML = '<div class="match new">નવી વિદ્યાર્થી row બનાવાશે.</div>';
+  refreshSummary();
 }
 
 function renderMatch(match) {
   const box = $("matchBox");
   box.innerHTML = "";
-  targetRow = null;
-  forceNew = false;
 
   if (match && match.status === "unavailable") {
-    box.innerHTML = '<div class="match warnmatch"><b>Auto-match અત્યારે ઉપલબ્ધ નથી.</b><br>Scan data મળ્યો છે. Save વખતે server ફરી વિદ્યાર્થી match કરશે.</div>';
     targetRow = null;
     forceNew = false;
-    $("saveBtn").disabled = !hasScannedData();
+    box.innerHTML = '<div class="match warnmatch"><b>Student match હમણાં ઉપલબ્ધ નથી.</b><br>માહિતી સુરક્ષિત છે. Save વખતે master ફરી ચેક થશે.</div>';
+    refreshSummary();
     return;
   }
 
   if (!match || match.status === "none") {
-    box.innerHTML = '<div class="match new"><b>Auto-match:</b> હમણાં મજબૂત match મળ્યો નથી. Save વખતે Sheet ફરી ચેક થશે; match ન મળે તો જ નવી row બનશે.</div>';
+    targetRow = null;
     forceNew = false;
-    $("saveBtn").disabled = !hasScannedData();
+    box.innerHTML = '<div class="match new"><b>Auto-match:</b> મજબૂત match મળ્યો નથી. Save વખતે master ફરી ચેક થશે; match ન મળે તો નવી row બનશે.</div>';
+    refreshSummary();
     return;
   }
 
   if (match.status === "matched") {
     targetRow = match.row;
+    forceNew = false;
     const c = match.candidate || {};
     const div = document.createElement("div");
     div.className = "match okmatch";
-    div.innerHTML = "<b>Auto-match મળ્યો:</b><br>" + escapeHtml(candidateText(c));
+    div.innerHTML = "<b>વિદ્યાર્થી match મળ્યો:</b><br>" + escapeHtml(candidateText(c));
     box.appendChild(div);
-    $("saveBtn").disabled = !hasScannedData();
+    refreshSummary();
     return;
   }
 
   if (match.status === "ambiguous") {
+    targetRow = null;
+    forceNew = false;
     const head = document.createElement("div");
     head.className = "match warnmatch";
-    head.innerHTML = "<b>એકથી વધુ શક્ય વિદ્યાર્થી મળ્યા.</b><br>સાચો વિદ્યાર્થી પસંદ કરો અથવા નવી row બનાવો.";
+    head.innerHTML = "<b>એકથી વધુ શક્ય વિદ્યાર્થી મળ્યા.</b><br>સાચો વિદ્યાર્થી પસંદ કરો.";
     box.appendChild(head);
 
     (match.candidates || []).forEach(c => {
@@ -133,11 +190,6 @@ function renderMatch(match) {
   }
 }
 
-function hasScannedData() {
-  const data = collect();
-  return FIELD_KEYS.some(k => data[k]);
-}
-
 function escapeHtml(s) {
   return String(s || "").replace(/[&<>"']/g, ch => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -151,16 +203,13 @@ async function parseApiResponse(response) {
     try {
       data = JSON.parse(text);
     } catch (_) {
-      const e = new Error(
+      throw new Error(
         response.status >= 500
-          ? "Server request timeout થયો. Data save થયો નથી. ફરી પ્રયાસ કરો."
+          ? "Server responseમાં સમસ્યા આવી. આ દસ્તાવેજ save થયો નથી; ફરી પ્રયાસ કરો."
           : "Serverએ માન્ય response આપ્યો નથી."
       );
-      e.status = response.status;
-      throw e;
     }
   }
-
   if (!response.ok) {
     const e = new Error(data.error || ("Request failed: HTTP " + response.status));
     e.status = response.status;
@@ -174,15 +223,108 @@ async function apiFetch(url, options, timeoutMs) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs || 65000);
   try {
-    const r = await fetch(url, Object.assign({}, options || {}, { signal: controller.signal }));
-    return await parseApiResponse(r);
+    const response = await fetch(url, Object.assign({}, options || {}, { signal: controller.signal }));
+    return await parseApiResponse(response);
   } catch (e) {
     if (e.name === "AbortError") {
-      throw new Error("Request બહુ સમય લઈ રહી છે. Data save થયો નથી. ફરી Scan દબાવો.");
+      throw new Error("Request બહુ સમય લઈ રહી છે. ફરી પ્રયાસ કરો.");
     }
     throw e;
   } finally {
     clearTimeout(timer);
+  }
+}
+
+function fileKey(file) {
+  return [file.name, file.size, file.lastModified, file.type].join("|");
+}
+
+function isSupported(file) {
+  const type = String(file.type || "").toLowerCase();
+  const name = String(file.name || "").toLowerCase();
+  return type.startsWith("image/") || type === "application/pdf" || name.endsWith(".pdf");
+}
+
+function addFiles(fileList) {
+  const existing = new Set(queuedFiles.map(x => fileKey(x.file)));
+  let added = 0;
+  let rejected = 0;
+
+  Array.from(fileList || []).forEach(file => {
+    if (!isSupported(file) || file.size > 15 * 1024 * 1024) {
+      rejected++;
+      return;
+    }
+    const key = fileKey(file);
+    if (existing.has(key)) return;
+    queuedFiles.push({ id: ++queueSeq, file, state: "pending", error: "" });
+    existing.add(key);
+    added++;
+  });
+
+  renderQueue();
+  if (queuedFiles.length) {
+    previewFile(queuedFiles[queuedFiles.length - 1].file);
+    $("extractBtn").disabled = false;
+  }
+
+  let msg = added ? added + " document ઉમેરાયા." : "નવો document ઉમેરાયો નથી.";
+  if (rejected) msg += " " + rejected + " unsupported/મોટા file છોડ્યા.";
+  setStatus("scanStatus", msg, rejected ? "warn" : "ok");
+}
+
+function renderQueue() {
+  const panel = $("queuePanel");
+  const list = $("fileQueue");
+  panel.hidden = queuedFiles.length === 0;
+  list.innerHTML = "";
+
+  queuedFiles.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "file-item";
+    const icon = item.file.type === "application/pdf" || item.file.name.toLowerCase().endsWith(".pdf") ? "📄" : "🖼️";
+    const stateText = item.state === "done" ? "વાંચ્યું" : item.state === "reading" ? "વાંચી રહ્યું છે" : item.state === "error" ? "ફરી પ્રયાસ" : "તૈયાર";
+    row.innerHTML =
+      '<div class="file-meta"><span>' + icon + '</span><span class="file-name">' +
+      escapeHtml(item.file.name || ("Document " + item.id)) +
+      '</span></div><span class="file-state ' + (item.state === "done" ? "done" : item.state === "error" ? "error" : "") + '">' +
+      escapeHtml(stateText) + "</span>";
+    row.onclick = () => previewFile(item.file);
+    list.appendChild(row);
+  });
+
+  $("extractBtn").disabled = !queuedFiles.some(x => x.state !== "done");
+  $("imageInfo").textContent = queuedFiles.length
+    ? queuedFiles.length + " document queueમાં • Photo અને PDF બંને supported"
+    : "";
+}
+
+function clearQueue() {
+  queuedFiles = [];
+  if (previewUrl) URL.revokeObjectURL(previewUrl);
+  previewUrl = null;
+  $("imagePreview").src = "";
+  $("pdfPreview").src = "";
+  $("imagePreview").style.display = "none";
+  $("pdfPreview").style.display = "none";
+  $("previewShell").hidden = true;
+  renderQueue();
+}
+
+function previewFile(file) {
+  if (previewUrl) URL.revokeObjectURL(previewUrl);
+  previewUrl = URL.createObjectURL(file);
+
+  const isPdf = String(file.type || "").toLowerCase() === "application/pdf" || String(file.name || "").toLowerCase().endsWith(".pdf");
+  $("previewShell").hidden = false;
+  if (isPdf) {
+    $("imagePreview").style.display = "none";
+    $("pdfPreview").style.display = "block";
+    $("pdfPreview").src = previewUrl + "#toolbar=0";
+  } else {
+    $("pdfPreview").style.display = "none";
+    $("imagePreview").style.display = "block";
+    $("imagePreview").src = previewUrl;
   }
 }
 
@@ -196,13 +338,18 @@ function loadImage(file) {
     };
     img.onerror = () => {
       URL.revokeObjectURL(url);
-      reject(new Error("Image વાંચી શકાયું નથી."));
+      reject(new Error("Photo વાંચી શકાયો નથી."));
     };
     img.src = url;
   });
 }
 
-async function prepareImage(file) {
+async function prepareUpload(file) {
+  const isPdf = String(file.type || "").toLowerCase() === "application/pdf" || String(file.name || "").toLowerCase().endsWith(".pdf");
+  if (isPdf) {
+    return { blob: file, name: file.name || "document.pdf", type: "application/pdf" };
+  }
+
   const img = await loadImage(file);
   const maxSide = 1800;
   const scale = Math.min(1, maxSide / Math.max(img.naturalWidth || img.width, img.naturalHeight || img.height));
@@ -213,145 +360,178 @@ async function prepareImage(file) {
   canvas.height = h;
   const ctx = canvas.getContext("2d", { alpha: false });
   ctx.drawImage(img, 0, 0, w, h);
-  return await new Promise((resolve, reject) => {
+
+  const blob = await new Promise((resolve, reject) => {
     canvas.toBlob(
-      blob => blob ? resolve(blob) : reject(new Error("Image compress થઈ શક્યું નથી.")),
+      b => b ? resolve(b) : reject(new Error("Photo optimize થઈ શક્યો નથી.")),
       "image/jpeg",
       0.88
     );
   });
+  return { blob, name: "scan.jpg", type: "image/jpeg" };
 }
 
-function resetMatch() {
-  targetRow = null;
-  forceNew = false;
-  $("matchBox").innerHTML = "";
-  $("selected").textContent = "";
-}
-
-function useImageFile(file) {
-  if (!file) return;
-  if (!String(file.type || "").startsWith("image/")) {
-    setStatus("scanStatus", "ફક્ત photo/image પસંદ કરો.", "err");
-    return;
-  }
-
-  currentFile = file;
-  preparedBlob = null;
-  currentUncertain = [];
-  currentDocumentType = "OTHER";
-  clearFields();
-  resetMatch();
-
-  if (previewUrl) URL.revokeObjectURL(previewUrl);
-  previewUrl = URL.createObjectURL(file);
-  $("preview").src = previewUrl;
-  $("preview").style.display = "block";
-  $("extractBtn").disabled = false;
-  $("saveBtn").disabled = true;
-  $("verify").textContent = "";
-  $("imageInfo").textContent = "Original: " + Math.round(file.size / 1024) + " KB";
-  setStatus("scanStatus", "ફોટો તૈયાર છે. “AI થી ડેટા વાંચો” દબાવો.", "ok");
-}
-
-$("camera").addEventListener("change", e => useImageFile(e.target.files && e.target.files[0]));
-$("gallery").addEventListener("change", e => useImageFile(e.target.files && e.target.files[0]));
-
-async function extractImage() {
-  if (!currentFile) return;
-
-  setStatus("scanStatus", "ફોટો optimize કરીને AI document વાંચી રહ્યું છે...", "busy");
-  $("extractBtn").disabled = true;
-  $("saveBtn").disabled = true;
-  resetMatch();
-  clearFields();
-
+async function rematchDraft() {
+  const data = collect();
+  if (!FIELD_KEYS.some(k => data[k])) return;
   try {
-    if (!preparedBlob) preparedBlob = await prepareImage(currentFile);
-    $("imageInfo").textContent =
-      "Original: " + Math.round(currentFile.size / 1024) +
-      " KB • Scan upload: " + Math.round(preparedBlob.size / 1024) + " KB";
-
-    const fd = new FormData();
-    fd.append("image", preparedBlob, "scan.jpg");
-    fd.append("doc_type", $("docType").value);
-
-    const x = await apiFetch("/api/extract", { method: "POST", body: fd }, 65000);
-    fillScanned(x.data || {});
-    currentUncertain = x.uncertain_fields || [];
-    currentDocumentType = x.document_type || $("docType").value || "OTHER";
-
-    const count = FIELD_KEYS.filter(k => x.data && x.data[k]).length;
-    const verifyText = currentUncertain.length
-      ? "VERIFY જરૂરી: " + currentUncertain.join(", ")
-      : "AIએ uncertain field નોંધ્યું નથી.";
-    $("verify").textContent = verifyText;
-
-    renderMatch(x.match || { status: "none" });
-
-    setStatus(
-      "scanStatus",
-      "Document: " + currentDocumentType +
-      "\nમળેલા fields: " + count +
-      "\nModel: " + (x.model_used || "-") +
-      " • " + (x.latency_ms ? (x.latency_ms / 1000).toFixed(1) + " sec" : "") +
-      (x.match_warning ? "\n" + x.match_warning : ""),
-      (currentUncertain.length || x.match_warning) ? "warn" : "ok"
-    );
-  } catch (e) {
-    const extra = e.data && e.data.retryable
-      ? "\nઆ temporary AI/provider સમસ્યા છે; થોડા સેકન્ડ પછી ફરી દબાવો."
-      : "";
-    setStatus("scanStatus", e.message + extra, "err");
-    $("saveBtn").disabled = true;
-  } finally {
-    $("extractBtn").disabled = false;
+    const match = await apiFetch("/api/match", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data })
+    }, 20000);
+    renderMatch(match);
+  } catch (_) {
+    renderMatch({ status: "unavailable", candidates: [] });
   }
 }
+
+async function processDocuments() {
+  const items = queuedFiles.filter(x => x.state !== "done");
+  if (!items.length) return;
+
+  $("extractBtn").disabled = true;
+  $("progressWrap").hidden = false;
+  setStatus("scanStatus", "દસ્તાવેજોમાંથી માહિતી સંકલિત થઈ રહી છે...", "busy");
+
+  let success = 0;
+  let failed = 0;
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    item.state = "reading";
+    item.error = "";
+    renderQueue();
+
+    $("progressBar").style.width = Math.round((i / items.length) * 100) + "%";
+    $("progressText").textContent = (i + 1) + " / " + items.length + " • " + (item.file.name || "Document");
+
+    try {
+      const prepared = await prepareUpload(item.file);
+      const fd = new FormData();
+      fd.append("image", prepared.blob, prepared.name);
+      fd.append("doc_type", $("docType").value);
+
+      const x = await apiFetch("/api/extract", { method: "POST", body: fd }, 60000);
+
+      applyIncoming(x.data || {});
+      (x.uncertain_fields || []).forEach(k => {
+        if (!(x.data && x.data[k])) cumulativeUncertain.add(k);
+      });
+      if (x.document_type) documentTypes.add(x.document_type);
+      processedDocuments++;
+      item.state = "done";
+      success++;
+    } catch (e) {
+      item.state = "error";
+      item.error = e.message;
+      failed++;
+    }
+
+    refreshSummary();
+    renderReview();
+    renderQueue();
+    $("progressBar").style.width = Math.round(((i + 1) / items.length) * 100) + "%";
+  }
+
+  await rematchDraft();
+
+  const message =
+    success + " documentમાંથી માહિતી ઉમેરાઈ." +
+    (failed ? "\n" + failed + " document વાંચી શકાયા નથી — ફરી પ્રયાસ કરી શકો છો." : "") +
+    "\nઅગાઉ ભરાયેલી માહિતી જાળવી રાખવામાં આવી છે.";
+  setStatus("scanStatus", message, failed ? "warn" : "ok");
+
+  $("progressText").textContent = "પૂર્ણ";
+  $("extractBtn").disabled = !queuedFiles.some(x => x.state !== "done");
+  refreshSummary();
+}
+
+$("camera").addEventListener("change", e => {
+  addFiles(e.target.files);
+  e.target.value = "";
+});
+$("gallery").addEventListener("change", e => {
+  addFiles(e.target.files);
+  e.target.value = "";
+});
+
+FIELD_KEYS.forEach(k => {
+  const el = $("f_" + k);
+  if (!el) return;
+  el.addEventListener("input", () => {
+    refreshSummary();
+  });
+});
 
 async function saveScan() {
-  if (!hasScannedData()) {
-    setStatus("scanStatus", "Save કરવા માટે scan data નથી.", "err");
+  const data = collect();
+  if (!FIELD_KEYS.some(k => data[k])) {
+    setStatus("scanStatus", "Save કરવા માટે માહિતી નથી.", "err");
     return;
   }
 
   $("saveBtn").disabled = true;
-  setStatus("scanStatus", "Google Sheetમાં save થઈ રહ્યું છે...", "busy");
+  setStatus("scanStatus", "Google Sheetમાં માહિતી save થઈ રહી છે...", "busy");
 
   try {
     const x = await apiFetch("/api/upsert", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        data: collect(),
-        uncertain_fields: currentUncertain,
-        document_type: currentDocumentType,
+        data,
+        uncertain_fields: Array.from(cumulativeUncertain),
+        document_types: Array.from(documentTypes),
         target_row: targetRow,
         force_new: forceNew
       })
-    }, 30000);
+    }, 35000);
 
     let msg = x.action === "created"
-      ? "નવી student row Google Sheetમાં બનાવી."
-      : "Existing studentની row update કરી.";
+      ? "નવી વિદ્યાર્થી row Google Sheetમાં બનાવી."
+      : "Existing વિદ્યાર્થીની row update કરી.";
     msg += "\nSheet row: " + x.row + " • Status: " + x.status;
-
     if (x.conflicts && x.conflicts.length) {
       msg += "\n" + x.conflicts.length + " conflict મળ્યા; existing value overwrite નથી કરી.";
     }
-    setStatus("scanStatus", msg, x.conflicts && x.conflicts.length ? "warn" : "ok");
+
     targetRow = x.row;
     forceNew = false;
-    $("saveBtn").disabled = false;
+    setStatus("scanStatus", msg, (x.conflicts && x.conflicts.length) ? "warn" : "ok");
   } catch (e) {
     if (e.data && e.data.code === "AMBIGUOUS") {
       renderMatch({ status: "ambiguous", candidates: e.data.candidates || [] });
     }
     setStatus("scanStatus", e.message, "err");
-    if (!(e.data && e.data.code === "AMBIGUOUS")) {
-      $("saveBtn").disabled = false;
-    }
+  } finally {
+    refreshSummary();
   }
+}
+
+function startNewStudent() {
+  if (FIELD_KEYS.some(k => collect()[k])) {
+    const ok = confirm("હાલની સંકલિત માહિતી સાફ કરીને નવો વિદ્યાર્થી શરૂ કરવો છે?");
+    if (!ok) return;
+  }
+
+  queuedFiles = [];
+  processedDocuments = 0;
+  cumulativeUncertain = new Set();
+  documentTypes = new Set();
+  draftConflicts = [];
+  targetRow = null;
+  forceNew = false;
+
+  clearQueue();
+  clearFields();
+  $("matchBox").innerHTML = "";
+  $("selected").textContent = "";
+  $("verify").textContent = "";
+  $("progressWrap").hidden = true;
+  $("progressBar").style.width = "0";
+  $("progressText").textContent = "";
+  setStatus("scanStatus", "", "");
+  refreshSummary();
 }
 
 async function searchStudent() {
@@ -378,30 +558,6 @@ async function searchStudent() {
   }
 }
 
-function clearScan() {
-  currentFile = null;
-  preparedBlob = null;
-  currentUncertain = [];
-  currentDocumentType = "OTHER";
-  targetRow = null;
-  forceNew = false;
-
-  $("camera").value = "";
-  $("gallery").value = "";
-  if (previewUrl) URL.revokeObjectURL(previewUrl);
-  previewUrl = null;
-  $("preview").src = "";
-  $("preview").style.display = "none";
-  $("imageInfo").textContent = "";
-  $("extractBtn").disabled = true;
-  $("saveBtn").disabled = true;
-  $("verify").textContent = "";
-  $("matchBox").innerHTML = "";
-  $("selected").textContent = "";
-  clearFields();
-  setStatus("scanStatus", "", "");
-}
-
 async function importMaster() {
   const file = $("masterFile").files && $("masterFile").files[0];
   if (!file) return;
@@ -412,7 +568,7 @@ async function importMaster() {
 
   try {
     const x = await apiFetch("/api/import", { method: "POST", body: fd }, 90000);
-    let msg =
+    const msg =
       "Import પૂર્ણ.\nનવી rows: " + x.inserted +
       "\nUpdate rows: " + x.updated +
       "\nAmbiguous skip: " + x.skipped_ambiguous +
@@ -423,6 +579,8 @@ async function importMaster() {
   }
 }
 
+refreshSummary();
+
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/static/sw.js?v=4").catch(() => {});
+  navigator.serviceWorker.register("/static/sw.js?v=5").catch(() => {});
 }
