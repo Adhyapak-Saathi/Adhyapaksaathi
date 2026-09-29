@@ -309,6 +309,7 @@ Critical rules:
 - On an ABHA card, ABHA Address is NOT a residential postal address; ignore it because this app has no ABHA Address field.
 - Never infer father, mother, caste/sub-caste, Aadhaar, bank data, phone, or address from a person's name.
 - Bank account holder name belongs only in bank_account_name, not student_full_name unless the document explicitly labels the person as the student.
+- Return all textual values in English script. Transliterate personal/place/proper names into natural English spelling; translate ordinary address/descriptive words into English. Never translate or alter identifiers, account numbers, dates, phone numbers or IFSC codes.
 - Dates must be DD-MM-YYYY only when a complete date is clear.
 - If a field is unclear, return an empty string and add that field key to uncertain_fields.
 - If selected type is not AUTO, document_type must reflect the real document but do not extract fields outside the allowed list.
@@ -452,6 +453,102 @@ def extract_document_data(file_bytes, mime_type, selected_doc):
 
     raise ProviderBusy("Document reading service હાલમાં વ્યસ્ત છે. થોડા સેકન્ડ પછી ફરી પ્રયાસ કરો.")
 
+ENGLISH_TEXT_KEYS = {
+    "aadhaar_according_name", "student_full_name", "mother_name", "father_name",
+    "address", "sub_caste", "bank_account_name", "bank_branch", "bank_name"
+}
+
+def has_non_english_letters(value):
+    return any(ord(ch) > 127 and ch.isalpha() for ch in str(value or ""))
+
+def convert_record_to_english(data):
+    pending = {
+        k: str((data or {}).get(k, "") or "").strip()
+        for k in ENGLISH_TEXT_KEYS
+        if str((data or {}).get(k, "") or "").strip()
+        and has_non_english_letters((data or {}).get(k, ""))
+    }
+    if not pending:
+        return dict(data or {}), False
+
+    key = gemini_key()
+    if not key:
+        raise ProviderError("English conversion service configured નથી.")
+
+    props = {k: {"type": "string"} for k in pending}
+    schema = {
+        "type": "object",
+        "properties": props,
+        "required": list(pending.keys()),
+        "additionalProperties": False,
+    }
+    prompt = """Convert the supplied student-record text values to English script only.
+Rules:
+- Personal, parent, caste, bank and place names: transliterate faithfully; do not invent or expand names.
+- Address/descriptive words: translate to clear English while preserving all place names, house numbers, PIN codes and numbers.
+- Preserve meaning and spelling as closely as possible.
+- Return only the requested JSON fields, no notes.
+Input:
+""" + json.dumps(pending, ensure_ascii=False)
+
+    primary = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite").strip() or "gemini-3.5-flash-lite"
+    fallback = os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.8-flash").strip() or "gemini-3.8-flash"
+    last = ""
+    for model in dict.fromkeys([primary, fallback]):
+        try:
+            r = requests.post(
+                f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                headers={"x-goog-api-key": key, "Content-Type": "application/json"},
+                json={
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {
+                        "thinkingConfig": {"thinkingLevel": "low"},
+                        "responseFormat": {
+                            "text": {
+                                "mimeType": "APPLICATION_JSON",
+                                "schema": schema
+                            }
+                        }
+                    },
+                },
+                timeout=(5, 14),
+            )
+        except requests.RequestException as e:
+            last = str(e)
+            continue
+        if r.status_code in {429, 500, 502, 503, 504}:
+            last = f"HTTP {r.status_code}"
+            continue
+        if r.status_code >= 300:
+            raise ProviderError("English conversion પૂર્ણ થઈ શક્યું નથી.")
+        try:
+            obj = r.json()
+            parts = obj.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+            translated = json.loads("".join(p.get("text", "") for p in parts).strip())
+        except Exception as e:
+            raise ProviderError("English conversion response માન્ય નથી.") from e
+
+        out = dict(data or {})
+        for k, original in pending.items():
+            converted = str(translated.get(k, "") or "").strip()
+            if converted:
+                out[k] = converted
+            else:
+                out[k] = original
+        return out, True
+
+    raise ProviderBusy("English conversion service હાલમાં ઉપલબ્ધ નથી. ફરી પ્રયાસ કરો.")
+
+def verify_sheet_row(ws, rownum, expected):
+    expected_values = [str(expected.get(k, "") or "") for k in ALL_KEYS]
+    for _ in range(3):
+        row = ws.row_values(int(rownum))
+        actual = (row + [""] * len(HEADERS))[:len(ALL_KEYS)]
+        if actual == expected_values:
+            return True
+        time.sleep(0.35)
+    return False
+
 def merge_into(existing, incoming, uncertain=None, source_doc=""):
     merged = dict(existing or {})
     conflicts = []
@@ -504,7 +601,7 @@ def index():
 def health():
     return jsonify({
         "ok": True,
-        "version": "2026.09.29.5",
+        "version": "2026.09.29.7",
         "gemini_key_set": bool(gemini_key()),
         "gemini_model": os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite"),
         "gemini_fallback_model": os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.8-flash"),
@@ -538,6 +635,23 @@ def search():
         if len(out) >= 30:
             break
     return jsonify(out)
+
+@app.route("/api/student/<int:rownum>")
+def student_record(rownum):
+    try:
+        records = cached_records()
+        rec = find_record_by_row(records, rownum)
+        if not rec:
+            return jsonify({"error": "વિદ્યાર્થી મળ્યો નથી."}), 404
+        return jsonify({
+            "row": rec["_row"],
+            "data": {k: rec.get(k, "") for k in ALL_KEYS},
+            "verification_status": rec.get("verification_status", ""),
+            "remarks": rec.get("remarks", ""),
+            "last_updated": rec.get("last_updated", ""),
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 503
 
 @app.route("/api/extract", methods=["POST"])
 def extract():
@@ -607,6 +721,8 @@ def upsert():
         return jsonify({"error": "Save કરવા માટે કોઈ data નથી."}), 400
 
     try:
+        incoming, english_converted = convert_record_to_english(incoming)
+        incoming = sanitize(incoming)
         ws, records = read_records()
         target = None
         if requested_row:
@@ -630,26 +746,39 @@ def upsert():
             ws.update(
                 values=[record_values(merged)],
                 range_name=f"A{rownum}:X{rownum}",
-                value_input_option="USER_ENTERED",
+                value_input_option="RAW",
             )
             action = "updated"
         else:
             merged, conflicts = merge_into({}, incoming, uncertain, source_doc)
-            append_result = ws.append_row(record_values(merged), value_input_option="USER_ENTERED")
+            append_result = ws.append_row(record_values(merged), value_input_option="RAW")
             updated_range = str(((append_result or {}).get("updates") or {}).get("updatedRange", ""))
             match_row = re.search(r"!A(\d+):", updated_range)
             rownum = int(match_row.group(1)) if match_row else (len(records) + 2)
             action = "created"
 
+        sheet_verified = verify_sheet_row(ws, rownum, merged)
+        if not sheet_verified:
+            return jsonify({
+                "error": "માહિતી લખવાની પ્રક્રિયા પૂર્ણ થઈ પરંતુ Google Sheetમાં તેની પુષ્ટિ થઈ શકી નથી.",
+                "code": "SAVE_NOT_CONFIRMED"
+            }), 502
+
         invalidate_record_cache()
         return jsonify({
             "ok": True,
+            "sheet_verified": True,
+            "english_converted": english_converted,
             "action": action,
             "row": rownum,
             "status": merged["verification_status"],
             "conflicts": conflicts,
             "sheet_synced": True,
         })
+    except ProviderBusy as e:
+        return jsonify({"error": str(e), "code": "ENGLISH_CONVERSION_BUSY"}), 503
+    except ProviderError as e:
+        return jsonify({"error": str(e), "code": "ENGLISH_CONVERSION_ERROR"}), 502
     except SheetConfigError as e:
         return jsonify({"error": str(e)}), 503
     except Exception:
@@ -737,7 +866,7 @@ def import_master():
 
         ordered = [by_row[k] for k in sorted(by_row)]
         matrix = [HEADERS] + [record_values(r) for r in ordered]
-        ws.update(values=matrix, range_name="A1", value_input_option="USER_ENTERED")
+        ws.update(values=matrix, range_name="A1", value_input_option="RAW")
         invalidate_record_cache()
 
         return jsonify({
