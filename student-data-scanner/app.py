@@ -615,9 +615,20 @@ def health():
 
 @app.route("/api/search")
 def search():
-    q = norm(request.args.get("q", ""))
-    if not q:
+    raw_q = str(request.args.get("q", "") or "").strip()
+    if not raw_q:
         return jsonify([])
+
+    queries = [norm(raw_q)]
+    if has_non_english_letters(raw_q):
+        try:
+            translated, _ = convert_record_to_english({"student_full_name": raw_q})
+            q2 = norm(translated.get("student_full_name", ""))
+            if q2 and q2 not in queries:
+                queries.append(q2)
+        except Exception:
+            pass
+
     try:
         records = cached_records()
     except Exception as e:
@@ -630,7 +641,16 @@ def search():
     ]
     for rec in records:
         hay = " | ".join(norm(rec.get(k)) for k in fields)
-        if q in hay:
+        matched = False
+        for q in queries:
+            if q and q in hay:
+                matched = True
+                break
+            tokens = [t for t in re.split(r"\s+", q) if len(t) >= 2]
+            if tokens and all(t in hay for t in tokens):
+                matched = True
+                break
+        if matched:
             out.append(candidate_summary(rec))
         if len(out) >= 30:
             break
@@ -676,7 +696,7 @@ def extract():
             result["match"] = match_records(result["data"], records)
         except Exception as match_error:
             result["match"] = {"status": "unavailable", "candidates": []}
-            result["match_warning"] = "Student auto-match હાલમાં ઉપલબ્ધ નથી; scan data સુરક્ષિત છે. Save વખતે ફરી match થશે."
+            result["match_warning"] = "વિદ્યાર્થી match હમણાં ઉપલબ્ધ નથી."
             app.logger.warning("auto-match unavailable: %s", match_error)
         return jsonify(result)
     except ProviderBusy as e:
