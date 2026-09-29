@@ -1,4 +1,4 @@
-import os, json, re, sqlite3, base64
+import os, json, re, sqlite3, base64, time
 from datetime import datetime
 from io import BytesIO
 import pandas as pd
@@ -71,10 +71,40 @@ STRICT RULES:
 - Doubtful fields: blank + add key to uncertain_fields.
 Return JSON ONLY exactly in this shape:
 {{"document_type":"","data":{{"roll_number":"","gr_number":"","cts_number":"","abha_number":"","pen_number":"","apaar_number":"","aadhaar_number":"","aadhaar_name":"","aadhaar_according_name":"","student_full_name":"","mother_name":"","father_name":"","phone_number":"","address":"","admission_date":"","dob":"","sub_caste":"","bank_account_name":"","bank_account_number":"","bank_branch":"","ifsc_code":"","bank_name":""}},"uncertain_fields":[]}}'''
-    url=f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent'
     payload={'contents':[{'parts':[{'text':prompt},{'inline_data':{'mime_type':mime_type,'data':base64.b64encode(image_bytes).decode('ascii')}}]}],'generationConfig':{'temperature':0}}
-    r=requests.post(url,headers={'x-goog-api-key':key,'Content-Type':'application/json'},json=payload,timeout=90)
-    if r.status_code>=300: raise RuntimeError(f'AI error {r.status_code}: {r.text[:300]}')
+    # Gemini can occasionally return transient 429/5xx overload errors.
+    # Retry the preferred model, then automatically fall back to stable Flash models.
+    configured_fallbacks=[m.strip() for m in os.getenv('GEMINI_FALLBACK_MODELS','gemini-3.5-flash-lite,gemini-3.6-flash').split(',') if m.strip()]
+    models=[]
+    for m in [model]+configured_fallbacks:
+        if m and m not in models: models.append(m)
+
+    r=None; last_error=''
+    transient={429,500,502,503,504}
+    for candidate_model in models:
+        url=f'https://generativelanguage.googleapis.com/v1beta/models/{candidate_model}:generateContent'
+        attempts=3 if candidate_model==model else 2
+        for attempt in range(attempts):
+            try:
+                r=requests.post(url,headers={'x-goog-api-key':key,'Content-Type':'application/json'},json=payload,timeout=90)
+            except requests.RequestException as e:
+                last_error=f'{candidate_model}: network error: {e}'
+                if attempt < attempts-1:
+                    time.sleep(1.5*(attempt+1))
+                    continue
+                break
+            if 200 <= r.status_code < 300:
+                break
+            last_error=f'{candidate_model}: HTTP {r.status_code}: {r.text[:220]}'
+            if r.status_code in transient and attempt < attempts-1:
+                time.sleep(1.5*(attempt+1))
+                continue
+            break
+        if r is not None and 200 <= r.status_code < 300:
+            break
+
+    if r is None or not (200 <= r.status_code < 300):
+        raise RuntimeError('AI સર્વર હાલમાં વ્યસ્ત છે. થોડીવાર પછી ફરી Scan દબાવો. '+last_error)
     obj=r.json(); parts=obj.get('candidates',[{}])[0].get('content',{}).get('parts',[])
     txt=''.join(p.get('text','') for p in parts).strip()
     txt=re.sub(r'^\`\`\`(?:json)?\s*','',txt,flags=re.I); txt=re.sub(r'\s*\`\`\`$','',txt)
