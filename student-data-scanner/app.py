@@ -311,6 +311,7 @@ Critical rules:
 - Dates must be DD-MM-YYYY only when a complete date is clear.
 - If a field is unclear, return an empty string and add that field key to uncertain_fields.
 - If selected type is not AUTO, document_type must reflect the real document but do not extract fields outside the allowed list.
+- If a multi-page PDF clearly contains more than one document type, set document_type to OTHER and extract only fields explicitly visible anywhere in that PDF.
 """
 
 def gemini_key():
@@ -365,7 +366,7 @@ def extract_document_data(image_bytes, mime_type, selected_doc):
                 url,
                 headers={"x-goog-api-key": key, "Content-Type": "application/json"},
                 json=payload,
-                timeout=(5, 18),
+                timeout=(5, 25 if mime_type == "application/pdf" else 18),
             )
         except requests.Timeout:
             last = f"{model}: timeout"
