@@ -3,26 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b57d0">
+  <meta name="theme-color" content="#2457d6">
   <link rel="manifest" href="/static/manifest.json">
-  <link rel="stylesheet" href="/static/style.css?v=20260929-4">
-  <title>Student Data Scanner</title>
+  <link rel="stylesheet" href="/static/style.css?v=20260929-5">
+  <title>Student Record Capture</title>
 </head>
 <body>
-<header>
-  <h1>Student Data Scanner</h1>
-  <p>કાગળ સ્કેન કરો → AI ફક્ત દેખાતી માહિતી વાંચે → વિદ્યાર્થી auto-match → Google Sheetમાં save</p>
-  <div class="header-row"><small>Version 2026.09.29.4</small><form method="post" action="/logout"><button class="logout-btn" type="submit">Logout</button></form></div>
+<header class="app-header">
+  <div class="header-inner">
+    <div>
+      <div class="brand-kicker">School Data Utility</div>
+      <h1>Student Record Capture</h1>
+      <p>દસ્તાવેજો ઉમેરો → માહિતી સંકલિત કરો → વિદ્યાર્થી match કરો → Google Sheetમાં save કરો</p>
+    </div>
+    <div class="header-badge">Google Sheet Sync</div>
+  </div>
+  <small>Version 2026.09.29.5</small>
 </header>
 
 <main>
-  <section class="card primary-card">
-    <h2>1. કાગળ સ્કેન કરો</h2>
-    <p class="muted">દરેક document અલગથી scan કરો. App existing studentને પોતે શોધવાનો પ્રયાસ કરશે.</p>
+  <section class="card capture-card">
+    <div class="section-title-row">
+      <div class="step-badge">1</div>
+      <div>
+        <h2>વિદ્યાર્થી દસ્તાવેજ સંકલન</h2>
+        <p class="muted">એક જ વિદ્યાર્થીના ઘણા ફોટા અથવા PDF એક પછી એક ઉમેરો. અગાઉ મળેલી માહિતી સાફ નહીં થાય.</p>
+      </div>
+    </div>
 
-    <label for="docType">Document Type</label>
+    <label for="docType">દસ્તાવેજ પ્રકાર</label>
     <select id="docType">
-      <option value="AUTO">Auto Detect</option>
+      <option value="AUTO">Auto Detect — ભલામણ કરેલ</option>
       <option value="ABHA_CARD">ABHA Card</option>
       <option value="AADHAAR_CARD">Aadhaar Card</option>
       <option value="BANK_DOCUMENT">Bank Passbook / Bank Document</option>
@@ -30,24 +41,64 @@
       <option value="FORM">Student Form</option>
       <option value="OTHER">Other Document</option>
     </select>
+    <div class="hint">અલગ અલગ પ્રકારના દસ્તાવેજો હોય તો <b>Auto Detect</b> જ રાખો.</div>
 
-    <label class="cameraBtn">📷 કેમેરાથી ફોટો લો
-      <input id="camera" type="file" accept="image/*" capture="environment">
-    </label>
-    <label class="cameraBtn">🖼️ Galleryમાંથી ફોટો પસંદ કરો
-      <input id="gallery" type="file" accept="image/*">
-    </label>
+    <div class="capture-actions">
+      <label class="capture-btn camera">
+        <span class="capture-icon">📷</span>
+        <span><b>કેમેરાથી ફોટો ઉમેરો</b><small>એક પછી એક અનેક ફોટા લઈ શકો છો</small></span>
+        <input id="camera" type="file" accept="image/*" capture="environment">
+      </label>
 
-    <img id="preview" alt="Selected document preview">
+      <label class="capture-btn files">
+        <span class="capture-icon">🗂️</span>
+        <span><b>Photo / PDF પસંદ કરો</b><small>એક સાથે ઘણા files પસંદ કરી શકો છો</small></span>
+        <input id="gallery" type="file" accept="image/*,application/pdf,.pdf" multiple>
+      </label>
+    </div>
+
+    <div id="queuePanel" class="queue-panel" hidden>
+      <div class="queue-head">
+        <b>પસંદ કરેલા દસ્તાવેજો</b>
+        <button type="button" class="text-btn" onclick="clearQueue()">Queue સાફ કરો</button>
+      </div>
+      <div id="fileQueue"></div>
+    </div>
+
+    <div class="preview-shell" id="previewShell" hidden>
+      <img id="imagePreview" alt="Selected document preview">
+      <iframe id="pdfPreview" title="PDF preview"></iframe>
+    </div>
+
     <div id="imageInfo" class="muted"></div>
-    <button id="extractBtn" onclick="extractImage()" disabled>AI થી ડેટા વાંચો</button>
+    <button id="extractBtn" class="primary-action" onclick="processDocuments()" disabled>
+      માહિતી વાંચો અને ફોર્મમાં ઉમેરો
+    </button>
+
+    <div id="progressWrap" class="progress-wrap" hidden>
+      <div class="progress-track"><div id="progressBar"></div></div>
+      <div id="progressText" class="muted"></div>
+    </div>
+
     <div id="scanStatus" class="status"></div>
     <div id="matchBox"></div>
   </section>
 
-  <section class="card">
-    <h2>2. સ્કેનમાંથી મળેલી માહિતી ચેક કરો</h2>
-    <p class="muted important-note">અહીં માત્ર આ scanમાંથી મળેલી માહિતી દેખાશે. Existing studentની જૂની માહિતી અહીં mix થતી નથી.</p>
+  <section class="card data-card">
+    <div class="section-title-row">
+      <div class="step-badge green">2</div>
+      <div>
+        <h2>સંકલિત વિદ્યાર્થી માહિતી</h2>
+        <p class="muted">દરેક નવા દસ્તાવેજમાંથી મળેલી માહિતી અહીં ઉમેરાતી જશે. પહેલેથી ભરાયેલ data આપમેળે સાફ નહીં થાય.</p>
+      </div>
+    </div>
+
+    <div class="summary-strip">
+      <div><span id="docCount">0</span><small>Documents વાંચ્યા</small></div>
+      <div><span id="fieldCount">0</span><small>Fields ભરાયા</small></div>
+      <div><span id="reviewCount">0</span><small>Review જરૂરી</small></div>
+    </div>
+
     <div class="grid">
       {% for key,label in fields %}
       <div class="field {% if key == 'address' %}wide{% endif %}" id="wrap_{{key}}">
@@ -63,14 +114,14 @@
     <div id="verify" class="verify"></div>
   </section>
 
-  <section class="card sticky">
+  <section class="card sticky save-card">
     <button class="save" id="saveBtn" onclick="saveScan()" disabled>✓ Google Sheetમાં Save / Update</button>
-    <button class="secondary" onclick="clearScan()">આ સ્કેન સાફ કરો</button>
+    <button class="secondary" onclick="startNewStudent()">નવો વિદ્યાર્થી શરૂ કરો</button>
   </section>
 
   <details class="card optional">
-    <summary>જરૂર પડે ત્યારે વિદ્યાર્થી જાતે શોધો (Optional)</summary>
-    <p class="muted">Auto-match ખોટો/અસ્પષ્ટ હોય ત્યારે GR / PEN / CTS / Aadhaar / નામથી શોધો.</p>
+    <summary>વિદ્યાર્થી જાતે શોધો — Optional</summary>
+    <p class="muted">Auto-match અસ્પષ્ટ હોય ત્યારે GR / PEN / CTS / Aadhaar / નામથી શોધો.</p>
     <div class="searchline">
       <input id="q" placeholder="GR / PEN / CTS / Aadhaar / નામ">
       <button onclick="searchStudent()">શોધો</button>
@@ -81,7 +132,7 @@
 
   <details class="card optional">
     <summary>Master Excel/CSV Import / Export</summary>
-    <p class="muted">UDISE / SSA / PEN / APAAR / existing Excel/CSV import કરો. Import હવે સીધું Google Sheet masterમાં merge થાય છે.</p>
+    <p class="muted">UDISE / SSA / PEN / APAAR / existing Excel/CSV Google Sheet masterમાં merge કરો.</p>
     <input id="masterFile" type="file" accept=".xlsx,.xls,.csv">
     <button onclick="importMaster()">Import Excel/CSV</button>
     <a class="linkbtn" href="/api/export.xlsx">Current Master Excel Download</a>
@@ -93,6 +144,6 @@
   window.FIELD_KEYS={{ fields|map(attribute=0)|list|tojson }};
   window.FIELD_LABELS={{ dict(fields)|tojson }};
 </script>
-<script src="/static/app.js?v=20260929-4"></script>
+<script src="/static/app.js?v=20260929-5"></script>
 </body>
 </html>
