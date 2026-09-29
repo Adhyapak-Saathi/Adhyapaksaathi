@@ -789,6 +789,7 @@ def upsert():
             "ok": True,
             "sheet_verified": True,
             "english_converted": english_converted,
+            "saved_data": {k: merged.get(k, "") for k in ALL_KEYS},
             "action": action,
             "row": rownum,
             "status": merged["verification_status"],
