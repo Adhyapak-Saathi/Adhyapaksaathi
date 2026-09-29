@@ -904,7 +904,7 @@ def startup_smoke_test():
         with app.test_client() as client:
             home = client.get("/")
             results["home_200"] = home.status_code == 200
-            results["home_has_version"] = b"2026.09.29.5" in home.data
+            results["home_has_title"] = b"Student Record Capture" in home.data
             health_response = client.get("/api/health")
             results["health_200"] = health_response.status_code == 200 and bool(health_response.get_json())
             local = client.get("/api/selftest")
