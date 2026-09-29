@@ -62,3 +62,13 @@ button:disabled{opacity:.45;cursor:not-allowed}
   main{padding:9px}
   .card{border-radius:14px;padding:13px}
 }
+
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:7px}
+.header-row small{margin:0}
+.header-row form{margin:0}
+.logout-btn{width:auto;margin:0;padding:7px 12px;background:#fff;color:#0b57d0;font-size:12px}
+.login-page{min-height:100vh;display:grid;place-items:center;background:#f5f7fb}
+.login-wrap{width:min(430px,100%);padding:18px}
+.login-card{margin:0}
+.login-card h1{margin:0 0 6px;color:#0b57d0;font-size:24px}
+.login-card .status{display:block}
