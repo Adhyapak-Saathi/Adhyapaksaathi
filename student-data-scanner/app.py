@@ -1079,7 +1079,7 @@ def background_external_selftest():
         dummy["gr_number"] = "SELFTEST-" + stamp
         dummy["student_full_name"] = "DUMMY SELF TEST"
         merged, _ = merge_into({}, dummy, [], "SELFTEST")
-        ws.append_row(record_values(merged), value_input_option="USER_ENTERED")
+        ws.append_row(record_values(merged), value_input_option="RAW")
         vals = ws.get_all_values()
         found = None
         for i in range(len(vals) - 1, 0, -1):
@@ -1088,6 +1088,7 @@ def background_external_selftest():
                 found = i + 1
                 break
         if found:
+            results["sheet_readback_verified"] = verify_sheet_row(ws, found, merged)
             ws.delete_rows(found)
             results["sheet_write_cleanup"] = True
         else:
@@ -1126,6 +1127,22 @@ def background_external_selftest():
     except Exception as e:
         results["document_pdf_pipeline"] = False
         results["pdf_error"] = str(e)
+
+    try:
+        converted, changed = convert_record_to_english({
+            "student_full_name": "ઠાકોર ચંદ્રિકાબેન",
+            "address": "અમદાવાદ ગુજરાત"
+        })
+        results["english_conversion"] = bool(
+            changed
+            and converted.get("student_full_name")
+            and converted.get("address")
+            and not has_non_english_letters(converted.get("student_full_name"))
+            and not has_non_english_letters(converted.get("address"))
+        )
+    except Exception as e:
+        results["english_conversion"] = False
+        results["english_conversion_error"] = str(e)
 
     print("[EXTERNAL_SELFTEST] " + json.dumps(results, ensure_ascii=False), flush=True)
 
