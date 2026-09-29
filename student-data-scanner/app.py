@@ -44,6 +44,9 @@ KEY_TO_LABEL = dict(FIELDS)
 LABEL_TO_KEY = {label: key for key, label in FIELDS}
 ALL_KEYS = [key for key, _ in FIELDS]
 
+_RECORD_CACHE = {"ts": 0.0, "records": []}
+_CACHE_LOCK = threading.Lock()
+
 DOC_ALLOWED = {
     "ABHA_CARD": {"abha_number", "student_full_name", "dob", "phone_number"},
     "AADHAAR_CARD": {"aadhaar_number", "aadhaar_according_name", "dob", "address"},
@@ -164,6 +167,22 @@ def read_records():
         if any(str(rec.get(k, "")).strip() for k in ALL_KEYS):
             records.append(rec)
     return ws, records
+
+def cached_records(max_age=45):
+    now = time.monotonic()
+    with _CACHE_LOCK:
+        if _RECORD_CACHE["records"] and (now - _RECORD_CACHE["ts"] <= max_age):
+            return [dict(r) for r in _RECORD_CACHE["records"]]
+    _, records = read_records()
+    with _CACHE_LOCK:
+        _RECORD_CACHE["ts"] = now
+        _RECORD_CACHE["records"] = [dict(r) for r in records]
+    return records
+
+def invalidate_record_cache():
+    with _CACHE_LOCK:
+        _RECORD_CACHE["ts"] = 0.0
+        _RECORD_CACHE["records"] = []
 
 def record_values(rec):
     return [str(rec.get(k, "") or "") for k in ALL_KEYS] + [
@@ -410,20 +429,27 @@ def merge_into(existing, incoming, uncertain=None, source_doc=""):
             conflicts.append({"field": k, "label": KEY_TO_LABEL[k], "existing": old, "scanned": new})
 
     notes = []
+    def add_note(note):
+        note = str(note or "").strip()
+        if note and note not in notes:
+            notes.append(note)
+
     old_remarks = str(merged.get("remarks", "") or "").strip()
-    if old_remarks:
-        notes.append(old_remarks)
+    for note in old_remarks.split(" || "):
+        add_note(note)
     if source_doc:
-        notes.append("Source: " + source_doc)
+        add_note("Source: " + source_doc)
     if uncertain:
-        notes.append("Uncertain: " + ", ".join(uncertain))
+        add_note("Uncertain: " + ", ".join(sorted(set(uncertain))))
     if conflicts:
-        notes.append("Conflicts: " + " | ".join(
+        add_note("Conflicts: " + " | ".join(
             f'{c["label"]}: existing="{c["existing"]}" scanned="{c["scanned"]}"' for c in conflicts
         ))
 
-    merged["verification_status"] = "VERIFY" if conflicts or uncertain else "OK"
-    merged["remarks"] = " || ".join(notes)
+    old_status = str((existing or {}).get("verification_status", "") or "").strip().upper()
+    merged["verification_status"] = "VERIFY" if conflicts or uncertain or old_status == "VERIFY" else "OK"
+    remarks = " || ".join(notes)
+    merged["remarks"] = remarks[-3500:] if len(remarks) > 3500 else remarks
     merged["last_updated"] = datetime.now().isoformat(timespec="seconds")
     return merged, conflicts
 
@@ -459,7 +485,7 @@ def search():
     if not q:
         return jsonify([])
     try:
-        _, records = read_records()
+        records = cached_records()
     except Exception as e:
         return jsonify({"error": str(e)}), 503
 
@@ -493,8 +519,13 @@ def extract():
 
     try:
         result = ai_extract(image_bytes, f.mimetype or "image/jpeg", selected_doc)
-        _, records = read_records()
-        result["match"] = match_records(result["data"], records)
+        try:
+            records = cached_records()
+            result["match"] = match_records(result["data"], records)
+        except Exception as match_error:
+            result["match"] = {"status": "unavailable", "candidates": []}
+            result["match_warning"] = "Student auto-match હાલમાં ઉપલબ્ધ નથી; scan data સુરક્ષિત છે. Save વખતે ફરી match થશે."
+            app.logger.warning("auto-match unavailable: %s", match_error)
         return jsonify(result)
     except ProviderBusy as e:
         return jsonify({"error": str(e), "retryable": True, "code": "AI_BUSY"}), 503
@@ -547,10 +578,13 @@ def upsert():
             action = "updated"
         else:
             merged, conflicts = merge_into({}, incoming, uncertain, source_doc)
-            ws.append_row(record_values(merged), value_input_option="USER_ENTERED")
-            rownum = len(records) + 2
+            append_result = ws.append_row(record_values(merged), value_input_option="USER_ENTERED")
+            updated_range = str(((append_result or {}).get("updates") or {}).get("updatedRange", ""))
+            match_row = re.search(r"!A(\d+):", updated_range)
+            rownum = int(match_row.group(1)) if match_row else (len(records) + 2)
             action = "created"
 
+        invalidate_record_cache()
         return jsonify({
             "ok": True,
             "action": action,
@@ -647,6 +681,7 @@ def import_master():
         ordered = [by_row[k] for k in sorted(by_row)]
         matrix = [HEADERS] + [record_values(r) for r in ordered]
         ws.update(values=matrix, range_name="A1", value_input_option="USER_ENTERED")
+        invalidate_record_cache()
 
         return jsonify({
             "ok": True,
