@@ -1,7 +1,7 @@
-const C="scanner-v6";
+const C="scanner-v8";
 const ASSETS=[
-  "/static/style.css?v=20260929-6",
-  "/static/app.js?v=20260929-6"
+  "/static/style.css?v=20260929-8",
+  "/static/app.js?v=20260929-8"
 ];
 
 self.addEventListener("install",event=>{
