@@ -70,46 +70,6 @@ class ProviderError(Exception):
 class SheetConfigError(Exception):
     pass
 
-def access_pin():
-    return os.getenv("SCANNER_ACCESS_PIN", "").strip()
-
-@app.before_request
-def require_login():
-    if request.endpoint in {"login", "health", "static"}:
-        return None
-    pin = access_pin()
-    if not pin:
-        if request.path.startswith("/api/"):
-            return jsonify({"error": "Scanner access PIN configured નથી.", "code": "AUTH_CONFIG"}), 503
-        return render_template("login.html", error="Scanner access PIN configured નથી."), 503
-    if session.get("scanner_authenticated") is True:
-        return None
-    if request.path.startswith("/api/"):
-        return jsonify({"error": "Session expired. ફરી login કરો.", "code": "AUTH_REQUIRED"}), 401
-    return redirect(url_for("login", next=request.full_path if request.query_string else request.path))
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    error = ""
-    if request.method == "POST":
-        entered = str(request.form.get("pin", "") or "").strip()
-        pin = access_pin()
-        if pin and hmac.compare_digest(entered, pin):
-            session.clear()
-            session["scanner_authenticated"] = True
-            session.permanent = True
-            nxt = str(request.form.get("next", "") or "").strip()
-            if not nxt.startswith("/") or nxt.startswith("//"):
-                nxt = "/"
-            return redirect(nxt)
-        error = "PIN ખોટો છે."
-    return render_template("login.html", error=error, next=request.args.get("next", "/"))
-
-@app.route("/logout", methods=["POST"])
-def logout():
-    session.clear()
-    return redirect(url_for("login"))
-
 def norm(v):
     return re.sub(r"\s+", " ", str(v or "").strip()).lower()
 
@@ -569,9 +529,9 @@ def extract():
             app.logger.warning("auto-match unavailable: %s", match_error)
         return jsonify(result)
     except ProviderBusy as e:
-        return jsonify({"error": str(e), "retryable": True, "code": "AI_BUSY"}), 503
+        return jsonify({"error": str(e), "retryable": True, "code": "Document_BUSY"}), 503
     except ProviderError as e:
-        return jsonify({"error": str(e), "retryable": False, "code": "AI_ERROR"}), 502
+        return jsonify({"error": str(e), "retryable": False, "code": "Document_ERROR"}), 502
     except SheetConfigError as e:
         return jsonify({"error": str(e), "retryable": False, "code": "SHEET_CONFIG"}), 503
     except Exception as e:
