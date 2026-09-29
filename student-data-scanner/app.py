@@ -52,7 +52,10 @@ def sanitize(data):
     return out
 
 def ai_extract(image_bytes,mime_type,doc_type):
-    key=os.getenv('GEMINI_API_KEY','').strip()
+    key=(os.getenv('GEMINI_API_KEY','').strip() or
+         os.getenv('GEMINI_KEY','').strip() or
+         os.getenv('GOOGLE_API_KEY','').strip() or
+         os.getenv('GOOGLE_GEMINI_API_KEY','').strip())
     model=os.getenv('GEMINI_MODEL','gemini-2.5-flash').strip()
     if not key: raise RuntimeError('GEMINI_API_KEY સેટ નથી.')
     prompt=f'''Read ONE photographed school/student document. It may be handwritten or printed in Gujarati/English/Hindi.
@@ -209,8 +212,40 @@ if __name__=='__main__': app.run(host='0.0.0.0',port=int(os.getenv('PORT','5000'
 def health():
     return jsonify({
         'ok': True,
-        'gemini_key_set': bool(os.getenv('GEMINI_API_KEY','').strip()),
+        'gemini_key_set': bool(
+            os.getenv('GEMINI_API_KEY','').strip() or
+            os.getenv('GEMINI_KEY','').strip() or
+            os.getenv('GOOGLE_API_KEY','').strip() or
+            os.getenv('GOOGLE_GEMINI_API_KEY','').strip()
+        ),
         'gemini_model': os.getenv('GEMINI_MODEL','gemini-2.5-flash'),
         'google_sheet_id_set': bool(os.getenv('GOOGLE_SHEET_ID','').strip()),
         'google_service_account_set': bool(os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON','').strip())
     })
+
+
+@app.route('/api/selftest')
+def selftest():
+    checks = {}
+    try:
+        with db() as con:
+            con.execute("SELECT 1").fetchone()
+        checks['database'] = True
+    except Exception as e:
+        checks['database'] = False
+        checks['database_error'] = str(e)
+
+    checks['gemini_key_set'] = bool(
+        os.getenv('GEMINI_API_KEY','').strip() or
+        os.getenv('GEMINI_KEY','').strip() or
+        os.getenv('GOOGLE_API_KEY','').strip() or
+        os.getenv('GOOGLE_GEMINI_API_KEY','').strip()
+    )
+    checks['google_sheet_configured'] = bool(
+        os.getenv('GOOGLE_SHEET_ID','').strip() and
+        os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON','').strip()
+    )
+    checks['gallery_supported'] = True
+    checks['cts_mapping_rule'] = 'CTS Number = SSA AadhaarUID; Aadhaar Number is separate 12-digit card number'
+    checks['ok'] = bool(checks['database'])
+    return jsonify(checks)
