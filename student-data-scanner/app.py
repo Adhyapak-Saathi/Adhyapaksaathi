@@ -3,6 +3,7 @@ from datetime import datetime
 from io import BytesIO
 import pandas as pd
 import requests
+import pymupdf as fitz
 from flask import Flask, render_template, request, jsonify, send_file
 
 try:
@@ -311,8 +312,32 @@ Critical rules:
 - Dates must be DD-MM-YYYY only when a complete date is clear.
 - If a field is unclear, return an empty string and add that field key to uncertain_fields.
 - If selected type is not AUTO, document_type must reflect the real document but do not extract fields outside the allowed list.
+- When multiple page images are supplied, they are pages of ONE PDF in page order. Read all pages together as one document.
 - If a multi-page PDF clearly contains more than one document type, set document_type to OTHER and extract only fields explicitly visible anywhere in that PDF.
 """
+
+def render_pdf_pages(pdf_bytes, max_pages=10):
+    try:
+        doc = fitz.open(stream=pdf_bytes, filetype="pdf")
+    except Exception as e:
+        raise ProviderError("PDF file ખૂલી શક્યું નથી.") from e
+    try:
+        if doc.needs_pass:
+            raise ProviderError("Password-protected PDF વાંચી શકાતું નથી.")
+        if doc.page_count < 1:
+            raise ProviderError("PDFમાં કોઈ page મળ્યો નથી.")
+        if doc.page_count > max_pages:
+            raise ProviderError(f"PDFમાં {doc.page_count} pages છે. એક વખતમાં વધુમાં વધુ {max_pages} pages રાખો.")
+        pages = []
+        matrix = fitz.Matrix(1.65, 1.65)
+        for i in range(doc.page_count):
+            page = doc.load_page(i)
+            pix = page.get_pixmap(matrix=matrix, alpha=False)
+            page_bytes = pix.tobytes("jpeg")
+            pages.append(page_bytes)
+        return pages
+    finally:
+        doc.close()
 
 def gemini_key():
     return (
@@ -322,15 +347,28 @@ def gemini_key():
         or os.getenv("GOOGLE_GEMINI_API_KEY", "").strip()
     )
 
-def extract_document_data(image_bytes, mime_type, selected_doc):
+def extract_document_data(file_bytes, mime_type, selected_doc):
     key = gemini_key()
     if not key:
-        raise ProviderError("Gemini API key સેટ નથી.")
+        raise ProviderError("Document reading service configured નથી.")
 
     selected_doc = normalize_doc_type(selected_doc)
     requested_keys = sorted(DOC_ALLOWED[selected_doc] if selected_doc != "AUTO" else set(ALL_KEYS))
     prompt = build_prompt(selected_doc, requested_keys)
     schema = extraction_schema(requested_keys)
+
+    if mime_type == "application/pdf":
+        page_images = render_pdf_pages(file_bytes)
+        media_parts = [
+            {"inlineData": {"mimeType": "image/jpeg", "data": base64.b64encode(page).decode("ascii")}}
+            for page in page_images
+        ]
+        source_page_count = len(page_images)
+    else:
+        media_parts = [
+            {"inlineData": {"mimeType": mime_type, "data": base64.b64encode(file_bytes).decode("ascii")}}
+        ]
+        source_page_count = 1
 
     primary = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite").strip() or "gemini-3.5-flash-lite"
     fallback = os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.8-flash").strip() or "gemini-3.8-flash"
@@ -345,10 +383,7 @@ def extract_document_data(image_bytes, mime_type, selected_doc):
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         payload = {
             "contents": [{
-                "parts": [
-                    {"text": prompt},
-                    {"inlineData": {"mimeType": mime_type, "data": base64.b64encode(image_bytes).decode("ascii")}},
-                ]
+                "parts": [{"text": prompt}] + media_parts
             }],
             "generationConfig": {
                 "thinkingConfig": {"thinkingLevel": "low"},
@@ -366,7 +401,7 @@ def extract_document_data(image_bytes, mime_type, selected_doc):
                 url,
                 headers={"x-goog-api-key": key, "Content-Type": "application/json"},
                 json=payload,
-                timeout=(5, 25 if mime_type == "application/pdf" else 18),
+                timeout=(5, min(38, 18 + (source_page_count * 4))),
             )
         except requests.Timeout:
             last = f"{model}: timeout"
@@ -412,6 +447,7 @@ def extract_document_data(image_bytes, mime_type, selected_doc):
             "uncertain_fields": uncertain,
             "model_used": model,
             "latency_ms": elapsed_ms,
+            "source_pages": source_page_count,
         }
 
     raise ProviderBusy("Document reading service હાલમાં વ્યસ્ત છે. થોડા સેકન્ડ પછી ફરી પ્રયાસ કરો.")
@@ -849,30 +885,18 @@ def _test_png_bytes(width=64, height=32):
     )
 
 def _test_pdf_bytes():
-    text = b"BT /F1 14 Tf 72 720 Td (ABHA Number 91-1234-5678-9012 Name Test Student DOB 01-01-2010) Tj ET"
-    objects = [
-        b"<< /Type /Catalog /Pages 2 0 R >>",
-        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-        b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>",
-        b"<< /Length " + str(len(text)).encode("ascii") + b" >>\nstream\n" + text + b"\nendstream",
-        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    doc = fitz.open()
+    texts = [
+        "Student Name Test Student\nABHA Number 91-1234-5678-9012\nDOB 01-01-2010",
+        "School Record\nGR Number 12345\nPEN Number 12345678901",
+        "Additional Page\nPhone 9876543210",
     ]
-    out = bytearray(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
-    offsets = [0]
-    for i, obj in enumerate(objects, start=1):
-        offsets.append(len(out))
-        out.extend(f"{i} 0 obj\n".encode("ascii"))
-        out.extend(obj)
-        out.extend(b"\nendobj\n")
-    xref = len(out)
-    out.extend(f"xref\n0 {len(objects)+1}\n".encode("ascii"))
-    out.extend(b"0000000000 65535 f \n")
-    for off in offsets[1:]:
-        out.extend(f"{off:010d} 00000 n \n".encode("ascii"))
-    out.extend(
-        f"trailer\n<< /Size {len(objects)+1} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n".encode("ascii")
-    )
-    return bytes(out)
+    for txt in texts:
+        page = doc.new_page(width=595, height=842)
+        page.insert_text((72, 100), txt, fontsize=14)
+    data = doc.tobytes()
+    doc.close()
+    return data
 
 def startup_smoke_test():
     results = {}
