@@ -1,9 +1,9 @@
-import os, json, re, base64, time, threading, zlib, struct, binascii
-from datetime import datetime
+import os, json, re, base64, time, threading, zlib, struct, binascii, hmac
+from datetime import datetime, timedelta
 from io import BytesIO
 import pandas as pd
 import requests
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file, session, redirect, url_for
 
 try:
     import gspread
@@ -14,6 +14,13 @@ except Exception:
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
+app.secret_key = os.getenv("FLASK_SECRET_KEY", "").strip() or os.urandom(32)
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+    PERMANENT_SESSION_LIFETIME=timedelta(hours=12),
+)
 
 FIELDS = [
     ("roll_number", "Roll Number"),
@@ -69,6 +76,46 @@ class ProviderError(Exception):
 
 class SheetConfigError(Exception):
     pass
+
+def access_pin():
+    return os.getenv("SCANNER_ACCESS_PIN", "").strip()
+
+@app.before_request
+def require_login():
+    if request.endpoint in {"login", "health", "static"}:
+        return None
+    pin = access_pin()
+    if not pin:
+        if request.path.startswith("/api/"):
+            return jsonify({"error": "Scanner access PIN configured નથી.", "code": "AUTH_CONFIG"}), 503
+        return render_template("login.html", error="Scanner access PIN configured નથી."), 503
+    if session.get("scanner_authenticated") is True:
+        return None
+    if request.path.startswith("/api/"):
+        return jsonify({"error": "Session expired. ફરી login કરો.", "code": "AUTH_REQUIRED"}), 401
+    return redirect(url_for("login", next=request.full_path if request.query_string else request.path))
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    error = ""
+    if request.method == "POST":
+        entered = str(request.form.get("pin", "") or "").strip()
+        pin = access_pin()
+        if pin and hmac.compare_digest(entered, pin):
+            session.clear()
+            session["scanner_authenticated"] = True
+            session.permanent = True
+            nxt = str(request.form.get("next", "") or "").strip()
+            if not nxt.startswith("/") or nxt.startswith("//"):
+                nxt = "/"
+            return redirect(nxt)
+        error = "PIN ખોટો છે."
+    return render_template("login.html", error=error, next=request.args.get("next", "/"))
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
 
 def norm(v):
     return re.sub(r"\s+", " ", str(v or "").strip()).lower()
@@ -831,15 +878,24 @@ def startup_smoke_test():
     results = {}
     try:
         with app.test_client() as client:
-            r = client.get("/")
-            results["home_200"] = r.status_code == 200
-            results["home_has_version"] = b"2026.09.29.4" in r.data
+            login_page = client.get("/")
+            results["auth_redirect"] = login_page.status_code in (301, 302)
             h = client.get("/api/health")
             results["health_200"] = h.status_code == 200 and bool(h.get_json())
-            s = client.get("/api/selftest")
-            sj = s.get_json() or {}
-            results["local_selftest_200"] = s.status_code == 200
-            results["local_selftest_ok"] = bool(sj.get("ok"))
+            pin = access_pin()
+            if pin:
+                login_response = client.post("/login", data={"pin": pin, "next": "/"}, follow_redirects=True)
+                results["login_works"] = login_response.status_code == 200
+                results["home_has_version"] = b"2026.09.29.4" in login_response.data
+                s = client.get("/api/selftest")
+                sj = s.get_json() or {}
+                results["local_selftest_200"] = s.status_code == 200
+                results["local_selftest_ok"] = bool(sj.get("ok"))
+            else:
+                results["login_works"] = False
+                results["home_has_version"] = False
+                results["local_selftest_200"] = False
+                results["local_selftest_ok"] = False
     except Exception as e:
         results["error"] = str(e)
     print("[STARTUP_SMOKE] " + json.dumps(results, ensure_ascii=False), flush=True)
