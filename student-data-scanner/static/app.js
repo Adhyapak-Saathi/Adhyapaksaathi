@@ -143,6 +143,7 @@ async function loadStudentFromSearch(candidate) {
 
   try {
     const record = await apiFetch("/api/student/" + encodeURIComponent(candidate.row), {}, 20000);
+    clearQueue();
     fillExistingRecord(record.data || {});
     targetRow = record.row;
     forceNew = false;
@@ -212,7 +213,7 @@ function renderMatch(match) {
     const c = match.candidate || {};
     const div = document.createElement("div");
     div.className = "match okmatch";
-    div.innerHTML = "<b>વિદ્યાર્થી match મળ્યો:</b><br>" + escapeHtml(candidateText(c));
+    div.innerHTML = "<b>વિદ્યાર્થી મળ્યો</b><br>" + escapeHtml(candidateText(c));
     box.appendChild(div);
     refreshSummary();
     return;
@@ -566,6 +567,8 @@ async function saveScan() {
     targetRow = x.row;
     forceNew = false;
     if (x.sheet_verified === true) {
+      if (x.saved_data) fillExistingRecord(x.saved_data);
+      targetRow = x.row;
       showNotice("Google Sheetમાં માહિતી સફળતાપૂર્વક Save થઈ.", "success");
       setStatus("scanStatus", msg, (x.conflicts && x.conflicts.length) ? "warn" : "ok");
     } else {
@@ -673,5 +676,5 @@ document.querySelectorAll(".task-panel").forEach(panel => {
 refreshSummary();
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/static/sw.js?v=7").catch(() => {});
+  navigator.serviceWorker.register("/static/sw.js?v=8").catch(() => {});
 }
