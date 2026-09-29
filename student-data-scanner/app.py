@@ -332,8 +332,12 @@ def ai_extract(image_bytes, mime_type, selected_doc):
             }],
             "generationConfig": {
                 "thinkingConfig": {"thinkingLevel": "low"},
-                "responseMimeType": "application/json",
-                "responseSchema": schema,
+                "responseFormat": {
+                    "text": {
+                        "mimeType": "application/json",
+                        "schema": schema
+                    }
+                }
             },
         }
         started = time.monotonic()
@@ -356,7 +360,12 @@ def ai_extract(image_bytes, mime_type, selected_doc):
             last = f"{model}: HTTP {r.status_code}"
             continue
         if r.status_code >= 300:
-            raise ProviderError(f"AI request failed ({model}, HTTP {r.status_code}).")
+            try:
+                detail = (r.json().get("error") or {}).get("message", "")
+            except Exception:
+                detail = r.text[:220]
+            detail = re.sub(r"\s+", " ", str(detail or "")).strip()
+            raise ProviderError(f"AI request failed ({model}, HTTP {r.status_code}): {detail[:220]}")
 
         try:
             obj = r.json()
