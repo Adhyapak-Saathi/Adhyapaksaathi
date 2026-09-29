@@ -300,6 +300,43 @@ def startup_selftest_():
     results["google_sheet_configured"] = bool(
         os.getenv("GOOGLE_SHEET_ID","").strip() and os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON","").strip()
     )
+
+    # Live Google Sheet read/write test. Appends one temporary row then deletes it.
+    results["google_sheet_write_test"] = False
+    if results["google_sheet_configured"]:
+        try:
+            ss = sheet_client()
+            tab = os.getenv("GOOGLE_SHEET_TAB","Student_Master")
+            ws = ss.worksheet(tab)
+            headers = [h for _,h in FIELDS] + ["Verification Status","Remarks","Last Updated"]
+            current_headers = ws.row_values(1)
+            results["google_sheet_header_match"] = current_headers[:len(headers)] == headers
+            dummy = [""] * len(headers)
+            dummy[1] = "SELFTEST-GR"
+            dummy[9] = "DUMMY SELF TEST"
+            dummy[22] = "TEST"
+            dummy[23] = "AUTO TEST - DELETE"
+            dummy[24] = datetime.now().isoformat(timespec="seconds")
+            ws.append_row(dummy, value_input_option="USER_ENTERED")
+            test_row = ws.row_count
+            # Find the just-added row reliably, then delete it.
+            vals = ws.get_all_values()
+            found_index = None
+            for i in range(len(vals)-1, 0, -1):
+                row = vals[i]
+                if len(row) > 9 and row[1] == "SELFTEST-GR" and row[9] == "DUMMY SELF TEST":
+                    found_index = i + 1
+                    break
+            if found_index:
+                ws.delete_rows(found_index)
+                results["google_sheet_write_test"] = True
+                results["google_sheet_cleanup"] = True
+            else:
+                results["google_sheet_cleanup"] = False
+        except Exception as e:
+            results["google_sheet_write_test"] = False
+            results["google_sheet_error"] = str(e)
+
     print("[STARTUP_SELFTEST] " + json.dumps(results, ensure_ascii=False), flush=True)
     return results
 
