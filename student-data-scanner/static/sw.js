@@ -1,7 +1,7 @@
-const C="scanner-v4";
+const C="scanner-v5";
 const ASSETS=[
-  "/static/style.css?v=20260929-4",
-  "/static/app.js?v=20260929-4"
+  "/static/style.css?v=20260929-5",
+  "/static/app.js?v=20260929-5"
 ];
 
 self.addEventListener("install",event=>{
@@ -19,12 +19,10 @@ self.addEventListener("activate",event=>{
 
 self.addEventListener("fetch",event=>{
   if(event.request.method!=="GET") return;
-
   if(event.request.mode==="navigate" || event.request.url.includes("/api/")){
     event.respondWith(fetch(event.request));
     return;
   }
-
   event.respondWith(
     fetch(event.request)
       .then(response=>{
