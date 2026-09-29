@@ -334,7 +334,7 @@ def ai_extract(image_bytes, mime_type, selected_doc):
                 "thinkingConfig": {"thinkingLevel": "low"},
                 "responseFormat": {
                     "text": {
-                        "mimeType": "application/json",
+                        "mimeType": "APPLICATION_JSON",
                         "schema": schema
                     }
                 }
