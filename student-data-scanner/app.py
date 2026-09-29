@@ -1,9 +1,9 @@
-import os, json, re, base64, time, threading, zlib, struct, binascii, hmac
-from datetime import datetime, timedelta
+import os, json, re, base64, time, threading, zlib, struct, binascii
+from datetime import datetime
 from io import BytesIO
 import pandas as pd
 import requests
-from flask import Flask, render_template, request, jsonify, send_file, session, redirect, url_for
+from flask import Flask, render_template, request, jsonify, send_file
 
 try:
     import gspread
@@ -13,14 +13,7 @@ except Exception:
     Credentials = None
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
-app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "").strip() or os.urandom(32)
-app.config.update(
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_SAMESITE="Lax",
-    PERMANENT_SESSION_LIFETIME=timedelta(hours=12),
-)
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 
 FIELDS = [
     ("roll_number", "Roll Number"),
@@ -340,7 +333,7 @@ def extraction_schema(keys):
 
 def build_prompt(selected_doc, keys):
     labels = ", ".join(f"{k}={KEY_TO_LABEL[k]}" for k in keys)
-    return f"""Read ONE photographed student/school document in Gujarati, English, or Hindi.
+    return f"""Read ONE student/school document supplied as an image or PDF in Gujarati, English, or Hindi.
 Selected document type: {selected_doc}
 
 Return only fields that are explicitly visible on THIS document. Never use prior knowledge and never guess.
@@ -368,7 +361,7 @@ def gemini_key():
         or os.getenv("GOOGLE_GEMINI_API_KEY", "").strip()
     )
 
-def ai_extract(image_bytes, mime_type, selected_doc):
+def extract_document_data(image_bytes, mime_type, selected_doc):
     key = gemini_key()
     if not key:
         raise ProviderError("Gemini API key સેટ નથી.")
@@ -431,7 +424,7 @@ def ai_extract(image_bytes, mime_type, selected_doc):
             except Exception:
                 detail = r.text[:220]
             detail = re.sub(r"\s+", " ", str(detail or "")).strip()
-            raise ProviderError(f"AI request failed ({model}, HTTP {r.status_code}): {detail[:220]}")
+            raise ProviderError(f"Document reading failed ({model}, HTTP {r.status_code}): {detail[:220]}")
 
         try:
             obj = r.json()
@@ -439,7 +432,7 @@ def ai_extract(image_bytes, mime_type, selected_doc):
             txt = "".join(p.get("text", "") for p in parts).strip()
             result = json.loads(txt)
         except Exception as e:
-            raise ProviderError("AIએ માન્ય structured data પાછું આપ્યું નથી.") from e
+            raise ProviderError("Document readerએ માન્ય structured data પાછું આપ્યું નથી.") from e
 
         detected = normalize_doc_type(result.get("document_type") or selected_doc)
         if selected_doc != "AUTO":
@@ -460,7 +453,7 @@ def ai_extract(image_bytes, mime_type, selected_doc):
             "latency_ms": elapsed_ms,
         }
 
-    raise ProviderBusy("AI provider હાલમાં વ્યસ્ત છે. Primary અને fallback બંને સમયસર જવાબ આપી શક્યા નથી. ફરી પ્રયાસ કરો.")
+    raise ProviderBusy("Document reading service હાલમાં વ્યસ્ત છે. થોડા સેકન્ડ પછી ફરી પ્રયાસ કરો.")
 
 def merge_into(existing, incoming, uncertain=None, source_doc=""):
     merged = dict(existing or {})
@@ -514,7 +507,7 @@ def index():
 def health():
     return jsonify({
         "ok": True,
-        "version": "2026.09.29.4",
+        "version": "2026.09.29.5",
         "gemini_key_set": bool(gemini_key()),
         "gemini_model": os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite"),
         "gemini_fallback_model": os.getenv("GEMINI_FALLBACK_MODEL", "gemini-3.8-flash"),
@@ -555,17 +548,18 @@ def extract():
     selected_doc = request.form.get("doc_type", "AUTO")
     if not f:
         return jsonify({"error": "Image missing"}), 400
-    if not (f.mimetype or "").startswith("image/"):
-        return jsonify({"error": "ફક્ત image file scan કરી શકાય છે."}), 415
+    mime = (f.mimetype or "").lower()
+    if not (mime.startswith("image/") or mime == "application/pdf"):
+        return jsonify({"error": "ફક્ત Photo/Image અથવા PDF document અપલોડ કરી શકાય છે."}), 415
 
-    image_bytes = f.read()
-    if not image_bytes:
-        return jsonify({"error": "ખાલી image file છે."}), 400
-    if len(image_bytes) > 8 * 1024 * 1024:
-        return jsonify({"error": "Image બહુ મોટી છે. ફરી ફોટો લો."}), 413
+    file_bytes = f.read()
+    if not file_bytes:
+        return jsonify({"error": "ખાલી document file છે."}), 400
+    if len(file_bytes) > 15 * 1024 * 1024:
+        return jsonify({"error": "Document 15 MBથી મોટું છે. નાનું file પસંદ કરો."}), 413
 
     try:
-        result = ai_extract(image_bytes, f.mimetype or "image/jpeg", selected_doc)
+        result = extract_document_data(file_bytes, mime or "image/jpeg", selected_doc)
         try:
             records = cached_records()
             result["match"] = match_records(result["data"], records)
@@ -584,12 +578,31 @@ def extract():
         app.logger.exception("extract failed")
         return jsonify({"error": "Scannerમાં internal error આવ્યો. ફરી પ્રયાસ કરો.", "code": "INTERNAL"}), 500
 
+@app.route("/api/match", methods=["POST"])
+def match_current_data():
+    payload = request.get_json(silent=True) or {}
+    data = sanitize(payload.get("data", {}))
+    if not any(data.values()):
+        return jsonify({"status": "none", "candidates": []})
+    try:
+        records = cached_records()
+        return jsonify(match_records(data, records))
+    except Exception as e:
+        app.logger.warning("match unavailable: %s", e)
+        return jsonify({"status": "unavailable", "candidates": []}), 200
+
 @app.route("/api/upsert", methods=["POST"])
 def upsert():
     payload = request.get_json(silent=True) or {}
     incoming = sanitize(payload.get("data", {}))
     uncertain = [k for k in (payload.get("uncertain_fields") or []) if k in ALL_KEYS]
-    source_doc = normalize_doc_type(payload.get("document_type", "OTHER"))
+    source_docs = payload.get("document_types") or [payload.get("document_type", "OTHER")]
+    clean_sources = []
+    for source in source_docs:
+        source = normalize_doc_type(source)
+        if source and source not in clean_sources:
+            clean_sources.append(source)
+    source_doc = ", ".join(clean_sources) if clean_sources else "OTHER"
     requested_row = payload.get("target_row")
     force_new = bool(payload.get("force_new"))
 
@@ -933,20 +946,20 @@ def background_external_selftest():
 
     # Exact image-extraction path test using a harmless blank PNG.
     try:
-        x = ai_extract(_test_png_bytes(), "image/png", "ABHA_CARD")
-        results["ai_image_pipeline"] = isinstance(x.get("data"), dict)
-        results["ai_model_used"] = x.get("model_used", "")
+        x = extract_document_data(_test_png_bytes(), "image/png", "ABHA_CARD")
+        results["document_image_pipeline"] = isinstance(x.get("data"), dict)
+        results["reader_model_used"] = x.get("model_used", "")
         # Whitelist must prevent unrelated ABHA scan fields.
-        results["ai_abha_scope_safe"] = all(
+        results["abha_scope_safe"] = all(
             not x["data"].get(k)
             for k in ("aadhaar_number", "aadhaar_according_name", "father_name", "mother_name", "address")
         )
     except ProviderBusy as e:
-        results["ai_image_pipeline"] = False
-        results["ai_provider_busy"] = str(e)
+        results["document_image_pipeline"] = False
+        results["reader_provider_busy"] = str(e)
     except Exception as e:
-        results["ai_image_pipeline"] = False
-        results["ai_error"] = str(e)
+        results["document_image_pipeline"] = False
+        results["reader_error"] = str(e)
 
     print("[EXTERNAL_SELFTEST] " + json.dumps(results, ensure_ascii=False), flush=True)
 
