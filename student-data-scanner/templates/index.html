@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2457d6">
   <link rel="manifest" href="/static/manifest.json">
-  <link rel="stylesheet" href="/static/style.css?v=20260929-6">
+  <link rel="stylesheet" href="/static/style.css?v=20260929-7">
   <title>Student Record Capture</title>
 </head>
 <body>
@@ -13,132 +13,142 @@
   <div class="header-inner">
     <div>
       <h1>Student Record Capture</h1>
-      <p>વિદ્યાર્થી દસ્તાવેજ આધારિત માહિતી નોંધણી</p>
+      <p>વિદ્યાર્થી માહિતી વ્યવસ્થાપન</p>
     </div>
   </div>
 </header>
 
-<main>
-  <section class="card capture-card">
-    <div class="section-title-row">
-      <div class="step-badge">1</div>
-      <div>
-        <h2>વિદ્યાર્થી દસ્તાવેજ સંકલન</h2>
-        <p class="muted">ફોટો અથવા PDF દસ્તાવેજ પસંદ કરો.</p>
+<main class="workflow">
+  <details class="task-panel" id="searchMenu">
+    <summary>
+      <span class="menu-number">1</span>
+      <span>વિદ્યાર્થી શોધો</span>
+      <span class="menu-arrow">⌄</span>
+    </summary>
+    <div class="task-body">
+      <div class="searchline">
+        <input id="q" placeholder="GR / PEN / CTS / Aadhaar / નામ">
+        <button onclick="searchStudent()">શોધો</button>
       </div>
+      <div id="results" class="search-results"></div>
     </div>
-
-    <label for="docType">દસ્તાવેજ પ્રકાર</label>
-    <select id="docType">
-      <option value="AUTO">Auto Detect</option>
-      <option value="ABHA_CARD">ABHA Card</option>
-      <option value="AADHAAR_CARD">Aadhaar Card</option>
-      <option value="BANK_DOCUMENT">Bank Passbook / Bank Document</option>
-      <option value="SCHOOL_RECORD">School / SSA / UDISE Record</option>
-      <option value="FORM">Student Form</option>
-      <option value="OTHER">Other Document</option>
-    </select>
-
-    <div class="capture-actions">
-      <label class="capture-btn camera">
-        <span class="capture-icon">📷</span>
-        <span><b>કેમેરાથી ફોટો ઉમેરો</b><small>Photo capture</small></span>
-        <input id="camera" type="file" accept="image/*" capture="environment">
-      </label>
-
-      <label class="capture-btn files">
-        <span class="capture-icon">🗂️</span>
-        <span><b>Photo / PDF પસંદ કરો</b><small>Multiple files supported</small></span>
-        <input id="gallery" type="file" accept="image/*,application/pdf,.pdf" multiple>
-      </label>
-    </div>
-
-    <div id="queuePanel" class="queue-panel" hidden>
-      <div class="queue-head">
-        <b>પસંદ કરેલા દસ્તાવેજો</b>
-        <button type="button" class="text-btn" onclick="clearQueue()">Queue સાફ કરો</button>
-      </div>
-      <div id="fileQueue"></div>
-    </div>
-
-    <div class="preview-shell" id="previewShell" hidden>
-      <img id="imagePreview" alt="Selected document preview">
-      <iframe id="pdfPreview" title="PDF preview"></iframe>
-    </div>
-
-    <div id="imageInfo" class="muted"></div>
-    <button id="extractBtn" class="primary-action" onclick="processDocuments()" disabled>
-      માહિતી વાંચો
-    </button>
-
-    <div id="progressWrap" class="progress-wrap" hidden>
-      <div class="progress-track"><div id="progressBar"></div></div>
-      <div id="progressText" class="muted"></div>
-    </div>
-
-    <div id="scanStatus" class="status"></div>
-    <div id="matchBox"></div>
-  </section>
-
-  <section class="card data-card">
-    <div class="section-title-row">
-      <div class="step-badge green">2</div>
-      <div>
-        <h2>સંકલિત વિદ્યાર્થી માહિતી</h2>
-        <p class="muted">દસ્તાવેજોમાંથી મળેલી માહિતી</p>
-      </div>
-    </div>
-
-    <div class="summary-strip">
-      <div><span id="docCount">0</span><small>Documents વાંચ્યા</small></div>
-      <div><span id="fieldCount">0</span><small>Fields ભરાયા</small></div>
-      <div><span id="reviewCount">0</span><small>Review જરૂરી</small></div>
-    </div>
-
-    <div class="grid">
-      {% for key,label in fields %}
-      <div class="field {% if key == 'address' %}wide{% endif %}" id="wrap_{{key}}">
-        <label>{{label}}</label>
-        {% if key == 'address' %}
-          <textarea id="f_{{key}}" autocomplete="off"></textarea>
-        {% else %}
-          <input id="f_{{key}}" autocomplete="off">
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-    <div id="verify" class="verify"></div>
-  </section>
-
-  <section class="card sticky save-card">
-    <button class="save" id="saveBtn" onclick="saveScan()" disabled>✓ Google Sheetમાં Save / Update</button>
-    <button class="secondary" onclick="startNewStudent()">નવો વિદ્યાર્થી શરૂ કરો</button>
-  </section>
-
-  <details class="card optional">
-    <summary>વિદ્યાર્થી શોધ</summary>
-    <p class="muted">GR / PEN / CTS / Aadhaar / નામથી શોધો.</p>
-    <div class="searchline">
-      <input id="q" placeholder="GR / PEN / CTS / Aadhaar / નામ">
-      <button onclick="searchStudent()">શોધો</button>
-    </div>
-    <div id="results"></div>
-    <div id="selected" class="selected"></div>
   </details>
 
-  <details class="card optional">
-    <summary>Excel / CSV Import / Export</summary>
-    <input id="masterFile" type="file" accept=".xlsx,.xls,.csv">
-    <button onclick="importMaster()">Import Excel/CSV</button>
-    <a class="linkbtn" href="/api/export.xlsx">Current Master Excel Download</a>
-    <div id="importStatus" class="status"></div>
+  <details class="task-panel" id="fillMenu">
+    <summary>
+      <span class="menu-number purple">2</span>
+      <span>માહિતી ભરો</span>
+      <span class="menu-arrow">⌄</span>
+    </summary>
+    <div class="task-body">
+      <section class="inner-section">
+        <div class="section-head">
+          <h2>દસ્તાવેજ ઉમેરો</h2>
+        </div>
+
+        <label for="docType">દસ્તાવેજ પ્રકાર</label>
+        <select id="docType">
+          <option value="AUTO">Auto Detect</option>
+          <option value="ABHA_CARD">ABHA Card</option>
+          <option value="AADHAAR_CARD">Aadhaar Card</option>
+          <option value="BANK_DOCUMENT">Bank Passbook / Bank Document</option>
+          <option value="SCHOOL_RECORD">School / SSA / UDISE Record</option>
+          <option value="FORM">Student Form</option>
+          <option value="OTHER">Other Document</option>
+        </select>
+
+        <div class="capture-actions">
+          <label class="capture-btn camera">
+            <span class="capture-icon">📷</span>
+            <span><b>કેમેરાથી ફોટો</b><small>Photo capture</small></span>
+            <input id="camera" type="file" accept="image/*" capture="environment">
+          </label>
+
+          <label class="capture-btn files">
+            <span class="capture-icon">🗂️</span>
+            <span><b>Photo / PDF પસંદ કરો</b><small>Multiple files</small></span>
+            <input id="gallery" type="file" accept="image/*,application/pdf,.pdf" multiple>
+          </label>
+        </div>
+
+        <div id="queuePanel" class="queue-panel" hidden>
+          <div class="queue-head">
+            <b>દસ્તાવેજો</b>
+            <button type="button" class="text-btn" onclick="clearQueue()">સાફ કરો</button>
+          </div>
+          <div id="fileQueue"></div>
+        </div>
+
+        <div class="preview-shell" id="previewShell" hidden>
+          <img id="imagePreview" alt="Document preview">
+          <iframe id="pdfPreview" title="PDF preview"></iframe>
+        </div>
+
+        <div id="imageInfo" class="muted file-count"></div>
+        <button id="extractBtn" class="primary-action" onclick="processDocuments()" disabled>માહિતી વાંચો</button>
+
+        <div id="progressWrap" class="progress-wrap" hidden>
+          <div class="progress-track"><div id="progressBar"></div></div>
+          <div id="progressText" class="muted"></div>
+        </div>
+
+        <div id="scanStatus" class="status"></div>
+        <div id="matchBox"></div>
+      </section>
+
+      <section class="inner-section record-section">
+        <div class="section-head row-head">
+          <h2>વિદ્યાર્થી માહિતી</h2>
+          <div class="summary-inline">
+            <span><b id="docCount">0</b> docs</span>
+            <span><b id="fieldCount">0</b> fields</span>
+            <span><b id="reviewCount">0</b> review</span>
+          </div>
+        </div>
+
+        <div class="grid">
+          {% for key,label in fields %}
+          <div class="field {% if key == 'address' %}wide{% endif %}" id="wrap_{{key}}">
+            <label>{{label}}</label>
+            {% if key == 'address' %}
+              <textarea id="f_{{key}}" autocomplete="off"></textarea>
+            {% else %}
+              <input id="f_{{key}}" autocomplete="off">
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        <div id="verify" class="verify"></div>
+
+        <div class="form-actions">
+          <button class="save" id="saveBtn" onclick="saveScan()" disabled>✓ Google Sheetમાં Save / Update</button>
+          <button class="secondary" onclick="startNewStudent()">નવો વિદ્યાર્થી</button>
+        </div>
+      </section>
+    </div>
+  </details>
+
+  <details class="task-panel" id="sheetMenu">
+    <summary>
+      <span class="menu-number green">3</span>
+      <span>Sheet Upload / Download</span>
+      <span class="menu-arrow">⌄</span>
+    </summary>
+    <div class="task-body">
+      <input id="masterFile" type="file" accept=".xlsx,.xls,.csv">
+      <button onclick="importMaster()">Upload Excel / CSV</button>
+      <a class="linkbtn" href="/api/export.xlsx">Download Current Data</a>
+      <div id="importStatus" class="status"></div>
+    </div>
   </details>
 </main>
+
+<div id="saveNotice" class="notice" role="status" aria-live="polite"></div>
 
 <script>
   window.FIELD_KEYS={{ fields|map(attribute=0)|list|tojson }};
   window.FIELD_LABELS={{ dict(fields)|tojson }};
 </script>
-<script src="/static/app.js?v=20260929-6"></script>
+<script src="/static/app.js?v=20260929-7"></script>
 </body>
 </html>
