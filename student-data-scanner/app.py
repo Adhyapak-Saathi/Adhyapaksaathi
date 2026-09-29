@@ -203,3 +203,14 @@ def export_xlsx():
     return send_file(out,as_attachment=True,download_name='student_master_export.xlsx',mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
 if __name__=='__main__': app.run(host='0.0.0.0',port=int(os.getenv('PORT','5000')),debug=True)
+
+
+@app.route('/api/health')
+def health():
+    return jsonify({
+        'ok': True,
+        'gemini_key_set': bool(os.getenv('GEMINI_API_KEY','').strip()),
+        'gemini_model': os.getenv('GEMINI_MODEL','gemini-2.5-flash'),
+        'google_sheet_id_set': bool(os.getenv('GOOGLE_SHEET_ID','').strip()),
+        'google_service_account_set': bool(os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON','').strip())
+    })
