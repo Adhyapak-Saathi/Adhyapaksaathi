@@ -106,7 +106,7 @@ button:disabled{opacity:.46;cursor:not-allowed;box-shadow:none}
 .warnmatch{background:#fff4df;color:#7a5200}
 .candidateBtn{background:#fff;color:#2158c4;border:1px solid #9eb8f5;text-align:left;font-weight:700;box-shadow:none}
 .save-card{background:#ffffffee;backdrop-filter:blur(10px)}
-.sticky{position:sticky;bottom:8px;z-index:8}
+.sticky{position:static}
 .searchline{display:grid;grid-template-columns:1fr 120px;gap:8px}
 .searchline button{margin:0}
 .result{padding:11px;border:1px solid #dde2e8;border-radius:12px;margin-top:8px;cursor:pointer}
@@ -127,4 +127,5 @@ button:disabled{opacity:.46;cursor:not-allowed;box-shadow:none}
   main{padding:10px}
   .card{border-radius:16px;padding:14px}
   #imagePreview,#pdfPreview{height:320px}
+  .sticky{position:sticky;bottom:8px;z-index:8}
 }
