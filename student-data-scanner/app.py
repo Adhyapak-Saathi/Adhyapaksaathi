@@ -847,28 +847,45 @@ def _test_png_bytes(width=64, height=32):
         + chunk(b"IEND", b"")
     )
 
+def _test_pdf_bytes():
+    text = b"BT /F1 14 Tf 72 720 Td (ABHA Number 91-1234-5678-9012 Name Test Student DOB 01-01-2010) Tj ET"
+    objects = [
+        b"<< /Type /Catalog /Pages 2 0 R >>",
+        b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+        b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>",
+        b"<< /Length " + str(len(text)).encode("ascii") + b" >>\nstream\n" + text + b"\nendstream",
+        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    ]
+    out = bytearray(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
+    offsets = [0]
+    for i, obj in enumerate(objects, start=1):
+        offsets.append(len(out))
+        out.extend(f"{i} 0 obj\n".encode("ascii"))
+        out.extend(obj)
+        out.extend(b"\nendobj\n")
+    xref = len(out)
+    out.extend(f"xref\n0 {len(objects)+1}\n".encode("ascii"))
+    out.extend(b"0000000000 65535 f \n")
+    for off in offsets[1:]:
+        out.extend(f"{off:010d} 00000 n \n".encode("ascii"))
+    out.extend(
+        f"trailer\n<< /Size {len(objects)+1} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n".encode("ascii")
+    )
+    return bytes(out)
+
 def startup_smoke_test():
     results = {}
     try:
         with app.test_client() as client:
-            login_page = client.get("/")
-            results["auth_redirect"] = login_page.status_code in (301, 302)
-            h = client.get("/api/health")
-            results["health_200"] = h.status_code == 200 and bool(h.get_json())
-            pin = access_pin()
-            if pin:
-                login_response = client.post("/login", data={"pin": pin, "next": "/"}, follow_redirects=True)
-                results["login_works"] = login_response.status_code == 200
-                results["home_has_version"] = b"2026.09.29.4" in login_response.data
-                s = client.get("/api/selftest")
-                sj = s.get_json() or {}
-                results["local_selftest_200"] = s.status_code == 200
-                results["local_selftest_ok"] = bool(sj.get("ok"))
-            else:
-                results["login_works"] = False
-                results["home_has_version"] = False
-                results["local_selftest_200"] = False
-                results["local_selftest_ok"] = False
+            home = client.get("/")
+            results["home_200"] = home.status_code == 200
+            results["home_has_version"] = b"2026.09.29.5" in home.data
+            health_response = client.get("/api/health")
+            results["health_200"] = health_response.status_code == 200 and bool(health_response.get_json())
+            local = client.get("/api/selftest")
+            local_json = local.get_json() or {}
+            results["local_selftest_200"] = local.status_code == 200
+            results["local_selftest_ok"] = bool(local_json.get("ok"))
     except Exception as e:
         results["error"] = str(e)
     print("[STARTUP_SMOKE] " + json.dumps(results, ensure_ascii=False), flush=True)
@@ -920,6 +937,20 @@ def background_external_selftest():
     except Exception as e:
         results["document_image_pipeline"] = False
         results["reader_error"] = str(e)
+
+    try:
+        pdf_result = extract_document_data(_test_pdf_bytes(), "application/pdf", "ABHA_CARD")
+        results["document_pdf_pipeline"] = isinstance(pdf_result.get("data"), dict)
+        results["pdf_abha_scope_safe"] = all(
+            not pdf_result["data"].get(k)
+            for k in ("aadhaar_number", "aadhaar_according_name", "father_name", "mother_name", "address")
+        )
+    except ProviderBusy as e:
+        results["document_pdf_pipeline"] = False
+        results["pdf_provider_busy"] = str(e)
+    except Exception as e:
+        results["document_pdf_pipeline"] = False
+        results["pdf_error"] = str(e)
 
     print("[EXTERNAL_SELFTEST] " + json.dumps(results, ensure_ascii=False), flush=True)
 
