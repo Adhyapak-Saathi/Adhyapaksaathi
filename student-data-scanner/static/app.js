@@ -143,7 +143,7 @@ function renderMatch(match) {
     targetRow = null;
     forceNew = false;
     matchBlocked = false;
-    box.innerHTML = '<div class="match warnmatch"><b>Student match હમણાં ઉપલબ્ધ નથી.</b><br>માહિતી સુરક્ષિત છે. Save વખતે master ફરી ચેક થશે.</div>';
+    box.innerHTML = '<div class="match warnmatch">વિદ્યાર્થી match હમણાં ઉપલબ્ધ નથી.</div>';
     refreshSummary();
     return;
   }
@@ -152,7 +152,7 @@ function renderMatch(match) {
     targetRow = null;
     forceNew = false;
     matchBlocked = false;
-    box.innerHTML = '<div class="match new"><b>Auto-match:</b> મજબૂત match મળ્યો નથી. Save વખતે master ફરી ચેક થશે; match ન મળે તો નવી row બનશે.</div>';
+    box.innerHTML = '<div class="match new">વિદ્યાર્થી match મળ્યો નથી.</div>';
     refreshSummary();
     return;
   }
@@ -176,7 +176,7 @@ function renderMatch(match) {
     matchBlocked = true;
     const head = document.createElement("div");
     head.className = "match warnmatch";
-    head.innerHTML = "<b>એકથી વધુ શક્ય વિદ્યાર્થી મળ્યા.</b><br>સાચો વિદ્યાર્થી પસંદ કરો.";
+    head.innerHTML = "<b>એકથી વધુ વિદ્યાર્થી મળ્યા.</b><br>સાચો વિદ્યાર્થી પસંદ કરો.";
     box.appendChild(head);
 
     (match.candidates || []).forEach(c => {
@@ -307,7 +307,7 @@ function renderQueue() {
 
   $("extractBtn").disabled = processing || !queuedFiles.some(x => x.state !== "done");
   $("imageInfo").textContent = queuedFiles.length
-    ? queuedFiles.length + " document queueમાં • Photo અને PDF બંને supported"
+    ? queuedFiles.length + " દસ્તાવેજ પસંદ"
     : "";
 }
 
@@ -407,7 +407,7 @@ async function processDocuments() {
   matchBlocked = false;
   $("extractBtn").disabled = true;
   $("progressWrap").hidden = false;
-  setStatus("scanStatus", "દસ્તાવેજોમાંથી માહિતી સંકલિત થઈ રહી છે...", "busy");
+  setStatus("scanStatus", "માહિતી વાંચી રહી છે...", "busy");
 
   let success = 0;
   let failed = 0;
@@ -452,9 +452,8 @@ async function processDocuments() {
   await rematchDraft();
 
   const message =
-    success + " documentમાંથી માહિતી ઉમેરાઈ." +
-    (failed ? "\n" + failed + " document વાંચી શકાયા નથી — ફરી પ્રયાસ કરી શકો છો." : "") +
-    "\nઅગાઉ ભરાયેલી માહિતી જાળવી રાખવામાં આવી છે.";
+    success + " દસ્તાવેજ વાંચાયા." +
+    (failed ? "\n" + failed + " દસ્તાવેજ ફરી પ્રયાસ માટે બાકી છે." : "");
   setStatus("scanStatus", message, failed ? "warn" : "ok");
 
   $("progressText").textContent = "પૂર્ણ";
@@ -493,7 +492,7 @@ async function saveScan() {
   }
 
   $("saveBtn").disabled = true;
-  setStatus("scanStatus", "Google Sheetમાં માહિતી save થઈ રહી છે...", "busy");
+  setStatus("scanStatus", "માહિતી save થઈ રહી છે...", "busy");
 
   try {
     const x = await apiFetch("/api/upsert", {
@@ -509,11 +508,11 @@ async function saveScan() {
     }, 35000);
 
     let msg = x.action === "created"
-      ? "નવી વિદ્યાર્થી row Google Sheetમાં બનાવી."
-      : "Existing વિદ્યાર્થીની row update કરી.";
-    msg += "\nSheet row: " + x.row + " • Status: " + x.status;
+      ? "નવી વિદ્યાર્થી માહિતી save થઈ."
+      : "વિદ્યાર્થી માહિતી update થઈ.";
+    msg += x.status === "VERIFY" ? "\nકેટલીક માહિતી ચકાસવી જરૂરી છે." : "";
     if (x.conflicts && x.conflicts.length) {
-      msg += "\n" + x.conflicts.length + " conflict મળ્યા; existing value overwrite નથી કરી.";
+      msg += "\n" + x.conflicts.length + " માહિતીમાં ફરક મળ્યો.";
     }
 
     targetRow = x.row;
@@ -585,17 +584,16 @@ async function importMaster() {
   const file = $("masterFile").files && $("masterFile").files[0];
   if (!file) return;
 
-  setStatus("importStatus", "Import Google Sheet masterમાં merge થઈ રહ્યું છે...", "busy");
+  setStatus("importStatus", "File import થઈ રહી છે...", "busy");
   const fd = new FormData();
   fd.append("file", file);
 
   try {
     const x = await apiFetch("/api/import", { method: "POST", body: fd }, 90000);
     const msg =
-      "Import પૂર્ણ.\nનવી rows: " + x.inserted +
-      "\nUpdate rows: " + x.updated +
-      "\nAmbiguous skip: " + x.skipped_ambiguous +
-      "\nConflicts: " + x.conflicts;
+      "Import પૂર્ણ.\nનવી entries: " + x.inserted +
+      "\nUpdate: " + x.updated +
+      "\nReview: " + (x.skipped_ambiguous + x.conflicts);
     setStatus("importStatus", msg, (x.skipped_ambiguous || x.conflicts) ? "warn" : "ok");
   } catch (e) {
     setStatus("importStatus", e.message, "err");
@@ -605,5 +603,5 @@ async function importMaster() {
 refreshSummary();
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/static/sw.js?v=5").catch(() => {});
+  navigator.serviceWorker.register("/static/sw.js?v=6").catch(() => {});
 }
