@@ -81,30 +81,57 @@ Return JSON ONLY exactly in this shape:
 
     r=None; last_error=''
     transient={429,500,502,503,504}
-    for candidate_model in models:
-        url=f'https://generativelanguage.googleapis.com/v1beta/models/{candidate_model}:generateContent'
-        attempts=3 if candidate_model==model else 2
-        for attempt in range(attempts):
-            try:
-                r=requests.post(url,headers={'x-goog-api-key':key,'Content-Type':'application/json'},json=payload,timeout=90)
-            except requests.RequestException as e:
-                last_error=f'{candidate_model}: network error: {e}'
-                if attempt < attempts-1:
+
+    def try_models(candidate_models):
+        nonlocal r, last_error
+        for candidate_model in candidate_models:
+            url=f'https://generativelanguage.googleapis.com/v1beta/models/{candidate_model}:generateContent'
+            attempts=3 if candidate_model==model else 2
+            for attempt in range(attempts):
+                try:
+                    r=requests.post(url,headers={'x-goog-api-key':key,'Content-Type':'application/json'},json=payload,timeout=90)
+                except requests.RequestException as e:
+                    last_error=f'{candidate_model}: network error: {e}'
+                    if attempt < attempts-1:
+                        time.sleep(1.5*(attempt+1))
+                        continue
+                    break
+                if 200 <= r.status_code < 300:
+                    return True
+                last_error=f'{candidate_model}: HTTP {r.status_code}: {r.text[:220]}'
+                if r.status_code in transient and attempt < attempts-1:
                     time.sleep(1.5*(attempt+1))
                     continue
                 break
-            if 200 <= r.status_code < 300:
-                break
-            last_error=f'{candidate_model}: HTTP {r.status_code}: {r.text[:220]}'
-            if r.status_code in transient and attempt < attempts-1:
-                time.sleep(1.5*(attempt+1))
-                continue
-            break
-        if r is not None and 200 <= r.status_code < 300:
-            break
+        return False
 
-    if r is None or not (200 <= r.status_code < 300):
-        raise RuntimeError('AI સર્વર હાલમાં વ્યસ્ત છે. થોડીવાર પછી ફરી Scan દબાવો. '+last_error)
+    success=try_models(models)
+
+    # If configured models are unavailable/overloaded, discover currently enabled
+    # Flash models from the same Gemini API key and try them automatically.
+    if not success:
+        try:
+            lr=requests.get(
+                'https://generativelanguage.googleapis.com/v1beta/models',
+                headers={'x-goog-api-key':key},
+                timeout=20
+            )
+            if 200 <= lr.status_code < 300:
+                discovered=[]
+                for item in lr.json().get('models',[]):
+                    name=str(item.get('name','')).replace('models/','')
+                    methods=item.get('supportedGenerationMethods') or []
+                    if ('generateContent' in methods and 'flash' in name.lower()
+                            and name not in models and name not in discovered):
+                        discovered.append(name)
+                # Prefer lightweight/flash variants first and cap extra retries.
+                discovered.sort(key=lambda x: (0 if 'lite' in x.lower() else 1, x), reverse=False)
+                success=try_models(discovered[:4])
+        except Exception as e:
+            last_error=(last_error+' | model discovery: '+str(e)).strip(' |')
+
+    if not success or r is None or not (200 <= r.status_code < 300):
+        raise RuntimeError('AI સર્વર હાલમાં વ્યસ્ત છે. થોડા સેકન્ડ પછી ફરી Scan દબાવો. '+last_error)
     obj=r.json(); parts=obj.get('candidates',[{}])[0].get('content',{}).get('parts',[])
     txt=''.join(p.get('text','') for p in parts).strip()
     txt=re.sub(r'^\`\`\`(?:json)?\s*','',txt,flags=re.I); txt=re.sub(r'\s*\`\`\`$','',txt)
