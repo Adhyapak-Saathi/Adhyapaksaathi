@@ -1,11 +1,98 @@
-<!doctype html><html lang="gu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b57d0"><link rel="manifest" href="/static/manifest.json"><link rel="stylesheet" href="/static/style.css?v=20260929-3"><title>Student Data Scanner</title></head><body>
-<header><h1>Student Data Scanner</h1><p>UDISE/SSA Master + Mobile Camera + AI + Google Sheet Sync</p><small>Version 2026.09.29.3</small></header><main>
-<section class="card"><h2>0. Master Data Import</h2><p class="muted">UDISE / SSA / existing Excel/CSV import કરો.</p><input id="masterFile" type="file" accept=".xlsx,.xls,.csv"><button onclick="importMaster()">Import Excel/CSV</button><a class="linkbtn" href="/api/export.xlsx">Current Master Excel Download</a><div id="importStatus" class="status"></div></section>
-<section class="card"><h2>1. વિદ્યાર્થી પસંદ કરો</h2><div class="searchline"><input id="q" placeholder="GR / PEN / CTS / Aadhaar / નામ"><button onclick="searchStudent()">શોધો</button></div><div id="results"></div><div id="selected" class="selected"></div></section>
-<section class="card"><h2>2. કાગળ સ્કેન કરો</h2><label>Document Type</label><select id="docType"><option value="AUTO">Auto Detect</option><option value="FORM">Student Form</option><option value="AADHAAR_CARD">Aadhaar Card</option><option value="ABHA_CARD">ABHA Card</option><option value="BANK_DOCUMENT">Bank Document</option><option value="SCHOOL_RECORD">School Record</option><option value="OTHER">Other</option></select>
-<label class="cameraBtn">📷 કેમેરાથી ફોટો લો<input id="camera" type="file" accept="image/*" capture="environment"></label>
-<label class="cameraBtn">🖼️ Galleryમાંથી ફોટો પસંદ કરો<input id="gallery" type="file" accept="image/*"></label>
-<img id="preview"><button id="extractBtn" onclick="extractImage()" disabled>AI થી ડેટા વાંચો</button><div id="scanStatus" class="status"></div></section>
-<section class="card"><h2>3. માહિતી ચેક કરો</h2><div class="grid">{% for key,label in fields %}<div class="field {% if key == 'address' %}wide{% endif %}"><label>{{label}}</label>{% if key == 'address' %}<textarea id="f_{{key}}"></textarea>{% else %}<input id="f_{{key}}">{% endif %}</div>{% endfor %}</div><div id="verify" class="verify"></div></section>
-<section class="card sticky"><button class="save" id="saveBtn" onclick="saveStudent()" disabled>✓ ચેક કર્યા પછી Save + Sheet Sync</button><button class="secondary" onclick="clearScan()">આ સ્કેન સાફ કરો</button></section></main>
-<script>window.FIELD_KEYS={{ fields|map(attribute=0)|list|tojson }};</script><script src="/static/app.js?v=20260929-3"></script></body></html>
+<!doctype html>
+<html lang="gu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="stylesheet" href="/static/style.css?v=20260929-4">
+  <title>Student Data Scanner</title>
+</head>
+<body>
+<header>
+  <h1>Student Data Scanner</h1>
+  <p>કાગળ સ્કેન કરો → AI ફક્ત દેખાતી માહિતી વાંચે → વિદ્યાર્થી auto-match → Google Sheetમાં save</p>
+  <small>Version 2026.09.29.4</small>
+</header>
+
+<main>
+  <section class="card primary-card">
+    <h2>1. કાગળ સ્કેન કરો</h2>
+    <p class="muted">દરેક document અલગથી scan કરો. App existing studentને પોતે શોધવાનો પ્રયાસ કરશે.</p>
+
+    <label for="docType">Document Type</label>
+    <select id="docType">
+      <option value="AUTO">Auto Detect</option>
+      <option value="ABHA_CARD">ABHA Card</option>
+      <option value="AADHAAR_CARD">Aadhaar Card</option>
+      <option value="BANK_DOCUMENT">Bank Passbook / Bank Document</option>
+      <option value="SCHOOL_RECORD">School / SSA / UDISE Record</option>
+      <option value="FORM">Student Form</option>
+      <option value="OTHER">Other Document</option>
+    </select>
+
+    <label class="cameraBtn">📷 કેમેરાથી ફોટો લો
+      <input id="camera" type="file" accept="image/*" capture="environment">
+    </label>
+    <label class="cameraBtn">🖼️ Galleryમાંથી ફોટો પસંદ કરો
+      <input id="gallery" type="file" accept="image/*">
+    </label>
+
+    <img id="preview" alt="Selected document preview">
+    <div id="imageInfo" class="muted"></div>
+    <button id="extractBtn" onclick="extractImage()" disabled>AI થી ડેટા વાંચો</button>
+    <div id="scanStatus" class="status"></div>
+    <div id="matchBox"></div>
+  </section>
+
+  <section class="card">
+    <h2>2. સ્કેનમાંથી મળેલી માહિતી ચેક કરો</h2>
+    <p class="muted important-note">અહીં માત્ર આ scanમાંથી મળેલી માહિતી દેખાશે. Existing studentની જૂની માહિતી અહીં mix થતી નથી.</p>
+    <div class="grid">
+      {% for key,label in fields %}
+      <div class="field {% if key == 'address' %}wide{% endif %}" id="wrap_{{key}}">
+        <label>{{label}}</label>
+        {% if key == 'address' %}
+          <textarea id="f_{{key}}" autocomplete="off"></textarea>
+        {% else %}
+          <input id="f_{{key}}" autocomplete="off">
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <div id="verify" class="verify"></div>
+  </section>
+
+  <section class="card sticky">
+    <button class="save" id="saveBtn" onclick="saveScan()" disabled>✓ Google Sheetમાં Save / Update</button>
+    <button class="secondary" onclick="clearScan()">આ સ્કેન સાફ કરો</button>
+  </section>
+
+  <details class="card optional">
+    <summary>જરૂર પડે ત્યારે વિદ્યાર્થી જાતે શોધો (Optional)</summary>
+    <p class="muted">Auto-match ખોટો/અસ્પષ્ટ હોય ત્યારે GR / PEN / CTS / Aadhaar / નામથી શોધો.</p>
+    <div class="searchline">
+      <input id="q" placeholder="GR / PEN / CTS / Aadhaar / નામ">
+      <button onclick="searchStudent()">શોધો</button>
+    </div>
+    <div id="results"></div>
+    <div id="selected" class="selected"></div>
+  </details>
+
+  <details class="card optional">
+    <summary>Master Excel/CSV Import / Export</summary>
+    <p class="muted">UDISE / SSA / PEN / APAAR / existing Excel/CSV import કરો. Import હવે સીધું Google Sheet masterમાં merge થાય છે.</p>
+    <input id="masterFile" type="file" accept=".xlsx,.xls,.csv">
+    <button onclick="importMaster()">Import Excel/CSV</button>
+    <a class="linkbtn" href="/api/export.xlsx">Current Master Excel Download</a>
+    <div id="importStatus" class="status"></div>
+  </details>
+</main>
+
+<script>
+  window.FIELD_KEYS={{ fields|map(attribute=0)|list|tojson }};
+  window.FIELD_LABELS={{ dict(fields)|tojson }};
+</script>
+<script src="/static/app.js?v=20260929-4"></script>
+</body>
+</html>
