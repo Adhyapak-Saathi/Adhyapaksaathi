@@ -504,6 +504,7 @@ def upsert():
     uncertain = [k for k in (payload.get("uncertain_fields") or []) if k in ALL_KEYS]
     source_doc = normalize_doc_type(payload.get("document_type", "OTHER"))
     requested_row = payload.get("target_row")
+    force_new = bool(payload.get("force_new"))
 
     if not any(incoming.values()):
         return jsonify({"error": "Save કરવા માટે કોઈ data નથી."}), 400
@@ -515,7 +516,7 @@ def upsert():
             target = find_record_by_row(records, requested_row)
             if not target:
                 return jsonify({"error": "પસંદ કરેલો વિદ્યાર્થી row હવે મળતો નથી. ફરી scan/search કરો."}), 409
-        else:
+        elif not force_new:
             match = match_records(incoming, records)
             if match["status"] == "matched":
                 target = find_record_by_row(records, match["row"])
