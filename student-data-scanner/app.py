@@ -282,8 +282,12 @@ def selftest():
 
 
 def startup_selftest_():
+    """Fast, non-blocking startup checks only.
+
+    External Gemini/Google Sheets calls are intentionally excluded here so a
+    temporary provider outage cannot prevent Render from starting the web app.
+    """
     results = {}
-    # DB test using rollback so no dummy student remains.
     try:
         con = db()
         con.execute("BEGIN")
@@ -297,7 +301,6 @@ def startup_selftest_():
         results["database_insert_search"] = False
         results["database_error"] = str(e)
 
-    # Mapping/sanitizer tests.
     sample = sanitize({
         "cts_number":"240706123456789012",
         "aadhaar_number":"123456789012",
@@ -308,65 +311,16 @@ def startup_selftest_():
     results["aadhaar_12_digit"] = sample.get("aadhaar_number") == "123456789012"
     results["phone_valid"] = sample.get("phone_number") == "9876543210"
     results["ifsc_valid"] = sample.get("ifsc_code") == "SBIN0001234"
-
-    key=(os.getenv('GEMINI_API_KEY','').strip() or
-         os.getenv('GEMINI_KEY','').strip() or
-         os.getenv('GOOGLE_API_KEY','').strip() or
-         os.getenv('GOOGLE_GEMINI_API_KEY','').strip())
-    results["gemini_key_set"] = bool(key)
-    results["gemini_auth_test"] = False
-    if key:
-        try:
-            model=os.getenv('GEMINI_MODEL','gemini-2.5-flash').strip()
-            url=f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-            rr=requests.post(url,headers={"x-goog-api-key":key,"Content-Type":"application/json"},
-                json={"contents":[{"parts":[{"text":"Reply with only OK"}]}],"generationConfig":{"temperature":0}},
-                timeout=30)
-            results["gemini_http_status"] = rr.status_code
-            results["gemini_auth_test"] = 200 <= rr.status_code < 300
-        except Exception as e:
-            results["gemini_error"] = str(e)
-
-    results["google_sheet_configured"] = bool(
-        os.getenv("GOOGLE_SHEET_ID","").strip() and os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON","").strip()
+    results["gemini_key_set"] = bool(
+        os.getenv('GEMINI_API_KEY','').strip() or
+        os.getenv('GEMINI_KEY','').strip() or
+        os.getenv('GOOGLE_API_KEY','').strip() or
+        os.getenv('GOOGLE_GEMINI_API_KEY','').strip()
     )
-
-    # Live Google Sheet read/write test. Appends one temporary row then deletes it.
-    results["google_sheet_write_test"] = False
-    if results["google_sheet_configured"]:
-        try:
-            ss = sheet_client()
-            tab = os.getenv("GOOGLE_SHEET_TAB","Student_Master")
-            ws = ss.worksheet(tab)
-            headers = [h for _,h in FIELDS] + ["Verification Status","Remarks","Last Updated"]
-            current_headers = ws.row_values(1)
-            results["google_sheet_header_match"] = current_headers[:len(headers)] == headers
-            dummy = [""] * len(headers)
-            dummy[1] = "SELFTEST-GR"
-            dummy[9] = "DUMMY SELF TEST"
-            dummy[22] = "TEST"
-            dummy[23] = "AUTO TEST - DELETE"
-            dummy[24] = datetime.now().isoformat(timespec="seconds")
-            ws.append_row(dummy, value_input_option="USER_ENTERED")
-            test_row = ws.row_count
-            # Find the just-added row reliably, then delete it.
-            vals = ws.get_all_values()
-            found_index = None
-            for i in range(len(vals)-1, 0, -1):
-                row = vals[i]
-                if len(row) > 9 and row[1] == "SELFTEST-GR" and row[9] == "DUMMY SELF TEST":
-                    found_index = i + 1
-                    break
-            if found_index:
-                ws.delete_rows(found_index)
-                results["google_sheet_write_test"] = True
-                results["google_sheet_cleanup"] = True
-            else:
-                results["google_sheet_cleanup"] = False
-        except Exception as e:
-            results["google_sheet_write_test"] = False
-            results["google_sheet_error"] = str(e)
-
+    results["google_sheet_configured"] = bool(
+        os.getenv("GOOGLE_SHEET_ID","").strip() and
+        os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON","").strip()
+    )
     print("[STARTUP_SELFTEST] " + json.dumps(results, ensure_ascii=False), flush=True)
     return results
 
