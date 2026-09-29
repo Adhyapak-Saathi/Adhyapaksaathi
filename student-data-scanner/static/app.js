@@ -2,6 +2,7 @@ let currentFile = null;
 let preparedBlob = null;
 let currentUncertain = [];
 let currentDocumentType = "OTHER";
+let previewUrl = null;
 let targetRow = null;
 let forceNew = false;
 
@@ -80,6 +81,14 @@ function renderMatch(match) {
   box.innerHTML = "";
   targetRow = null;
   forceNew = false;
+
+  if (match && match.status === "unavailable") {
+    box.innerHTML = '<div class="match warnmatch"><b>Auto-match અત્યારે ઉપલબ્ધ નથી.</b><br>Scan data મળ્યો છે. Save વખતે server ફરી વિદ્યાર્થી match કરશે.</div>';
+    targetRow = null;
+    forceNew = false;
+    $("saveBtn").disabled = !hasScannedData();
+    return;
+  }
 
   if (!match || match.status === "none") {
     box.innerHTML = '<div class="match new"><b>Auto-match:</b> existing studentનો મજબૂત match મળ્યો નથી. Save કરશો તો નવી row બનશે.</div>';
@@ -234,7 +243,9 @@ function useImageFile(file) {
   clearFields();
   resetMatch();
 
-  $("preview").src = URL.createObjectURL(file);
+  if (previewUrl) URL.revokeObjectURL(previewUrl);
+  previewUrl = URL.createObjectURL(file);
+  $("preview").src = previewUrl;
   $("preview").style.display = "block";
   $("extractBtn").disabled = false;
   $("saveBtn").disabled = true;
@@ -283,8 +294,9 @@ async function extractImage() {
       "Document: " + currentDocumentType +
       "\nમળેલા fields: " + count +
       "\nModel: " + (x.model_used || "-") +
-      " • " + (x.latency_ms ? (x.latency_ms / 1000).toFixed(1) + " sec" : ""),
-      currentUncertain.length ? "warn" : "ok"
+      " • " + (x.latency_ms ? (x.latency_ms / 1000).toFixed(1) + " sec" : "") +
+      (x.match_warning ? "\n" + x.match_warning : ""),
+      (currentUncertain.length || x.match_warning) ? "warn" : "ok"
     );
   } catch (e) {
     const extra = e.data && e.data.retryable
@@ -376,6 +388,8 @@ function clearScan() {
 
   $("camera").value = "";
   $("gallery").value = "";
+  if (previewUrl) URL.revokeObjectURL(previewUrl);
+  previewUrl = null;
   $("preview").src = "";
   $("preview").style.display = "none";
   $("imageInfo").textContent = "";
