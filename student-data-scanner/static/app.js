@@ -91,8 +91,8 @@ function renderMatch(match) {
   }
 
   if (!match || match.status === "none") {
-    box.innerHTML = '<div class="match new"><b>Auto-match:</b> existing studentનો મજબૂત match મળ્યો નથી. Save કરશો તો નવી row બનશે.</div>';
-    forceNew = true;
+    box.innerHTML = '<div class="match new"><b>Auto-match:</b> હમણાં મજબૂત match મળ્યો નથી. Save વખતે Sheet ફરી ચેક થશે; match ન મળે તો જ નવી row બનશે.</div>';
+    forceNew = false;
     $("saveBtn").disabled = !hasScannedData();
     return;
   }
