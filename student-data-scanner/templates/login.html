@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="gu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b57d0">
+  <link rel="stylesheet" href="/static/style.css?v=20260929-4">
+  <title>Student Data Scanner Login</title>
+</head>
+<body class="login-page">
+  <main class="login-wrap">
+    <section class="card login-card">
+      <h1>Student Data Scanner</h1>
+      <p class="muted">વિદ્યાર્થીની સંવેદનશીલ માહિતી સુરક્ષિત રાખવા PIN દાખલ કરો.</p>
+      {% if error %}<div class="status err">{{ error }}</div>{% endif %}
+      <form method="post" action="/login">
+        <input type="hidden" name="next" value="{{ next or '/' }}">
+        <label for="pin">Access PIN</label>
+        <input id="pin" name="pin" type="password" inputmode="numeric" pattern="[0-9]*" autocomplete="current-password" required autofocus>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
