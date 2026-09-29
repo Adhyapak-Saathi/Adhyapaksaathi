@@ -1,4 +1,4 @@
-import os, json, re, base64, time
+import os, json, re, base64, time, threading, zlib, struct, binascii
 from datetime import datetime
 from io import BytesIO
 import pandas as pd
@@ -769,6 +769,89 @@ def selftest():
 
     checks["ok"] = all(v is True for k, v in checks.items() if k not in {"gemini_key_set", "google_sheet_configured"} and isinstance(v, bool))
     return jsonify(checks)
+
+
+def _test_png_bytes(width=64, height=32):
+    # Tiny valid white RGB PNG created without Pillow.
+    raw = b"".join(b"\x00" + (b"\xff\xff\xff" * width) for _ in range(height))
+    def chunk(kind, data):
+        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", binascii.crc32(kind + data) & 0xffffffff)
+    return (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+        + chunk(b"IDAT", zlib.compress(raw, 9))
+        + chunk(b"IEND", b"")
+    )
+
+def startup_smoke_test():
+    results = {}
+    try:
+        with app.test_client() as client:
+            r = client.get("/")
+            results["home_200"] = r.status_code == 200
+            results["home_has_version"] = b"2026.09.29.4" in r.data
+            h = client.get("/api/health")
+            results["health_200"] = h.status_code == 200 and bool(h.get_json())
+            s = client.get("/api/selftest")
+            sj = s.get_json() or {}
+            results["local_selftest_200"] = s.status_code == 200
+            results["local_selftest_ok"] = bool(sj.get("ok"))
+    except Exception as e:
+        results["error"] = str(e)
+    print("[STARTUP_SMOKE] " + json.dumps(results, ensure_ascii=False), flush=True)
+    return results
+
+def background_external_selftest():
+    time.sleep(3)
+    results = {}
+
+    # Google Sheet read/write/cleanup test.
+    try:
+        ws, _ = read_records()
+        results["sheet_headers"] = ws.row_values(1)[:len(HEADERS)] == HEADERS
+        stamp = str(int(time.time()))
+        dummy = {k: "" for k in ALL_KEYS}
+        dummy["gr_number"] = "SELFTEST-" + stamp
+        dummy["student_full_name"] = "DUMMY SELF TEST"
+        merged, _ = merge_into({}, dummy, [], "SELFTEST")
+        ws.append_row(record_values(merged), value_input_option="USER_ENTERED")
+        vals = ws.get_all_values()
+        found = None
+        for i in range(len(vals) - 1, 0, -1):
+            row = vals[i]
+            if len(row) > 8 and row[1] == "SELFTEST-" + stamp and row[8] == "DUMMY SELF TEST":
+                found = i + 1
+                break
+        if found:
+            ws.delete_rows(found)
+            results["sheet_write_cleanup"] = True
+        else:
+            results["sheet_write_cleanup"] = False
+    except Exception as e:
+        results["sheet_error"] = str(e)
+        results["sheet_write_cleanup"] = False
+
+    # Exact image-extraction path test using a harmless blank PNG.
+    try:
+        x = ai_extract(_test_png_bytes(), "image/png", "ABHA_CARD")
+        results["ai_image_pipeline"] = isinstance(x.get("data"), dict)
+        results["ai_model_used"] = x.get("model_used", "")
+        # Whitelist must prevent unrelated ABHA scan fields.
+        results["ai_abha_scope_safe"] = all(
+            not x["data"].get(k)
+            for k in ("aadhaar_number", "aadhaar_according_name", "father_name", "mother_name", "address")
+        )
+    except ProviderBusy as e:
+        results["ai_image_pipeline"] = False
+        results["ai_provider_busy"] = str(e)
+    except Exception as e:
+        results["ai_image_pipeline"] = False
+        results["ai_error"] = str(e)
+
+    print("[EXTERNAL_SELFTEST] " + json.dumps(results, ensure_ascii=False), flush=True)
+
+STARTUP_SMOKE = startup_smoke_test()
+threading.Thread(target=background_external_selftest, daemon=True).start()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=False)
