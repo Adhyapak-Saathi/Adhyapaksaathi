@@ -5,20 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2457d6">
   <link rel="manifest" href="/static/manifest.json">
-  <link rel="stylesheet" href="/static/style.css?v=20260929-5">
+  <link rel="stylesheet" href="/static/style.css?v=20260929-6">
   <title>Student Record Capture</title>
 </head>
 <body>
 <header class="app-header">
   <div class="header-inner">
     <div>
-      <div class="brand-kicker">School Data Utility</div>
       <h1>Student Record Capture</h1>
-      <p>દસ્તાવેજો ઉમેરો → માહિતી સંકલિત કરો → વિદ્યાર્થી match કરો → Google Sheetમાં save કરો</p>
+      <p>વિદ્યાર્થી દસ્તાવેજ આધારિત માહિતી નોંધણી</p>
     </div>
-    <div class="header-badge">Google Sheet Sync</div>
   </div>
-  <small>Version 2026.09.29.5</small>
 </header>
 
 <main>
@@ -27,13 +24,13 @@
       <div class="step-badge">1</div>
       <div>
         <h2>વિદ્યાર્થી દસ્તાવેજ સંકલન</h2>
-        <p class="muted">એક જ વિદ્યાર્થીના ઘણા ફોટા અથવા PDF એક પછી એક ઉમેરો. અગાઉ મળેલી માહિતી સાફ નહીં થાય.</p>
+        <p class="muted">ફોટો અથવા PDF દસ્તાવેજ પસંદ કરો.</p>
       </div>
     </div>
 
     <label for="docType">દસ્તાવેજ પ્રકાર</label>
     <select id="docType">
-      <option value="AUTO">Auto Detect — ભલામણ કરેલ</option>
+      <option value="AUTO">Auto Detect</option>
       <option value="ABHA_CARD">ABHA Card</option>
       <option value="AADHAAR_CARD">Aadhaar Card</option>
       <option value="BANK_DOCUMENT">Bank Passbook / Bank Document</option>
@@ -41,18 +38,17 @@
       <option value="FORM">Student Form</option>
       <option value="OTHER">Other Document</option>
     </select>
-    <div class="hint">અલગ અલગ પ્રકારના દસ્તાવેજો હોય તો <b>Auto Detect</b> જ રાખો.</div>
 
     <div class="capture-actions">
       <label class="capture-btn camera">
         <span class="capture-icon">📷</span>
-        <span><b>કેમેરાથી ફોટો ઉમેરો</b><small>એક પછી એક અનેક ફોટા લઈ શકો છો</small></span>
+        <span><b>કેમેરાથી ફોટો ઉમેરો</b><small>Photo capture</small></span>
         <input id="camera" type="file" accept="image/*" capture="environment">
       </label>
 
       <label class="capture-btn files">
         <span class="capture-icon">🗂️</span>
-        <span><b>Photo / PDF પસંદ કરો</b><small>એક સાથે ઘણા files પસંદ કરી શકો છો</small></span>
+        <span><b>Photo / PDF પસંદ કરો</b><small>Multiple files supported</small></span>
         <input id="gallery" type="file" accept="image/*,application/pdf,.pdf" multiple>
       </label>
     </div>
@@ -72,7 +68,7 @@
 
     <div id="imageInfo" class="muted"></div>
     <button id="extractBtn" class="primary-action" onclick="processDocuments()" disabled>
-      માહિતી વાંચો અને ફોર્મમાં ઉમેરો
+      માહિતી વાંચો
     </button>
 
     <div id="progressWrap" class="progress-wrap" hidden>
@@ -89,7 +85,7 @@
       <div class="step-badge green">2</div>
       <div>
         <h2>સંકલિત વિદ્યાર્થી માહિતી</h2>
-        <p class="muted">દરેક નવા દસ્તાવેજમાંથી મળેલી માહિતી અહીં ઉમેરાતી જશે. પહેલેથી ભરાયેલ data આપમેળે સાફ નહીં થાય.</p>
+        <p class="muted">દસ્તાવેજોમાંથી મળેલી માહિતી</p>
       </div>
     </div>
 
@@ -120,8 +116,8 @@
   </section>
 
   <details class="card optional">
-    <summary>વિદ્યાર્થી જાતે શોધો — Optional</summary>
-    <p class="muted">Auto-match અસ્પષ્ટ હોય ત્યારે GR / PEN / CTS / Aadhaar / નામથી શોધો.</p>
+    <summary>વિદ્યાર્થી શોધ</summary>
+    <p class="muted">GR / PEN / CTS / Aadhaar / નામથી શોધો.</p>
     <div class="searchline">
       <input id="q" placeholder="GR / PEN / CTS / Aadhaar / નામ">
       <button onclick="searchStudent()">શોધો</button>
@@ -131,8 +127,7 @@
   </details>
 
   <details class="card optional">
-    <summary>Master Excel/CSV Import / Export</summary>
-    <p class="muted">UDISE / SSA / PEN / APAAR / existing Excel/CSV Google Sheet masterમાં merge કરો.</p>
+    <summary>Excel / CSV Import / Export</summary>
     <input id="masterFile" type="file" accept=".xlsx,.xls,.csv">
     <button onclick="importMaster()">Import Excel/CSV</button>
     <a class="linkbtn" href="/api/export.xlsx">Current Master Excel Download</a>
@@ -144,6 +139,6 @@
   window.FIELD_KEYS={{ fields|map(attribute=0)|list|tojson }};
   window.FIELD_LABELS={{ dict(fields)|tojson }};
 </script>
-<script src="/static/app.js?v=20260929-5"></script>
+<script src="/static/app.js?v=20260929-6"></script>
 </body>
 </html>
