@@ -7,6 +7,8 @@ let draftConflicts = [];
 let targetRow = null;
 let forceNew = false;
 let previewUrl = null;
+let processing = false;
+let matchBlocked = false;
 
 const $ = id => document.getElementById(id);
 
@@ -88,7 +90,7 @@ function refreshSummary() {
   $("docCount").textContent = String(processedDocuments);
   $("fieldCount").textContent = String(fieldCount);
   $("reviewCount").textContent = String(reviewKeys.size);
-  $("saveBtn").disabled = fieldCount === 0;
+  $("saveBtn").disabled = fieldCount === 0 || processing || matchBlocked;
 }
 
 function renderReview() {
@@ -118,6 +120,7 @@ function candidateText(c) {
 function chooseCandidate(c) {
   targetRow = c.row;
   forceNew = false;
+  matchBlocked = false;
   $("selected").textContent = "પસંદ કરેલ વિદ્યાર્થી: " + candidateText(c);
   renderMatch({ status: "matched", row: c.row, candidate: c, score: c.score || 0 });
   refreshSummary();
@@ -126,6 +129,7 @@ function chooseCandidate(c) {
 function chooseNewRow() {
   targetRow = null;
   forceNew = true;
+  matchBlocked = false;
   $("selected").textContent = "નવી row તરીકે save કરવાનું પસંદ કર્યું.";
   $("matchBox").innerHTML = '<div class="match new">નવી વિદ્યાર્થી row બનાવાશે.</div>';
   refreshSummary();
@@ -138,6 +142,7 @@ function renderMatch(match) {
   if (match && match.status === "unavailable") {
     targetRow = null;
     forceNew = false;
+    matchBlocked = false;
     box.innerHTML = '<div class="match warnmatch"><b>Student match હમણાં ઉપલબ્ધ નથી.</b><br>માહિતી સુરક્ષિત છે. Save વખતે master ફરી ચેક થશે.</div>';
     refreshSummary();
     return;
@@ -146,6 +151,7 @@ function renderMatch(match) {
   if (!match || match.status === "none") {
     targetRow = null;
     forceNew = false;
+    matchBlocked = false;
     box.innerHTML = '<div class="match new"><b>Auto-match:</b> મજબૂત match મળ્યો નથી. Save વખતે master ફરી ચેક થશે; match ન મળે તો નવી row બનશે.</div>';
     refreshSummary();
     return;
@@ -154,6 +160,7 @@ function renderMatch(match) {
   if (match.status === "matched") {
     targetRow = match.row;
     forceNew = false;
+    matchBlocked = false;
     const c = match.candidate || {};
     const div = document.createElement("div");
     div.className = "match okmatch";
@@ -166,6 +173,7 @@ function renderMatch(match) {
   if (match.status === "ambiguous") {
     targetRow = null;
     forceNew = false;
+    matchBlocked = true;
     const head = document.createElement("div");
     head.className = "match warnmatch";
     head.innerHTML = "<b>એકથી વધુ શક્ય વિદ્યાર્થી મળ્યા.</b><br>સાચો વિદ્યાર્થી પસંદ કરો.";
@@ -251,6 +259,10 @@ function addFiles(fileList) {
   let rejected = 0;
 
   Array.from(fileList || []).forEach(file => {
+    if (queuedFiles.length >= 12) {
+      rejected++;
+      return;
+    }
     if (!isSupported(file) || file.size > 15 * 1024 * 1024) {
       rejected++;
       return;
@@ -293,7 +305,7 @@ function renderQueue() {
     list.appendChild(row);
   });
 
-  $("extractBtn").disabled = !queuedFiles.some(x => x.state !== "done");
+  $("extractBtn").disabled = processing || !queuedFiles.some(x => x.state !== "done");
   $("imageInfo").textContent = queuedFiles.length
     ? queuedFiles.length + " document queueમાં • Photo અને PDF બંને supported"
     : "";
@@ -387,9 +399,12 @@ async function rematchDraft() {
 }
 
 async function processDocuments() {
+  if (processing) return;
   const items = queuedFiles.filter(x => x.state !== "done");
   if (!items.length) return;
 
+  processing = true;
+  matchBlocked = false;
   $("extractBtn").disabled = true;
   $("progressWrap").hidden = false;
   setStatus("scanStatus", "દસ્તાવેજોમાંથી માહિતી સંકલિત થઈ રહી છે...", "busy");
@@ -443,6 +458,7 @@ async function processDocuments() {
   setStatus("scanStatus", message, failed ? "warn" : "ok");
 
   $("progressText").textContent = "પૂર્ણ";
+  processing = false;
   $("extractBtn").disabled = !queuedFiles.some(x => x.state !== "done");
   refreshSummary();
 }
@@ -460,6 +476,11 @@ FIELD_KEYS.forEach(k => {
   const el = $("f_" + k);
   if (!el) return;
   el.addEventListener("input", () => {
+    draftConflicts = draftConflicts.filter(c => c.field !== k);
+    cumulativeUncertain.delete(k);
+    const wrap = $("wrap_" + k);
+    if (wrap) wrap.classList.remove("conflict");
+    renderReview();
     refreshSummary();
   });
 });
@@ -521,6 +542,8 @@ function startNewStudent() {
   draftConflicts = [];
   targetRow = null;
   forceNew = false;
+  processing = false;
+  matchBlocked = false;
 
   clearQueue();
   clearFields();
