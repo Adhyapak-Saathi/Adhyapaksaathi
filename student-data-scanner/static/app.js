@@ -14,8 +14,20 @@ const $ = id => document.getElementById(id);
 
 function setStatus(id, msg, cls) {
   const el = $(id);
+  if (!el) return;
   el.textContent = msg || "";
   el.className = "status" + (cls ? " " + cls : "");
+}
+
+function showNotice(message, type) {
+  const el = $("saveNotice");
+  if (!el) return;
+  el.textContent = message;
+  el.className = "notice show " + (type || "success");
+  clearTimeout(showNotice._timer);
+  showNotice._timer = setTimeout(() => {
+    el.className = "notice";
+  }, 5000);
 }
 
 function collect() {
@@ -108,6 +120,44 @@ function renderReview() {
   $("verify").textContent = lines.join("\n");
 }
 
+function fillExistingRecord(data) {
+  clearFields();
+  FIELD_KEYS.forEach(k => {
+    const el = $("f_" + k);
+    if (el) el.value = String((data && data[k]) || "");
+  });
+  cumulativeUncertain = new Set();
+  draftConflicts = [];
+  documentTypes = new Set();
+  processedDocuments = 0;
+  renderReview();
+  refreshSummary();
+}
+
+async function loadStudentFromSearch(candidate) {
+  const hasDraft = FIELD_KEYS.some(k => collect()[k]);
+  if (hasDraft) {
+    const ok = confirm("હાલની માહિતી બદલીને આ વિદ્યાર્થી ખોલવો છે?");
+    if (!ok) return;
+  }
+
+  try {
+    const record = await apiFetch("/api/student/" + encodeURIComponent(candidate.row), {}, 20000);
+    fillExistingRecord(record.data || {});
+    targetRow = record.row;
+    forceNew = false;
+    matchBlocked = false;
+    $("matchBox").innerHTML = '<div class="match okmatch"><b>વિદ્યાર્થી માહિતી લોડ થઈ.</b></div>';
+    $("searchMenu").open = false;
+    $("sheetMenu").open = false;
+    $("fillMenu").open = true;
+    $("fillMenu").scrollIntoView({ behavior: "smooth", block: "start" });
+    refreshSummary();
+  } catch (e) {
+    showNotice("વિદ્યાર્થી માહિતી લોડ થઈ નથી: " + e.message, "error");
+  }
+}
+
 function candidateText(c) {
   const name = c.student_full_name || c.aadhaar_according_name || "(નામ નથી)";
   return name +
@@ -121,7 +171,6 @@ function chooseCandidate(c) {
   targetRow = c.row;
   forceNew = false;
   matchBlocked = false;
-  $("selected").textContent = "પસંદ કરેલ વિદ્યાર્થી: " + candidateText(c);
   renderMatch({ status: "matched", row: c.row, candidate: c, score: c.score || 0 });
   refreshSummary();
 }
@@ -130,7 +179,6 @@ function chooseNewRow() {
   targetRow = null;
   forceNew = true;
   matchBlocked = false;
-  $("selected").textContent = "નવી row તરીકે save કરવાનું પસંદ કર્યું.";
   $("matchBox").innerHTML = '<div class="match new">નવી વિદ્યાર્થી row બનાવાશે.</div>';
   refreshSummary();
 }
@@ -517,12 +565,19 @@ async function saveScan() {
 
     targetRow = x.row;
     forceNew = false;
-    setStatus("scanStatus", msg, (x.conflicts && x.conflicts.length) ? "warn" : "ok");
+    if (x.sheet_verified === true) {
+      showNotice("Google Sheetમાં માહિતી સફળતાપૂર્વક Save થઈ.", "success");
+      setStatus("scanStatus", msg, (x.conflicts && x.conflicts.length) ? "warn" : "ok");
+    } else {
+      showNotice("Google Sheetમાં Saveની પુષ્ટિ થઈ નથી.", "error");
+      setStatus("scanStatus", "Saveની પુષ્ટિ થઈ નથી.", "err");
+    }
   } catch (e) {
     if (e.data && e.data.code === "AMBIGUOUS") {
       renderMatch({ status: "ambiguous", candidates: e.data.candidates || [] });
     }
     setStatus("scanStatus", e.message, "err");
+    showNotice("માહિતી Google Sheetમાં Save થઈ નથી.", "error");
   } finally {
     refreshSummary();
   }
@@ -547,7 +602,6 @@ function startNewStudent() {
   clearQueue();
   clearFields();
   $("matchBox").innerHTML = "";
-  $("selected").textContent = "";
   $("verify").textContent = "";
   $("progressWrap").hidden = true;
   $("progressBar").style.width = "0";
@@ -565,14 +619,21 @@ async function searchStudent() {
     const items = await apiFetch("/api/search?q=" + encodeURIComponent(q), {}, 20000);
     $("results").innerHTML = "";
     if (!items.length) {
-      $("results").innerHTML = '<p class="muted">કોઈ match મળ્યો નથી.</p>';
+      $("results").innerHTML = '<p class="muted">વિદ્યાર્થી મળ્યો નથી.</p>';
       return;
     }
     items.forEach(c => {
-      const d = document.createElement("div");
-      d.className = "result";
-      d.textContent = candidateText(c);
-      d.onclick = () => chooseCandidate(c);
+      const d = document.createElement("button");
+      d.type = "button";
+      d.className = "result result-btn";
+      d.innerHTML = "<b>" + escapeHtml(c.student_full_name || c.aadhaar_according_name || "વિદ્યાર્થી") + "</b>" +
+        "<small>" + escapeHtml(
+          "GR " + (c.gr_number || "-") +
+          " • PEN " + (c.pen_number || "-") +
+          " • CTS " + (c.cts_number || "-") +
+          " • DOB " + (c.dob || "-")
+        ) + "</small>";
+      d.onclick = () => loadStudentFromSearch(c);
       $("results").appendChild(d);
     });
   } catch (e) {
@@ -600,8 +661,17 @@ async function importMaster() {
   }
 }
 
+document.querySelectorAll(".task-panel").forEach(panel => {
+  panel.addEventListener("toggle", () => {
+    if (!panel.open) return;
+    document.querySelectorAll(".task-panel").forEach(other => {
+      if (other !== panel) other.open = false;
+    });
+  });
+});
+
 refreshSummary();
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/static/sw.js?v=6").catch(() => {});
+  navigator.serviceWorker.register("/static/sw.js?v=7").catch(() => {});
 }
