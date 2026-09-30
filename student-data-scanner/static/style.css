@@ -187,3 +187,19 @@ button:disabled{opacity:.46;cursor:not-allowed;box-shadow:none}
   .row-head{align-items:flex-start;flex-direction:column}
   .notice{right:10px;top:10px;max-width:calc(100vw - 20px)}
 }
+
+
+.filter-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:10px
+}
+.download-block{
+  margin-top:16px;padding-top:14px;border-top:1px solid #e8edf5
+}
+.download-block>label{margin-top:0}
+.download-btn{background:linear-gradient(135deg,#0d7f59,#22a873)}
+.enrollment-fields{
+  background:#f7f9fd;border:1px solid #e2e8f2;border-radius:14px;padding:10px
+}
+@media(max-width:680px){
+  .filter-grid{grid-template-columns:1fr}
+}
