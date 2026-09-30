@@ -108,12 +108,8 @@ def sanitize(data, allowed=None):
     elif abha:
         out["abha_number"] = ""
 
-    raw_phone = str(out["phone_number"] or "").strip()
-    phone = only_digits(raw_phone)
-    if raw_phone == "14":
-        out["phone_number"] = "14"
-    else:
-        out["phone_number"] = phone if (not phone or 10 <= len(phone) <= 13) else ""
+    phone = only_digits(out["phone_number"])
+    out["phone_number"] = phone if (not phone or 10 <= len(phone) <= 13) else ""
 
     ifsc = out["ifsc_code"].replace(" ", "").upper()
     out["ifsc_code"] = ifsc if (not ifsc or re.fullmatch(r"[A-Z]{4}0[A-Z0-9]{6}", ifsc)) else ""
