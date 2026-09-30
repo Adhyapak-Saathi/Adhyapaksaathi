@@ -1584,13 +1584,18 @@ def background_extended_qa():
         cleanup()
 
     boolean_checks = [v for v in results.values() if isinstance(v, bool)]
-    results["all_boolean_checks_pass"] = bool(boolean_checks) and all(boolean_checks)
+    has_errors = any(
+        key.endswith("_error") or key == "fatal_error"
+        for key in results
+    )
+    results["all_boolean_checks_pass"] = bool(boolean_checks) and all(boolean_checks) and not has_errors
     print("[EXTENDED_QA] " + json.dumps(results, ensure_ascii=False), flush=True)
 
 STARTUP_SMOKE = startup_smoke_test()
-threading.Thread(target=background_external_selftest, daemon=True).start()
 if os.getenv("RUN_EXTENDED_QA", "").strip() == "1":
     threading.Thread(target=background_extended_qa, daemon=True).start()
+else:
+    threading.Thread(target=background_external_selftest, daemon=True).start()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=False)
