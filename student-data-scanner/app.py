@@ -837,6 +837,7 @@ def upsert():
                 }), 409
 
         enrollment_changed = False
+        history_entries = []
         if target:
             old_enrollment = enrollment_tuple(target)
             incoming_enrollment = enrollment_tuple(incoming)
@@ -874,7 +875,7 @@ def upsert():
             if enrollment_changed and allow_enrollment_change:
                 old_record = dict(target)
                 old_record["academic_year"], old_record["standard"], old_record["division"], old_record["roll_number"] = old_enrollment
-                append_enrollment_history(old_record, "PROMOTED_FROM")
+                history_entries.append((old_record, "PROMOTED_FROM"))
 
             ws.update(
                 values=[record_values(merged)],
@@ -884,7 +885,9 @@ def upsert():
             action = "updated"
 
             if enrollment_changed and allow_enrollment_change:
-                append_enrollment_history(merged, "PROMOTED_TO")
+                history_entries.append((dict(merged), "PROMOTED_TO"))
+            elif enrollment_changed and not any(old_enrollment):
+                history_entries.append((dict(merged), "INITIAL"))
         else:
             merged, conflicts = merge_into({}, incoming, uncertain, source_doc)
             append_result = ws.append_row(record_values(merged), value_input_option="RAW")
@@ -893,7 +896,7 @@ def upsert():
             rownum = int(match_row.group(1)) if match_row else (len(records) + 2)
             action = "created"
             if any(enrollment_tuple(merged)):
-                append_enrollment_history(merged, "INITIAL")
+                history_entries.append((dict(merged), "INITIAL"))
 
         sheet_verified = verify_sheet_row(ws, rownum, merged)
         if not sheet_verified:
@@ -901,6 +904,15 @@ def upsert():
                 "error": "માહિતી લખવાની પ્રક્રિયા પૂર્ણ થઈ પરંતુ Google Sheetમાં તેની પુષ્ટિ થઈ શકી નથી.",
                 "code": "SAVE_NOT_CONFIRMED"
             }), 502
+
+        history_saved = True
+        if history_entries:
+            try:
+                for history_rec, history_action in history_entries:
+                    append_enrollment_history(history_rec, history_action)
+            except Exception as history_error:
+                history_saved = False
+                app.logger.exception("enrollment history save failed")
 
         invalidate_record_cache()
         return jsonify({
@@ -914,6 +926,7 @@ def upsert():
             "conflicts": conflicts,
             "sheet_synced": True,
             "enrollment_changed": enrollment_changed,
+            "history_saved": history_saved,
         })
     except ProviderBusy as e:
         return jsonify({"error": str(e), "code": "ENGLISH_CONVERSION_BUSY"}), 503
