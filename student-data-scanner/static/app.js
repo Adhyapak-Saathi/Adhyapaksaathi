@@ -75,8 +75,54 @@ async function loadFilterOptions() {
     fillSelect("downloadYear", x.academic_years || [], "બધા Academic Year");
     fillSelect("downloadStandard", x.standards || [], "બધા ધોરણ");
     fillSelect("downloadDivision", x.divisions || [], "બધા વર્ગ");
+    loadQualitySummary();
   } catch (_) {}
 }
+async function loadQualitySummary() {
+  const box = $("qualitySummary");
+  if (!box) return;
+
+  const params = new URLSearchParams();
+  const year = $("searchYear") ? $("searchYear").value : "";
+  const standard = $("searchStandard") ? $("searchStandard").value : "";
+  const division = $("searchDivision") ? $("searchDivision").value : "";
+  if (year) params.set("academic_year", year);
+  if (standard) params.set("standard", standard);
+  if (division) params.set("division", division);
+
+  try {
+    const x = await apiFetch("/api/quality-summary?" + params.toString(), {}, 15000);
+    box.hidden = false;
+    $("qualityTotal").textContent = String(x.total || 0);
+    $("qualityVerify").textContent = String(x.verify || 0);
+
+    const criticalKeys = ["roll_number","cts_number","pen_number","aadhaar_number"];
+    const criticalMissing = criticalKeys.reduce((n,k)=>n + Number((x.missing||{})[k] || 0), 0);
+    $("qualityMissing").textContent = String(criticalMissing);
+    $("qualityDuplicates").textContent = String(x.duplicate_roll_count || 0);
+
+    const lines = [];
+    const missing = x.missing || {};
+    const labels = x.missing_labels || {};
+    Object.keys(missing).forEach(k => {
+      if (Number(missing[k] || 0) > 0) {
+        lines.push((labels[k] || k) + ": " + missing[k] + " બાકી");
+      }
+    });
+
+    (x.duplicate_rolls || []).forEach(group => {
+      const people = (group.students || []).map(s =>
+        (s.student_full_name || "વિદ્યાર્થી") + " (GR " + (s.gr_number || "-") + ")"
+      ).join(" / ");
+      lines.push("Roll " + group.roll_number + " duplicate: " + people);
+    });
+
+    $("qualityDetails").textContent = lines.join("\n");
+  } catch (_) {
+    box.hidden = true;
+  }
+}
+
 
 function collect() {
   const out = {};
@@ -663,6 +709,7 @@ async function saveScan() {
       showNotice("Google Sheetમાં માહિતી સફળતાપૂર્વક Save થઈ.", "success");
       setStatus("scanStatus", msg, (x.conflicts && x.conflicts.length) ? "warn" : "ok");
       loadFilterOptions();
+      loadQualitySummary();
     } else {
       showNotice("Google Sheetમાં Saveની પુષ્ટિ થઈ નથી.", "error");
       setStatus("scanStatus", "Saveની પુષ્ટિ થઈ નથી.", "err");
@@ -671,8 +718,17 @@ async function saveScan() {
     if (e.data && e.data.code === "AMBIGUOUS") {
       renderMatch({ status: "ambiguous", candidates: e.data.candidates || [] });
     }
-    setStatus("scanStatus", e.message, "err");
-    showNotice("માહિતી Google Sheetમાં Save થઈ નથી.", "error");
+    if (e.data && e.data.code === "ROLL_CONFLICT") {
+      const c = e.data.conflict || {};
+      const extra = c.student_full_name
+        ? "\nRoll પહેલેથી: " + c.student_full_name + " (GR " + (c.gr_number || "-") + ")"
+        : "";
+      setStatus("scanStatus", e.message + extra, "err");
+      showNotice("Duplicate Roll Number મળ્યો. Save થયું નથી.", "error");
+    } else {
+      setStatus("scanStatus", e.message, "err");
+      showNotice("માહિતી Google Sheetમાં Save થઈ નથી.", "error");
+    }
   } finally {
     refreshSummary();
   }
@@ -774,10 +830,19 @@ async function importMaster() {
       "\nReview: " + (x.skipped_ambiguous + x.conflicts);
     setStatus("importStatus", msg, (x.skipped_ambiguous || x.conflicts) ? "warn" : "ok");
     loadFilterOptions();
+    loadQualitySummary();
   } catch (e) {
     setStatus("importStatus", e.message, "err");
   }
 }
+
+["searchYear","searchStandard","searchDivision"].forEach(id => {
+  const el = $(id);
+  if (el) el.addEventListener("change", () => {
+    loadQualitySummary();
+    $("results").innerHTML = "";
+  });
+});
 
 document.querySelectorAll(".task-panel").forEach(panel => {
   panel.addEventListener("toggle", () => {
@@ -790,7 +855,8 @@ document.querySelectorAll(".task-panel").forEach(panel => {
 
 refreshSummary();
 loadFilterOptions();
+loadQualitySummary();
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/static/sw.js?v=9").catch(() => {});
+  navigator.serviceWorker.register("/static/sw.js?v=10").catch(() => {});
 }
