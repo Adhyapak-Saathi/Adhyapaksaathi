@@ -9,6 +9,7 @@ let forceNew = false;
 let previewUrl = null;
 let processing = false;
 let matchBlocked = false;
+let originalEnrollment = null;
 
 const $ = id => document.getElementById(id);
 
@@ -28,6 +29,53 @@ function showNotice(message, type) {
   showNotice._timer = setTimeout(() => {
     el.className = "notice";
   }, 5000);
+}
+
+function enrollmentFromData(data) {
+  return {
+    academic_year: String((data && data.academic_year) || ""),
+    standard: String((data && data.standard) || ""),
+    division: String((data && data.division) || ""),
+    roll_number: String((data && data.roll_number) || "")
+  };
+}
+
+function enrollmentChanged(data) {
+  if (!originalEnrollment) return false;
+  const now = enrollmentFromData(data);
+  return ["academic_year","standard","division","roll_number"].some(
+    k => String(now[k] || "") !== String(originalEnrollment[k] || "")
+  );
+}
+
+function fillSelect(id, values, firstLabel) {
+  const el = $(id);
+  if (!el) return;
+  const current = el.value;
+  el.innerHTML = "";
+  const first = document.createElement("option");
+  first.value = "";
+  first.textContent = firstLabel;
+  el.appendChild(first);
+  (values || []).forEach(v => {
+    const opt = document.createElement("option");
+    opt.value = String(v);
+    opt.textContent = String(v);
+    el.appendChild(opt);
+  });
+  if ([...el.options].some(o => o.value === current)) el.value = current;
+}
+
+async function loadFilterOptions() {
+  try {
+    const x = await apiFetch("/api/filter-options", {}, 15000);
+    fillSelect("searchYear", x.academic_years || [], "બધા Academic Year");
+    fillSelect("searchStandard", x.standards || [], "બધા ધોરણ");
+    fillSelect("searchDivision", x.divisions || [], "બધા વર્ગ");
+    fillSelect("downloadYear", x.academic_years || [], "બધા Academic Year");
+    fillSelect("downloadStandard", x.standards || [], "બધા ધોરણ");
+    fillSelect("downloadDivision", x.divisions || [], "બધા વર્ગ");
+  } catch (_) {}
 }
 
 function collect() {
@@ -145,6 +193,7 @@ async function loadStudentFromSearch(candidate) {
     const record = await apiFetch("/api/student/" + encodeURIComponent(candidate.row), {}, 20000);
     clearQueue();
     fillExistingRecord(record.data || {});
+    originalEnrollment = enrollmentFromData(record.data || {});
     targetRow = record.row;
     forceNew = false;
     matchBlocked = false;
@@ -533,6 +582,23 @@ FIELD_KEYS.forEach(k => {
   });
 });
 
+async function savePayload(allowEnrollmentChange) {
+  const data = collect();
+  const x = await apiFetch("/api/upsert", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      data,
+      uncertain_fields: Array.from(cumulativeUncertain),
+      document_types: Array.from(documentTypes),
+      target_row: targetRow,
+      force_new: forceNew,
+      allow_enrollment_change: !!allowEnrollmentChange
+    })
+  }, 35000);
+  return x;
+}
+
 async function saveScan() {
   const data = collect();
   if (!FIELD_KEYS.some(k => data[k])) {
@@ -544,33 +610,55 @@ async function saveScan() {
   setStatus("scanStatus", "માહિતી save થઈ રહી છે...", "busy");
 
   try {
-    const x = await apiFetch("/api/upsert", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        data,
-        uncertain_fields: Array.from(cumulativeUncertain),
-        document_types: Array.from(documentTypes),
-        target_row: targetRow,
-        force_new: forceNew
-      })
-    }, 35000);
+    let allowEnrollmentChange = false;
+
+    if (targetRow && enrollmentChanged(data)) {
+      allowEnrollmentChange = confirm(
+        "Academic Year / Standard / Division / Roll Number બદલાયું છે.\n\nઆને Promotion / Class Change તરીકે Save કરવું છે?"
+      );
+      if (!allowEnrollmentChange) {
+        setStatus("scanStatus", "Promotion/Class Change cancel કર્યું.", "warn");
+        refreshSummary();
+        return;
+      }
+    }
+
+    let x;
+    try {
+      x = await savePayload(allowEnrollmentChange);
+    } catch (e) {
+      if (e.data && e.data.code === "PROMOTION_CONFIRM_REQUIRED") {
+        const ok = confirm(
+          "આ વિદ્યાર્થીનું ધોરણ/વર્ગ/Academic Year બદલાઈ રહ્યું છે.\nજૂની enrollment history સાચવીને આગળ વધવું છે?"
+        );
+        if (!ok) throw e;
+        x = await savePayload(true);
+      } else {
+        throw e;
+      }
+    }
 
     let msg = x.action === "created"
       ? "નવી વિદ્યાર્થી માહિતી save થઈ."
       : "વિદ્યાર્થી માહિતી update થઈ.";
-    msg += x.status === "VERIFY" ? "\nકેટલીક માહિતી ચકાસવી જરૂરી છે." : "";
+
+    if (x.enrollment_changed) msg += "\nPromotion/Class Change historyમાં નોંધાયું.";
+    if (x.status === "VERIFY") msg += "\nકેટલીક માહિતી ચકાસવી જરૂરી છે.";
     if (x.conflicts && x.conflicts.length) {
       msg += "\n" + x.conflicts.length + " માહિતીમાં ફરક મળ્યો.";
     }
 
     targetRow = x.row;
     forceNew = false;
+
     if (x.sheet_verified === true) {
-      if (x.saved_data) fillExistingRecord(x.saved_data);
-      targetRow = x.row;
+      if (x.saved_data) {
+        fillExistingRecord(x.saved_data);
+        originalEnrollment = enrollmentFromData(x.saved_data);
+      }
       showNotice("Google Sheetમાં માહિતી સફળતાપૂર્વક Save થઈ.", "success");
       setStatus("scanStatus", msg, (x.conflicts && x.conflicts.length) ? "warn" : "ok");
+      loadFilterOptions();
     } else {
       showNotice("Google Sheetમાં Saveની પુષ્ટિ થઈ નથી.", "error");
       setStatus("scanStatus", "Saveની પુષ્ટિ થઈ નથી.", "err");
@@ -601,6 +689,7 @@ function startNewStudent() {
   forceNew = false;
   processing = false;
   matchBlocked = false;
+  originalEnrollment = null;
 
   clearQueue();
   clearFields();
@@ -615,11 +704,20 @@ function startNewStudent() {
 
 async function searchStudent() {
   const q = $("q").value.trim();
-  if (!q) return;
+  const year = $("searchYear").value;
+  const standard = $("searchStandard").value;
+  const division = $("searchDivision").value;
+  if (!q && !year && !standard && !division) return;
+
   $("results").innerHTML = '<p class="muted">શોધી રહ્યું છે...</p>';
 
   try {
-    const items = await apiFetch("/api/search?q=" + encodeURIComponent(q), {}, 20000);
+    const params = new URLSearchParams();
+    if (q) params.set("q", q);
+    if (year) params.set("academic_year", year);
+    if (standard) params.set("standard", standard);
+    if (division) params.set("division", division);
+    const items = await apiFetch("/api/search?" + params.toString(), {}, 20000);
     $("results").innerHTML = "";
     if (!items.length) {
       $("results").innerHTML = '<p class="muted">વિદ્યાર્થી મળ્યો નથી.</p>';
@@ -631,9 +729,9 @@ async function searchStudent() {
       d.className = "result result-btn";
       d.innerHTML = "<b>" + escapeHtml(c.student_full_name || c.aadhaar_according_name || "વિદ્યાર્થી") + "</b>" +
         "<small>" + escapeHtml(
-          "GR " + (c.gr_number || "-") +
+          (c.academic_year || "-") + " • Std " + (c.standard || "-") + "-" + (c.division || "-") +
+          " • GR " + (c.gr_number || "-") +
           " • PEN " + (c.pen_number || "-") +
-          " • CTS " + (c.cts_number || "-") +
           " • DOB " + (c.dob || "-")
         ) + "</small>";
       d.onclick = () => loadStudentFromSearch(c);
@@ -642,6 +740,18 @@ async function searchStudent() {
   } catch (e) {
     $("results").innerHTML = '<p class="errorText">' + escapeHtml(e.message) + "</p>";
   }
+}
+
+function downloadData() {
+  const params = new URLSearchParams();
+  const year = $("downloadYear").value;
+  const standard = $("downloadStandard").value;
+  const division = $("downloadDivision").value;
+  if (year) params.set("academic_year", year);
+  if (standard) params.set("standard", standard);
+  if (division) params.set("division", division);
+  const suffix = params.toString() ? "?" + params.toString() : "";
+  window.location.href = "/api/export.xlsx" + suffix;
 }
 
 async function importMaster() {
@@ -659,6 +769,7 @@ async function importMaster() {
       "\nUpdate: " + x.updated +
       "\nReview: " + (x.skipped_ambiguous + x.conflicts);
     setStatus("importStatus", msg, (x.skipped_ambiguous || x.conflicts) ? "warn" : "ok");
+    loadFilterOptions();
   } catch (e) {
     setStatus("importStatus", e.message, "err");
   }
@@ -674,7 +785,8 @@ document.querySelectorAll(".task-panel").forEach(panel => {
 });
 
 refreshSummary();
+loadFilterOptions();
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/static/sw.js?v=8").catch(() => {});
+  navigator.serviceWorker.register("/static/sw.js?v=9").catch(() => {});
 }
