@@ -1551,7 +1551,29 @@ def background_extended_qa():
             else:
                 results["partial_merge_preserved"] = False
 
-            # 4) Search/filter behavior.
+            # 4) Duplicate roll must be blocked within the same class.
+            roll_conflict_payload = {
+                "data": {
+                    "academic_year": "2026-27",
+                    "standard": "10",
+                    "division": "C",
+                    "roll_number": "98",
+                    "gr_number": qa_gr + "-OTHER",
+                    "pen_number": "8" + stamp[-10:],
+                    "student_full_name": "QA Other Student",
+                    "dob": "02-02-2011"
+                },
+                "document_types": ["FORM"],
+                "uncertain_fields": []
+            }
+            roll_conflict = client.post("/api/upsert", json=roll_conflict_payload)
+            roll_conflict_json = roll_conflict.get_json() or {}
+            results["duplicate_roll_blocked"] = bool(
+                roll_conflict.status_code == 409
+                and roll_conflict_json.get("code") == "ROLL_CONFLICT"
+            )
+
+            # 5) Search/filter behavior.
             good_search = client.get(
                 "/api/search",
                 query_string={
@@ -1582,7 +1604,7 @@ def background_extended_qa():
                 wrong_search.status_code == 200 and len(wrong_items) == 0
             )
 
-            # 5) Full record endpoint should expose the merged record.
+            # 6) Full record endpoint should expose the merged record.
             if first_row:
                 full = client.get(f"/api/student/{first_row}")
                 full_json = full.get_json() or {}
@@ -1598,7 +1620,7 @@ def background_extended_qa():
             else:
                 results["full_record_load"] = False
 
-            # 6) Filtered Excel download.
+            # 7) Filtered Excel download.
             export = client.get(
                 "/api/export.xlsx",
                 query_string={
@@ -1613,7 +1635,7 @@ def background_extended_qa():
                 and len(export.data or b"") > 500
             )
 
-            # 7) Promotion must require confirmation.
+            # 8) Promotion must require confirmation.
             promo_payload = {
                 "data": {
                     "gr_number": qa_gr,
@@ -1643,7 +1665,7 @@ def background_extended_qa():
                 and promo_json.get("history_saved")
             )
 
-            # 8) Verify current enrollment and preserved history.
+            # 9) Verify current enrollment and preserved history.
             ws, records = read_records()
             qa_records = [r for r in records if str(r.get("gr_number", "")).strip() == qa_gr]
             results["promoted_master_current"] = bool(
@@ -1664,7 +1686,7 @@ def background_extended_qa():
             results["history_promoted_from"] = "PROMOTED_FROM" in actions
             results["history_promoted_to"] = "PROMOTED_TO" in actions
 
-            # 9) Search should now move with current class.
+            # 10) Search should now move with current class.
             old_class = client.get(
                 "/api/search",
                 query_string={
