@@ -49,6 +49,7 @@ LABEL_TO_KEY = {label: key for key, label in FIELDS}
 ALL_KEYS = [key for key, _ in FIELDS]
 
 _RECORD_CACHE = {"ts": 0.0, "records": []}
+_GSHEET_CACHE = {"ss": None, "main_ws": None, "history_ws": None}
 _CACHE_LOCK = threading.Lock()
 
 DOC_ALLOWED = {
@@ -133,6 +134,12 @@ def sanitize(data, allowed=None):
 def sheet_client():
     if gspread is None or Credentials is None:
         raise SheetConfigError("Google Sheets library ઉપલબ્ધ નથી.")
+
+    with _CACHE_LOCK:
+        cached = _GSHEET_CACHE.get("ss")
+    if cached is not None:
+        return cached
+
     raw = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
     sid = os.getenv("GOOGLE_SHEET_ID", "").strip()
     if not raw or not sid:
@@ -147,15 +154,27 @@ def sheet_client():
     creds = Credentials.from_service_account_info(
         info, scopes=["https://www.googleapis.com/auth/spreadsheets"]
     )
-    return gspread.authorize(creds).open_by_key(sid)
+    ss = gspread.authorize(creds).open_by_key(sid)
+    with _CACHE_LOCK:
+        _GSHEET_CACHE["ss"] = ss
+    return ss
 
 def get_ws():
+    with _CACHE_LOCK:
+        cached = _GSHEET_CACHE.get("main_ws")
+    if cached is not None:
+        return cached
+
     ss = sheet_client()
     tab = os.getenv("GOOGLE_SHEET_TAB", "Student_Master").strip() or "Student_Master"
     try:
-        return ss.worksheet(tab)
-    except Exception as e:
+        ws = ss.worksheet(tab)
+    except gspread.exceptions.WorksheetNotFound as e:
         raise SheetConfigError(f'Google Sheet tab "{tab}" મળ્યો નથી.') from e
+
+    with _CACHE_LOCK:
+        _GSHEET_CACHE["main_ws"] = ws
+    return ws
 
 def ensure_sheet_schema(ws):
     current = ws.row_values(1)
@@ -173,14 +192,23 @@ HISTORY_HEADERS = [
 ]
 
 def get_history_ws():
+    with _CACHE_LOCK:
+        cached = _GSHEET_CACHE.get("history_ws")
+    if cached is not None:
+        return cached
+
     ss = sheet_client()
     try:
         ws = ss.worksheet("Enrollment_History")
-    except Exception:
+    except gspread.exceptions.WorksheetNotFound:
         ws = ss.add_worksheet(title="Enrollment_History", rows=2000, cols=len(HISTORY_HEADERS))
+
     current = ws.row_values(1)
     if current[:len(HISTORY_HEADERS)] != HISTORY_HEADERS:
         ws.update(values=[HISTORY_HEADERS], range_name="A1", value_input_option="RAW")
+
+    with _CACHE_LOCK:
+        _GSHEET_CACHE["history_ws"] = ws
     return ws
 
 def append_enrollment_history(rec, action):
