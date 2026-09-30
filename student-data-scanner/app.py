@@ -1299,8 +1299,270 @@ def background_external_selftest():
 
     print("[EXTERNAL_SELFTEST] " + json.dumps(results, ensure_ascii=False), flush=True)
 
+
+def background_extended_qa():
+    if os.getenv("RUN_EXTENDED_QA", "").strip() != "1":
+        return
+
+    time.sleep(12)
+    results = {}
+    stamp = str(int(time.time()))
+    qa_gr = "QA-" + stamp
+    qa_pen = "9" + stamp[-10:]
+    qa_cts = "24" + stamp[-16:]
+    qa_aadhaar = ("7" + stamp * 2)[:12]
+
+    def cleanup():
+        try:
+            ws, _ = read_records()
+            values = ws.get_all_values()
+            rows = []
+            for idx, row in enumerate(values[1:], start=2):
+                if len(row) > 4 and str(row[4]).strip() == qa_gr:
+                    rows.append(idx)
+            for rownum in reversed(rows):
+                ws.delete_rows(rownum)
+            invalidate_record_cache()
+        except Exception as e:
+            results["cleanup_master_error"] = str(e)
+
+        try:
+            hws = get_history_ws()
+            values = hws.get_all_values()
+            rows = []
+            for idx, row in enumerate(values[1:], start=2):
+                if len(row) > 1 and str(row[1]).strip() == qa_gr:
+                    rows.append(idx)
+            for rownum in reversed(rows):
+                hws.delete_rows(rownum)
+        except Exception as e:
+            results["cleanup_history_error"] = str(e)
+
+    try:
+        cleanup()
+
+        with app.test_client() as client:
+            # 1) Partial first save.
+            first_payload = {
+                "data": {
+                    "academic_year": "2026-27",
+                    "standard": "10",
+                    "division": "C",
+                    "roll_number": "98",
+                    "gr_number": qa_gr,
+                    "pen_number": qa_pen,
+                    "student_full_name": "QA Test Student",
+                    "dob": "01-01-2011"
+                },
+                "document_types": ["FORM"],
+                "uncertain_fields": []
+            }
+            r1 = client.post("/api/upsert", json=first_payload)
+            j1 = r1.get_json() or {}
+            results["partial_save_http"] = r1.status_code
+            results["partial_save_ok"] = bool(
+                r1.status_code == 200
+                and j1.get("ok")
+                and j1.get("sheet_verified")
+                and j1.get("action") == "created"
+            )
+            first_row = j1.get("row")
+
+            # 2) Same student, second partial save without explicit target row.
+            second_payload = {
+                "data": {
+                    "gr_number": qa_gr,
+                    "cts_number": qa_cts,
+                    "aadhaar_number": qa_aadhaar,
+                    "father_name": "Test Father",
+                    "phone_number": "9876543210"
+                },
+                "document_types": ["SCHOOL_RECORD", "AADHAAR_CARD"],
+                "uncertain_fields": []
+            }
+            r2 = client.post("/api/upsert", json=second_payload)
+            j2 = r2.get_json() or {}
+            results["second_partial_http"] = r2.status_code
+            results["same_row_updated"] = bool(
+                r2.status_code == 200
+                and j2.get("ok")
+                and j2.get("sheet_verified")
+                and j2.get("action") == "updated"
+                and j2.get("row") == first_row
+            )
+
+            # 3) Verify no duplicate and both old+new fields coexist.
+            ws, records = read_records()
+            qa_records = [r for r in records if str(r.get("gr_number", "")).strip() == qa_gr]
+            results["no_duplicate_row"] = len(qa_records) == 1
+            if qa_records:
+                rec = qa_records[0]
+                results["partial_merge_preserved"] = bool(
+                    rec.get("student_full_name") == "QA Test Student"
+                    and rec.get("dob") == "01-01-2011"
+                    and rec.get("cts_number") == qa_cts
+                    and rec.get("aadhaar_number") == qa_aadhaar
+                    and rec.get("father_name") == "Test Father"
+                    and rec.get("phone_number") == "9876543210"
+                    and rec.get("academic_year") == "2026-27"
+                    and rec.get("standard") == "10"
+                    and rec.get("division") == "C"
+                )
+            else:
+                results["partial_merge_preserved"] = False
+
+            # 4) Search/filter behavior.
+            good_search = client.get(
+                "/api/search",
+                query_string={
+                    "q": qa_gr,
+                    "academic_year": "2026-27",
+                    "standard": "10",
+                    "division": "C"
+                }
+            )
+            good_items = good_search.get_json() or []
+            results["class_filtered_search"] = bool(
+                good_search.status_code == 200
+                and len(good_items) == 1
+                and good_items[0].get("gr_number") == qa_gr
+            )
+
+            wrong_search = client.get(
+                "/api/search",
+                query_string={
+                    "q": qa_gr,
+                    "academic_year": "2026-27",
+                    "standard": "9",
+                    "division": "A"
+                }
+            )
+            wrong_items = wrong_search.get_json() or []
+            results["wrong_class_excluded"] = bool(
+                wrong_search.status_code == 200 and len(wrong_items) == 0
+            )
+
+            # 5) Full record endpoint should expose the merged record.
+            if first_row:
+                full = client.get(f"/api/student/{first_row}")
+                full_json = full.get_json() or {}
+                full_data = full_json.get("data") or {}
+                results["full_record_load"] = bool(
+                    full.status_code == 200
+                    and full_data.get("gr_number") == qa_gr
+                    and full_data.get("phone_number") == "9876543210"
+                    and full_data.get("academic_year") == "2026-27"
+                    and full_data.get("standard") == "10"
+                    and full_data.get("division") == "C"
+                )
+            else:
+                results["full_record_load"] = False
+
+            # 6) Filtered Excel download.
+            export = client.get(
+                "/api/export.xlsx",
+                query_string={
+                    "academic_year": "2026-27",
+                    "standard": "10",
+                    "division": "C"
+                }
+            )
+            results["class_filtered_export"] = bool(
+                export.status_code == 200
+                and "spreadsheetml" in str(export.content_type or "")
+                and len(export.data or b"") > 500
+            )
+
+            # 7) Promotion must require confirmation.
+            promo_payload = {
+                "data": {
+                    "gr_number": qa_gr,
+                    "academic_year": "2027-28",
+                    "standard": "11",
+                    "division": "A",
+                    "roll_number": "12"
+                },
+                "document_types": ["FORM"],
+                "uncertain_fields": []
+            }
+            promo_block = client.post("/api/upsert", json=promo_payload)
+            promo_block_json = promo_block.get_json() or {}
+            results["promotion_confirmation_required"] = bool(
+                promo_block.status_code == 409
+                and promo_block_json.get("code") == "PROMOTION_CONFIRM_REQUIRED"
+            )
+
+            promo_payload["allow_enrollment_change"] = True
+            promo = client.post("/api/upsert", json=promo_payload)
+            promo_json = promo.get_json() or {}
+            results["promotion_save_ok"] = bool(
+                promo.status_code == 200
+                and promo_json.get("ok")
+                and promo_json.get("sheet_verified")
+                and promo_json.get("enrollment_changed")
+                and promo_json.get("history_saved")
+            )
+
+            # 8) Verify current enrollment and preserved history.
+            ws, records = read_records()
+            qa_records = [r for r in records if str(r.get("gr_number", "")).strip() == qa_gr]
+            results["promoted_master_current"] = bool(
+                len(qa_records) == 1
+                and qa_records[0].get("academic_year") == "2027-28"
+                and qa_records[0].get("standard") == "11"
+                and qa_records[0].get("division") == "A"
+                and qa_records[0].get("roll_number") == "12"
+            )
+
+            hws = get_history_ws()
+            hvals = hws.get_all_values()
+            actions = [
+                row[9] for row in hvals[1:]
+                if len(row) > 9 and str(row[1]).strip() == qa_gr
+            ]
+            results["history_initial"] = "INITIAL" in actions
+            results["history_promoted_from"] = "PROMOTED_FROM" in actions
+            results["history_promoted_to"] = "PROMOTED_TO" in actions
+
+            # 9) Search should now move with current class.
+            old_class = client.get(
+                "/api/search",
+                query_string={
+                    "q": qa_gr,
+                    "academic_year": "2026-27",
+                    "standard": "10",
+                    "division": "C"
+                }
+            ).get_json() or []
+            new_class = client.get(
+                "/api/search",
+                query_string={
+                    "q": qa_gr,
+                    "academic_year": "2027-28",
+                    "standard": "11",
+                    "division": "A"
+                }
+            ).get_json() or []
+            results["current_class_search_moves"] = bool(
+                len(old_class) == 0
+                and len(new_class) == 1
+                and new_class[0].get("gr_number") == qa_gr
+            )
+
+    except Exception as e:
+        results["fatal_error"] = str(e)
+        app.logger.exception("extended qa failed")
+    finally:
+        cleanup()
+
+    boolean_checks = [v for v in results.values() if isinstance(v, bool)]
+    results["all_boolean_checks_pass"] = bool(boolean_checks) and all(boolean_checks)
+    print("[EXTENDED_QA] " + json.dumps(results, ensure_ascii=False), flush=True)
+
 STARTUP_SMOKE = startup_smoke_test()
 threading.Thread(target=background_external_selftest, daemon=True).start()
+if os.getenv("RUN_EXTENDED_QA", "").strip() == "1":
+    threading.Thread(target=background_extended_qa, daemon=True).start()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=False)
