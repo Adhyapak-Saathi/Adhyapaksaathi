@@ -108,8 +108,12 @@ def sanitize(data, allowed=None):
     elif abha:
         out["abha_number"] = ""
 
-    phone = only_digits(out["phone_number"])
-    out["phone_number"] = phone if (not phone or 10 <= len(phone) <= 13) else ""
+    raw_phone = str(out["phone_number"] or "").strip()
+    phone = only_digits(raw_phone)
+    if raw_phone == "14":
+        out["phone_number"] = "14"
+    else:
+        out["phone_number"] = phone if (not phone or 10 <= len(phone) <= 13) else ""
 
     ifsc = out["ifsc_code"].replace(" ", "").upper()
     out["ifsc_code"] = ifsc if (not ifsc or re.fullmatch(r"[A-Z]{4}0[A-Z0-9]{6}", ifsc)) else ""
@@ -408,7 +412,9 @@ Critical rules:
 - On an ABHA card, ABHA Address is NOT a residential postal address; ignore it because this app has no ABHA Address field.
 - Never infer father, mother, caste/sub-caste, Aadhaar, bank data, phone, or address from a person's name.
 - Bank account holder name belongs only in bank_account_name, not student_full_name unless the document explicitly labels the person as the student.
-- Return all textual values in English script. Transliterate personal/place/proper names into natural English spelling; translate ordinary address/descriptive words into English. Never translate or alter identifiers, account numbers, dates, phone numbers or IFSC codes.
+- Return person/parent/bank names in English script by faithful transliteration.
+- Keep address and sub_caste exactly in the original document language/script. If the source is Gujarati, preserve Gujarati text.
+- Never translate or alter identifiers, account numbers, dates, phone numbers or IFSC codes.
 - Dates must be DD-MM-YYYY only when a complete date is clear.
 - If a field is NOT present on the document, return an empty string and DO NOT add it to uncertain_fields.
 - Add a field to uncertain_fields only when that field is visibly present but its value is unreadable, ambiguous, cropped, or genuinely uncertain.
@@ -556,7 +562,7 @@ def extract_document_data(file_bytes, mime_type, selected_doc):
 
 ENGLISH_TEXT_KEYS = {
     "aadhaar_according_name", "student_full_name", "mother_name", "father_name",
-    "address", "sub_caste", "bank_account_name", "bank_branch", "bank_name"
+    "bank_account_name", "bank_branch", "bank_name"
 }
 
 def has_non_english_letters(value):
@@ -585,8 +591,8 @@ def convert_record_to_english(data):
     }
     prompt = """Convert the supplied student-record text values to English script only.
 Rules:
-- Personal, parent, caste, bank and place names: transliterate faithfully; do not invent or expand names.
-- Address/descriptive words: translate to clear English while preserving all place names, house numbers, PIN codes and numbers.
+- Personal, parent, bank and institution names: transliterate faithfully; do not invent or expand names.
+- Do not process address or sub-caste in this conversion step; those fields are intentionally preserved in their source language.
 - Preserve meaning and spelling as closely as possible.
 - Return only the requested JSON fields, no notes.
 Input:
@@ -1424,14 +1430,20 @@ def background_external_selftest():
     try:
         converted, changed = convert_record_to_english({
             "student_full_name": "ઠાકોર ચંદ્રિકાબેન",
-            "address": "અમદાવાદ ગુજરાત"
+            "father_name": "શશીકાન્તભાઈ",
+            "address": "અમદાવાદ ગુજરાત",
+            "sub_caste": "ઠાકોર"
         })
         results["english_conversion"] = bool(
             changed
             and converted.get("student_full_name")
-            and converted.get("address")
+            and converted.get("father_name")
             and not has_non_english_letters(converted.get("student_full_name"))
-            and not has_non_english_letters(converted.get("address"))
+            and not has_non_english_letters(converted.get("father_name"))
+        )
+        results["gujarati_address_caste_preserved"] = bool(
+            converted.get("address") == "અમદાવાદ ગુજરાત"
+            and converted.get("sub_caste") == "ઠાકોર"
         )
     except Exception as e:
         results["english_conversion"] = False
