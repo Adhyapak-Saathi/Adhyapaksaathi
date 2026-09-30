@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#2457d6">
   <link rel="manifest" href="/static/manifest.json">
-  <link rel="stylesheet" href="/static/style.css?v=20260929-8">
+  <link rel="stylesheet" href="/static/style.css?v=20260930-1">
   <title>Student Record Capture</title>
 </head>
 <body>
@@ -26,6 +26,11 @@
       <span class="menu-arrow">⌄</span>
     </summary>
     <div class="task-body">
+      <div class="filter-grid">
+        <select id="searchYear"><option value="">બધા Academic Year</option></select>
+        <select id="searchStandard"><option value="">બધા ધોરણ</option></select>
+        <select id="searchDivision"><option value="">બધા વર્ગ</option></select>
+      </div>
       <div class="searchline">
         <input id="q" placeholder="GR / PEN / CTS / Aadhaar / નામ">
         <button onclick="searchStudent()">શોધો</button>
@@ -110,7 +115,24 @@
           {% for key,label in fields %}
           <div class="field {% if key == 'address' %}wide{% endif %}" id="wrap_{{key}}">
             <label>{{label}}</label>
-            {% if key == 'address' %}
+            {% if key == 'standard' %}
+              <select id="f_{{key}}">
+                <option value="">Select Standard</option>
+                {% for n in range(1,13) %}<option value="{{n}}">{{n}}</option>{% endfor %}
+              </select>
+            {% elif key == 'division' %}
+              <select id="f_{{key}}">
+                <option value="">Select Division</option>
+                {% for d in ['A','B','C','D','E','F','G','H'] %}<option value="{{d}}">{{d}}</option>{% endfor %}
+              </select>
+            {% elif key == 'academic_year' %}
+              <select id="f_{{key}}">
+                <option value="">Select Academic Year</option>
+                <option value="2025-26">2025-26</option>
+                <option value="2026-27">2026-27</option>
+                <option value="2027-28">2027-28</option>
+              </select>
+            {% elif key == 'address' %}
               <textarea id="f_{{key}}" autocomplete="off"></textarea>
             {% else %}
               <input id="f_{{key}}" autocomplete="off">
@@ -137,7 +159,16 @@
     <div class="task-body">
       <input id="masterFile" type="file" accept=".xlsx,.xls,.csv">
       <button onclick="importMaster()">Upload Excel / CSV</button>
-      <a class="linkbtn" href="/api/export.xlsx">Download Current Data</a>
+
+      <div class="download-block">
+        <label>Download Filter</label>
+        <div class="filter-grid">
+          <select id="downloadYear"><option value="">બધા Academic Year</option></select>
+          <select id="downloadStandard"><option value="">બધા ધોરણ</option></select>
+          <select id="downloadDivision"><option value="">બધા વર્ગ</option></select>
+        </div>
+        <button class="download-btn" onclick="downloadData()">Download Excel</button>
+      </div>
       <div id="importStatus" class="status"></div>
     </div>
   </details>
@@ -149,6 +180,6 @@
   window.FIELD_KEYS={{ fields|map(attribute=0)|list|tojson }};
   window.FIELD_LABELS={{ dict(fields)|tojson }};
 </script>
-<script src="/static/app.js?v=20260929-8"></script>
+<script src="/static/app.js?v=20260930-1"></script>
 </body>
 </html>
