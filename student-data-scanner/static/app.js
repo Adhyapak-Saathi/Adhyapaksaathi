@@ -642,7 +642,11 @@ async function saveScan() {
       ? "નવી વિદ્યાર્થી માહિતી save થઈ."
       : "વિદ્યાર્થી માહિતી update થઈ.";
 
-    if (x.enrollment_changed) msg += "\nPromotion/Class Change historyમાં નોંધાયું.";
+    if (x.enrollment_changed) {
+      msg += x.history_saved === false
+        ? "\nPromotion/Class Change save થયું, પરંતુ history નોંધ ચકાસવી જરૂરી છે."
+        : "\nPromotion/Class Change historyમાં નોંધાયું.";
+    }
     if (x.status === "VERIFY") msg += "\nકેટલીક માહિતી ચકાસવી જરૂરી છે.";
     if (x.conflicts && x.conflicts.length) {
       msg += "\n" + x.conflicts.length + " માહિતીમાં ફરક મળ્યો.";
