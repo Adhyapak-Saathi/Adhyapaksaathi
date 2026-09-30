@@ -313,6 +313,26 @@ def score_match(scan, rec):
         score += 70
     return score
 
+def find_class_roll_conflict(records, academic_year, standard, division, roll_number, exclude_row=None):
+    academic_year = str(academic_year or "").strip()
+    standard = str(standard or "").strip()
+    division = str(division or "").strip().upper()
+    roll_number = str(roll_number or "").strip()
+    if not all([academic_year, standard, division, roll_number]):
+        return None
+
+    for rec in records:
+        if exclude_row and int(rec.get("_row", 0) or 0) == int(exclude_row):
+            continue
+        if (
+            str(rec.get("academic_year", "")).strip() == academic_year
+            and str(rec.get("standard", "")).strip() == standard
+            and str(rec.get("division", "")).strip().upper() == division
+            and str(rec.get("roll_number", "")).strip() == roll_number
+        ):
+            return candidate_summary(rec)
+    return None
+
 def match_records(scan, records):
     scored = []
     for rec in records:
@@ -390,6 +410,8 @@ Critical rules:
 - Bank account holder name belongs only in bank_account_name, not student_full_name unless the document explicitly labels the person as the student.
 - Return all textual values in English script. Transliterate personal/place/proper names into natural English spelling; translate ordinary address/descriptive words into English. Never translate or alter identifiers, account numbers, dates, phone numbers or IFSC codes.
 - Dates must be DD-MM-YYYY only when a complete date is clear.
+- If a field is NOT present on the document, return an empty string and DO NOT add it to uncertain_fields.
+- Add a field to uncertain_fields only when that field is visibly present but its value is unreadable, ambiguous, cropped, or genuinely uncertain.
 - If a field is unclear, return an empty string and add that field key to uncertain_fields.
 - If selected type is not AUTO, document_type must reflect the real document but do not extract fields outside the allowed list.
 - When multiple page images are supplied, they are pages of ONE PDF in page order. Read all pages together as one document.
@@ -759,6 +781,72 @@ def search():
             break
     return jsonify(out)
 
+@app.route("/api/quality-summary")
+def quality_summary():
+    year_filter = str(request.args.get("academic_year", "") or "").strip()
+    standard_filter = str(request.args.get("standard", "") or "").strip()
+    division_filter = str(request.args.get("division", "") or "").strip().upper()
+    try:
+        records = cached_records()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 503
+
+    filtered = []
+    for rec in records:
+        if year_filter and str(rec.get("academic_year","")).strip() != year_filter:
+            continue
+        if standard_filter and str(rec.get("standard","")).strip() != standard_filter:
+            continue
+        if division_filter and str(rec.get("division","")).strip().upper() != division_filter:
+            continue
+        filtered.append(rec)
+
+    missing_keys = {
+        "roll_number": "Roll",
+        "cts_number": "CTS",
+        "pen_number": "PEN",
+        "aadhaar_number": "Aadhaar",
+        "aadhaar_according_name": "Aadhaar Name",
+        "mother_name": "Mother Name",
+        "abha_number": "ABHA",
+        "apaar_number": "APAAR",
+    }
+    missing = {
+        key: sum(1 for rec in filtered if not str(rec.get(key, "") or "").strip())
+        for key in missing_keys
+    }
+
+    roll_map = {}
+    for rec in filtered:
+        roll = str(rec.get("roll_number", "") or "").strip()
+        if not roll:
+            continue
+        roll_map.setdefault(roll, []).append(rec)
+
+    duplicate_rolls = []
+    for roll, items in roll_map.items():
+        if len(items) > 1:
+            duplicate_rolls.append({
+                "roll_number": roll,
+                "students": [
+                    {
+                        "row": rec.get("_row"),
+                        "gr_number": rec.get("gr_number", ""),
+                        "student_full_name": rec.get("student_full_name", ""),
+                    }
+                    for rec in items
+                ],
+            })
+
+    return jsonify({
+        "total": len(filtered),
+        "verify": sum(1 for rec in filtered if str(rec.get("verification_status", "")).upper() == "VERIFY"),
+        "missing": missing,
+        "missing_labels": missing_keys,
+        "duplicate_rolls": duplicate_rolls,
+        "duplicate_roll_count": len(duplicate_rolls),
+    })
+
 @app.route("/api/student/<int:rownum>")
 def student_record(rownum):
     try:
@@ -876,6 +964,18 @@ def upsert():
             proposed = tuple(proposed)
             enrollment_changed = proposed != old_enrollment and any(incoming_enrollment)
 
+            roll_conflict = find_class_roll_conflict(
+                records,
+                proposed[0], proposed[1], proposed[2], proposed[3],
+                exclude_row=target.get("_row")
+            )
+            if roll_conflict:
+                return jsonify({
+                    "error": "આ જ ધોરણ/વર્ગમાં આ Roll Number બીજા વિદ્યાર્થીને આપેલ છે.",
+                    "code": "ROLL_CONFLICT",
+                    "conflict": roll_conflict
+                }), 409
+
             if enrollment_changed and any(old_enrollment) and not allow_enrollment_change:
                 return jsonify({
                     "error": "Academic Year / Standard / Division / Roll Number બદલાઈ રહ્યા છે. Promotion/Class Change તરીકે પુષ્ટિ કરો.",
@@ -917,6 +1017,18 @@ def upsert():
             elif enrollment_changed and not any(old_enrollment):
                 history_entries.append((dict(merged), "INITIAL"))
         else:
+            new_enrollment = enrollment_tuple(incoming)
+            roll_conflict = find_class_roll_conflict(
+                records,
+                new_enrollment[0], new_enrollment[1], new_enrollment[2], new_enrollment[3]
+            )
+            if roll_conflict:
+                return jsonify({
+                    "error": "આ જ ધોરણ/વર્ગમાં આ Roll Number બીજા વિદ્યાર્થીને આપેલ છે.",
+                    "code": "ROLL_CONFLICT",
+                    "conflict": roll_conflict
+                }), 409
+
             merged, conflicts = merge_into({}, incoming, uncertain, source_doc)
             append_result = ws.append_row(record_values(merged), value_input_option="RAW")
             updated_range = str(((append_result or {}).get("updates") or {}).get("updatedRange", ""))
