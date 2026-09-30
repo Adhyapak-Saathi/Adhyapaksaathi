@@ -17,6 +17,9 @@ app = Flask(__name__, static_folder="static", template_folder="templates")
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 
 FIELDS = [
+    ("academic_year", "Academic Year"),
+    ("standard", "Standard"),
+    ("division", "Division"),
     ("roll_number", "Roll Number"),
     ("gr_number", "GR Number"),
     ("cts_number", "CTS Number"),
@@ -53,7 +56,7 @@ DOC_ALLOWED = {
     "AADHAAR_CARD": {"aadhaar_number", "aadhaar_according_name", "dob", "address"},
     "BANK_DOCUMENT": {"bank_account_name", "bank_account_number", "bank_branch", "ifsc_code", "bank_name"},
     "SCHOOL_RECORD": {
-        "roll_number", "gr_number", "cts_number", "abha_number", "pen_number", "apaar_number",
+        "academic_year", "standard", "division", "roll_number", "gr_number", "cts_number", "abha_number", "pen_number", "apaar_number",
         "aadhaar_number", "aadhaar_according_name", "student_full_name", "mother_name", "father_name",
         "phone_number", "address", "admission_date", "dob", "sub_caste"
     },
@@ -114,6 +117,17 @@ def sanitize(data, allowed=None):
         val = out[dk]
         if val and not re.fullmatch(r"\d{2}-\d{2}-\d{4}", val):
             out[dk] = ""
+
+    ay = out.get("academic_year", "").replace("–", "-").replace("—", "-").strip()
+    m = re.fullmatch(r"(20\d{2})\s*-\s*(?:20)?(\d{2})", ay)
+    if m:
+        out["academic_year"] = f"{m.group(1)}-{m.group(2)}"
+    elif ay:
+        out["academic_year"] = ay
+
+    std = only_digits(out.get("standard", ""))
+    out["standard"] = std if (not std or 1 <= int(std) <= 12) else ""
+    out["division"] = re.sub(r"[^A-Za-z0-9]", "", out.get("division", "")).upper()[:4]
     return out
 
 def sheet_client():
@@ -152,6 +166,40 @@ def ensure_sheet_schema(ws):
         raise SheetConfigError(
             "Google Sheet columns app schema સાથે match થતા નથી. Sheet auto-clear કરવામાં આવશે નહીં."
         )
+
+HISTORY_HEADERS = [
+    "Recorded At", "GR Number", "PEN Number", "CTS Number", "Student Name",
+    "Academic Year", "Standard", "Division", "Roll Number", "Action"
+]
+
+def get_history_ws():
+    ss = sheet_client()
+    try:
+        ws = ss.worksheet("Enrollment_History")
+    except Exception:
+        ws = ss.add_worksheet(title="Enrollment_History", rows=2000, cols=len(HISTORY_HEADERS))
+    current = ws.row_values(1)
+    if current[:len(HISTORY_HEADERS)] != HISTORY_HEADERS:
+        ws.update(values=[HISTORY_HEADERS], range_name="A1", value_input_option="RAW")
+    return ws
+
+def append_enrollment_history(rec, action):
+    values = [
+        datetime.now().isoformat(timespec="seconds"),
+        str(rec.get("gr_number", "") or ""),
+        str(rec.get("pen_number", "") or ""),
+        str(rec.get("cts_number", "") or ""),
+        str(rec.get("student_full_name", "") or rec.get("aadhaar_according_name", "") or ""),
+        str(rec.get("academic_year", "") or ""),
+        str(rec.get("standard", "") or ""),
+        str(rec.get("division", "") or ""),
+        str(rec.get("roll_number", "") or ""),
+        action,
+    ]
+    get_history_ws().append_row(values, value_input_option="RAW")
+
+def enrollment_tuple(rec):
+    return tuple(str((rec or {}).get(k, "") or "").strip() for k in ("academic_year","standard","division","roll_number"))
 
 def read_records():
     ws = get_ws()
@@ -196,6 +244,9 @@ def candidate_summary(rec, score=0):
     return {
         "row": rec.get("_row"),
         "score": score,
+        "academic_year": rec.get("academic_year", ""),
+        "standard": rec.get("standard", ""),
+        "division": rec.get("division", ""),
         "gr_number": rec.get("gr_number", ""),
         "pen_number": rec.get("pen_number", ""),
         "cts_number": rec.get("cts_number", ""),
@@ -613,14 +664,28 @@ def health():
         "cts_rule": "CTS Number = SSA AadhaarUID; Aadhaar Number is separate",
     })
 
+@app.route("/api/filter-options")
+def filter_options():
+    try:
+        records = cached_records()
+        years = sorted({str(r.get("academic_year","")).strip() for r in records if str(r.get("academic_year","")).strip()}, reverse=True)
+        standards = sorted({str(r.get("standard","")).strip() for r in records if str(r.get("standard","")).strip()}, key=lambda x: int(x) if x.isdigit() else 99)
+        divisions = sorted({str(r.get("division","")).strip() for r in records if str(r.get("division","")).strip()})
+        return jsonify({"academic_years": years, "standards": standards, "divisions": divisions})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 503
+
 @app.route("/api/search")
 def search():
     raw_q = str(request.args.get("q", "") or "").strip()
-    if not raw_q:
+    year_filter = str(request.args.get("academic_year", "") or "").strip()
+    standard_filter = str(request.args.get("standard", "") or "").strip()
+    division_filter = str(request.args.get("division", "") or "").strip().upper()
+    if not raw_q and not any([year_filter, standard_filter, division_filter]):
         return jsonify([])
 
-    queries = [norm(raw_q)]
-    if has_non_english_letters(raw_q):
+    queries = [norm(raw_q)] if raw_q else []
+    if raw_q and has_non_english_letters(raw_q):
         try:
             translated, _ = convert_record_to_english({"student_full_name": raw_q})
             q2 = norm(translated.get("student_full_name", ""))
@@ -640,19 +705,29 @@ def search():
         "apaar_number", "student_full_name", "aadhaar_according_name", "father_name", "mother_name"
     ]
     for rec in records:
-        hay = " | ".join(norm(rec.get(k)) for k in fields)
-        matched = False
-        for q in queries:
-            if q and q in hay:
-                matched = True
-                break
-            tokens = [t for t in re.split(r"\s+", q) if len(t) >= 2]
-            if tokens and all(t in hay for t in tokens):
-                matched = True
-                break
-        if matched:
-            out.append(candidate_summary(rec))
-        if len(out) >= 30:
+        if year_filter and str(rec.get("academic_year","")).strip() != year_filter:
+            continue
+        if standard_filter and str(rec.get("standard","")).strip() != standard_filter:
+            continue
+        if division_filter and str(rec.get("division","")).strip().upper() != division_filter:
+            continue
+
+        if queries:
+            hay = " | ".join(norm(rec.get(k)) for k in fields)
+            matched = False
+            for q in queries:
+                if q and q in hay:
+                    matched = True
+                    break
+                tokens = [t for t in re.split(r"\s+", q) if len(t) >= 2]
+                if tokens and all(t in hay for t in tokens):
+                    matched = True
+                    break
+            if not matched:
+                continue
+
+        out.append(candidate_summary(rec))
+        if len(out) >= 50:
             break
     return jsonify(out)
 
@@ -736,6 +811,7 @@ def upsert():
     source_doc = ", ".join(clean_sources) if clean_sources else "OTHER"
     requested_row = payload.get("target_row")
     force_new = bool(payload.get("force_new"))
+    allow_enrollment_change = bool(payload.get("allow_enrollment_change"))
 
     if not any(incoming.values()):
         return jsonify({"error": "Save કરવા માટે કોઈ data નથી."}), 400
@@ -760,15 +836,55 @@ def upsert():
                     "candidates": match["candidates"],
                 }), 409
 
+        enrollment_changed = False
         if target:
-            merged, conflicts = merge_into(target, incoming, uncertain, source_doc)
+            old_enrollment = enrollment_tuple(target)
+            incoming_enrollment = enrollment_tuple(incoming)
+            proposed = list(old_enrollment)
+            for idx, val in enumerate(incoming_enrollment):
+                if val:
+                    proposed[idx] = val
+            proposed = tuple(proposed)
+            enrollment_changed = proposed != old_enrollment and any(incoming_enrollment)
+
+            if enrollment_changed and any(old_enrollment) and not allow_enrollment_change:
+                return jsonify({
+                    "error": "Academic Year / Standard / Division / Roll Number બદલાઈ રહ્યા છે. Promotion/Class Change તરીકે પુષ્ટિ કરો.",
+                    "code": "PROMOTION_CONFIRM_REQUIRED",
+                    "current_enrollment": {
+                        "academic_year": old_enrollment[0], "standard": old_enrollment[1],
+                        "division": old_enrollment[2], "roll_number": old_enrollment[3]
+                    },
+                    "new_enrollment": {
+                        "academic_year": proposed[0], "standard": proposed[1],
+                        "division": proposed[2], "roll_number": proposed[3]
+                    }
+                }), 409
+
+            merge_incoming = dict(incoming)
+            if enrollment_changed and allow_enrollment_change:
+                for k in ("academic_year","standard","division","roll_number"):
+                    if merge_incoming.get(k):
+                        target[k] = merge_incoming[k]
+                        merge_incoming[k] = ""
+
+            merged, conflicts = merge_into(target, merge_incoming, uncertain, source_doc)
             rownum = target["_row"]
+
+            if enrollment_changed and allow_enrollment_change:
+                old_record = dict(target)
+                old_record["academic_year"], old_record["standard"], old_record["division"], old_record["roll_number"] = old_enrollment
+                append_enrollment_history(old_record, "PROMOTED_FROM")
+
             ws.update(
                 values=[record_values(merged)],
-                range_name=f"A{rownum}:X{rownum}",
+                range_name=f"A{rownum}:AA{rownum}",
                 value_input_option="RAW",
             )
             action = "updated"
+
+            if enrollment_changed and allow_enrollment_change:
+                append_enrollment_history(merged, "PROMOTED_TO")
         else:
             merged, conflicts = merge_into({}, incoming, uncertain, source_doc)
             append_result = ws.append_row(record_values(merged), value_input_option="RAW")
@@ -776,6 +892,8 @@ def upsert():
             match_row = re.search(r"!A(\d+):", updated_range)
             rownum = int(match_row.group(1)) if match_row else (len(records) + 2)
             action = "created"
+            if any(enrollment_tuple(merged)):
+                append_enrollment_history(merged, "INITIAL")
 
         sheet_verified = verify_sheet_row(ws, rownum, merged)
         if not sheet_verified:
@@ -795,6 +913,7 @@ def upsert():
             "status": merged["verification_status"],
             "conflicts": conflicts,
             "sheet_synced": True,
+            "enrollment_changed": enrollment_changed,
         })
     except ProviderBusy as e:
         return jsonify({"error": str(e), "code": "ENGLISH_CONVERSION_BUSY"}), 503
@@ -807,6 +926,9 @@ def upsert():
         return jsonify({"error": "Google Sheet save દરમિયાન error આવ્યો."}), 500
 
 ALIASES = {
+    "academic_year": ["academic year", "year", "school year", "session"],
+    "standard": ["standard", "std", "class", "grade"],
+    "division": ["division", "section", "div"],
     "roll_number": ["roll number", "roll no", "rollno", "roll"],
     "gr_number": ["gr number", "grno", "gr no"],
     "cts_number": ["cts number", "cts no", "aadhaaruid", "aadhaar uid"],
@@ -905,9 +1027,23 @@ def import_master():
 @app.route("/api/export.xlsx")
 def export_xlsx():
     try:
+        year_filter = str(request.args.get("academic_year", "") or "").strip()
+        standard_filter = str(request.args.get("standard", "") or "").strip()
+        division_filter = str(request.args.get("division", "") or "").strip().upper()
         _, records = read_records()
-        rows = []
+
+        filtered = []
         for rec in records:
+            if year_filter and str(rec.get("academic_year","")).strip() != year_filter:
+                continue
+            if standard_filter and str(rec.get("standard","")).strip() != standard_filter:
+                continue
+            if division_filter and str(rec.get("division","")).strip().upper() != division_filter:
+                continue
+            filtered.append(rec)
+
+        rows = []
+        for rec in filtered:
             row = {KEY_TO_LABEL[k]: rec.get(k, "") for k in ALL_KEYS}
             row.update({
                 "Verification Status": rec.get("verification_status", ""),
@@ -915,14 +1051,18 @@ def export_xlsx():
                 "Last Updated": rec.get("last_updated", ""),
             })
             rows.append(row)
+
         df = pd.DataFrame(rows, columns=HEADERS)
         out = BytesIO()
         df.to_excel(out, index=False)
         out.seek(0)
+
+        suffix = "_".join(x for x in [year_filter, ("Std"+standard_filter if standard_filter else ""), division_filter] if x)
+        filename = "student_master" + (("_" + suffix) if suffix else "") + ".xlsx"
         return send_file(
             out,
             as_attachment=True,
-            download_name="student_master_export.xlsx",
+            download_name=filename,
             mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )
     except Exception as e:
@@ -1084,7 +1224,7 @@ def background_external_selftest():
         found = None
         for i in range(len(vals) - 1, 0, -1):
             row = vals[i]
-            if len(row) > 8 and row[1] == "SELFTEST-" + stamp and row[8] == "DUMMY SELF TEST":
+            if len(row) > 8 and row[4] == "SELFTEST-" + stamp and row[11] == "DUMMY SELF TEST":
                 found = i + 1
                 break
         if found:
