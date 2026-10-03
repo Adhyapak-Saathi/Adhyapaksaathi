@@ -1,0 +1,323 @@
+<!-- Lucide Icons Script -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+  :root {
+    --primary-blue: #1d3461; /* Adhyapak Saathi Navy */
+    --primary-blue-hover: #2b4c8a;
+    --gold: #d4a017;
+    --text-main: #27374d;
+    --text-secondary: #718096;
+    --border: #dfe5ec;
+    --background: #f7f9fb;
+    --white: #ffffff;
+    --danger: #b42318;
+    --success: #16794c;
+  }
+
+  /* ---------- Modal Overlay ---------- */
+  .modal-overlay { 
+    display: none; 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.75); 
+    z-index: 10000; 
+    align-items: center; 
+    justify-content: center; 
+    backdrop-filter: blur(4px); 
+  }
+
+  .login-container {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    animation: pop 0.3s ease-out;
+  }
+  @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* ---------- Close Button ---------- */
+  .close-modal-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 10;
+    transition: 0.2s;
+  }
+  .close-modal-btn:hover { color: var(--danger); border-color: var(--danger); transform: scale(1.05); }
+  .close-modal-btn svg { width: 18px; height: 18px; }
+
+  /* ---------- BRAND ---------- */
+  .brand { text-align: center; margin-bottom: 24px; }
+  .brand-icon {
+    width: 48px; height: 48px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;
+    background: var(--primary-blue); color: #ffffff; border-radius: 10px; box-shadow: 0 4px 10px rgba(29, 52, 97, 0.3);
+  }
+  .brand-icon svg { width: 24px; height: 24px; }
+  .brand-name { font-size: 24px; font-weight: 800; color: var(--primary-blue); font-family: "Georgia", serif; line-height: 1.2; }
+  .brand-subtitle { margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); }
+
+  /* ---------- CARD ---------- */
+  .login-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+  }
+  .login-heading { margin-bottom: 22px; text-align: center; }
+  .login-heading h1 { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+  .login-heading p { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+
+  /* ---------- GOOGLE BUTTON ---------- */
+  .btn-google {
+    width: 100%; height: 44px; margin-bottom: 20px; background: white; color: var(--text-main); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; font-size: 13px; border-radius: 8px;
+    cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+  .btn-google:hover { background: #f8fafc; border-color: #cbd5e0; }
+  .btn-google img { width: 20px; height: 20px; }
+
+  /* ---------- DIVIDER ---------- */
+  .divider { display: flex; align-items: center; margin-bottom: 20px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-text { padding: 0 12px; color: var(--text-secondary); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ---------- FORM ---------- */
+  .form-group { margin-bottom: 16px; text-align: left; }
+  .form-group label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: var(--text-main); }
+  .input-wrapper { position: relative; }
+  .input-wrapper svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #9aa4b2; }
+  .form-group input {
+    width: 100%; height: 44px; padding: 0 14px 0 40px; border: 1px solid var(--border); border-radius: 8px;
+    background: #ffffff; color: var(--text-main); font-size: 13px; outline: none; transition: 0.2s; box-sizing: border-box;
+  }
+  .form-group input::placeholder { color: #9aa4b2; }
+  .form-group input:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(29, 52, 97, 0.1); }
+
+  .forgot-link { display: block; text-align: right; color: var(--primary-blue); font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .forgot-link:hover { text-decoration: underline; }
+
+  /* ---------- ACTION BUTTONS ---------- */
+  .login-btn {
+    width: 100%; height: 44px; border: none; border-radius: 8px; background: var(--primary-blue); color: #ffffff;
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(29, 52, 97, 0.2);
+  }
+  .login-btn:hover { background: var(--primary-blue-hover); transform: translateY(-1px); }
+
+  .signup-area { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); text-align: center; }
+  .signup-text { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+  .signup-link {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: var(--primary-blue);
+    font-size: 13px; font-weight: 700; text-decoration: none; cursor: pointer;
+  }
+  .signup-link:hover { text-decoration: underline; }
+  .signup-link svg { width: 16px; height: 16px; }
+
+  /* ---------- Navbar login dropdown ---------- */
+  .auth-dropdown { position: relative; display: inline-block; margin-left: 10px; }
+  .auth-dropbtn { 
+    background: linear-gradient(135deg, #f7941d, #d4a017); color: #1d3461; font-weight: 900; border: none; cursor: pointer; 
+    display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; box-shadow: 0 4px 10px rgba(212, 160, 23, 0.3); 
+    transition: 0.3s; white-space: nowrap; width: 42px; height: 42px; border-radius: 50%; padding: 0;
+  }
+  .auth-dropbtn svg { width: 20px; height: 20px; stroke-width: 2.5; }
+  .auth-dropbtn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(212, 160, 23, 0.5); }
+  .auth-dropbtn.logged-in { width: auto; height: auto; border-radius: 25px; padding: 8px 20px; max-width: 140px; overflow: hidden; text-overflow: ellipsis; }
+  .auth-dropdown-content { display: none; position: absolute; right: 0; top: 100%; background-color: #ffffff; min-width: 180px; box-shadow: 0px 10px 25px rgba(0,0,0,0.2); z-index: 2000; border-radius: 10px; overflow: hidden; margin-top: 8px; }
+  .auth-dropdown::before { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 15px; background: transparent; z-index: 2001; }
+  .auth-dropdown-content a { color: #1d3461; padding: 12px 16px; text-decoration: none; display: block; border-bottom: 1px solid #f1f5f9; font-weight: bold; cursor: pointer; transition: 0.2s; }
+  .auth-dropdown-content a:hover { background-color: #f8fafc; color: var(--gold); padding-left: 20px; }
+  .auth-dropdown:hover .auth-dropdown-content { display: block; }
+</style>
+
+
+
+     <!-- 2) HTML MODAL -->
+
+<div class="modal-overlay" id="emailAuthModal">
+  <div class="login-container">
+    
+    <!-- Close Button -->
+    <button id="closeLoginBtn" class="close-modal-btn">
+      <i data-lucide="x"></i>
+    </button>
+
+    <!-- BRAND -->
+    <div class="brand">
+        <div class="brand-icon">
+            <i data-lucide="book-open"></i>
+        </div>
+        <div class="brand-name">Adhyapak Saathi</div>
+        <div class="brand-subtitle">Teacher Exam Portal</div>
+    </div>
+
+    <!-- LOGIN CARD -->
+    <div class="login-card">
+        <div class="login-heading">
+            <h1>Sign in</h1>
+            <p>Sign in to access the exam portal and scoreboard.</p>
+        </div>
+
+        <!-- Google Login -->
+        <button id="modalGoogleLoginBtn" class="btn-google">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"> Sign in with Google
+        </button>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-text">Or with email</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group">
+            <label for="emailInput">Email ID</label>
+            <div class="input-wrapper">
+                <i data-lucide="mail"></i>
+                <input type="email" id="emailInput" placeholder="Enter email ID" autocomplete="email">
+            </div>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group">
+            <label for="pwdInput">Password</label>
+            <div class="input-wrapper">
+                <i data-lucide="lock"></i>
+                <input type="password" id="pwdInput" placeholder="Enter password" autocomplete="current-password">
+            </div>
+        </div>
+
+        <!-- Forgot Password -->
+        <a id="forgotPwdBtn" class="forgot-link">Forgot password?</a>
+
+        <!-- Action Button -->
+        <button id="btnEmailSignIn" class="login-btn">Sign in 🚀</button>
+
+    </div>
+
+  </div>
+</div>
+
+     <!-- 3) JAVASCRIPT (Firebase init + logic) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCUdYwId_hC2frc1hil7CleRJha8rpR5Os",
+    authDomain: "mocktest-app-42a6d.firebaseapp.com",
+    projectId: "mocktest-app-42a6d",
+    storageBucket: "mocktest-app-42a6d.firebasestorage.app",
+    messagingSenderId: "442882794036",
+    appId: "1:442882794036:web:76277a0662e6941aabe061"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  function openLoginModal() { document.getElementById("emailAuthModal").style.display = "flex"; }
+  function closeLoginModal() { document.getElementById("emailAuthModal").style.display = "none"; }
+  window.openLoginModal = openLoginModal;
+
+  function triggerGoogleLogin() {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(() => closeLoginModal())
+      .catch(e => alert("A technical error occurred during login. Please try again."));
+  }
+
+  const modalGoogleBtn = document.getElementById("modalGoogleLoginBtn");
+  if (modalGoogleBtn) modalGoogleBtn.addEventListener("click", triggerGoogleLogin);
+
+  const navGoogleBtn = document.getElementById("navGoogleLogin");
+  if (navGoogleBtn) navGoogleBtn.addEventListener("click", triggerGoogleLogin);
+
+  const emailLoginBtn = document.getElementById("navEmailLoginBtn");
+  if (emailLoginBtn) emailLoginBtn.addEventListener("click", openLoginModal);
+
+  const closeLoginBtn = document.getElementById("closeLoginBtn");
+  if (closeLoginBtn) closeLoginBtn.addEventListener("click", closeLoginModal);
+
+  const btnEmailSignIn = document.getElementById("btnEmailSignIn");
+  if (btnEmailSignIn) {
+    btnEmailSignIn.addEventListener("click", () => {
+      const email = document.getElementById("emailInput").value.trim();
+      const pwd = document.getElementById("pwdInput").value;
+      if (!email || !pwd) { alert("Email and password are required!"); return; }
+      signInWithEmailAndPassword(auth, email, pwd)
+        .then(() => closeLoginModal())
+        .catch(e => alert("Login failed: Please enter the correct details."));
+    });
+  }
+
+  const btnEmailSignUp = document.getElementById("btnEmailSignUp");
+  if (btnEmailSignUp) {
+    btnEmailSignUp.addEventListener("click", () => {
+      const email = document.getElementById("emailInput").value.trim();
+      const pwd = document.getElementById("pwdInput").value;
+      if (!email || !pwd || pwd.length < 6) { alert("Email and a password of at least 6 characters are required!"); return; }
+      createUserWithEmailAndPassword(auth, email, pwd)
+        .then(() => closeLoginModal())
+        .catch(e => alert("Registration failed: Email is already registered."));
+    });
+  }
+
+  const forgotPwdBtn = document.getElementById("forgotPwdBtn");
+  if (forgotPwdBtn) {
+    forgotPwdBtn.addEventListener("click", () => {
+      const email = document.getElementById("emailInput").value.trim();
+      if (!email) { alert("Please enter your Email ID first to reset your password!"); return; }
+      sendPasswordResetEmail(auth, email)
+        .then(() => alert("✅ Password reset link has been sent to your email."))
+        .catch(e => alert("Password reset failed: Email is not registered."));
+    });
+  }
+
+  onAuthStateChanged(auth, async (user) => {
+    const mainBtn = document.getElementById("mainUserBtn");
+    const dropBox = document.getElementById("loginDropdownBox");
+
+    if (user) {
+      if (mainBtn && dropBox) {
+        let displayName = user.displayName || user.email.split("@")[0];
+        mainBtn.classList.add("logged-in");
+        mainBtn.innerHTML = `<i data-lucide="user-check"></i> Hi, ${displayName.split(" ")[0]}`;
+        
+        mainBtn.onclick = () => { dropBox.style.display = (dropBox.style.display === "block") ? "" : "block"; };
+        dropBox.innerHTML = `<a id="navLogout" style="color: #dc2626; cursor: pointer;">🚪 Logout</a>`;
+        document.getElementById("navLogout").addEventListener("click", () => signOut(auth).then(() => location.reload()));
+      }
+      try {
+        const userRef = doc(db, "users", user.uid);
+        await setDoc(userRef, { email: user.email, lastLogin: new Date().toISOString() }, { merge: true });
+      } catch (e) { console.log("Init issue"); }
+    } else {
+      if (mainBtn) {
+        mainBtn.classList.remove("logged-in");
+        mainBtn.innerHTML = `<i data-lucide="user"></i>`;
+        mainBtn.onclick = openLoginModal;
+      }
+      if (dropBox) dropBox.innerHTML = "";
+    }
+    
+    lucide.createIcons();
+  });
+</script>

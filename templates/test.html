@@ -1,628 +1,2929 @@
-
 <!DOCTYPE html>
 <html lang="gu">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0BKEFLEQTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- =========================================================
+       Google Analytics
+       ========================================================= -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-0BKEFLEQTQ"
+  ></script>
 
-  gtag('config', 'G-0BKEFLEQTQ');
-</script>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Topic-wise Practice Test — Adhyapak Saathi</title>
-  
-  <meta name="description" content="TAT, TET, GSET માટે વિષયવાર પ્રેક્ટિસ ટેસ્ટ."/>
-  
-  <style>
-    /* ================= CSS VARIABLES & RESET ================= */
-    :root {
-      --navy: #1d3461;
-      --navy-mid: #2b4c8a;
-      --navy-light: #e8eef8;
-      --navy-dark: #0f172a;
-      --gold: #d4a017;
-      --gold-light: #fbbf24;
-      --green: #16a34a;
-      --red: #dc2626;
-      --border: #e2e8f0;
-      --text: #1e293b;
-      --text-mid: #475569;
-      --text-muted: #94a3b8;
-      --radius: 12px;
-      --radius-lg: 20px;
-      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-serif: "Georgia", serif;
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
     }
-    
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); }
-    body { background: #f4f7fb; color: var(--text); -webkit-user-select: none; -ms-user-select: none; user-select: none; }
-    .wrapper { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    
-    /* ================= BUTTONS ================= */
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 24px; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s; border: none; text-decoration: none; }
-    .btn-navy { background: var(--navy); color: white; }
-    .btn-navy:hover { background: var(--navy-mid); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .btn-gold { background: var(--gold); color: var(--navy-dark); }
-    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-mid); }
-    .btn-outline:hover { border-color: var(--navy); color: var(--navy); background: var(--navy-light); }
 
-    /* ================= NAVBAR ================= */
-    nav { background: var(--navy); padding: 0 20px; position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow-md); height: 70px; display: flex; align-items: center; justify-content: center; }
-    .nav-inner { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
-    .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; }
-    .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 5px 10px; transition: 0.3s; border-bottom: 2px solid transparent; }
-    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); border-bottom-color: var(--gold-light); background: rgba(255,255,255,0.06); border-radius: var(--radius); }
-    
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
-    .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
+    gtag("js", new Date());
+    gtag("config", "G-0BKEFLEQTQ");
+  </script>
 
-    /* ================= PAGE BANNER ================= */
-    .page-banner { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 50px 20px; text-align: center; color: white; border-bottom: 5px solid var(--gold); }
-    .page-banner h1 { font-family: var(--font-serif); font-size: 2.8rem; margin-bottom: 15px; }
-    .page-banner h1 em { color: var(--gold); font-style: italic; }
-    .page-banner p { font-size: 1.15rem; color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+  <!-- =========================================================
+       Document Metadata
+       ========================================================= -->
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
 
-    /* ================= 7 TOPIC CARDS ================= */
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .p-topic-card { background: #fff; border: 2px solid var(--gold); border-radius: var(--radius-lg); padding: 1.8rem 1.2rem; text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
-    .p-topic-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--navy-mid); }
-    .p-topic-icon { font-size: 3.2rem; margin-bottom: 0.8rem; }
-    .p-topic-card h3 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--navy); margin-bottom: 1.2rem; line-height: 1.4; }
-    
-    .q-count-select { width: 100%; padding: 8px 12px; margin-bottom: 12px; border: 1.5px solid #cbd5e0; border-radius: 6px; font-family: var(--font-sans); font-size: 0.9rem; color: var(--navy); background-color: #f8fafd; outline: none; cursor: pointer; transition: 0.2s; font-weight: 600; text-align: center; }
-    .q-count-select:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(29,52,97,0.1); }
-    
-    .btn-p-start { width: 100%; padding: 10px; background: var(--navy); color: white; border: 2px solid var(--navy); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; margin-bottom: 0; }
-    .btn-p-start:hover { background: var(--gold); color: var(--navy-dark); border-color: var(--gold); }
+  <title>Topic-wise Practice Test — Adhyapak Saathi</title>
 
-    /* ================= EXAM UI ================= */
-    .exam-container { display: none; flex-direction: column; height: 100vh; background: #fff; overflow: hidden; }
-    .exam-topbar { background: var(--navy); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-wrap: wrap; gap: 10px; }
-    .exam-brand { font-family: var(--font-serif); font-size: 1.3rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--gold-light); }
-    .exam-stats { display: flex; gap: 15px; font-size: 0.9rem; font-weight: 600; }
-    .stat-badge { padding: 4px 12px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
-    .stat-badge.ans { background: rgba(22, 163, 74, 0.2); border: 1px solid #22c55e; color: #bbf7d0; }
-    .stat-badge.pen { background: rgba(220, 38, 38, 0.2); border: 1px solid #ef4444; color: #fecaca; }
-    .exam-actions { display: flex; align-items: center; gap: 15px; }
-    .exam-timer { background: #fee2e2; color: #b91c1c; padding: 6px 16px; border-radius: 20px; font-weight: 800; font-family: monospace; font-size: 1.1rem; border: 2px solid #fca5a5; display: flex; align-items: center; gap: 6px; }
+  <meta
+    name="description"
+    content="TAT, TET, GSET માટે વિષયવાર પ્રેક્ટિસ ટેસ્ટ."
+  />
 
-    .mobile-stats-row { display: none; }
-    .close-palette-btn { display: none; }
+  <!-- Main application stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 
-    .exam-body { display: flex; flex: 1; overflow: hidden; }
-    .question-panel { flex: 7; padding: 30px; overflow-y: auto; position: relative; background: #ffffff; }
-    .palette-panel { flex: 3; background: #f8fafd; border-left: 1px solid var(--border); padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
-    
-    .q-num-header { background: #ebf4ff; color: var(--navy-mid); display: inline-block; padding: 6px 18px; border-radius: 20px; font-weight: 800; margin-bottom: 20px; border: 1px solid #bfdbfe; }
-    .question-text { font-size: 1.3rem; font-weight: 700; margin-bottom: 25px; color: #1e293b; line-height: 1.7; }
-    .radio-option { display: flex; align-items: center; padding: 14px 20px; border: 2px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; font-size: 1.1rem; font-weight: 600; color: #334155; background: #fff; }
-    .radio-option:hover { background: #f8fafd; border-color: var(--navy-light); }
-    .radio-option.selected { background: #eff6ff; border-color: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
-    .radio-option input { margin-right: 15px; transform: scale(1.3); accent-color: var(--navy); }
+  <!-- =========================================================
+       PAGE-SPECIFIC STYLES
+       ========================================================= -->
+  <style>
+    /* =========================================================
+       TOPIC CARDS
+       ========================================================= */
 
-    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-    .palette-btn { aspect-ratio: 1; border: none; border-radius: 6px; font-weight: 800; cursor: pointer; color: white; background: #cbd5e0; font-size: 1rem; transition: transform 0.1s; }
-    .palette-btn:hover { transform: scale(1.05); }
-    .palette-btn.answered { background: var(--green); }
-    .palette-btn.not-answered { background: var(--red); }
-    .palette-btn.review { background: #805ad5; }
-    .palette-btn.current { outline: 3px solid var(--navy); outline-offset: 2px; }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
 
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-    .auth-box { background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; border-top: 5px solid var(--gold); box-shadow: 0 15px 30px rgba(0,0,0,0.3); animation: pop 0.3s ease-out; }
-    @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .p-topic-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
-    /* ================= SCORECARD SCREEN ================= */
-    #resultScreen { display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh; }
-    .scorecard-wrapper { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; border: 3px solid var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center; position: relative; }
-    
-    .score-circle-old { width: 160px; height: 160px; border-radius: 50%; border: 8px solid var(--navy); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 25px; background: #f8fafd; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05); }
-    .score-circle-old .marks { font-size: 3.5rem; font-weight: 900; color: var(--navy); line-height: 1; }
-    .score-circle-old .total { font-size: 1rem; color: var(--text-mid); font-weight: 700; margin-top: 5px; }
-    
-    .stats-grid-old { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 30px 0; }
-    .stat-box-old { padding: 15px; border-radius: 10px; font-weight: 700; flex: 1; min-width: 130px; }
-    .sb-c { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-    .sb-w { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-    .sb-s { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
-    .sb-a { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
+      padding: 1.8rem 1.2rem;
 
-    .topic-analysis-box { margin-top: 30px; text-align: left; background: #f8fafd; padding: 25px; border-radius: 12px; border: 1px solid var(--border); }
-    .topic-analysis-box h4 { color: var(--navy); font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; }
+      background: #fff;
 
-    .print-branding { margin-top: 40px; padding-top: 20px; border-top: 2px dashed var(--border-dark); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-    .print-branding h3 { font-family: var(--font-serif); font-size: 1.5rem; color: var(--navy); margin: 0; }
-    .print-url { font-size: 1.15rem; padding: 8px 25px; border-radius: 30px; background: linear-gradient(135deg, var(--navy), var(--navy-mid)); color: var(--gold); box-shadow: 0 4px 15px rgba(29, 52, 97, 0.2); letter-spacing: 1.5px; border: 2px solid var(--gold); display: inline-block; margin-top: 10px; font-weight: bold; }
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-lg);
+
+      text-align: center;
+
+      box-shadow: var(--shadow-sm);
+
+      transition: all 0.3s ease;
+    }
+
+    .p-topic-card:hover {
+      border-color: var(--navy-mid);
+
+      box-shadow: var(--shadow-lg);
+
+      transform: translateY(-5px);
+    }
+
+    .p-topic-icon {
+      margin-bottom: 0.8rem;
+
+      font-size: 3.2rem;
+    }
+
+    .p-topic-card h3 {
+      margin-bottom: 1.2rem;
+
+      color: var(--navy);
+
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+
+      line-height: 1.4;
+    }
+
+    /* Question count dropdown */
+    .q-count-select {
+      width: 100%;
+
+      margin-bottom: 12px;
+      padding: 8px 12px;
+
+      background-color: #f8fafd;
+
+      border: 1.5px solid #cbd5e0;
+      border-radius: 6px;
+
+      outline: none;
+
+      color: var(--navy);
+
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+
+      text-align: center;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .q-count-select:focus {
+      border-color: var(--navy);
+
+      box-shadow: 0 0 0 3px rgba(29, 52, 97, 0.1);
+    }
+
+    /* Start practice button */
+    .btn-p-start {
+      width: 100%;
+
+      padding: 10px;
+
+      background: var(--navy);
+      color: white;
+
+      border: 2px solid var(--navy);
+      border-radius: 8px;
+
+      font-size: 0.95rem;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .btn-p-start:hover {
+      background: var(--gold);
+      color: var(--navy-dark);
+
+      border-color: var(--gold);
+    }
+
+    /* =========================================================
+       EXAM UI
+       ========================================================= */
+
+    .exam-container {
+      display: none;
+
+      flex-direction: column;
+
+      height: 100vh;
+
+      background: #fff;
+
+      overflow: hidden;
+    }
+
+    /* Exam top navigation bar */
+    .exam-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      padding: 10px 20px;
+
+      background: var(--navy);
+      color: white;
+
+      border-bottom: 3px solid var(--gold);
+
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .exam-brand {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      color: var(--gold-light);
+
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .exam-stats {
+      display: flex;
+
+      gap: 15px;
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .stat-badge {
+      display: flex;
+      align-items: center;
+
+      gap: 5px;
+
+      padding: 4px 12px;
+
+      border-radius: 20px;
+    }
+
+    .stat-badge.ans {
+      background: rgba(22, 163, 74, 0.2);
+
+      border: 1px solid #22c55e;
+
+      color: #bbf7d0;
+    }
+
+    .stat-badge.pen {
+      background: rgba(220, 38, 38, 0.2);
+
+      border: 1px solid #ef4444;
+
+      color: #fecaca;
+    }
+
+    .exam-actions {
+      display: flex;
+      align-items: center;
+
+      gap: 15px;
+    }
+
+    /* Exam countdown timer */
+    .exam-timer {
+      display: flex;
+      align-items: center;
+
+      gap: 6px;
+
+      padding: 6px 16px;
+
+      background: #fee2e2;
+      color: #b91c1c;
+
+      border: 2px solid #fca5a5;
+      border-radius: 20px;
+
+      font-family: monospace;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .mobile-stats-row {
+      display: none;
+    }
+
+    .close-palette-btn {
+      display: none;
+    }
+
+    /* Exam body */
+    .exam-body {
+      display: flex;
+
+      flex: 1;
+
+      overflow: hidden;
+    }
+
+    /* Question area */
+    .question-panel {
+      position: relative;
+
+      flex: 7;
+
+      padding: 30px;
+
+      background: #ffffff;
+
+      overflow-y: auto;
+    }
+
+    /* Question palette */
+    .palette-panel {
+      display: flex;
+      flex-direction: column;
+
+      flex: 3;
+
+      padding: 20px;
+
+      background: #f8fafd;
+
+      border-left: 1px solid var(--border);
+
+      overflow-y: auto;
+    }
+
+    /* Question number badge */
+    .q-num-header {
+      display: inline-block;
+
+      margin-bottom: 20px;
+      padding: 6px 18px;
+
+      background: #ebf4ff;
+      color: var(--navy-mid);
+
+      border: 1px solid #bfdbfe;
+      border-radius: 20px;
+
+      font-weight: 800;
+    }
+
+    /* Question text */
+    .question-text {
+      margin-bottom: 25px;
+
+      color: #1e293b;
+
+      font-size: 1.3rem;
+      font-weight: 700;
+
+      line-height: 1.7;
+    }
+
+    /* Answer option */
+    .radio-option {
+      display: flex;
+      align-items: center;
+
+      margin-bottom: 12px;
+      padding: 14px 20px;
+
+      background: #fff;
+
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+
+      color: #334155;
+
+      font-size: 1.1rem;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .radio-option:hover {
+      background: #f8fafd;
+
+      border-color: var(--navy-light);
+    }
+
+    .radio-option.selected {
+      background: #eff6ff;
+
+      border-color: var(--navy);
+
+      box-shadow: 0 0 0 1px var(--navy);
+    }
+
+    .radio-option input {
+      margin-right: 15px;
+
+      transform: scale(1.3);
+
+      accent-color: var(--navy);
+    }
+
+    /* =========================================================
+       QUESTION PALETTE
+       ========================================================= */
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+
+      gap: 8px;
+
+      margin-top: 15px;
+    }
+
+    .palette-btn {
+      aspect-ratio: 1;
+
+      background: #cbd5e0;
+      color: white;
+
+      border: none;
+      border-radius: 6px;
+
+      font-size: 1rem;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition: transform 0.1s;
+    }
+
+    .palette-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .palette-btn.answered {
+      background: var(--green);
+    }
+
+    .palette-btn.not-answered {
+      background: var(--red);
+    }
+
+    .palette-btn.review {
+      background: #805ad5;
+    }
+
+    .palette-btn.current {
+      outline: 3px solid var(--navy);
+      outline-offset: 2px;
+    }
+
+    /* =========================================================
+       CUSTOM MODAL
+       ========================================================= */
+
+    .modal-overlay {
+      display: none;
+
+      position: fixed;
+      inset: 0;
+
+      z-index: 10000;
+
+      align-items: center;
+      justify-content: center;
+
+      background: rgba(0, 0, 0, 0.8);
+
+      backdrop-filter: blur(4px);
+    }
+
+    .auth-box {
+      width: 90%;
+      max-width: 400px;
+
+      padding: 30px;
+
+      background: white;
+
+      border-top: 5px solid var(--gold);
+      border-radius: 12px;
+
+      text-align: center;
+
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+
+      animation: pop 0.3s ease-out;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* =========================================================
+       SCORECARD / RESULT SCREEN
+       ========================================================= */
+
+    #resultScreen {
+      display: none;
+
+      min-height: 100vh;
+
+      padding: 40px 20px;
+
+      background: #f4f7fb;
+    }
+
+    .scorecard-wrapper {
+      position: relative;
+
+      max-width: 800px;
+
+      margin: 0 auto;
+      padding: 40px;
+
+      background: white;
+
+      border: 3px solid var(--gold);
+      border-radius: 20px;
+
+      text-align: center;
+
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Score circle */
+    .score-circle-old {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      width: 160px;
+      height: 160px;
+
+      margin: 0 auto 25px;
+
+      background: #f8fafd;
+
+      border: 8px solid var(--navy);
+      border-radius: 50%;
+
+      box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .score-circle-old .marks {
+      color: var(--navy);
+
+      font-size: 3.5rem;
+      font-weight: 900;
+
+      line-height: 1;
+    }
+
+    .score-circle-old .total {
+      margin-top: 5px;
+
+      color: var(--text-mid);
+
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    /* Result statistics */
+    .stats-grid-old {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      gap: 15px;
+
+      margin: 30px 0;
+    }
+
+    .stat-box-old {
+      flex: 1;
+
+      min-width: 130px;
+
+      padding: 15px;
+
+      border-radius: 10px;
+
+      font-weight: 700;
+    }
+
+    .sb-c {
+      background: #f0fdf4;
+      color: #166534;
+
+      border: 1px solid #bbf7d0;
+    }
+
+    .sb-w {
+      background: #fef2f2;
+      color: #991b1b;
+
+      border: 1px solid #fecaca;
+    }
+
+    .sb-s {
+      background: #f1f5f9;
+      color: #334155;
+
+      border: 1px solid #e2e8f0;
+    }
+
+    .sb-a {
+      background: #fdf4ff;
+      color: #86198f;
+
+      border: 1px solid #f5d0fe;
+    }
+
+    /* Review / topic analysis */
+    .topic-analysis-box {
+      margin-top: 30px;
+      padding: 25px;
+
+      background: #f8fafd;
+
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      text-align: left;
+    }
+
+    .topic-analysis-box h4 {
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+
+      color: var(--navy);
+
+      border-bottom: 2px solid var(--gold);
+
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+    }
+
+    /* =========================================================
+       PRINT BRANDING
+       ========================================================= */
+
+    .print-branding {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      margin-top: 40px;
+      padding-top: 20px;
+
+      border-top: 2px dashed var(--border-dark);
+
+      text-align: center;
+    }
+
+    .print-branding h3 {
+      margin: 0;
+
+      color: var(--navy);
+
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+    }
+
+    .print-url {
+      display: inline-block;
+
+      margin-top: 10px;
+      padding: 8px 25px;
+
+      background: linear-gradient(
+        135deg,
+        var(--navy),
+        var(--navy-mid)
+      );
+
+      color: var(--gold);
+
+      border: 2px solid var(--gold);
+      border-radius: 30px;
+
+      box-shadow: 0 4px 15px rgba(29, 52, 97, 0.2);
+
+      font-size: 1.15rem;
+      font-weight: bold;
+
+      letter-spacing: 1.5px;
+    }
+
+    /* =========================================================
+       PRINT STYLES
+       ========================================================= */
 
     @media print {
-      body { background: #fff; }
-      nav, .page-banner, .btn, .print-hide, #reviewAnswersBox { display: none !important; }
-      .scorecard-wrapper { box-shadow: none; border: 2px solid var(--navy); margin: 0; padding: 20px; max-width: 100%; }
-      #resultScreen { padding: 0; background: transparent; }
+      body {
+        background: #fff;
+      }
+
+      nav,
+      .page-banner,
+      .btn,
+      .print-hide,
+      #reviewAnswersBox {
+        display: none !important;
+      }
+
+      .scorecard-wrapper {
+        max-width: 100%;
+
+        margin: 0;
+        padding: 20px;
+
+        border: 2px solid var(--navy);
+
+        box-shadow: none;
+      }
+
+      #resultScreen {
+        padding: 0;
+
+        background: transparent;
+      }
     }
 
-    /* ================= MOBILE RESPONSIVE ================= */
-    @media (max-width: 768px) {
-      .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .p-topic-card { padding: 1rem 0.5rem; }
-      .p-topic-icon { font-size: 2rem; margin-bottom: 0.5rem; }
-      .p-topic-card h3 { font-size: 0.9rem; margin-bottom: 0.8rem; }
-      .q-count-select { font-size: 0.8rem; padding: 6px; margin-bottom: 10px; }
-      .btn-p-start { font-size: 0.85rem; padding: 8px; }
-      
-      .exam-topbar { padding: 10px 15px !important; display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; }
-      .exam-brand, .exam-stats { display: none !important; } 
-      .exam-actions { width: 100% !important; display: flex !important; justify-content: space-between !important; margin: 0 !important; }
-      .exam-timer { font-size: 1.1rem !important; padding: 6px 15px !important; margin: 0 !important; }
-      .exam-actions .btn { font-size: 0.9rem !important; padding: 8px 20px !important; margin: 0 !important; }
+    /* =========================================================
+       MOBILE RESPONSIVE STYLES
+       ========================================================= */
 
-      .mobile-stats-row { display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 12px 15px; border-bottom: 2px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-      .m-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-      .m-stat .count { font-size: 1.15rem; font-weight: 900; line-height: 1; }
-      .m-stat .lbl { font-size: 0.75rem; font-weight: 700; }
-      .m-stat.ans .count, .m-stat.ans .lbl { color: var(--green); }
-      .m-stat.skip .count, .m-stat.skip .lbl { color: var(--red); }
-      .m-stat.pen .count, .m-stat.pen .lbl { color: var(--text-muted); }
-      .m-stat.grid-btn { background: #f1f5f9; border: 1px solid #cbd5e0; padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
-      
-      .palette-panel { display: none !important; position: fixed !important; top: 0; left: 0; right: 0; bottom: 0; background: white !important; z-index: 10000 !important; padding: 20px !important; flex-direction: column; }
-      .palette-panel.open { display: flex !important; }
-      .close-palette-btn { display: block !important; background: var(--navy); color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1.05rem; margin-bottom: 15px; cursor: pointer; }
-      .palette-grid { grid-template-columns: repeat(5, 1fr) !important; overflow-y: auto; padding-bottom: 20px; }
-      
-      .exam-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; flex-direction: column; background: #fff; }
-      .exam-body { flex-direction: column; flex: 1; overflow: hidden; }
-      .question-panel { padding: 15px 12px !important; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-      
-      .q-num-header { padding: 4px 15px !important; margin-bottom: 10px !important; font-size: 0.9rem !important; }
-      .question-text { font-size: 1.05rem !important; margin-bottom: 10px !important; line-height: 1.5 !important; }
-      #optionsBox { flex: 1; overflow-y: auto; }
-      .radio-option { padding: 10px 12px !important; font-size: 0.95rem !important; margin-bottom: 8px !important; }
-      
-      .question-panel > div:last-child { margin-top: auto !important; justify-content: center; gap: 8px; padding-top: 15px !important; border-top: 1px solid var(--border); }
-      .question-panel > div:last-child .btn { padding: 10px !important; font-size: 0.85rem !important; flex: 1; text-align: center; }
-      
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--navy); padding: 10px 0; z-index: 999; }
-      .nav-links.open { display: flex; }
-      .nav-links a { width: 100%; border-radius: 0; padding: 12px 20px; }
-      .hamburger { display: flex; }
+    @media (max-width: 768px) {
+      /* Topic cards */
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+      }
+
+      .p-topic-card {
+        padding: 1rem 0.5rem;
+      }
+
+      .p-topic-icon {
+        margin-bottom: 0.5rem;
+
+        font-size: 2rem;
+      }
+
+      .p-topic-card h3 {
+        margin-bottom: 0.8rem;
+
+        font-size: 0.9rem;
+      }
+
+      .q-count-select {
+        margin-bottom: 10px;
+        padding: 6px;
+
+        font-size: 0.8rem;
+      }
+
+      .btn-p-start {
+        padding: 8px;
+
+        font-size: 0.85rem;
+      }
+
+      /* Exam header */
+      .exam-topbar {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+
+        padding: 10px 15px !important;
+      }
+
+      .exam-brand,
+      .exam-stats {
+        display: none !important;
+      }
+
+      .exam-actions {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+
+        width: 100% !important;
+
+        margin: 0 !important;
+      }
+
+      .exam-timer {
+        margin: 0 !important;
+        padding: 6px 15px !important;
+
+        font-size: 1.1rem !important;
+      }
+
+      .exam-actions .btn {
+        margin: 0 !important;
+        padding: 8px 20px !important;
+
+        font-size: 0.9rem !important;
+      }
+
+      /* Mobile statistics */
+      .mobile-stats-row {
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 12px 15px;
+
+        background: #ffffff;
+
+        border-bottom: 2px solid var(--border);
+
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .m-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 2px;
+      }
+
+      .m-stat .count {
+        font-size: 1.15rem;
+        font-weight: 900;
+
+        line-height: 1;
+      }
+
+      .m-stat .lbl {
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .m-stat.ans .count,
+      .m-stat.ans .lbl {
+        color: var(--green);
+      }
+
+      .m-stat.skip .count,
+      .m-stat.skip .lbl {
+        color: var(--red);
+      }
+
+      .m-stat.pen .count,
+      .m-stat.pen .lbl {
+        color: var(--text-muted);
+      }
+
+      .m-stat.grid-btn {
+        padding: 6px 12px;
+
+        background: #f1f5f9;
+
+        border: 1px solid #cbd5e0;
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+      }
+
+      /* Mobile question palette */
+      .palette-panel {
+        display: none !important;
+
+        position: fixed !important;
+        inset: 0;
+
+        z-index: 10000 !important;
+
+        flex-direction: column;
+
+        padding: 20px !important;
+
+        background: white !important;
+      }
+
+      .palette-panel.open {
+        display: flex !important;
+      }
+
+      .close-palette-btn {
+        display: block !important;
+
+        margin-bottom: 15px;
+        padding: 12px;
+
+        background: var(--navy);
+        color: white;
+
+        border-radius: 8px;
+
+        text-align: center;
+
+        font-size: 1.05rem;
+        font-weight: bold;
+
+        cursor: pointer;
+      }
+
+      .palette-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+
+        overflow-y: auto;
+
+        padding-bottom: 20px;
+      }
+
+      /* Full-screen mobile exam */
+      .exam-container {
+        position: fixed;
+
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        z-index: 9999;
+
+        display: flex;
+
+        flex-direction: column;
+
+        background: #fff;
+      }
+
+      .exam-body {
+        flex-direction: column;
+
+        flex: 1;
+
+        overflow: hidden;
+      }
+
+      /* Mobile question panel */
+      .question-panel {
+        display: flex;
+        flex-direction: column;
+
+        flex: 1;
+
+        padding: 15px 12px !important;
+
+        overflow: hidden;
+      }
+
+      .q-num-header {
+        margin-bottom: 10px !important;
+        padding: 4px 15px !important;
+
+        font-size: 0.9rem !important;
+      }
+
+      .question-text {
+        margin-bottom: 10px !important;
+
+        font-size: 1.05rem !important;
+
+        line-height: 1.5 !important;
+      }
+
+      /* Scroll only the options area */
+      #optionsBox {
+        flex: 1;
+
+        overflow-y: auto;
+      }
+
+      .radio-option {
+        margin-bottom: 8px !important;
+        padding: 10px 12px !important;
+
+        font-size: 0.95rem !important;
+      }
+
+      /* Mobile navigation buttons */
+      .question-panel > div:last-child {
+        justify-content: center;
+
+        gap: 8px;
+
+        margin-top: auto !important;
+        padding-top: 15px !important;
+
+        border-top: 1px solid var(--border);
+      }
+
+      .question-panel > div:last-child .btn {
+        flex: 1;
+
+        padding: 10px !important;
+
+        font-size: 0.85rem !important;
+
+        text-align: center;
+      }
     }
   </style>
 </head>
+
 <body>
+  <!-- =========================================================
+       NAVIGATION
+       ========================================================= -->
+  {% include 'navbar.html' %}
 
-<nav id="standardNav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
-      <div style="width: 54px; height: 54px; background: #fff; border-radius: 14px; box-shadow: 0 4px 12px rgba(29,52,97,0.15); display: flex; align-items: center; justify-content: center; position: relative;">
-        <svg viewBox="0 0 160 160" style="width: 44px; height: 44px;">
-          <defs>
-            <linearGradient id="nGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0f172a" /><stop offset="100%" stop-color="#1d3461" /></linearGradient>
-            <linearGradient id="gGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#d4a017" /><stop offset="100%" stop-color="#fbbf24" /></linearGradient>
-          </defs>
-          <g transform="translate(15, 20)">
-            <path d="M 30 108 Q 80 115 125 102" fill="none" stroke="url(#gGrad)" stroke-width="4" stroke-linecap="round" stroke-opacity="0.5"/>
-            <circle cx="48" cy="40" r="13" fill="url(#nGrad)"/>
-            <path d="M 40 108 C 40 70 52 60 76 75" fill="none" stroke="url(#nGrad)" stroke-width="11" stroke-linecap="round"/>
-            <circle cx="78" cy="55" r="9" fill="url(#gGrad)"/>
-            <path d="M 64 108 C 64 90 70 82 76 75" fill="none" stroke="url(#gGrad)" stroke-width="8" stroke-linecap="round"/>
-            <path d="M 70 82 Q 85 70 98 55" fill="none" stroke="url(#gGrad)" stroke-width="7" stroke-linecap="round"/>
-            <path d="M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z" fill="url(#gGrad)"/>
-          </g>
-        </svg>
+  <!-- =========================================================
+       MAIN CONTENT
+       Topic selection screen
+       ========================================================= -->
+  <div id="mainContent">
+
+    <!-- Page header -->
+    <div class="page-banner">
+      <div class="wrapper">
+        <h1>
+          Topic-wise
+          <em>Practice Tests</em>
+        </h1>
+
+        <p class="hero-desc">
+          તમારી મનપસંદ કેટેગરી અને પ્રશ્નોની સંખ્યા પસંદ કરીને
+          લાઈવ પ્રેક્ટિસ શરૂ કરો!
+        </p>
       </div>
-      <div style="display: flex; flex-direction: column;">
-       <span style="font-size: clamp(1rem, 4vw, 1.35rem); color: #fff; letter-spacing: -0.5px; line-height: 1.1;">
-    <strong style="font-weight: 900;">ADHYAPAK</strong> <span style="font-weight: 300; color: #d4a017;">SAATHI</span>
-</span>
-<span style="font-size: clamp(0.5rem, 2vw, 0.65rem); color: #d4a017; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-top: 2px; white-space: nowrap;">Teacher Exam Portal</span>
+    </div>
+
+    <!-- Topic cards -->
+    <div class="wrapper" style="margin-bottom: 50px;">
+      <div
+        class="grid-4"
+        style="
+          gap: 1.5rem;
+          max-width: 1100px;
+          margin: 0 auto;
+          margin-top: 40px;
+          padding-bottom: 250px;
+        "
+      >
+
+        <!-- =====================================================
+             Topic 1: Philosophy
+             ===================================================== -->
+        <div class="p-topic-card">
+          <div>
+            <div class="p-topic-icon">🦉</div>
+
+            <h3>1. શિક્ષણની ફિલસૂફી</h3>
+          </div>
+
+          <div>
+            <select id="qc-philosophy" class="q-count-select">
+              <option value="10">10 પ્રશ્નો</option>
+              <option value="15" selected>15 પ્રશ્નો</option>
+              <option value="20">20 પ્રશ્નો</option>
+              <option value="30">30 પ્રશ્નો</option>
+              <option value="50">50 પ્રશ્નો</option>
+            </select>
+
+            <button
+              class="btn-p-start"
+              onclick="startPracticeTopic(
+                'philosophy',
+                'શિક્ષણની ફિલસૂફી',
+                'qc-philosophy'
+              )"
+            >
+              પ્રેક્ટિસ શરૂ કરો
+            </button>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             Topic 2: Educational Psychology
+             ===================================================== -->
+        <div class="p-topic-card">
+          <div>
+            <div class="p-topic-icon">🧠</div>
+
+            <h3>2. શૈક્ષણિક મનોવિજ્ઞાન</h3>
+          </div>
+
+          <div>
+            <select id="qc-psych" class="q-count-select">
+              <option value="10">10 પ્રશ્નો</option>
+              <option value="15" selected>15 પ્રશ્નો</option>
+              <option value="20">20 પ્રશ્નો</option>
+              <option value="30">30 પ્રશ્નો</option>
+              <option value="50">50 પ્રશ્નો</option>
+            </select>
+
+            <button
+              class="btn-p-start"
+              onclick="startPracticeTopic(
+                'psych',
+                'શૈક્ષણિક મનોવિજ્ઞાન',
+                'qc-psych'
+              )"
+            >
+              પ્રેક્ટિસ શરૂ કરો
+            </button>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             Topic 3: Classroom Behavior & Evaluation
+             ===================================================== -->
+        <div class="p-topic-card">
+          <div>
+            <div class="p-topic-icon">👩‍🏫</div>
+
+            <h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3>
+          </div>
+
+          <div>
+            <select id="qc-eval" class="q-count-select">
+              <option value="10">10 પ્રશ્નો</option>
+              <option value="15" selected>15 પ્રશ્નો</option>
+              <option value="20">20 પ્રશ્નો</option>
+              <option value="30">30 પ્રશ્નો</option>
+              <option value="50">50 પ્રશ્નો</option>
+            </select>
+
+            <button
+              class="btn-p-start"
+              onclick="startPracticeTopic(
+                'eval',
+                'વર્ગવ્યવહાર અને મૂલ્યાંકન',
+                'qc-eval'
+              )"
+            >
+              પ્રેક્ટિસ શરૂ કરો
+            </button>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             Topic 4: Logical Ability
+             ===================================================== -->
+        <div class="p-topic-card">
+          <div>
+            <div class="p-topic-icon">🧩</div>
+
+            <h3>4. તાર્કિક અભિયોગ્યતા</h3>
+          </div>
+
+          <div>
+            <select id="qc-reasoning" class="q-count-select">
+              <option value="10">10 પ્રશ્નો</option>
+              <option value="15" selected>15 પ્રશ્નો</option>
+              <option value="20">20 પ્રશ્નો</option>
+              <option value="30">30 પ્રશ્નો</option>
+              <option value="50">50 પ્રશ્નો</option>
+            </select>
+
+            <button
+              class="btn-p-start"
+              onclick="startPracticeTopic(
+                'reasoning',
+                'તાર્કિક અભિયોગ્યતા',
+                'qc-reasoning'
+              )"
+            >
+              પ્રેક્ટિસ શરૂ કરો
+            </button>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             Topic 5: Gujarati Language
+             ===================================================== -->
+        <div class="p-topic-card">
+          <div>
+            <div class="p-topic-icon">📜</div>
+
+            <h3>5. ગુજરાતી ભાષા</h3>
+          </div>
+
+          <div>
+            <select id="qc-gujarati" class="q-count-select">
+              <option value="10">10 પ્રશ્નો</option>
+              <option value="15" selected>15 પ્રશ્નો</option>
+              <option value="20">20 પ્રશ્નો</option>
+              <option value="30">30 પ્રશ્નો</option>
+              <option value="50">50 પ્રશ્નો</option>
+            </select>
+
+            <button
+              class="btn-p-start"
+              onclick="startPracticeTopic(
+                'gujarati',
+                'ગુજરાતી ભાષા',
+                'qc-gujarati'
+              )"
+            >
+              પ્રેક્ટિસ શરૂ કરો
+            </button>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             Topic 6: English Language
+             ===================================================== -->
+        <div class="p-topic-card">
+          <div>
+            <div class="p-topic-icon">🔠</div>
+
+            <h3>6. અંગ્રેજી ભાષા</h3>
+          </div>
+
+          <div>
+            <select id="qc-english" class="q-count-select">
+              <option value="10">10 પ્રશ્નો</option>
+              <option value="15" selected>15 પ્રશ્નો</option>
+              <option value="20">20 પ્રશ્નો</option>
+              <option value="30">30 પ્રશ્નો</option>
+              <option value="50">50 પ્રશ્નો</option>
+            </select>
+
+            <button
+              class="btn-p-start"
+              onclick="startPracticeTopic(
+                'english',
+                'અંગ્રેજી ભાષા',
+                'qc-english'
+              )"
+            >
+              પ્રેક્ટિસ શરૂ કરો
+            </button>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             Topic 7: General Knowledge
+             ===================================================== -->
+        <div
+          class="p-topic-card"
+          style="grid-column: span 2;"
+        >
+          <div>
+            <div class="p-topic-icon">🌐</div>
+
+            <h3>7. સામાન્ય જ્ઞાન</h3>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <select
+              id="qc-gk"
+              class="q-count-select"
+              style="margin-bottom: 0;"
+            >
+              <option value="10">10 પ્રશ્નો</option>
+              <option value="15" selected>15 પ્રશ્નો</option>
+              <option value="20">20 પ્રશ્નો</option>
+              <option value="30">30 પ્રશ્નો</option>
+              <option value="50">50 પ્રશ્નો</option>
+            </select>
+
+            <button
+              class="btn-p-start"
+              onclick="startPracticeTopic(
+                'gk',
+                'સામાન્ય જ્ઞાન',
+                'qc-gk'
+              )"
+            >
+              પ્રેક્ટિસ શરૂ કરો
+            </button>
+          </div>
+        </div>
+
       </div>
-    </a>
-    
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="test.html" class="active">Practice Test</a></li>
-      <li><a href="mocktest.html">Mock Test</a></li>
-      <li><a href="news.html">Exam News</a></li>
-      <li><a href="materials.html">Study Materials</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    
-    <div class="hamburger" onclick="toggleNav()">
-      <span></span><span></span><span></span>
     </div>
   </div>
-</nav>
 
-<div id="mainContent">
-  <div class="page-banner">
-    <div class="wrapper">
-      <h1>Topic-wise <em>Practice Tests</em></h1>
-      <p>તમારી મનપસંદ કેટેગરી અને પ્રશ્નોની સંખ્યા પસંદ કરીને લાઈવ પ્રેક્ટિસ શરૂ કરો!</p>
-    </div>
-  </div>
+  <!-- =========================================================
+       EXAM CONTAINER
+       Hidden until user starts a practice test.
+       ========================================================= -->
+  <div class="exam-container" id="examContainer">
 
-  <div class="wrapper" style="margin-bottom: 50px;">
-    <div class="grid-4" style="gap: 1.5rem; max-width: 1100px; margin: 0 auto; margin-top: 40px; padding-bottom: 250px;">
-      
-      <div class="p-topic-card">
-        <div><div class="p-topic-icon">🦉</div><h3>1. શિક્ષણની ફિલસૂફી</h3></div>
-        <div>
-          <select id="qc-philosophy" class="q-count-select">
-            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
-          </select>
-          <button class="btn-p-start" onclick="startPracticeTopic('philosophy', 'શિક્ષણની ફિલસૂફી', 'qc-philosophy')">પ્રેક્ટિસ શરૂ કરો</button>
+    <!-- Exam header -->
+    <div class="exam-topbar">
+
+      <!-- Topic information -->
+      <div class="exam-brand">
+        <span
+          id="headerIcon"
+          style="font-size: 1.5rem;"
+        >
+          📝
+        </span>
+
+        <span id="pTopicName">
+          Topic Name
+        </span>
+      </div>
+
+      <!-- Desktop statistics -->
+      <div class="exam-stats">
+        <div class="stat-badge ans">
+          ✔️ Answered:
+          <span id="cntAns">0</span>
+        </div>
+
+        <div class="stat-badge pen">
+          ⏳ Pending:
+          <span id="cntPen">15</span>
         </div>
       </div>
 
-      <div class="p-topic-card">
-        <div><div class="p-topic-icon">🧠</div><h3>2. શૈક્ષણિક મનોવિજ્ઞાન</h3></div>
-        <div>
-          <select id="qc-psych" class="q-count-select">
-            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
-          </select>
-          <button class="btn-p-start" onclick="startPracticeTopic('psych', 'શૈક્ષણિક મનોવિજ્ઞાન', 'qc-psych')">પ્રેક્ટિસ શરૂ કરો</button>
+      <!-- Timer & submit -->
+      <div class="exam-actions">
+
+        <div class="exam-timer">
+          ⏱️
+          <span id="timer">15:00</span>
+        </div>
+
+        <button
+          class="btn btn-gold"
+          style="
+            padding: 6px 20px;
+            color: var(--navy-dark);
+            font-weight: 800;
+            border-radius: 20px;
+          "
+          onclick="confirmSubmit()"
+        >
+          Submit Test
+        </button>
+
+      </div>
+    </div>
+
+    <!-- =======================================================
+         MOBILE EXAM STATISTICS
+         ======================================================= -->
+    <div class="mobile-stats-row">
+
+      <div class="m-stat ans">
+        <span class="count" id="mAns">0</span>
+        <span class="lbl">આપેલ</span>
+      </div>
+
+      <div class="m-stat skip">
+        <span class="count" id="mSkip">0</span>
+        <span class="lbl">છોડેલ</span>
+      </div>
+
+      <div class="m-stat pen">
+        <span class="count" id="mPen">15</span>
+        <span class="lbl">બાકી</span>
+      </div>
+
+      <div
+        class="m-stat grid-btn"
+        onclick="toggleMobilePalette()"
+      >
+        <span style="font-size: 1.1rem; margin-bottom: 2px;">
+          🔢
+        </span>
+
+        <span class="lbl">
+          પ્રશ્નો જુઓ
+        </span>
+      </div>
+
+    </div>
+
+    <!-- =======================================================
+         EXAM BODY
+         ======================================================= -->
+    <div class="exam-body">
+
+      <!-- =====================================================
+           QUESTION PANEL
+           ===================================================== -->
+      <div class="question-panel">
+
+        <!-- Question number -->
+        <div
+          class="q-num-header"
+          id="qNumHeader"
+        >
+          પ્રશ્ન: 1 / 15
+        </div>
+
+        <!-- Question text -->
+        <div
+          class="question-text"
+          id="qText"
+        >
+          પ્રશ્ન લોડ થઈ રહ્યો છે...
+        </div>
+
+        <!-- Answer options are dynamically injected here -->
+        <div id="optionsBox"></div>
+
+        <!-- Question navigation buttons -->
+        <div
+          style="
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+          "
+        >
+
+          <button
+            class="btn btn-navy"
+            style="
+              width: auto;
+              padding: 10px 30px;
+            "
+            onclick="saveNext()"
+          >
+            Save & Next
+          </button>
+
+          <button
+            class="btn btn-outline"
+            style="
+              width: auto;
+              border-color: #805ad5;
+              color: #805ad5;
+              padding: 10px 30px;
+            "
+            onclick="markReview()"
+          >
+            Review & Next
+          </button>
+
+          <button
+            class="btn btn-outline"
+            style="
+              width: auto;
+              border-color: #e2e8f0;
+              color: #4a5568;
+              padding: 10px 30px;
+            "
+            onclick="clearChoice()"
+          >
+            Clear
+          </button>
+
         </div>
       </div>
 
-      <div class="p-topic-card">
-        <div><div class="p-topic-icon">👩‍🏫</div><h3>3. વર્ગવ્યવહાર અને મૂલ્યાંકન</h3></div>
-        <div>
-          <select id="qc-eval" class="q-count-select">
-            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
-          </select>
-          <button class="btn-p-start" onclick="startPracticeTopic('eval', 'વર્ગવ્યવહાર અને મૂલ્યાંકન', 'qc-eval')">પ્રેક્ટિસ શરૂ કરો</button>
-        </div>
-      </div>
+      <!-- =====================================================
+           QUESTION PALETTE
+           ===================================================== -->
+      <div
+        class="palette-panel"
+        id="palettePanel"
+      >
 
-      <div class="p-topic-card">
-        <div><div class="p-topic-icon">🧩</div><h3>4. તાર્કિક અભિયોગ્યતા</h3></div>
-        <div>
-          <select id="qc-reasoning" class="q-count-select">
-            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
-          </select>
-          <button class="btn-p-start" onclick="startPracticeTopic('reasoning', 'તાર્કિક અભિયોગ્યતા', 'qc-reasoning')">પ્રેક્ટિસ શરૂ કરો</button>
+        <!-- Mobile close button -->
+        <div
+          class="close-palette-btn"
+          onclick="toggleMobilePalette()"
+        >
+          ❌ પાછા જાઓ (Close Grid)
         </div>
-      </div>
 
-      <div class="p-topic-card">
-        <div><div class="p-topic-icon">📜</div><h3>5. ગુજરાતી ભાષા</h3></div>
-        <div>
-          <select id="qc-gujarati" class="q-count-select">
-            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
-          </select>
-          <button class="btn-p-start" onclick="startPracticeTopic('gujarati', 'ગુજરાતી ભાષા', 'qc-gujarati')">પ્રેક્ટિસ શરૂ કરો</button>
+        <!-- Palette heading -->
+        <div
+          style="
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+            color: var(--navy);
+          "
+        >
+          Question Palette
         </div>
-      </div>
 
-      <div class="p-topic-card">
-        <div><div class="p-topic-icon">🔠</div><h3>6. અંગ્રેજી ભાષા</h3></div>
-        <div>
-          <select id="qc-english" class="q-count-select">
-            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
-          </select>
-          <button class="btn-p-start" onclick="startPracticeTopic('english', 'અંગ્રેજી ભાષા', 'qc-english')">પ્રેક્ટિસ શરૂ કરો</button>
-        </div>
-      </div>
+        <!-- Question buttons -->
+        <div
+          class="palette-grid"
+          id="paletteGrid"
+        ></div>
 
-      <div class="p-topic-card" style="grid-column: span 2;">
-        <div><div class="p-topic-icon">🌐</div><h3>7. સામાન્ય જ્ઞાન</h3></div>
-        <div style="display:flex; gap:10px;">
-          <select id="qc-gk" class="q-count-select" style="margin-bottom:0;">
-            <option value="10">10 પ્રશ્નો</option><option value="15" selected>15 પ્રશ્નો</option><option value="20">20 પ્રશ્નો</option><option value="30">30 પ્રશ્નો</option><option value="50">50 પ્રશ્નો</option>
-          </select>
-          <button class="btn-p-start" onclick="startPracticeTopic('gk', 'સામાન્ય જ્ઞાન', 'qc-gk')">પ્રેક્ટિસ શરૂ કરો</button>
+        <!-- Palette legend -->
+        <div
+          style="
+            margin-top: auto;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+          "
+        >
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              margin-bottom: 8px;
+              font-size: 0.85rem;
+              font-weight: bold;
+              color: var(--text-mid);
+            "
+          >
+            <span
+              style="
+                width: 16px;
+                height: 16px;
+                background: var(--green);
+                border-radius: 4px;
+              "
+            ></span>
+
+            Answered
+          </div>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              margin-bottom: 8px;
+              font-size: 0.85rem;
+              font-weight: bold;
+              color: var(--text-mid);
+            "
+          >
+            <span
+              style="
+                width: 16px;
+                height: 16px;
+                background: var(--red);
+                border-radius: 4px;
+              "
+            ></span>
+
+            Not Answered (છોડેલ)
+          </div>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              font-size: 0.85rem;
+              font-weight: bold;
+              color: var(--text-mid);
+            "
+          >
+            <span
+              style="
+                width: 16px;
+                height: 16px;
+                background: #805ad5;
+                border-radius: 4px;
+              "
+            ></span>
+
+            Marked for Review
+          </div>
+
         </div>
       </div>
 
     </div>
   </div>
-</div>
 
-<div class="exam-container" id="examContainer">
-  <div class="exam-topbar">
-    <div class="exam-brand">
-      <span id="headerIcon" style="font-size: 1.5rem;">📝</span> <span id="pTopicName">Topic Name</span>
-    </div>
-    
-    <div class="exam-stats">
-      <div class="stat-badge ans">✔️ Answered: <span id="cntAns">0</span></div>
-      <div class="stat-badge pen">⏳ Pending: <span id="cntPen">15</span></div>
-    </div>
+  <!-- =========================================================
+       CUSTOM MODAL
+       ========================================================= -->
+  <div
+    class="modal-overlay"
+    id="customModalOverlay"
+  >
+    <div
+      class="auth-box"
+      style="border-top-color: var(--gold);"
+    >
 
-    <div class="exam-actions">
-      <div class="exam-timer">⏱️ <span id="timer">15:00</span></div>
-      <button class="btn btn-gold" style="padding: 6px 20px; color: var(--navy-dark); font-weight: 800; border-radius: 20px;" onclick="confirmSubmit()">Submit Test</button>
+      <h3
+        id="modalTitle"
+        style="
+          color: var(--navy);
+          font-family: var(--font-serif);
+          font-size: 1.5rem;
+          margin-bottom: 10px;
+        "
+      >
+        શીર્ષક
+      </h3>
+
+      <p
+        id="modalMsg"
+        style="
+          color: var(--text-mid);
+          font-size: 1.05rem;
+          margin-bottom: 20px;
+          font-weight: 500;
+          line-height: 1.5;
+        "
+      >
+        સંદેશ અહીં આવશે...
+      </p>
+
+      <div
+        id="modalFooter"
+        style="
+          display: flex;
+          gap: 10px;
+          justify-content: center;
+          flex-wrap: wrap;
+        "
+      ></div>
+
     </div>
   </div>
 
-  <div class="mobile-stats-row">
-    <div class="m-stat ans"><span class="count" id="mAns">0</span><span class="lbl">આપેલ</span></div>
-    <div class="m-stat skip"><span class="count" id="mSkip">0</span><span class="lbl">છોડેલ</span></div>
-    <div class="m-stat pen"><span class="count" id="mPen">15</span><span class="lbl">બાકી</span></div>
-    <div class="m-stat grid-btn" onclick="toggleMobilePalette()"><span style="font-size: 1.1rem; margin-bottom: 2px;">🔢</span><span class="lbl">પ્રશ્નો જુઓ</span></div>
-  </div>
+  <!-- =========================================================
+       RESULT / SCORECARD SCREEN
+       ========================================================= -->
+  <div
+    id="resultScreen"
+    style="
+      display: none;
+      padding: 40px 20px;
+      background: #f4f7fb;
+      min-height: 100vh;
+    "
+  >
 
-  <div class="exam-body">
-    <div class="question-panel">
-      <div class="q-num-header" id="qNumHeader">પ્રશ્ન: 1 / 15</div>
-      <div class="question-text" id="qText">પ્રશ્ન લોડ થઈ રહ્યો છે...</div>
-      <div id="optionsBox"></div>
-      
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <button class="btn btn-navy" style="width: auto; padding: 10px 30px;" onclick="saveNext()">Save & Next</button>
-        <button class="btn btn-outline" style="width: auto; border-color: #805ad5; color: #805ad5; padding: 10px 30px;" onclick="markReview()">Review & Next</button>
-        <button class="btn btn-outline" style="width: auto; border-color: #e2e8f0; color: #4a5568; padding: 10px 30px;" onclick="clearChoice()">Clear</button>
+    <div class="scorecard-wrapper">
+
+      <!-- Result heading -->
+      <h2
+        style="
+          font-family: var(--font-serif);
+          font-size: 2.2rem;
+          color: var(--navy);
+          margin-bottom: 5px;
+        "
+      >
+        પ્રેક્ટિસ પરિણામ (Scorecard)
+      </h2>
+
+      <p
+        style="
+          color: var(--text-mid);
+          font-size: 1.05rem;
+          margin-bottom: 20px;
+          font-weight: 600;
+        "
+      >
+        તમે આપેલ પ્રેક્ટીસ ટેસ્ટનું વિગતવાર વિશ્લેષણ આ મુજબ છે:
+      </p>
+
+      <!-- Motivational message -->
+      <p
+        id="motivationalQuote"
+        style="
+          color: var(--navy);
+          font-size: 1.15rem;
+          font-weight: bold;
+          margin-bottom: 25px;
+        "
+      ></p>
+
+      <!-- Score -->
+      <div class="score-circle-old">
+        <span
+          class="marks"
+          id="resScore"
+        >
+          0
+        </span>
+
+        <span
+          class="total"
+          id="resTotalText"
+        >
+          out of 15
+        </span>
       </div>
-    </div>
-    
-    <div class="palette-panel" id="palettePanel">
-      <div class="close-palette-btn" onclick="toggleMobilePalette()">❌ પાછા જાઓ (Close Grid)</div>
-      <div style="font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 5px; color: var(--navy);">Question Palette</div>
-      <div class="palette-grid" id="paletteGrid"></div>
-      
-      <div style="margin-top: auto; padding: 15px; background: white; border-radius: 8px; border: 1px solid var(--border);">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; font-weight: bold; color: var(--text-mid);"><span style="width: 16px; height: 16px; background: var(--green); border-radius: 4px;"></span> Answered</div>
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; font-weight: bold; color: var(--text-mid);"><span style="width: 16px; height: 16px; background: var(--red); border-radius: 4px;"></span> Not Answered (છોડેલ)</div>
-        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; font-weight: bold; color: var(--text-mid);"><span style="width: 16px; height: 16px; background: #805ad5; border-radius: 4px;"></span> Marked for Review</div>
+
+      <!-- Result statistics -->
+      <div class="stats-grid-old">
+
+        <div class="stat-box-old sb-c">
+          <div
+            style="font-size: 1.8rem;"
+            id="resCorrect"
+          >
+            0
+          </div>
+
+          <div
+            style="
+              font-size: 0.8rem;
+              text-transform: uppercase;
+            "
+          >
+            સાચા જવાબો
+          </div>
+        </div>
+
+        <div class="stat-box-old sb-w">
+          <div
+            style="font-size: 1.8rem;"
+            id="resWrong"
+          >
+            0
+          </div>
+
+          <div
+            style="
+              font-size: 0.8rem;
+              text-transform: uppercase;
+            "
+          >
+            ખોટા જવાબો
+          </div>
+        </div>
+
+        <div class="stat-box-old sb-s">
+          <div
+            style="font-size: 1.8rem;"
+            id="resSkip"
+          >
+            0
+          </div>
+
+          <div
+            style="
+              font-size: 0.8rem;
+              text-transform: uppercase;
+            "
+          >
+            છોડેલા પ્રશ્નો
+          </div>
+        </div>
+
+        <div class="stat-box-old sb-a">
+          <div style="font-size: 1.8rem;">
+            <span id="resAcc">0</span>%
+          </div>
+
+          <div
+            style="
+              font-size: 0.8rem;
+              text-transform: uppercase;
+            "
+          >
+            ચોકસાઈ
+          </div>
+        </div>
+
       </div>
+
+      <!-- =====================================================
+           PRINT BRANDING
+           ===================================================== -->
+      <div class="print-branding">
+
+        <h3>
+          Adhyapak Saathi
+        </h3>
+
+        <p
+          style="
+            color: var(--green);
+            font-weight: 800;
+            font-size: 1.05rem;
+          "
+        >
+          શિક્ષક બનવાનું તમારું સ્વપ્ન, અમારો સાથ! 🎯
+        </p>
+
+        <div class="print-url">
+          🌐 www.adhyapaksaathi.in
+        </div>
+
+      </div>
+
+      <!-- =====================================================
+           RESULT ACTION BUTTONS
+           ===================================================== -->
+      <div
+        style="
+          margin-top: 30px;
+          display: flex;
+          gap: 15px;
+          justify-content: center;
+          flex-wrap: wrap;
+        "
+        class="print-hide"
+      >
+
+        <button
+          class="btn btn-outline"
+          style="padding: 12px 30px;"
+          onclick="window.location.href='test.html'"
+        >
+          🏠 પાછા જાઓ
+        </button>
+
+        <button
+          class="btn btn-navy"
+          style="padding: 12px 30px;"
+          onclick="location.reload()"
+        >
+          🔄 બીજી પ્રેક્ટિસ કરો
+        </button>
+
+        <button
+          class="btn"
+          style="
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+          "
+          onclick="shareWhatsApp()"
+        >
+          📱 સ્કોર શેર કરો
+        </button>
+
+      </div>
+
+      <!-- Review toggle -->
+      <div
+        style="
+          text-align: center;
+          margin-top: 20px;
+        "
+        class="print-hide"
+      >
+
+        <button
+          id="reviewToggleBtn"
+          class="btn btn-outline"
+          onclick="toggleReviewAnswers()"
+          style="
+            border-color: var(--gold);
+            color: var(--navy);
+            border-width: 2px;
+          "
+        >
+          👀 સાચા જવાબો જુઓ (Review)
+        </button>
+
+      </div>
+
+      <!-- =====================================================
+           REVIEW ANSWERS
+           ===================================================== -->
+      <div
+        class="topic-analysis-box print-hide"
+        id="reviewAnswersBox"
+        style="display: none;"
+      >
+
+        <h4>
+          📝 પ્રશ્નો અને સાચા જવાબો (Review)
+        </h4>
+
+        <div
+          id="reviewContent"
+          style="text-align: left;"
+        ></div>
+
+      </div>
+
     </div>
   </div>
-</div>
 
-<div class="modal-overlay" id="customModalOverlay">
-  <div class="auth-box" style="border-top-color: var(--gold);">
-    <h3 id="modalTitle" style="color: var(--navy); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 10px;">શીર્ષક</h3>
-    <p id="modalMsg" style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: 500; line-height: 1.5;">સંદેશ અહીં આવશે...</p>
-    <div id="modalFooter" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;"></div>
-  </div>
-</div>
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  {% include 'footer.html' %}
 
-<div id="resultScreen" style="display: none; padding: 40px 20px; background: #f4f7fb; min-height: 100vh;">
-  <div class="scorecard-wrapper">
-    <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 5px;">પ્રેક્ટિસ પરિણામ (Scorecard)</h2>
-    <p style="color: var(--text-mid); font-size: 1.05rem; margin-bottom: 20px; font-weight: 600;">તમે આપેલ પ્રેક્ટીસ ટેસ્ટનું વિગતવાર વિશ્લેષણ આ મુજબ છે:</p>
+  <!-- =========================================================
+       THIRD-PARTY LIBRARIES
+       PapaParse is used to parse Google Sheets CSV data.
+       ========================================================= -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"
+  ></script>
 
-    <p id="motivationalQuote" style="color: var(--navy); font-size: 1.15rem; font-weight: bold; margin-bottom: 25px;"></p>
+  <!-- =========================================================
+       APPLICATION JAVASCRIPT
+       ========================================================= -->
+  <script>
+    /* =========================================================
+       GLOBAL / PAGE PROTECTION
+       ========================================================= */
 
-    <div class="score-circle-old">
-      <span class="marks" id="resScore">0</span>
-      <span class="total" id="resTotalText">out of 15</span>
-    </div>
+    // Disable browser context menu.
+    document.addEventListener("contextmenu", (event) => {
+      event.preventDefault();
+    });
 
-    <div class="stats-grid-old">
-      <div class="stat-box-old sb-c"><div style="font-size: 1.8rem;" id="resCorrect">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">સાચા જવાબો</div></div>
-      <div class="stat-box-old sb-w"><div style="font-size: 1.8rem;" id="resWrong">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">ખોટા જવાબો</div></div>
-      <div class="stat-box-old sb-s"><div style="font-size: 1.8rem;" id="resSkip">0</div><div style="font-size: 0.8rem; text-transform: uppercase;">છોડેલા પ્રશ્નો</div></div>
-      <div class="stat-box-old sb-a"><div style="font-size: 1.8rem;"><span id="resAcc">0</span>%</div><div style="font-size: 0.8rem; text-transform: uppercase;">ચોકસાઈ</div></div>
-    </div>
+    // Prevent the browser's default "leave page" warning.
+    window.onbeforeunload = null;
 
-    <div class="print-branding">
-      <h3>Adhyapak Saathi</h3>
-      <p style="color: var(--green); font-weight: 800; font-size: 1.05rem;">શિક્ષક બનવાનું તમારું સ્વપ્ન, અમારો સાથ! 🎯</p>
-      <div class="print-url">🌐 www.adhyapaksaathi.in</div>
-    </div>
+    /* =========================================================
+       NAVIGATION HELPERS
+       ========================================================= */
 
-    <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;" class="print-hide">
-      <button class="btn btn-outline" style="padding: 12px 30px;" onclick="window.location.href='test.html'">🏠 પાછા જાઓ</button>
-      <button class="btn btn-navy" style="padding: 12px 30px;" onclick="location.reload()">🔄 બીજી પ્રેક્ટિસ કરો</button>
-      <button class="btn" style="background: #25D366; color: white; border: none; padding: 12px 30px;" onclick="shareWhatsApp()">📱 સ્કોર શેર કરો</button>
-    </div>
+    /**
+     * Toggle the mobile navigation menu.
+     */
+    function toggleNav() {
+      document
+        .getElementById("navLinks")
+        .classList.toggle("open");
+    }
 
-    <div style="text-align: center; margin-top: 20px;" class="print-hide">
-      <button id="reviewToggleBtn" class="btn btn-outline" onclick="toggleReviewAnswers()" style="border-color: var(--gold); color: var(--navy); border-width: 2px;">👀 સાચા જવાબો જુઓ (Review)</button>
-    </div>
+    /**
+     * Toggle the mobile question palette.
+     */
+    function toggleMobilePalette() {
+      document
+        .getElementById("palettePanel")
+        .classList.toggle("open");
+    }
 
-    <div class="topic-analysis-box print-hide" id="reviewAnswersBox" style="display: none;">
-      <h4>📝 પ્રશ્નો અને સાચા જવાબો (Review)</h4>
-      <div id="reviewContent" style="text-align: left;"></div>
-    </div>
+    /* =========================================================
+       GOOGLE SHEETS DATA SOURCE
+       ========================================================= */
 
-  </div>
-</div>
+    // Public Google Sheets CSV endpoint.
+    const googleSheetCSVLink =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1iMp8oZ-gM1PlKf2-na0-_9DHw1vEf7VykllRqpvsfabforbC3v97JOFwwlwLBLEIAjHRqiRiHhXM/pub?output=csv";
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    // Stores all questions loaded from Google Sheets.
+    let practiceDB = [];
 
-<script>
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  window.onbeforeunload = null;
+    /* =========================================================
+       LOAD QUESTION DATABASE
+       ========================================================= */
 
-  function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-  function toggleMobilePalette() { document.getElementById('palettePanel').classList.toggle('open'); }
-
-  // 🔗 તમારી ગૂગલ શીટ લાઈવ ડેટાબેઝ કનેક્શન 
-  const googleSheetCSVLink = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1iMp8oZ-gM1PlKf2-na0-_9DHw1vEf7VykllRqpvsfabforbC3v97JOFwwlwLBLEIAjHRqiRiHhXM/pub?output=csv";
-  
-  let practiceDB = [];
-
-  window.onload = function() {
+    window.onload = function () {
       Papa.parse(googleSheetCSVLink, {
-          download: true,
-          header: true,
-          complete: function(results) {
-              practiceDB = results.data.map(row => {
-                  return {
-                      q: row.Question,
-                      opts: [row.OptA, row.OptB, row.OptC, row.OptD],
-                      ans: parseInt(row.Ans),
-                      topic: row.Topic
-                  };
-              }).filter(item => item.q && item.q.trim() !== "" && !isNaN(item.ans));
-          },
-          error: function(err) { console.error("ગૂગલ શીટ લોડ કરવામાં એરર:", err); }
+        download: true,
+        header: true,
+
+        complete: function (results) {
+          practiceDB = results.data
+            .map((row) => {
+              return {
+                q: row.Question,
+
+                opts: [
+                  row.OptA,
+                  row.OptB,
+                  row.OptC,
+                  row.OptD,
+                ],
+
+                ans: parseInt(row.Ans),
+                topic: row.Topic,
+              };
+            })
+
+            // Remove empty or invalid rows.
+            .filter(
+              (item) =>
+                item.q &&
+                item.q.trim() !== "" &&
+                !isNaN(item.ans)
+            );
+        },
+
+        error: function (error) {
+          console.error(
+            "ગૂગલ શીટ લોડ કરવામાં એરર:",
+            error
+          );
+        },
       });
-  };
+    };
 
-  function shuffleArray(array) {
-    let newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    /* =========================================================
+       UTILITY FUNCTIONS
+       ========================================================= */
+
+    /**
+     * Returns a shuffled copy of an array.
+     *
+     * @param {Array} array
+     * @returns {Array}
+     */
+    function shuffleArray(array) {
+      const newArray = [...array];
+
+      for (
+        let i = newArray.length - 1;
+        i > 0;
+        i--
+      ) {
+        const j = Math.floor(
+          Math.random() * (i + 1)
+        );
+
+        [
+          newArray[i],
+          newArray[j],
+        ] = [
+          newArray[j],
+          newArray[i],
+        ];
+      }
+
+      return newArray;
     }
-    return newArray;
-  }
 
-  let activeQs = [], currentIdx = 0, answers = {}, status = {}, timeLeft = 0, timer;
+    /* =========================================================
+       EXAM STATE
+       ========================================================= */
 
-  function startPracticeTopic(topicCode, topicName, selectId) {
-    if(practiceDB.length === 0) {
-        alert("પ્રશ્નો લોડ થઈ રહ્યા છે, કૃપા કરીને 2 મિનીટ રાહ જુઓ અથવા થોડા સમય પછી પ્રયત્ન કરો.");
+    let activeQs = [];
+    let currentIdx = 0;
+
+    // Stores selected option index for each question.
+    let answers = {};
+
+    // Stores question status:
+    // not-visited / not-answered / answered / review
+    let status = {};
+
+    // Remaining time in seconds.
+    let timeLeft = 0;
+
+    // Timer interval reference.
+    let timer;
+
+    /* =========================================================
+       START PRACTICE TEST
+       ========================================================= */
+
+    /**
+     * Starts a topic-wise practice test.
+     *
+     * @param {string} topicCode
+     * @param {string} topicName
+     * @param {string} selectId
+     */
+    function startPracticeTopic(
+      topicCode,
+      topicName,
+      selectId
+    ) {
+      // Make sure the database has loaded.
+      if (practiceDB.length === 0) {
+        alert(
+          "પ્રશ્નો લોડ થઈ રહ્યા છે, કૃપા કરીને 2 મિનીટ રાહ જુઓ અથવા થોડા સમય પછી પ્રયત્ન કરો."
+        );
+
         return;
-    }
-    let requiredQs = parseInt(document.getElementById(selectId).value);
-    let topicQuestions = practiceDB.filter(q => q.topic === topicCode);
-    topicQuestions = shuffleArray(topicQuestions);
-    activeQs = [];
-    if(topicQuestions.length >= requiredQs) {
-        activeQs = topicQuestions.slice(0, requiredQs);
-    } else {
+      }
+
+      // Get requested question count.
+      const requiredQs = parseInt(
+        document.getElementById(selectId).value
+      );
+
+      // Get questions belonging to the selected topic.
+      let topicQuestions = practiceDB.filter(
+        (question) =>
+          question.topic === topicCode
+      );
+
+      // Randomize questions.
+      topicQuestions =
+        shuffleArray(topicQuestions);
+
+      activeQs = [];
+
+      /* ---------------------------------------------------------
+         Select requested number of questions.
+
+         If the Google Sheet does not contain enough questions,
+         placeholder questions are added.
+         --------------------------------------------------------- */
+      if (
+        topicQuestions.length >= requiredQs
+      ) {
+        activeQs = topicQuestions.slice(
+          0,
+          requiredQs
+        );
+      } else {
         activeQs = [...topicQuestions];
-        let currentLen = activeQs.length;
-        for(let i = currentLen; i < requiredQs; i++) {
-            activeQs.push({
-                q: "પ્રશ્ન " + (i + 1) + ": (તમારી ગૂગલ શીટમાં આ વિષયના વધુ પ્રશ્નો ઉમેરો)",
-                opts: ["A", "B", "C", "D"], ans: 0, topic: topicCode
-            });
+
+        const currentLen =
+          activeQs.length;
+
+        for (
+          let i = currentLen;
+          i < requiredQs;
+          i++
+        ) {
+          activeQs.push({
+            q:
+              "પ્રશ્ન " +
+              (i + 1) +
+              ": (તમારી ગૂગલ શીટમાં આ વિષયના વધુ પ્રશ્નો ઉમેરો)",
+
+            opts: [
+              "A",
+              "B",
+              "C",
+              "D",
+            ],
+
+            ans: 0,
+            topic: topicCode,
+          });
         }
+      }
+
+      // One minute per question.
+      timeLeft =
+        activeQs.length * 60;
+
+      // Update exam header.
+      document.getElementById(
+        "pTopicName"
+      ).innerText = topicName;
+
+      document.getElementById(
+        "cntPen"
+      ).innerText =
+        activeQs.length;
+
+      document.getElementById(
+        "mPen"
+      ).innerText =
+        activeQs.length;
+
+      // Hide topic selection screen.
+      document.getElementById(
+        "mainContent"
+      ).style.display = "none";
+
+      // Show exam screen.
+      document.getElementById(
+        "examContainer"
+      ).style.display = "flex";
+
+      // Reset exam state.
+      currentIdx = 0;
+      answers = {};
+      status = {};
+
+      // Set every question as not visited initially.
+      activeQs.forEach((_, index) => {
+        status[index] = "not-visited";
+      });
+
+      // Load first question.
+      loadQuestion(0);
+
+      // Start countdown.
+      startTimer();
     }
-    timeLeft = activeQs.length * 60;
-    document.getElementById('pTopicName').innerText = topicName;
-    document.getElementById('cntPen').innerText = activeQs.length;
-    document.getElementById('mPen').innerText = activeQs.length;
-    document.getElementById('mainContent').style.display = 'none';
-    document.getElementById('examContainer').style.display = 'flex';
-    currentIdx = 0; answers = {}; status = {};
-    activeQs.forEach((_, i) => status[i] = 'not-visited');
-    loadQuestion(0); startTimer();
-  }
 
-  function startTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => {
-      timeLeft--;
-      const m = Math.floor(timeLeft / 60).toString().padStart(2,'0');
-      const s = (timeLeft % 60).toString().padStart(2,'0');
-      document.getElementById('timer').innerText = `${m}:${s}`;
-      if(timeLeft <= 0) { clearInterval(timer); submitPractice(); }
-    }, 1000);
-  }
+    /* =========================================================
+       EXAM TIMER
+       ========================================================= */
 
-  function updateTopStats() {
-    let ans = 0, notAns = 0, rev = 0, pen = 0;
-    activeQs.forEach((_, i) => {
-      if(status[i] === 'answered') ans++; else if(status[i] === 'not-answered') notAns++; else if(status[i] === 'review') rev++; else pen++;
-    });
-    if(document.getElementById('cntAns')) document.getElementById('cntAns').innerText = ans;
-    if(document.getElementById('cntPen')) document.getElementById('cntPen').innerText = activeQs.length - ans;
-    if(document.getElementById('mAns')) document.getElementById('mAns').innerText = ans;
-    if(document.getElementById('mSkip')) document.getElementById('mSkip').innerText = notAns;
-    if(document.getElementById('mPen')) document.getElementById('mPen').innerText = pen;
-  }
+    /**
+     * Starts the exam countdown timer.
+     */
+    function startTimer() {
+      clearInterval(timer);
 
-  function loadQuestion(idx) {
-    currentIdx = idx; const q = activeQs[idx];
-    document.getElementById('qNumHeader').innerText = `પ્રશ્ન: ${idx + 1} / ${activeQs.length}`;
-    document.getElementById('qText').innerHTML = q.q;
-    let html = '';
-    q.opts.forEach((opt, i) => {
-      const isSel = answers[idx] === i;
-      html += `<div class="radio-option ${isSel?'selected':''}" onclick="selectOpt(${i})"><input type="radio" name="opts" ${isSel?'checked':''}> ${opt}</div>`;
-    });
-    document.getElementById('optionsBox').innerHTML = html;
-    if (status[idx] === 'not-visited') status[idx] = 'not-answered';
-    if(window.innerWidth <= 768) { document.getElementById('palettePanel').classList.remove('open'); }
-    renderPalette(); updateTopStats();
-  }
+      timer = setInterval(() => {
+        timeLeft--;
 
-  function selectOpt(i) { answers[currentIdx] = i; status[currentIdx] = 'answered'; loadQuestion(currentIdx); }
-  function saveNext() { if(currentIdx < activeQs.length - 1) loadQuestion(currentIdx + 1); else renderPalette(); }
-  function markReview() { status[currentIdx] = 'review'; if(currentIdx < activeQs.length - 1) loadQuestion(currentIdx + 1); else renderPalette(); }
-  function clearChoice() { delete answers[currentIdx]; status[currentIdx] = 'not-answered'; loadQuestion(currentIdx); }
+        const minutes = Math.floor(
+          timeLeft / 60
+        )
+          .toString()
+          .padStart(2, "0");
 
-  function renderPalette() {
-    let html = '';
-    activeQs.forEach((_, i) => {
-      let cls = status[i] || 'not-visited'; if(i === currentIdx) cls += ' current';
-      html += `<button class="palette-btn ${cls}" onclick="loadQuestion(${i})">${i+1}</button>`;
-    });
-    document.getElementById('paletteGrid').innerHTML = html;
-  }
+        const seconds = (
+          timeLeft % 60
+        )
+          .toString()
+          .padStart(2, "0");
 
-  function confirmSubmit() {
-    let answered = Object.keys(answers).length;
-    let skipped = activeQs.length - answered;
-    let msg = skipped > 0 ? `ચેતવણી: તમે હજુ ${skipped} પ્રશ્નો છોડી દીધા છે.\nશું તમે ખરેખર ટેસ્ટ સબમિટ કરવા માંગો છો?` : "તમે બધા જ પ્રશ્નોના જવાબ આપી દીધા છે. શું તમે ટેસ્ટ સબમિટ કરવા માંગો છો?";
-    showModal("ટેસ્ટ સબમિટ કરવી છે?", msg, true, submitPractice);
-  }
+        document.getElementById(
+          "timer"
+        ).innerText =
+          `${minutes}:${seconds}`;
 
-  function submitPractice() {
-    clearInterval(timer);
-    document.getElementById('examContainer').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'block';
-    
-    let correct = 0, wrong = 0;
-    activeQs.forEach((q, i) => { if(answers[i] === q.ans) correct++; else if(answers[i] !== undefined) wrong++; });
+        // Automatically submit when time expires.
+        if (timeLeft <= 0) {
+          clearInterval(timer);
 
-    let accuracy = activeQs.length > 0 ? ((correct / activeQs.length) * 100).toFixed(0) : 0;
-    document.getElementById('resScore').innerText = correct;
-    document.getElementById('resTotalText').innerText = "out of " + activeQs.length;
-    document.getElementById('resCorrect').innerText = correct;
-    document.getElementById('resWrong').innerText = wrong;
-    document.getElementById('resSkip').innerText = activeQs.length - (correct + wrong);
-    document.getElementById('resAcc').innerText = accuracy;
-    
-    let quote = accuracy >= 80 ? "શાનદાર પ્રદર્શન! તમારી તૈયારી એકદમ યોગ્ય દિશામાં છે. 🏆" : (accuracy >= 50 ? "સારો પ્રયાસ! થોડી વધુ મહેનતથી તમે ઉત્તમ પરિણામ લાવી શકો છો. 👍" : "નિરાશ ન થશો! વધુ પ્રેક્ટિસ કરો, સફળતા ચોક્કસ મળશે. 💪");
-    document.getElementById('motivationalQuote').innerText = quote;
+          submitPractice();
+        }
+      }, 1000);
+    }
 
-    let reviewHtml = '';
-    activeQs.forEach((q, i) => {
-        let userAnsIdx = answers[i];
-        if(userAnsIdx === undefined) return;
-        let isCorrect = userAnsIdx === q.ans;
-        let userAnsText = q.opts[userAnsIdx], correctAnsText = q.opts[q.ans];
-        let userAnsColor = isCorrect ? "var(--green)" : "var(--red)";
-        reviewHtml += `<div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border);"><div style="font-weight: bold; margin-bottom: 8px; color: var(--navy);">${i+1}. ${q.q}</div><div style="font-size: 0.95rem; margin-bottom: 4px;">તમારો જવાબ: <span style="color: ${userAnsColor}; font-weight: bold;">${userAnsText}</span></div><div style="font-size: 0.95rem;">સાચો જવાબ: <span style="color: var(--green); font-weight: bold;">${correctAnsText}</span></div></div>`;
-    });
-    if(reviewHtml === '') reviewHtml = '<div style="text-align:center; color:var(--red); font-weight:bold; font-size:1.1rem;">તમે કોઈ પણ પ્રશ્નનો જવાબ આપ્યો નથી.</div>';
-    document.getElementById('reviewContent').innerHTML = reviewHtml;
-    window.scrollTo(0,0);
-  }
+    /* =========================================================
+       UPDATE EXAM STATISTICS
+       ========================================================= */
 
-  function toggleReviewAnswers() {
-    const box = document.getElementById('reviewAnswersBox'), btn = document.getElementById('reviewToggleBtn');
-    if (box.style.display === 'none' || box.style.display === '') { box.style.display = 'block'; btn.innerHTML = '❌ જવાબો બંધ કરો (Close)'; } 
-    else { box.style.display = 'none'; btn.innerHTML = '👀 સાચા જવાબો જુઓ (Review)'; }
-  }
+    /**
+     * Updates answered, skipped and pending counters.
+     */
+    function updateTopStats() {
+      let ans = 0;
+      let notAns = 0;
+      let rev = 0;
+      let pen = 0;
 
-  function shareWhatsApp() {
-    const score = document.getElementById('resScore').innerText, totalText = document.getElementById('resTotalText').innerText.replace('out of ', ''), topic = document.getElementById('pTopicName').innerText;
-    const textMsg = `મારો ${topic} ની પ્રેક્ટિસ ટેસ્ટનો સ્કોર ${totalText} માંથી ${score} છે! 🎓\nઅધ્યાપક સાથી (Adhyapak Saathi) પ્લેટફોર્મ પર તમે પણ ફ્રી પ્રેક્ટિસ ટેસ્ટ આપી શકો છો.\n\nઅહીં ક્લિક કરો: https://adhyapaksaathi.in/test.html`;
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(textMsg)}`, '_blank');
-  }
+      activeQs.forEach((_, index) => {
+        if (
+          status[index] === "answered"
+        ) {
+          ans++;
+        } else if (
+          status[index] === "not-answered"
+        ) {
+          notAns++;
+        } else if (
+          status[index] === "review"
+        ) {
+          rev++;
+        } else {
+          pen++;
+        }
+      });
 
-  function showModal(title, msg, isConfirm, callback) {
-    document.getElementById('modalTitle').innerText = title; document.getElementById('modalMsg').innerText = msg;
-    const footer = document.getElementById('modalFooter'); footer.innerHTML = '';
-    if(isConfirm) {
-        const yesBtn = document.createElement('button'); yesBtn.className = 'btn btn-navy'; yesBtn.style.padding = '10px 25px'; yesBtn.innerText = 'હા, સબમિટ કરો'; yesBtn.onclick = () => { document.getElementById('customModalOverlay').style.display='none'; callback(); };
-        const noBtn = document.createElement('button'); noBtn.className = 'btn btn-outline'; noBtn.style.padding = '10px 25px'; noBtn.innerText = 'ના, પાછા જાવ'; noBtn.onclick = () => { document.getElementById('customModalOverlay').style.display='none'; };
-        footer.append(yesBtn, noBtn);
-    } else {
-        const okBtn = document.createElement('button'); okBtn.className = 'btn btn-navy'; okBtn.style.padding = '10px 25px'; okBtn.innerText = 'OK'; okBtn.onclick = () => { document.getElementById('customModalOverlay').style.display='none'; };
+      // Desktop counters.
+      if (
+        document.getElementById("cntAns")
+      ) {
+        document.getElementById(
+          "cntAns"
+        ).innerText = ans;
+      }
+
+      if (
+        document.getElementById("cntPen")
+      ) {
+        document.getElementById(
+          "cntPen"
+        ).innerText =
+          activeQs.length - ans;
+      }
+
+      // Mobile counters.
+      if (
+        document.getElementById("mAns")
+      ) {
+        document.getElementById(
+          "mAns"
+        ).innerText = ans;
+      }
+
+      if (
+        document.getElementById("mSkip")
+      ) {
+        document.getElementById(
+          "mSkip"
+        ).innerText = notAns;
+      }
+
+      if (
+        document.getElementById("mPen")
+      ) {
+        document.getElementById(
+          "mPen"
+        ).innerText = pen;
+      }
+    }
+
+    /* =========================================================
+       LOAD QUESTION
+       ========================================================= */
+
+    /**
+     * Loads a question into the question panel.
+     *
+     * @param {number} idx
+     */
+    function loadQuestion(idx) {
+      currentIdx = idx;
+
+      const question =
+        activeQs[idx];
+
+      // Update question number.
+      document.getElementById(
+        "qNumHeader"
+      ).innerText =
+        `પ્રશ્ન: ${idx + 1} / ${activeQs.length}`;
+
+      // Render question.
+      document.getElementById(
+        "qText"
+      ).innerHTML = question.q;
+
+      // Build answer options.
+      let html = "";
+
+      question.opts.forEach(
+        (option, optionIndex) => {
+          const isSelected =
+            answers[idx] === optionIndex;
+
+          html += `
+            <div
+              class="radio-option ${
+                isSelected
+                  ? "selected"
+                  : ""
+              }"
+              onclick="selectOpt(${optionIndex})"
+            >
+              <input
+                type="radio"
+                name="opts"
+                ${
+                  isSelected
+                    ? "checked"
+                    : ""
+                }
+              />
+
+              ${option}
+            </div>
+          `;
+        }
+      );
+
+      document.getElementById(
+        "optionsBox"
+      ).innerHTML = html;
+
+      // A question becomes "not answered" once visited.
+      if (
+        status[idx] === "not-visited"
+      ) {
+        status[idx] =
+          "not-answered";
+      }
+
+      // Close mobile palette after selecting a question.
+      if (window.innerWidth <= 768) {
+        document
+          .getElementById(
+            "palettePanel"
+          )
+          .classList.remove("open");
+      }
+
+      renderPalette();
+      updateTopStats();
+    }
+
+    /* =========================================================
+       ANSWER HANDLING
+       ========================================================= */
+
+    /**
+     * Selects an answer for the current question.
+     *
+     * @param {number} optionIndex
+     */
+    function selectOpt(optionIndex) {
+      answers[currentIdx] =
+        optionIndex;
+
+      status[currentIdx] =
+        "answered";
+
+      // Re-render current question.
+      loadQuestion(currentIdx);
+    }
+
+    /**
+     * Save current answer and move to next question.
+     */
+    function saveNext() {
+      if (
+        currentIdx <
+        activeQs.length - 1
+      ) {
+        loadQuestion(
+          currentIdx + 1
+        );
+      } else {
+        renderPalette();
+      }
+    }
+
+    /**
+     * Mark current question for review
+     * and move to the next question.
+     */
+    function markReview() {
+      status[currentIdx] =
+        "review";
+
+      if (
+        currentIdx <
+        activeQs.length - 1
+      ) {
+        loadQuestion(
+          currentIdx + 1
+        );
+      } else {
+        renderPalette();
+      }
+    }
+
+    /**
+     * Clear the selected answer.
+     */
+    function clearChoice() {
+      delete answers[currentIdx];
+
+      status[currentIdx] =
+        "not-answered";
+
+      loadQuestion(currentIdx);
+    }
+
+    /* =========================================================
+       QUESTION PALETTE
+       ========================================================= */
+
+    /**
+     * Renders the question navigation palette.
+     */
+    function renderPalette() {
+      let html = "";
+
+      activeQs.forEach((_, index) => {
+        let className =
+          status[index] ||
+          "not-visited";
+
+        // Highlight current question.
+        if (index === currentIdx) {
+          className += " current";
+        }
+
+        html += `
+          <button
+            class="palette-btn ${className}"
+            onclick="loadQuestion(${index})"
+          >
+            ${index + 1}
+          </button>
+        `;
+      });
+
+      document.getElementById(
+        "paletteGrid"
+      ).innerHTML = html;
+    }
+
+    /* =========================================================
+       SUBMISSION CONFIRMATION
+       ========================================================= */
+
+    /**
+     * Opens the submit confirmation modal.
+     */
+    function confirmSubmit() {
+      const answered =
+        Object.keys(answers).length;
+
+      const skipped =
+        activeQs.length - answered;
+
+      const message =
+        skipped > 0
+          ? `ચેતવણી: તમે હજુ ${skipped} પ્રશ્નો છોડી દીધા છે.
+શું તમે ખરેખર ટેસ્ટ સબમિટ કરવા માંગો છો?`
+          : "તમે બધા જ પ્રશ્નોના જવાબ આપી દીધા છે. શું તમે ટેસ્ટ સબમિટ કરવા માંગો છો?";
+
+      showModal(
+        "ટેસ્ટ સબમિટ કરવી છે?",
+        message,
+        true,
+        submitPractice
+      );
+    }
+
+    /* =========================================================
+       SUBMIT PRACTICE TEST
+       ========================================================= */
+
+    /**
+     * Calculates the result and displays the scorecard.
+     */
+    function submitPractice() {
+      // Stop timer.
+      clearInterval(timer);
+
+      // Hide exam screen.
+      document.getElementById(
+        "examContainer"
+      ).style.display = "none";
+
+      // Show result screen.
+      document.getElementById(
+        "resultScreen"
+      ).style.display = "block";
+
+      let correct = 0;
+      let wrong = 0;
+
+      // Calculate correct and wrong answers.
+      activeQs.forEach(
+        (question, index) => {
+          if (
+            answers[index] ===
+            question.ans
+          ) {
+            correct++;
+          } else if (
+            answers[index] !==
+            undefined
+          ) {
+            wrong++;
+          }
+        }
+      );
+
+      // Calculate accuracy.
+      const accuracy =
+        activeQs.length > 0
+          ? (
+              (correct /
+                activeQs.length) *
+              100
+            ).toFixed(0)
+          : 0;
+
+      // Update scorecard.
+      document.getElementById(
+        "resScore"
+      ).innerText = correct;
+
+      document.getElementById(
+        "resTotalText"
+      ).innerText =
+        "out of " +
+        activeQs.length;
+
+      document.getElementById(
+        "resCorrect"
+      ).innerText = correct;
+
+      document.getElementById(
+        "resWrong"
+      ).innerText = wrong;
+
+      document.getElementById(
+        "resSkip"
+      ).innerText =
+        activeQs.length -
+        (correct + wrong);
+
+      document.getElementById(
+        "resAcc"
+      ).innerText = accuracy;
+
+      /* ---------------------------------------------------------
+         Motivational message
+         --------------------------------------------------------- */
+
+      const quote =
+        accuracy >= 80
+          ? "શાનદાર પ્રદર્શન! તમારી તૈયારી એકદમ યોગ્ય દિશામાં છે. 🏆"
+          : accuracy >= 50
+          ? "સારો પ્રયાસ! થોડી વધુ મહેનતથી તમે ઉત્તમ પરિણામ લાવી શકો છો. 👍"
+          : "નિરાશ ન થશો! વધુ પ્રેક્ટિસ કરો, સફળતા ચોક્કસ મળશે. 💪";
+
+      document.getElementById(
+        "motivationalQuote"
+      ).innerText = quote;
+
+      /* ---------------------------------------------------------
+         Generate review answers
+         --------------------------------------------------------- */
+
+      let reviewHtml = "";
+
+      activeQs.forEach(
+        (question, index) => {
+          const userAnsIdx =
+            answers[index];
+
+          // Do not display unanswered questions.
+          if (
+            userAnsIdx ===
+            undefined
+          ) {
+            return;
+          }
+
+          const isCorrect =
+            userAnsIdx ===
+            question.ans;
+
+          const userAnsText =
+            question.opts[
+              userAnsIdx
+            ];
+
+          const correctAnsText =
+            question.opts[
+              question.ans
+            ];
+
+          const userAnsColor =
+            isCorrect
+              ? "var(--green)"
+              : "var(--red)";
+
+          reviewHtml += `
+            <div
+              style="
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid var(--border);
+              "
+            >
+              <div
+                style="
+                  font-weight: bold;
+                  margin-bottom: 8px;
+                  color: var(--navy);
+                "
+              >
+                ${index + 1}. ${
+                  question.q
+                }
+              </div>
+
+              <div
+                style="
+                  font-size: 0.95rem;
+                  margin-bottom: 4px;
+                "
+              >
+                તમારો જવાબ:
+
+                <span
+                  style="
+                    color: ${userAnsColor};
+                    font-weight: bold;
+                  "
+                >
+                  ${userAnsText}
+                </span>
+              </div>
+
+              <div
+                style="
+                  font-size: 0.95rem;
+                "
+              >
+                સાચો જવાબ:
+
+                <span
+                  style="
+                    color: var(--green);
+                    font-weight: bold;
+                  "
+                >
+                  ${correctAnsText}
+                </span>
+              </div>
+            </div>
+          `;
+        }
+      );
+
+      // Handle the case where no answers were submitted.
+      if (reviewHtml === "") {
+        reviewHtml = `
+          <div
+            style="
+              text-align: center;
+              color: var(--red);
+              font-weight: bold;
+              font-size: 1.1rem;
+            "
+          >
+            તમે કોઈ પણ પ્રશ્નનો જવાબ આપ્યો નથી.
+          </div>
+        `;
+      }
+
+      document.getElementById(
+        "reviewContent"
+      ).innerHTML = reviewHtml;
+
+      // Scroll to the top of the result screen.
+      window.scrollTo(0, 0);
+    }
+
+    /* =========================================================
+       REVIEW ANSWERS TOGGLE
+       ========================================================= */
+
+    /**
+     * Shows/hides detailed answer review.
+     */
+    function toggleReviewAnswers() {
+      const box =
+        document.getElementById(
+          "reviewAnswersBox"
+        );
+
+      const button =
+        document.getElementById(
+          "reviewToggleBtn"
+        );
+
+      if (
+        box.style.display ===
+          "none" ||
+        box.style.display === ""
+      ) {
+        box.style.display =
+          "block";
+
+        button.innerHTML =
+          "❌ જવાબો બંધ કરો (Close)";
+      } else {
+        box.style.display =
+          "none";
+
+        button.innerHTML =
+          "👀 સાચા જવાબો જુઓ (Review)";
+      }
+    }
+
+    /* =========================================================
+       WHATSAPP SHARING
+       ========================================================= */
+
+    /**
+     * Shares the user's score through WhatsApp.
+     */
+    function shareWhatsApp() {
+      const score =
+        document.getElementById(
+          "resScore"
+        ).innerText;
+
+      const totalText =
+        document
+          .getElementById(
+            "resTotalText"
+          )
+          .innerText.replace(
+            "out of ",
+            ""
+          );
+
+      const topic =
+        document.getElementById(
+          "pTopicName"
+        ).innerText;
+
+      const textMsg =
+        `મારો ${topic} ની પ્રેક્ટિસ ટેસ્ટનો સ્કોર ${totalText} માંથી ${score} છે! 🎓
+અધ્યાપક સાથી (Adhyapak Saathi) પ્લેટફોર્મ પર તમે પણ ફ્રી પ્રેક્ટિસ ટેસ્ટ આપી શકો છો.
+
+અહીં ક્લિક કરો: https://adhyapaksaathi.in/test.html`;
+
+      window.open(
+        `https://api.whatsapp.com/send?text=${encodeURIComponent(
+          textMsg
+        )}`,
+        "_blank"
+      );
+    }
+
+    /* =========================================================
+       CUSTOM MODAL
+       ========================================================= */
+
+    /**
+     * Displays the application's custom modal.
+     *
+     * @param {string} title
+     * @param {string} msg
+     * @param {boolean} isConfirm
+     * @param {Function} callback
+     */
+    function showModal(
+      title,
+      msg,
+      isConfirm,
+      callback
+    ) {
+      document.getElementById(
+        "modalTitle"
+      ).innerText = title;
+
+      document.getElementById(
+        "modalMsg"
+      ).innerText = msg;
+
+      const footer =
+        document.getElementById(
+          "modalFooter"
+        );
+
+      // Clear previous modal buttons.
+      footer.innerHTML = "";
+
+      /* ---------------------------------------------------------
+         Confirmation modal
+         --------------------------------------------------------- */
+
+      if (isConfirm) {
+        // Confirm button.
+        const yesBtn =
+          document.createElement(
+            "button"
+          );
+
+        yesBtn.className =
+          "btn btn-navy";
+
+        yesBtn.style.padding =
+          "10px 25px";
+
+        yesBtn.innerText =
+          "હા, સબમિટ કરો";
+
+        yesBtn.onclick = () => {
+          document.getElementById(
+            "customModalOverlay"
+          ).style.display =
+            "none";
+
+          callback();
+        };
+
+        // Cancel button.
+        const noBtn =
+          document.createElement(
+            "button"
+          );
+
+        noBtn.className =
+          "btn btn-outline";
+
+        noBtn.style.padding =
+          "10px 25px";
+
+        noBtn.innerText =
+          "ના, પાછા જાવ";
+
+        noBtn.onclick = () => {
+          document.getElementById(
+            "customModalOverlay"
+          ).style.display =
+            "none";
+        };
+
+        footer.append(
+          yesBtn,
+          noBtn
+        );
+      }
+
+      /* ---------------------------------------------------------
+         Simple information modal
+         --------------------------------------------------------- */
+
+      else {
+        const okBtn =
+          document.createElement(
+            "button"
+          );
+
+        okBtn.className =
+          "btn btn-navy";
+
+        okBtn.style.padding =
+          "10px 25px";
+
+        okBtn.innerText = "OK";
+
+        okBtn.onclick = () => {
+          document.getElementById(
+            "customModalOverlay"
+          ).style.display =
+            "none";
+        };
+
         footer.append(okBtn);
+      }
+
+      // Display modal.
+      document.getElementById(
+        "customModalOverlay"
+      ).style.display = "flex";
     }
-    document.getElementById('customModalOverlay').style.display = 'flex';
-  }
-</script>
+  </script>
 </body>
 </html>

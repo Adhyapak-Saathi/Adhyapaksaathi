@@ -152,6 +152,7 @@ nav {
   border-radius: var(--radius);
   transition: background 0.2s, color 0.2s;
   border-bottom: 2px solid transparent;
+  white-space: nowrap;
 }
 
 .nav-links a:hover { background: rgba(255,255,255,0.08); color: #fff; }

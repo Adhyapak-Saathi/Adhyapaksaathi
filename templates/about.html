@@ -1,219 +1,461 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0BKEFLEQTQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-0BKEFLEQTQ');
-</script>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Us — Adhyapak Saathi</title>
-  <meta name="description" content="About Adhyapak Saathi — a free academic preparation portal for teacher eligibility exam aspirants in Gujarat and India."/>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='n' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230f172a' /%3E%3Cstop offset='100%25' stop-color='%231d3461' /%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4a017' /%3E%3Cstop offset='100%25' stop-color='%23fbbf24' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='160' height='160' rx='40' fill='%23ffffff'/%3E%3Cg transform='translate(15, 20)'%3E%3Cpath d='M 30 108 Q 80 115 125 102' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='40' r='13' fill='url(%23n)'/%3E%3Cpath d='M 40 108 C 40 70 52 60 76 75' fill='none' stroke='url(%23n)' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='55' r='9' fill='url(%23g)'/%3E%3Cpath d='M 64 108 C 64 90 70 82 76 75' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M 70 82 Q 85 70 98 55' fill='none' stroke='url(%23g)' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E"/>
-  <style>
-    /* Security: Prevent text selection across the whole page */
-    body {
-      -webkit-user-select: none; /* Safari */
-      -ms-user-select: none; /* IE 10 and IE 11 */
-      user-select: none; /* Standard syntax */
-    }
-  </style>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0BKEFLEQTQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-0BKEFLEQTQ');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>About Us — Adhyapak Saathi</title>
+
+    <meta
+        name="description"
+        content="About Adhyapak Saathi — a free academic preparation portal for teacher eligibility exam aspirants in Gujarat and India."
+    />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='n' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%230f172a' /%3E%3Cstop offset='100%25' stop-color='%231d3461' /%3E%3C/linearGradient%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23d4a017' /%3E%3Cstop offset='100%25' stop-color='%23fbbf24' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='160' height='160' rx='40' fill='%23ffffff'/%3E%3Cg transform='translate(15, 20)'%3E%3Cpath d='M 30 108 Q 80 115 125 102' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='40' r='13' fill='url(%23n)'/%3E%3Cpath d='M 40 108 C 40 70 52 60 76 75' fill='none' stroke='url(%23n)' stroke-width='11' stroke-linecap='round'/%3E%3Ccircle cx='78' cy='55' r='9' fill='url(%23g)'/%3E%3Cpath d='M 64 108 C 64 90 70 82 76 75' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M 70 82 Q 85 70 98 55' fill='none' stroke='url(%23g)' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z' fill='url(%23g)'/%3E%3C/g%3E%3C/svg%3E"
+    />
+
+    <style>
+        /* Security: Prevent text selection across the whole page */
+        body {
+            -webkit-user-select: none;
+            /* Safari */
+            -ms-user-select: none;
+            /* IE 10 and IE 11 */
+            user-select: none;
+            /* Standard syntax */
+        }
+
+        /* About Image */
+        .about-img {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Mission Paragraphs */
+        .mission-text {
+            color: var(--text-mid);
+            font-size: 0.96rem;
+            line-height: 1.8;
+        }
+
+        .mission-text.first {
+            margin-bottom: 1.2rem;
+        }
+
+        .mission-text.second {
+            margin-bottom: 1.8rem;
+        }
+
+        /* Statistics Grid */
+        .stats-grid {
+            gap: 1rem;
+        }
+
+        .stat-box {
+            padding: 1.2rem;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .stat-box.navy {
+            background: var(--navy);
+            color: #fff;
+        }
+
+        .stat-box.gold {
+            background: var(--gold-bg);
+            border: 1px solid #e0c060;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .stat-box.gold .stat-number {
+            color: var(--navy);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-box.navy .stat-label {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .stat-box.gold .stat-label {
+            color: var(--text-muted);
+        }
+
+        /* CTA Section */
+        .about-cta {
+            background: var(--navy);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            text-align: center;
+            border-top: 4px solid var(--gold);
+        }
+
+        .about-cta-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 0.7rem;
+        }
+
+        .about-cta-text {
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 2rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-cta-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <span>📍 Serving Teacher Aspirants Across Gujarat &amp; India</span>
-    <span>✉️ <a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></span>
-  </div>
-</div>
+    {% include "navbar.html" %}
 
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
-      <div style="width: 54px; height: 54px; background: #fff; border-radius: 14px; box-shadow: 0 4px 12px rgba(29,52,97,0.15); display: flex; align-items: center; justify-content: center; position: relative;">
-        <svg viewBox="0 0 160 160" style="width: 44px; height: 44px;">
-          <defs>
-            <linearGradient id="nGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#0f172a" /><stop offset="100%" stop-color="#1d3461" />
-            </linearGradient>
-            <linearGradient id="gGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#d4a017" /><stop offset="100%" stop-color="#fbbf24" />
-            </linearGradient>
-          </defs>
-          <g transform="translate(15, 20)">
-            <path d="M 30 108 Q 80 115 125 102" fill="none" stroke="url(#gGrad)" stroke-width="4" stroke-linecap="round" stroke-opacity="0.5"/>
-            <circle cx="48" cy="40" r="13" fill="url(#nGrad)"/>
-            <path d="M 40 108 C 40 70 52 60 76 75" fill="none" stroke="url(#nGrad)" stroke-width="11" stroke-linecap="round"/>
-            <circle cx="78" cy="55" r="9" fill="url(#gGrad)"/>
-            <path d="M 64 108 C 64 90 70 82 76 75" fill="none" stroke="url(#gGrad)" stroke-width="8" stroke-linecap="round"/>
-            <path d="M 70 82 Q 85 70 98 55" fill="none" stroke="url(#gGrad)" stroke-width="7" stroke-linecap="round"/>
-            <path d="M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z" fill="url(#gGrad)"/>
-          </g>
-        </svg>
-      </div>
-      <div style="display: flex; flex-direction: column;">
-        <span style="font-family: system-ui, sans-serif; font-size: clamp(1rem, 4vw, 1.35rem); color: #fff; letter-spacing: -0.5px; line-height: 1.1;">
-          <strong style="font-weight: 900;">ADHYAPAK</strong> <span style="font-weight: 300; color: #d4a017;">SAATHI</span>
-        </span>
-        <span style="font-size: clamp(0.55rem, 2vw, 0.65rem); color: #d4a017; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-top: 2px; white-space: nowrap;">Teacher Exam Portal</span>
-      </div>
-    </a>
-    
-   <!-- FIXED NAVIGATION MENU -->
-   <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="test.html">Practice Test</a></li>
-      <li><a href="mocktest.html">Mock Test</a></li>
-      <li><a href="news.html">Exam News</a></li>
-      <li><a href="materials.html">Study Materials</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
-     <a href="https://blog.adhyapaksaathi.in" target="_blank">Blog</a>
-    </ul>    
-    <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
-  </div>
-</nav>
+    <!-- ============ PAGE BANNER ============ -->
+    <div class="page-banner">
+        <div class="wrapper">
 
-<div class="page-banner">
-  <div class="wrapper">
-    <div class="breadcrumb"><a href="index.html">Home</a> <span>›</span> About Us</div>
-    <h1>About <em>Adhyapak Saathi</em></h1>
-    <p>A free, one-stop academic preparation resource built by educators, for educators — dedicated to teacher exam aspirants across Gujarat and India.</p>
-  </div>
-</div>
+            <!-- <div class="breadcrumb">
+                <a href="{{ url_for('home') }}">Home</a>
+                <span>›</span>
+                About Us
+            </div> -->
 
-<!-- MISSION -->
-<section class="section">
-  <div class="wrapper">
-    <div class="about-split">
-      <div>
-        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80" alt="Indian classroom" class="about-img" style="width: 100%; height: auto; max-height: 420px; object-fit: cover; display: block; margin: 0 auto;"/>
-      </div>
-      <div>
-        <div class="section-label">Our Mission</div>
-        <h2 class="section-title">The Ultimate One-Stop Solution for<br>Aspirants in <em>Gujarat &amp; India</em></h2>
-        <p style="color:var(--text-mid);font-size:0.96rem;margin-bottom:1.2rem;line-height:1.8">
-          <strong>Adhyapak Saathi</strong> ("Teacher's Companion") is your one-stop solution created with one purpose: to provide free, reliable, and curriculum-aligned preparation resources for those aspiring to serve India's classrooms as qualified teachers.
-        </p>
-        <p style="color:var(--text-mid);font-size:0.96rem;margin-bottom:1.8rem;line-height:1.8">
-          From live exam notifications and deep-dive practice tests to comprehensive study materials, we deliver everything you need to succeed in TAT (S), TAT (HS), TET I, TET II, UGC NET, GSET, and CTET — all through a single, accessible platform.
-        </p>
-        <div class="grid-2" style="gap:1rem">
-          <div style="background:var(--navy);color:#fff;padding:1.2rem;border-radius:var(--radius);text-align:center">
-            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700">7</div>
-            <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1px">Exams Covered</div>
-          </div>
-          <div style="background:var(--gold-bg);border:1px solid #e0c060;padding:1.2rem;border-radius:var(--radius);text-align:center">
-            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--navy)">1000+</div>
-            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">Practice Questions</div>
-          </div>
-          <div style="background:var(--gold-bg);border:1px solid #e0c060;padding:1.2rem;border-radius:var(--radius);text-align:center">
-            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--navy)">Free</div>
-            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px">Always Open Access</div>
-          </div>
-          <div style="background:var(--navy);color:#fff;padding:1.2rem;border-radius:var(--radius);text-align:center">
-            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700">Daily</div>
-            <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:1px">Notifications</div>
-          </div>
+            <h1>
+                About <em>Adhyapak Saathi</em>
+            </h1>
+
+            <p class="hero-desc">
+                A free, one-stop academic preparation resource built by educators,
+                for educators — dedicated to teacher exam aspirants across Gujarat and India.
+            </p>
+
         </div>
-      </div>
     </div>
-  </div>
-</section>
 
-<hr class="divider"/>
+    <!-- ============ MISSION SECTION ============ -->
+    <section class="section">
+        <div class="wrapper">
 
-<!-- VALUES -->
-<section class="section">
-  <div class="wrapper">
-    <div class="section-header center">
-      <div class="section-label">Our Principles</div>
-      <h2 class="section-title">What We Stand For</h2>
-    </div>
-    <div class="grid-3">
-      <div class="feature-box">
-        <span class="feature-icon">🎯</span>
-        <div class="feature-title">Syllabus Accuracy</div>
-        <div class="feature-desc">Every question is mapped to the official syllabus of the relevant examination — GSSB, GSHSEB, NTA, or CBSE. No irrelevant or inaccurate content.</div>
-      </div>
-      <div class="feature-box">
-        <span class="feature-icon">📖</span>
-        <div class="feature-title">Academic Rigour</div>
-        <div class="feature-desc">Questions and explanations are prepared with academic precision — cross-referenced with standard pedagogy textbooks and official guidelines.</div>
-      </div>
-      <div class="feature-box">
-        <span class="feature-icon">🌐</span>
-        <div class="feature-title">Universal Access</div>
-        <div class="feature-desc">Adhyapak Saathi is and will always remain free of cost — accessible on any device with an internet connection, without login or subscription.</div>
-      </div>
-      <div class="feature-box">
-        <span class="feature-icon">🤝</span>
-        <div class="feature-title">Community Driven</div>
-        <div class="feature-desc">Content is improved through feedback from real aspirants and practising teachers. Your suggestions directly shape what gets added next.</div>
-      </div>
-      <div class="feature-box">
-        <span class="feature-icon">🔔</span>
-        <div class="feature-title">Timely Notifications</div>
-        <div class="feature-desc">We monitor official portals (GSSB, GSHSEB, NTA, CBSE) daily and publish important exam updates, deadlines, and result links promptly.</div>
-      </div>
-      <div class="feature-box">
-        <span class="feature-icon">📚</span>
-        <div class="feature-title">All Academic Solutions</div>
-        <div class="feature-desc">From previous year question papers (PYQs) to syllabus PDFs and GCERT/NCERT study materials, find everything in one convenient place.</div>
-      </div>
-    </div>
-  </div>
-</section>
+            <div class="about-split">
 
-<!-- CTA -->
-<section class="section-sm">
-  <div class="wrapper">
-    <div style="background:var(--navy);border-radius:var(--radius-lg);padding:3rem;text-align:center;border-top:4px solid var(--gold)">
-      <h2 style="font-family:var(--font-serif);font-size:2rem;color:#fff;margin-bottom:0.7rem">Begin Your Preparation Today</h2>
-      <p style="color:rgba(255,255,255,0.65);margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto">Practice tests, exam notifications, and academic resources — free, always.</p>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <a href="test.html" class="btn btn-gold">Start Practice Test</a>
-        <a href="contact.html" class="btn btn-white">Submit a Suggestion</a>
-      </div>
-    </div>
-  </div>
-</section>
+                <div>
+                    <img
+                        src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80"
+                        alt="Indian classroom"
+                        class="about-img"
+                    />
+                </div>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-brand-name">Adhyapak Saathi</div>
-      <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
-      <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
-    </div>
-    <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="test.html">Practice Test</a></li><li><a href="news.html">Exam News</a></li><li><a href="materials.html">Study Materials</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-    <div><div class="footer-col-title">Examinations</div><ul class="footer-links"><li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li><li><a href="news.html">TET I &amp; TET II</a></li><li><a href="news.html">UGC NET</a></li><li><a href="news.html">GSET</a></li><li><a href="news.html">CTET</a></li></ul></div>
-    <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li><li><a href="contact.html">Send a Message</a></li><li><a href="contact.html">Suggestion Box</a></li></ul></div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
-  </div>
-</footer>
+                <div>
 
-<script>
-// --- SECURITY FEATURES ---
-document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-document.onkeydown = function(e) {
-  if (e.key === 'F12') return false;
-  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
-  if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) return false;
-};
-document.addEventListener('copy', function(e) { e.preventDefault(); });
+                    <div class="section-label">
+                        Our Mission
+                    </div>
 
-// --- REGULAR SCRIPTS ---
-function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-</script>
+                    <h2 class="section-title">
+                        The Ultimate One-Stop Solution for
+                        <br>
+                        Aspirants in <em>Gujarat &amp; India</em>
+                    </h2>
+
+                    <p class="mission-text first">
+                        <strong>Adhyapak Saathi</strong> ("Teacher's Companion") is your
+                        one-stop solution created with one purpose: to provide free,
+                        reliable, and curriculum-aligned preparation resources for those
+                        aspiring to serve India's classrooms as qualified teachers.
+                    </p>
+
+                    <p class="mission-text second">
+                        From live exam notifications and deep-dive practice tests to
+                        comprehensive study materials, we deliver everything you need to
+                        succeed in TAT (S), TAT (HS), TET I, TET II, UGC NET, GSET, and
+                        CTET — all through a single, accessible platform.
+                    </p>
+
+                    <div class="grid-2 stats-grid">
+
+                        <div class="stat-box navy">
+                            <div class="stat-number">
+                                7
+                            </div>
+
+                            <div class="stat-label">
+                                Exams Covered
+                            </div>
+                        </div>
+
+                        <div class="stat-box gold">
+                            <div class="stat-number">
+                                1000+
+                            </div>
+
+                            <div class="stat-label">
+                                Practice Questions
+                            </div>
+                        </div>
+
+                        <div class="stat-box gold">
+                            <div class="stat-number">
+                                Free
+                            </div>
+
+                            <div class="stat-label">
+                                Always Open Access
+                            </div>
+                        </div>
+
+                        <div class="stat-box navy">
+                            <div class="stat-number">
+                                Daily
+                            </div>
+
+                            <div class="stat-label">
+                                Notifications
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ============ VALUES SECTION ============ -->
+    <section class="section">
+        <div class="wrapper">
+
+            <div class="section-header center">
+
+                <div class="section-label">
+                    Our Principles
+                </div>
+
+                <h2 class="section-title">
+                    What We Stand For
+                </h2>
+
+            </div>
+
+            <div class="grid-3">
+
+                <div class="feature-box">
+                    <span class="feature-icon">🎯</span>
+
+                    <div class="feature-title">
+                        Syllabus Accuracy
+                    </div>
+
+                    <div class="feature-desc">
+                        Every question is mapped to the official syllabus of the relevant
+                        examination — GSSB, GSHSEB, NTA, or CBSE. No irrelevant or inaccurate content.
+                    </div>
+                </div>
+
+                <div class="feature-box">
+                    <span class="feature-icon">📖</span>
+
+                    <div class="feature-title">
+                        Academic Rigour
+                    </div>
+
+                    <div class="feature-desc">
+                        Questions and explanations are prepared with academic precision —
+                        cross-referenced with standard pedagogy textbooks and official guidelines.
+                    </div>
+                </div>
+
+                <div class="feature-box">
+                    <span class="feature-icon">🌐</span>
+
+                    <div class="feature-title">
+                        Universal Access
+                    </div>
+
+                    <div class="feature-desc">
+                        Adhyapak Saathi is and will always remain free of cost — accessible
+                        on any device with an internet connection, without login or subscription.
+                    </div>
+                </div>
+
+                <div class="feature-box">
+                    <span class="feature-icon">🤝</span>
+
+                    <div class="feature-title">
+                        Community Driven
+                    </div>
+
+                    <div class="feature-desc">
+                        Content is improved through feedback from real aspirants and practising
+                        teachers. Your suggestions directly shape what gets added next.
+                    </div>
+                </div>
+
+                <div class="feature-box">
+                    <span class="feature-icon">🔔</span>
+
+                    <div class="feature-title">
+                        Timely Notifications
+                    </div>
+
+                    <div class="feature-desc">
+                        We monitor official portals (GSSB, GSHSEB, NTA, CBSE) daily and publish
+                        important exam updates, deadlines, and result links promptly.
+                    </div>
+                </div>
+
+                <div class="feature-box">
+                    <span class="feature-icon">📚</span>
+
+                    <div class="feature-title">
+                        All Academic Solutions
+                    </div>
+
+                    <div class="feature-desc">
+                        From previous year question papers (PYQs) to syllabus PDFs and
+                        GCERT/NCERT study materials, find everything in one convenient place.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============ CTA SECTION ============ -->
+    <section class="section-sm">
+        <div class="wrapper">
+
+            <div class="about-cta">
+
+                <h2 class="about-cta-title">
+                    Begin Your Preparation Today
+                </h2>
+
+                <p class="about-cta-text">
+                    Practice tests, exam notifications, and academic resources — free, always.
+                </p>
+
+                <div class="about-cta-actions">
+
+                    <a
+                        href="{{ url_for('test') }}"
+                        class="btn btn-gold"
+                    >
+                        Start Practice Test
+                    </a>
+
+                    <a
+                        href="{{ url_for('contact') }}"
+                        class="btn btn-white"
+                    >
+                        Submit a Suggestion
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    {% include "footer.html" %}
+
+    <!-- ============ SCRIPTS ============ -->
+    <script>
+        // --- SECURITY FEATURES ---
+
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.onkeydown = function (e) {
+            if (e.key === 'F12') {
+                return false;
+            }
+
+            if (
+                e.ctrlKey &&
+                e.shiftKey &&
+                (
+                    e.key === 'I' ||
+                    e.key === 'i' ||
+                    e.key === 'J' ||
+                    e.key === 'j'
+                )
+            ) {
+                return false;
+            }
+
+            if (
+                e.ctrlKey &&
+                (
+                    e.key === 'U' ||
+                    e.key === 'u' ||
+                    e.key === 'S' ||
+                    e.key === 's'
+                )
+            ) {
+                return false;
+            }
+        };
+
+        document.addEventListener('copy', function (e) {
+            e.preventDefault();
+        });
+
+        // --- REGULAR SCRIPTS ---
+
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+    </script>
+
 </body>
+
 </html>

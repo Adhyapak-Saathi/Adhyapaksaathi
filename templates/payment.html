@@ -1,0 +1,200 @@
+<style>
+  /* ---------- Rules modal ---------- */
+  .auth-box--gold { border-top-color: #d4a017; }
+  .auth-box--rules { max-width: 500px; padding: 25px; text-align: left; }
+
+  .rules-title { color: #1d3461; font-size: 1.5rem; margin-bottom: 15px; text-align: center; font-weight: 800; }
+  .rules-body { font-size: 0.95rem; color: #475569; line-height: 1.6; max-height: 60vh; overflow-y: auto; padding-right: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; }
+
+  .modal-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .mt-20 { margin-top: 20px; }
+  .btn-flex { flex: 1; padding: 12px; font-size: 1.05rem; }
+</style>
+
+<!-- =====================================================
+     2) HTML (Rules & Pay modal)
+     ===================================================== -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<div class="modal-overlay" id="rulesModal">
+  <div class="auth-box auth-box--gold auth-box--rules">
+    <h3 class="rules-title">📝 અગત્યની સૂચનાઓ અને નિયમો</h3>
+
+    <div class="rules-body">
+      <p><b>૧. ઇન્ટરનેટ:</b> સ્થિર અને સારી સ્પીડ (4G/5G/WiFi) નો ઉપયોગ કરવો.</p>
+      <p><b>૨. ઉપકરણ:</b> સારા અનુભવ માટે લેપટોપ/કમ્પ્યુટર આગ્રહણીય છે (મોબાઈલમાં પણ ચાલશે).</p>
+      <p><b>૩. પેમેન્ટ અને રિફંડ (Refund Policy):</b> આ એક ડિજિટલ પ્રોડક્ટ હોવાથી, <b>પેમેન્ટ કર્યા બાદ કોઈ રિફંડ આપવામાં આવશે નહિ.</b> જો ટેકનિકલ ખામીને લીધે બે વાર પેમેન્ટ (Double Payment) થઈ જશે, તો ચકાસણી કર્યા બાદ ૫ થી ૭ કામકાજના દિવસોમાં વધારાની રકમ પરત કરવામાં આવશે.</p>
+      <p><b>૪. ટેસ્ટ લૉક:</b> પેમેન્ટ સફળ થયા બાદ, જો ટેસ્ટ તરત અનલૉક ન થાય તો ૧૦-૧૫ મિનિટ રાહ જોવી. <b>ફરીથી પેમેન્ટ ન કરવું.</b></p>
+      <p><b>૫. એન્ટી-ચીટ:</b> ટેસ્ટ દરમિયાન 'Back' કે 'Refresh' ન કરવું. કોપી-પેસ્ટ કે સ્ક્રીનશોટ લેવાની સખત મનાઈ છે.</p>
+    </div>
+
+    <div class="modal-actions mt-20">
+      <button class="btn btn-navy btn-flex" id="agreeAndPayBtn">હું સહમત છું - Pay ₹39</button>
+      <button class="btn btn-outline btn-flex" id="closeRulesBtn">રદ કરો</button>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================
+     3) JAVASCRIPT (Razorpay + test unlock)
+     ===================================================== -->
+<script type="module">
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+  // Same Firebase app (login-all.html me initialize ho chuka hai)
+  const auth = getAuth();
+  const db = getFirestore();
+
+  /* ---------- Settings ---------- */
+  const IS_PAYMENT_ACTIVE = false;     // true karte hi paid tests live ho jaayenge
+  const TOTAL_TESTS = 6;
+  const TEST_PRICE_PAISE = "3900";     // ₹39
+  const RAZORPAY_KEY = "rzp_live_SXv0rd8UH5nn6w";
+
+  /* ---------- Rules modal ---------- */
+  const rulesModal = document.getElementById("rulesModal");
+  const agreeBtn = document.getElementById("agreeAndPayBtn");
+  const closeRulesBtn = document.getElementById("closeRulesBtn");
+
+  if (closeRulesBtn) {
+    closeRulesBtn.addEventListener("click", () => {
+      rulesModal.style.display = "none";
+    });
+  }
+
+  /* ---------- Buy / Start button click ---------- */
+  window.handleTestAction = function (testId) {
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert("કૃપા કરીને ટેસ્ટ શરૂ કરવા માટે પહેલા લૉગિન કરો.");
+      window.openLoginModal();         // login-all.html me defined hai
+      return;
+    }
+
+    // Test 1 free hai
+    if (testId === 1) {
+      openPaidModal(1);                // page ka global function (name modal)
+      return;
+    }
+
+    if (!IS_PAYMENT_ACTIVE) {
+      alert("નવા પ્રશ્નો અને સિસ્ટમ અપડેટ કરવાનું કામ ચાલુ છે. આ મોકટેસ્ટ ટૂંક સમયમાં શરૂ થશે. જોડાયેલા રહો!");
+      return;
+    }
+
+    if (rulesModal && agreeBtn) {
+      rulesModal.style.display = "flex";
+      agreeBtn.onclick = function () {
+        rulesModal.style.display = "none";
+        window.openRazorpay(testId, user);
+      };
+    }
+  };
+
+  /* ---------- Razorpay checkout ---------- */
+  window.openRazorpay = function (testId, user) {
+    var options = {
+      "key": RAZORPAY_KEY,
+      "amount": TEST_PRICE_PAISE,
+      "currency": "INR",
+      "name": "Adhyapak Saathi",
+      "description": `Premium Mock Test ${testId}`,
+
+      // ⚠️ TODO (security): yeh unlock abhi browser se likha ja raha hai.
+      // Live karne se pehle server par payment verify karke hi flag set karna.
+      "handler": function (response) {
+        const userRef = doc(db, "users", user.uid);
+        let updateData = {};
+        updateData[`paid_test${testId}_new_v2`] = true;
+
+        setDoc(userRef, updateData, { merge: true })
+          .then(() => {
+            alert(`મોક ટેસ્ટ ${testId} સફળતાપૂર્વક અનલૉક થઈ ગયો છે!`);
+            location.reload();
+          })
+          .catch(err => {
+            console.error(err);
+            alert("પેમેન્ટ પ્રક્રિયામાં તકલીફ છે. કૃપા કરીને થોડી વાર પછી પ્રયત્ન કરો.");
+          });
+      },
+
+      "prefill": { "name": user.displayName || "Student", "email": user.email },
+      "theme": { "color": "#1d3461" }
+    };
+
+    var rzp = new Razorpay(options);
+    rzp.on("payment.failed", function (response) {
+      alert("પેમેન્ટ નિષ્ફળ! કૃપા કરીને ફરીથી પ્રયત્ન કરો.");
+    });
+    rzp.open();
+  };
+
+  /* ---------- Test cards: locked / unlocked UI ---------- */
+  function bindBuyButtons() {
+    for (let i = 1; i <= TOTAL_TESTS; i++) {
+      let payBtn = document.getElementById(`payTest${i}Btn`);
+      if (payBtn) {
+        payBtn.onclick = () => window.handleTestAction(i);
+      }
+    }
+  }
+
+  function unlockCard(i) {
+    let payBtn = document.getElementById(`payTest${i}Btn`);
+    let startBtn = document.getElementById(`startTest${i}Btn`);
+    let card = document.getElementById(`test${i}Card`);
+    let emoji = document.getElementById(`test${i}Emoji`);
+    let label = document.getElementById(`test${i}Label`);
+
+    if (payBtn) payBtn.style.display = "none";
+
+    if (startBtn) {
+      startBtn.style.display = "block";
+      startBtn.onclick = () => openPaidModal(i);
+    }
+
+    if (card) {
+      card.style.background = "#f0fdf4";
+      card.style.borderColor = "#16a34a";
+      card.style.borderTop = "6px solid #16a34a";
+    }
+
+    if (emoji) {
+      emoji.innerText = "🔓";
+      emoji.style.opacity = "1";
+      emoji.style.filter = "grayscale(0%)";
+    }
+
+    if (label) {
+      label.innerText = "UNLOCKED";
+      label.style.background = "#16a34a";
+    }
+  }
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      bindBuyButtons();
+      return;
+    }
+
+    try {
+      const userSnap = await getDoc(doc(db, "users", user.uid));
+      const userData = userSnap.exists() ? userSnap.data() : {};
+
+      for (let i = 1; i <= TOTAL_TESTS; i++) {
+        if (userData[`paid_test${i}_new_v2`] === true && i >= 2) {
+          unlockCard(i);
+        } else {
+          let payBtn = document.getElementById(`payTest${i}Btn`);
+          if (payBtn) {
+            payBtn.onclick = () => window.handleTestAction(i);
+          }
+        }
+      }
+    } catch (e) {
+      console.log("Initialization issue encountered.");
+    }
+  });
+</script>
