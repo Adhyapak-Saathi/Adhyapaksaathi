@@ -570,13 +570,12 @@
       </div>
 
       <div class="result-footer action-buttons">
-        <button class="btn btn-outline btn-bg-white" onclick="window.location.href='{{ url_for('home') }}' ">🏠 હોમ પેજ</button>
+        <button class="btn btn-outline btn-bg-white" onclick="window.location.href='{{ url_for('pages.home') }}' ">🏠 હોમ પેજ</button>
         <button class="btn btn-navy" onclick="clearStateAndReload()">🔄 બીજી ટેસ્ટ આપો</button>
       </div>
     </div>
   </div>
 
-  {% include 'footer.html' %}
 
   <!-- =====================================================
        MAIN SCRIPT
@@ -772,7 +771,7 @@
     function startFreshTest() {
       document.getElementById('resumeModal').style.display = 'none';
       localStorage.removeItem('adhyapakExamState');
-      document.getElementById('paidNameModal').style.display = 'flex';
+
     }
 
     function fetchRealQuestions(testId) {

@@ -1,113 +1,70 @@
 <style>
-  /* ================= NAVBAR & TOPBAR INTERNAL STYLES ================= */
-  /*.topbar {
-  }*/
+  /* ================= TOPBAR & DESKTOP NAV ================= */
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+  
+  .logo-box { width: 54px; height: 54px; background: #fff; border-radius: 14px; box-shadow: 0 4px 12px rgba(29, 52, 97, 0.15); display: flex; align-items: center; justify-content: center; }
+  .logo-svg { width: 44px; height: 44px; }
+  .logo-text-wrapper { display: flex; flex-direction: column; }
+  .logo-title { font-family: system-ui, sans-serif; font-size: clamp(1rem, 4vw, 1.35rem); color: #fff; letter-spacing: -0.5px; line-height: 1.1; }
+  .logo-strong { font-weight: 900; }
+  .logo-saathi { font-weight: 300; color: #d4a017; }
+  .logo-subtitle { font-size: clamp(0.55rem, 2vw, 0.65rem); color: #d4a017; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-top: 2px; }
 
-  .topbar-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* Desktop Links */
+  .nav-links { list-style: none; display: flex; gap: 20px; }
+  .nav-links li a { text-decoration: none; color: #fff; transition: 0.2s; }
+  .nav-links li a.active { font-weight: bold; color: #d4a017; border-bottom: 2px solid #d4a017; padding-bottom: 5px; }
+
+  /* ================= MOBILE SIDEBAR (Bionick Style) ================= */
+  .mobile-menu-btn { display: none; cursor: pointer; flex-direction: column; gap: 5px; background: transparent; border: none; padding: 5px; z-index: 2000; }
+  .mobile-menu-btn span { width: 28px; height: 3px; background: #fff; border-radius: 3px; transition: 0.3s; }
+
+  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; backdrop-filter: blur(2px); }
+  .sidebar-overlay.mobile-open { display: block; }
+
+  /* Right Side Mobile Sidebar */
+  .mobile-sidebar { 
+    position: fixed; 
+    right: 0; 
+    top: 0; 
+    bottom: 0; 
+    width: 260px; 
+    background: #ffffff; 
+    transform: translateX(100%); /* -100% ki jagah 100% kar diya (right side chupane ke liye) */
+    transition: transform 0.3s ease; 
+    box-shadow: -4px 0 15px rgba(0,0,0,0.2); /* Shadow ka direction change kar diya */
+    z-index: 2000; 
+    display: flex; 
+    flex-direction: column; 
   }
+  .mobile-sidebar.mobile-open { transform: translateX(0); }
 
-  .topbar-email {
-    color: white;
-    text-decoration: none;
+  /* Sidebar Header */
+  .sidebar-header { 
+    height: 72px; background: var(--navy); display: flex; align-items: center; padding: 0 20px; 
+    justify-content: space-between; border-bottom: 3px solid var(--gold); 
   }
+  .sidebar-header-title { color: white; font-weight: 900; font-size: 1.2rem; }
+  .close-sidebar-btn { background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-  /*#standardNav {
-    Navbar styling yahan aayegi agar zaroorat ho 
-  }*/
-
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  /* Sidebar Menu */
+  .sidebar-menu { padding: 20px 15px; overflow-y: auto; flex: 1; }
+  .menu-category { font-size: 12px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; padding: 0 10px 10px 10px; }
+  
+  .sidebar-item { 
+    display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: var(--navy); 
+    text-decoration: none; border-radius: 8px; font-size: 1.05rem; font-weight: 600; margin-bottom: 5px; transition: 0.2s; 
   }
+  .sidebar-item:hover { background: #f1f5f9; color: var(--gold); }
+  .sidebar-item.active { background: #eff6ff; color: var(--navy); border-left: 4px solid var(--gold); font-weight: 800; }
 
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    text-decoration: none;
-  }
+  body.sidebar-open { overflow: hidden; }
 
-  .logo-box {
-    width: 54px;
-    height: 54px;
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(29, 52, 97, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .logo-svg {
-    width: 44px;
-    height: 44px;
-  }
-
-  .logo-text-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .logo-title {
-    font-family: system-ui, sans-serif;
-    font-size: clamp(1rem, 4vw, 1.35rem);
-    color: #fff;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-  }
-
-  .logo-strong {
-    font-weight: 900;
-  }
-
-  .logo-saathi {
-    font-weight: 300;
-    color: #d4a017;
-  }
-
-  .logo-subtitle {
-    font-size: clamp(0.55rem, 2vw, 0.65rem);
-    color: #d4a017;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-top: 2px;
-    white-space: nowrap;
-  }
-
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-
-  .nav-links li a {
-    text-decoration: none;
-    color: #fff;
-  }
-
-  .nav-links li a.active {
-    font-weight: bold;
-    color: #d4a017;
-  }
-
-  .hamburger {
-    display: none;
-    cursor: pointer;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .hamburger span {
-    width: 25px;
-    height: 3px;
-    background: #fff;
-    display: block;
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: flex; }
   }
 </style>
 
@@ -117,37 +74,28 @@
     <span>📍 Serving Teacher Aspirants Across Gujarat & India</span>
     <div style="display: flex; align-items: center; gap: 20px;">
       <span>✉️ <a href="mailto:info@adhyapaksaathi.in" style="color: white; text-decoration: none;">info@adhyapaksaathi.in</a></span>
-      
-      <!-- Sirf Mocktest page par Lucide Login Icon dikhega -->
-      {% if request.endpoint == 'mocktest' %}
+      {% if request.endpoint == 'pages.mocktest' %}
       <div class="auth-dropdown">
-        <button id="mainUserBtn" class="auth-dropbtn" title="Login">
-          <i data-lucide="user"></i>
-        </button>
+        <button id="mainUserBtn" class="auth-dropbtn" title="Login"><i data-lucide="user"></i></button>
         <div id="loginDropdownBox" class="auth-dropdown-content" style="right: 0; top: 110%;"></div>
       </div>
       {% endif %}
-      
     </div>
   </div>
 </div>
 
-
 <!-- ================= NAVIGATION ================= -->
 <nav id="standardNav">
   <div class="nav-inner">
-
-    <a href="{{ url_for('home') }}" class="nav-logo">
+    <a href="{{ url_for('pages.home') }}" class="nav-logo">
       <div class="logo-box">
         <svg viewBox="0 0 160 160" class="logo-svg">
           <defs>
             <linearGradient id="nGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#0f172a" />
-              <stop offset="100%" stop-color="#1d3461" />
+              <stop offset="0%" stop-color="#0f172a" /><stop offset="100%" stop-color="#1d3461" />
             </linearGradient>
             <linearGradient id="gGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#d4a017" />
-              <stop offset="100%" stop-color="#fbbf24" />
+              <stop offset="0%" stop-color="#d4a017" /><stop offset="100%" stop-color="#fbbf24" />
             </linearGradient>
           </defs>
           <g transform="translate(15, 20)">
@@ -162,71 +110,68 @@
         </svg>
       </div>
       <div class="logo-text-wrapper">
-        <span class="logo-title">
-          <strong class="logo-strong">ADHYAPAK</strong> 
-          <span class="logo-saathi">SAATHI</span>
-        </span>
+        <span class="logo-title"><strong class="logo-strong">ADHYAPAK</strong> <span class="logo-saathi">SAATHI</span></span>
         <span class="logo-subtitle">Teacher Exam Portal</span>
       </div>
     </a>
 
-    <!-- Smart Links -->
-    <ul class="nav-links" id="navLinks">
-      <li>
-        <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">
-          Home
-        </a>
-      </li>
-
-      <li>
-        <a href="{{ url_for('test') }}" class="{% if request.endpoint == 'test' %}active{% endif %}">
-          Practice Test
-        </a>
-      </li>
-
-      <li>
-        <a href="{{ url_for('mocktest') }}" class="{% if request.endpoint == 'mocktest' %}active{% endif %}">
-          Mock Test
-        </a>
-      </li>
-
-      <li>
-        <a href="{{ url_for('news') }}" class="{% if request.endpoint == 'news' %}active{% endif %}">
-          Exam News
-        </a>
-      </li>
-
-      <li>
-        <a href="{{ url_for('materials') }}" class="{% if request.endpoint == 'materials' %}active{% endif %}">
-          Study Materials
-        </a>
-      </li>
-
-      <li>
-        <a href="{{ url_for('about') }}" class="{% if request.endpoint == 'about' %}active{% endif %}">
-          About Us
-        </a>
-      </li>
-
-      <li>
-        <a href="{{ url_for('contact') }}" class="{% if request.endpoint == 'contact' %}active{% endif %}">
-          Contact
-        </a>
-      </li>
-
-      <li>
-        <a href="https://blog.adhyapaksaathi.in" target="_blank">
-          Blog
-        </a>
-      </li>
-
+    <!-- Desktop Links -->
+    <ul class="nav-links">
+      <li><a href="{{ url_for('pages.home') }}" class="{% if request.endpoint == 'pages.home' %}active{% endif %}">Home</a></li>
+      <li><a href="{{ url_for('pages.test') }}" class="{% if request.endpoint == 'pages.test' %}active{% endif %}">Practice Test</a></li>
+      <li><a href="{{ url_for('pages.mocktest') }}" class="{% if request.endpoint == 'pages.mocktest' %}active{% endif %}">Mock Test</a></li>
+      <li><a href="{{ url_for('pages.news') }}" class="{% if request.endpoint == 'pages.news' %}active{% endif %}">Exam News</a></li>
+      <li><a href="{{ url_for('pages.materials') }}" class="{% if request.endpoint == 'pages.materials' %}active{% endif %}">Study Materials</a></li>
+      <li><a href="{{ url_for('pages.about') }}" class="{% if request.endpoint == 'pages.about' %}active{% endif %}">About Us</a></li>
+      <li><a href="{{ url_for('pages.contact') }}" class="{% if request.endpoint == 'pages.contact' %}active{% endif %}">Contact</a></li>
     </ul>
 
-    <div class="hamburger" onclick="toggleNav()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
+    <!-- Hamburger (Mobile Only) -->
+    <button class="mobile-menu-btn" onclick="openSidebar()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- ================= MOBILE SIDEBAR ================= -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<div class="mobile-sidebar" id="mobileSidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-header-title">MENU</div>
+    <button class="close-sidebar-btn" onclick="closeSidebar()">✕</button>
+  </div>
+
+  <div class="sidebar-menu">
+    <div class="menu-category">Navigation</div>
+    <a href="{{ url_for('pages.home') }}" class="sidebar-item {% if request.endpoint == 'pages.home' %}active{% endif %}">🏠 Home</a>
+    <a href="{{ url_for('pages.test') }}" class="sidebar-item {% if request.endpoint == 'pages.test' %}active{% endif %}">📝 Practice Test</a>
+    <a href="{{ url_for('pages.mocktest') }}" class="sidebar-item {% if request.endpoint == 'pages.mocktest' %}active{% endif %}">🎓 Mock Test</a>
+    <a href="{{ url_for('pages.news') }}" class="sidebar-item {% if request.endpoint == 'pages.news' %}active{% endif %}">🔔 Exam News</a>
+    <a href="{{ url_for('pages.materials') }}" class="sidebar-item {% if request.endpoint == 'pages.materials' %}active{% endif %}">📚 Study Materials</a>
+    <a href="{{ url_for('pages.about') }}" class="sidebar-item {% if request.endpoint == 'pages.about' %}active{% endif %}">ℹ️ About Us</a>
+    <a href="{{ url_for('pages.contact') }}" class="sidebar-item {% if request.endpoint == 'pages.contact' %}active{% endif %}">✉️ Contact</a>
+    <a href="https://blog.adhyapaksaathi.in" target="_blank" class="sidebar-item">🌐 Blog</a>
+  </div>
+</div>
+
+<script>
+  function openSidebar() {
+    document.getElementById('mobileSidebar').classList.add('mobile-open');
+    document.getElementById('sidebarOverlay').classList.add('mobile-open');
+    document.body.classList.add('sidebar-open');
+  }
+
+  function closeSidebar() {
+    document.getElementById('mobileSidebar').classList.remove('mobile-open');
+    document.getElementById('sidebarOverlay').classList.remove('mobile-open');
+    document.body.classList.remove('sidebar-open');
+  }
+
+  // Mobile par kisi bhi link par click karne se sidebar auto-close ho jayega
+  document.querySelectorAll('.sidebar-item').forEach(function(link) {
+    link.addEventListener('click', function() {
+      closeSidebar();
+    });
+  });
+</script>

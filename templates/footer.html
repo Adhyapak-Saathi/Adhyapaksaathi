@@ -1,91 +1,3 @@
-<style>
-  /* ================= FOOTER ================= */
-  /* footer {
-    background: var(--navy-dark);
-    color: #cbd5e1;
-    padding: 50px 20px 20px;
-    font-family: var(--font-sans);
-    margin-top: 40px;
-    border-top: 4px solid var(--gold);
-  }
-
-  .footer-grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 30px;
-    text-align: left;
-  }
-
-  .footer-brand-name {
-    font-size: 1.8rem;
-    font-family: var(--font-serif);
-    font-weight: bold;
-    color: white;
-    margin-bottom: 10px;
-  }
-
-  .footer-brand-tag {
-    color: var(--gold);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    font-weight: 800;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-  }
-
-  .footer-col-title {
-    color: var(--gold);
-    font-size: 1rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .footer-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .footer-links li {
-    margin-bottom: 12px;
-  }
-
-  .footer-links a {
-    color: #cbd5e1;
-    text-decoration: none;
-    transition: 0.3s;
-    font-size: 0.95rem;
-  }
-
-  .footer-links a:hover {
-    color: var(--gold);
-    padding-left: 5px;
-  }
-
-  .footer-bottom {
-    max-width: 1200px;
-    margin: 40px auto 0;
-    padding-top: 20px;
-    border-top: 1px solid #334155;
-    text-align: left;
-    font-size: 0.9rem;
-  }
-
-  @media (max-width: 768px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      text-align: center;
-    }
-
-    .footer-bottom {
-      text-align: center;
-    }
-  }*/
-</style>
 
 <footer>
   <div class="footer-grid">
@@ -101,13 +13,13 @@
     <div>
       <div class="footer-col-title">Navigation</div>
       <ul class="footer-links">
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('test') }}">Practice Test</a></li>
-        <li><a href="{{ url_for('mocktest') }}">Mock Test</a></li>
-        <li><a href="{{ url_for('news') }}">Exam News</a></li>
-        <li><a href="{{ url_for('materials') }}">Study Materials</a></li>
-        <li><a href="{{ url_for('about') }}">About Us</a></li>
-        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <li><a href="{{ url_for('pages.home') }}">Home</a></li>
+        <li><a href="{{ url_for('pages.test') }}">Practice Test</a></li>
+        <li><a href="{{ url_for('pages.mocktest') }}">Mock Test</a></li>
+        <li><a href="{{ url_for('pages.news') }}">Exam News</a></li>
+        <li><a href="{{ url_for('pages.materials') }}">Study Materials</a></li>
+        <li><a href="{{ url_for('pages.about') }}">About Us</a></li>
+        <li><a href="{{ url_for('pages.contact') }}">Contact</a></li>
         <li><a href="https://blog.adhyapaksaathi.in" target="_blank">Blog</a></li>
       </ul>
     </div>
@@ -115,11 +27,11 @@
     <div>
       <div class="footer-col-title">Examinations</div>
       <ul class="footer-links">
-        <li><a href="{{ url_for('news') }}">TAT (S) & TAT (HS)</a></li>
-        <li><a href="{{ url_for('news') }}">TET I & TET II</a></li>
-        <li><a href="{{ url_for('news') }}">UGC NET</a></li>
-        <li><a href="{{ url_for('news') }}">GSET</a></li>
-        <li><a href="{{ url_for('news') }}">CTET</a></li>
+        <li><a href="{{ url_for('pages.news') }}">TAT (S) & TAT (HS)</a></li>
+        <li><a href="{{ url_for('pages.news') }}">TET I & TET II</a></li>
+        <li><a href="{{ url_for('pages.news') }}">UGC NET</a></li>
+        <li><a href="{{ url_for('pages.news') }}">GSET</a></li>
+        <li><a href="{{ url_for('pages.news') }}">CTET</a></li>
       </ul>
     </div>
 
@@ -127,8 +39,8 @@
       <div class="footer-col-title">Contact</div>
       <ul class="footer-links">
         <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
-        <li><a href="{{ url_for('contact') }}">Send a Message</a></li>
-        <li><a href="{{ url_for('contact') }}">Suggestion Box</a></li>
+        <li><a href="{{ url_for('pages.contact') }}">Send a Message</a></li>
+        <li><a href="{{ url_for('pages.contact') }}">Suggestion Box</a></li>
       </ul>
     </div>
 
@@ -138,49 +50,3 @@
     <p>© 2026 <span style="color:var(--gold);">Adhyapak Saathi</span>. All rights reserved.</p>
   </div>
 </footer>
-
-    <!-- FOOTER -->
-    <!-- <footer>
-    <div class="footer-grid">
-        <div class="footer-brand">
-        <div class="footer-brand-name">Adhyapak Saathi</div>
-        <div class="footer-brand-tag">Teacher Exam Preparation Portal</div>
-        <p>Dedicated academic platform for TAT, TET, UGC NET, GSET, and CTET aspirants across Gujarat and India.</p>
-        </div>
-        <div>
-        <div class="footer-col-title">Navigation</div>
-        <ul class="footer-links">
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="test.html">Practice Test</a></li>
-            <li><a href="mocktest.html">Mock Test</a></li>
-            <li><a href="news.html">Exam News</a></li>
-            <li><a href="materials.html">Study Materials</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <a href="https://blog.adhyapaksaathi.in" target="_blank">Blog</a>
-        </ul>
-        </div>
-        <div>
-        <div class="footer-col-title">Examinations</div>
-        <ul class="footer-links">
-            <li><a href="news.html">TAT (S) &amp; TAT (HS)</a></li>
-            <li><a href="news.html">TET I &amp; TET II</a></li>
-            <li><a href="news.html">UGC NET</a></li>
-            <li><a href="news.html">GSET</a></li>
-            <li><a href="news.html">CTET</a></li>
-        </ul>
-        </div>
-        <div>
-        <div class="footer-col-title">Contact</div>
-        <ul class="footer-links">
-            <li><a href="mailto:info@adhyapaksaathi.in">info@adhyapaksaathi.in</a></li>
-            <li><a href="contact.html">Send a Message</a></li>
-            <li><a href="contact.html">Suggestion Box</a></li>
-        </ul>
-        </div>
-    </div>
-    
-    <div class="footer-bottom">
-        <p>© 2026 <span>Adhyapak Saathi</span>. All rights reserved.</p>
-    </div>
-    </footer> -->

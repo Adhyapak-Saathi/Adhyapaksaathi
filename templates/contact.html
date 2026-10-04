@@ -459,13 +459,6 @@
     <div class="page-banner">
 
         <div class="wrapper">
-
-            <!-- <div class="breadcrumb">
-                <a href="{{ url_for('home') }}">Home</a>
-                <span>›</span>
-                Contact Us
-            </div> -->
-
             <h1>
                 Contact <em>Us</em>
             </h1>
@@ -687,7 +680,7 @@
                     <!-- Contact Form -->
                     <form
                         id="contactForm"
-                        action="{{ url_for('contact') }}"
+                        action="{{ url_for('pages.contact') }}"
                         method="POST"
                         onsubmit="submitValidatedForm(
                             event,
@@ -1097,19 +1090,19 @@
                     <ul>
 
                         <li>
-                            <a href="{{ url_for('home') }}">
+                            <a href="{{ url_for('pages.home') }}">
                                 ➤ Home
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ url_for('about') }}">
+                            <a href="{{ url_for('pages.about') }}">
                                 ➤ About Us
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ url_for('contact') }}">
+                            <a href="{{ url_for('pages.contact') }}">
                                 ➤ Contact Us
                             </a>
                         </li>
@@ -1129,19 +1122,19 @@
                     <ul>
 
                         <li>
-                            <a href="{{ url_for('test') }}">
+                            <a href="{{ url_for('pages.test') }}">
                                 ➤ TAT Mock Test
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ url_for('test') }}">
+                            <a href="{{ url_for('pages.test') }}">
                                 ➤ Practice Test
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ url_for('test') }}">
+                            <a href="{{ url_for('pages.test') }}">
                                 ➤ TET / GSET / UGC NET
                             </a>
                         </li>
@@ -1161,19 +1154,19 @@
                     <ul>
 
                         <li>
-                            <a href="{{ url_for('materials') }}">
+                            <a href="{{ url_for('pages.materials') }}">
                                 ➤ Official Syllabus
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ url_for('materials') }}">
+                            <a href="{{ url_for('pages.materials') }}">
                                 ➤ Previous Papers (PYQs)
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ url_for('materials') }}">
+                            <a href="{{ url_for('pages.materials') }}">
                                 ➤ PDF Notes
                             </a>
                         </li>
@@ -1193,13 +1186,13 @@
                     <ul>
 
                         <li>
-                            <a href="{{ url_for('news') }}">
+                            <a href="{{ url_for('pages.news') }}">
                                 ➤ Exam News
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ url_for('news') }}">
+                            <a href="{{ url_for('pages.news') }}">
                                 ➤ Live Updates
                             </a>
                         </li>
