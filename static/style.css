@@ -772,6 +772,164 @@ footer {
 .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.4); font-family: var(--font-sans); }
 .footer-bottom span { color: var(--gold-light); }
 
+/* ============ MODAL & LOGIN BOX ============ */
+.modal-overlay { 
+  display: none; 
+  position: fixed; 
+  inset: 0; 
+  background: rgba(20, 34, 66, 0.85); /* Aapka Navy Dark blur ke sath */
+  z-index: 10000; 
+  align-items: center; 
+  justify-content: center; 
+  backdrop-filter: blur(4px); 
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  animation: pop 0.3s ease-out;
+  margin: 0 15px; /* Mobile ke liye padding */
+}
+@keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Close Button */
+.close-modal-btn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  transition: 0.2s;
+}
+.close-modal-btn:hover { color: var(--red); border-color: var(--red); transform: scale(1.05); }
+.close-modal-btn svg { width: 18px; height: 18px; }
+
+/* Login Card (Main Box) */
+.login-card {
+  background: var(--bg-card); 
+  border: 1px solid var(--border); 
+  border-radius: var(--radius-lg); 
+  padding: 35px 30px; 
+  box-shadow: var(--shadow-lg);
+}
+
+/* Brand Section (Box ke andar) */
+.brand { text-align: center; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed var(--border); }
+.brand-icon {
+  background: var(--bg); 
+  border: 2px solid var(--border);
+  border-radius: 50%; 
+  width: 70px; height: 70px; 
+  padding: 12px; 
+  box-shadow: var(--shadow-sm); 
+  margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.brand-logo-img { width: 100%; height: 100%; object-fit: contain; }
+.brand-name { font-size: 22px; font-weight: 700; color: var(--navy); font-family: var(--font-serif); line-height: 1.2; }
+.brand-subtitle { margin-top: 4px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); font-family: var(--font-sans); }
+
+/* Text & Headings */
+.login-heading { margin-bottom: 22px; text-align: center; }
+.login-heading h1 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; font-family: var(--font-sans); }
+.login-heading p { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+
+/* Google Button */
+.btn-google {
+  width: 100%; height: 44px; margin-bottom: 20px; 
+  background: var(--bg); color: var(--text); 
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; gap: 10px; 
+  font-weight: 600; font-size: 13px; border-radius: var(--radius);
+  cursor: pointer; transition: 0.2s; font-family: var(--font-sans);
+}
+.btn-google:hover { background: var(--border); }
+.btn-google img { width: 20px; height: 20px; }
+
+/* Divider */
+.divider { display: flex; align-items: center; margin-bottom: 20px; }
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+.divider-text { padding: 0 12px; color: var(--text-muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Form Fields */
+.form-group { margin-bottom: 16px; text-align: left; }
+.form-group label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: var(--text); font-family: var(--font-sans); }
+.input-wrapper { position: relative; }
+.input-wrapper svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); }
+.form-group input {
+  width: 100%; height: 44px; padding: 0 14px 0 40px; 
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--white); color: var(--text); 
+  font-size: 13px; outline: none; transition: 0.2s; box-sizing: border-box;
+  font-family: var(--font-sans);
+}
+.form-group input::placeholder { color: var(--text-muted); }
+.form-group input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15); }
+
+.forgot-link { display: block; text-align: right; color: var(--navy-mid); font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 20px; text-decoration: none; font-family: var(--font-sans); transition: 0.2s; }
+.forgot-link:hover { color: var(--gold-light); }
+
+/* Submit Button */
+.login-btn {
+  width: 100%; height: 44px; border: none; border-radius: var(--radius); 
+  background: var(--navy); color: var(--white);
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; 
+  box-shadow: var(--shadow-sm); font-family: var(--font-sans);
+}
+.login-btn:hover { background: var(--navy-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+/* Brand Section (Box ke andar) */
+.brand { 
+  text-align: center; 
+  margin-bottom: 24px; 
+  padding-bottom: 20px; 
+  border-bottom: 1px dashed var(--border); 
+}
+
+.brand-icon {
+  background: var(--bg); 
+  border: 2px solid var(--border);
+  border-radius: 50%; 
+  width: 75px; 
+  height: 75px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 12px rgba(29, 52, 97, 0.08);
+}
+
+/* Nayi class SVG ka size set karne ke liye */
+.brand-logo-svg { 
+  width: 55px; 
+  height: 55px; 
+}
+
+.brand-name { 
+  font-size: 24px; 
+  font-weight: 700; 
+  color: var(--navy); 
+  font-family: var(--font-serif); 
+  line-height: 1.2; 
+}
+
+.brand-subtitle { 
+  margin-top: 4px; 
+  font-size: 11px; 
+  font-weight: 700; 
+  letter-spacing: 1.5px; 
+  text-transform: uppercase; 
+  color: var(--gold-light); 
+  font-family: var(--font-sans); 
+}
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -794,3 +952,5 @@ footer {
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .dropdown-content { left: 0; transform: none; min-width: 100%; }
 }
+
+

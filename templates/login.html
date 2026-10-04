@@ -3,7 +3,7 @@
 
 <style>
   :root {
-    --primary-blue: #1d3461; /* Adhyapak Saathi Navy */
+    --primary-blue: #1d3461;
     --primary-blue-hover: #2b4c8a;
     --gold: #d4a017;
     --text-main: #27374d;
@@ -12,7 +12,6 @@
     --background: #f7f9fb;
     --white: #ffffff;
     --danger: #b42318;
-    --success: #16794c;
   }
 
   /* ---------- Modal Overlay ---------- */
@@ -20,7 +19,7 @@
     display: none; 
     position: fixed; 
     inset: 0; 
-    background: rgba(0,0,0,0.75); 
+    background: rgba(20, 34, 66, 0.85); 
     z-index: 10000; 
     align-items: center; 
     justify-content: center; 
@@ -32,15 +31,16 @@
     max-width: 400px;
     position: relative;
     animation: pop 0.3s ease-out;
+    margin: 0 15px;
   }
   @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-  /* ---------- Close Button ---------- */
+  /* ---------- Close Button (100% Fixed to Dark Blue) ---------- */
   .close-modal-btn {
     position: absolute;
-    top: -10px;
-    right: -10px;
-    background: white;
+    top: -12px;
+    right: -12px;
+    background: #ffffff !important;
     border: 2px solid var(--border);
     border-radius: 50%;
     width: 32px;
@@ -49,76 +49,73 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: var(--text-secondary);
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     z-index: 10;
     transition: 0.2s;
   }
-  .close-modal-btn:hover { color: var(--danger); border-color: var(--danger); transform: scale(1.05); }
-  .close-modal-btn svg { width: 18px; height: 18px; }
+  .close-modal-btn svg, .close-modal-btn svg path, .close-modal-btn svg line { 
+    width: 18px; 
+    height: 18px; 
+    stroke: #1d3461 !important; 
+    color: #1d3461 !important; 
+  }
+  .close-modal-btn:hover { border-color: var(--danger); transform: scale(1.05); }
+  .close-modal-btn:hover svg, .close-modal-btn:hover svg path, .close-modal-btn:hover svg line { 
+    stroke: var(--danger) !important; 
+    color: var(--danger) !important; 
+  }
 
-  /* ---------- BRAND ---------- */
-  .brand { text-align: center; margin-bottom: 24px; }
+  /* ---------- CARD & BRAND ---------- */
+  .login-card { 
+    background: var(--white); 
+    border: 1px solid var(--border); 
+    border-radius: 12px; 
+    padding: 30px; 
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1); 
+  }
+  
+  .brand { text-align: center; margin-bottom: 15px; }
   .brand-icon {
-    width: 48px; height: 48px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;
-    background: var(--primary-blue); color: #ffffff; border-radius: 10px; box-shadow: 0 4px 10px rgba(29, 52, 97, 0.3);
+    background: #f4f6fb; 
+    border: 2px solid var(--border);
+    border-radius: 50%; 
+    width: 75px; 
+    height: 75px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 0 auto 12px;
+    box-shadow: 0 4px 12px rgba(29, 52, 97, 0.08);
   }
-  .brand-icon svg { width: 24px; height: 24px; }
   .brand-name { font-size: 24px; font-weight: 800; color: var(--primary-blue); font-family: "Georgia", serif; line-height: 1.2; }
-  .brand-subtitle { margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); }
+  .brand-subtitle { margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
 
-  /* ---------- CARD ---------- */
-  .login-card {
-    background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
-  }
   .login-heading { margin-bottom: 22px; text-align: center; }
   .login-heading h1 { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
   .login-heading p { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
 
-  /* ---------- GOOGLE BUTTON ---------- */
-  .btn-google {
-    width: 100%; height: 44px; margin-bottom: 20px; background: white; color: var(--text-main); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; font-size: 13px; border-radius: 8px;
-    cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-  }
+  /* ---------- Inputs & Buttons ---------- */
+  .btn-google { width: 100%; height: 44px; margin-bottom: 20px; background: white; color: var(--text-main); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; font-size: 13px; border-radius: 8px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
   .btn-google:hover { background: #f8fafc; border-color: #cbd5e0; }
   .btn-google img { width: 20px; height: 20px; }
-
-  /* ---------- DIVIDER ---------- */
+  
   .divider { display: flex; align-items: center; margin-bottom: 20px; }
   .divider-line { flex: 1; height: 1px; background: var(--border); }
   .divider-text { padding: 0 12px; color: var(--text-secondary); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-
-  /* ---------- FORM ---------- */
+  
   .form-group { margin-bottom: 16px; text-align: left; }
   .form-group label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: var(--text-main); }
   .input-wrapper { position: relative; }
   .input-wrapper svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #9aa4b2; }
-  .form-group input {
-    width: 100%; height: 44px; padding: 0 14px 0 40px; border: 1px solid var(--border); border-radius: 8px;
-    background: #ffffff; color: var(--text-main); font-size: 13px; outline: none; transition: 0.2s; box-sizing: border-box;
-  }
+  .form-group input { width: 100%; height: 44px; padding: 0 14px 0 40px; border: 1px solid var(--border); border-radius: 8px; background: #ffffff; color: var(--text-main); font-size: 13px; outline: none; transition: 0.2s; box-sizing: border-box; }
   .form-group input::placeholder { color: #9aa4b2; }
   .form-group input:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(29, 52, 97, 0.1); }
-
+  
   .forgot-link { display: block; text-align: right; color: var(--primary-blue); font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
   .forgot-link:hover { text-decoration: underline; }
-
-  /* ---------- ACTION BUTTONS ---------- */
-  .login-btn {
-    width: 100%; height: 44px; border: none; border-radius: 8px; background: var(--primary-blue); color: #ffffff;
-    font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(29, 52, 97, 0.2);
-  }
+  
+  .login-btn { width: 100%; height: 44px; border: none; border-radius: 8px; background: var(--primary-blue); color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(29, 52, 97, 0.2); }
   .login-btn:hover { background: var(--primary-blue-hover); transform: translateY(-1px); }
-
-  .signup-area { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); text-align: center; }
-  .signup-text { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
-  .signup-link {
-    display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: var(--primary-blue);
-    font-size: 13px; font-weight: 700; text-decoration: none; cursor: pointer;
-  }
-  .signup-link:hover { text-decoration: underline; }
-  .signup-link svg { width: 16px; height: 16px; }
 
   /* ---------- Navbar login dropdown ---------- */
   .auth-dropdown { position: relative; display: inline-block; margin-left: 10px; }
@@ -137,10 +134,7 @@
   .auth-dropdown:hover .auth-dropdown-content { display: block; }
 </style>
 
-
-
-     <!-- 2) HTML MODAL -->
-
+<!-- 2) HTML MODAL -->
 <div class="modal-overlay" id="emailAuthModal">
   <div class="login-container">
     
@@ -149,17 +143,38 @@
       <i data-lucide="x"></i>
     </button>
 
-    <!-- BRAND -->
-    <div class="brand">
-        <div class="brand-icon">
-            <i data-lucide="book-open"></i>
-        </div>
-        <div class="brand-name">Adhyapak Saathi</div>
-        <div class="brand-subtitle">Teacher Exam Portal</div>
-    </div>
-
     <!-- LOGIN CARD -->
     <div class="login-card">
+        
+        <!-- BRAND -->
+        <div class="brand">
+            <div class="brand-icon">
+                <svg viewBox="0 0 160 160" style="width: 55px; height: 55px;">
+                  <defs>
+                    <linearGradient id="nGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#0f172a" />
+                      <stop offset="100%" stop-color="#1d3461" />
+                    </linearGradient>
+                    <linearGradient id="gGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#d4a017" />
+                      <stop offset="100%" stop-color="#fbbf24" />
+                    </linearGradient>
+                  </defs>
+                  <g transform="translate(15, 20)">
+                    <path d="M 30 108 Q 80 115 125 102" fill="none" stroke="url(#gGrad)" stroke-width="4" stroke-linecap="round" stroke-opacity="0.5"/>
+                    <circle cx="48" cy="40" r="13" fill="url(#nGrad)"/>
+                    <path d="M 40 108 C 40 70 52 60 76 75" fill="none" stroke="url(#nGrad)" stroke-width="11" stroke-linecap="round"/>
+                    <circle cx="78" cy="55" r="9" fill="url(#gGrad)"/>
+                    <path d="M 64 108 C 64 90 70 82 76 75" fill="none" stroke="url(#gGrad)" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M 70 82 Q 85 70 98 55" fill="none" stroke="url(#gGrad)" stroke-width="7" stroke-linecap="round"/>
+                    <path d="M 106 20 L 109 35 L 124 38 L 109 41 L 106 56 L 103 41 L 88 38 L 103 35 Z" fill="url(#gGrad)"/>
+                  </g>
+                </svg>
+            </div>
+            <!-- <div class="brand-name">Adhyapak Saathi</div>
+            <div class="brand-subtitle">Teacher Exam Portal</div> -->
+        </div>
+
         <div class="login-heading">
             <h1>Sign in</h1>
             <p>Sign in to access the exam portal and scoreboard.</p>
@@ -201,11 +216,10 @@
         <button id="btnEmailSignIn" class="login-btn">Sign in 🚀</button>
 
     </div>
-
   </div>
 </div>
 
-     <!-- 3) JAVASCRIPT (Firebase init + logic) -->
+<!-- 3) JAVASCRIPT (Firebase init + logic) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import {
