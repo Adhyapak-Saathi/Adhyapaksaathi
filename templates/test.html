@@ -1890,14 +1890,6 @@
   {% include 'footer.html' %}
 
   <!-- =========================================================
-       THIRD-PARTY LIBRARIES
-       PapaParse is used to parse Google Sheets CSV data.
-       ========================================================= -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"
-  ></script>
-
-  <!-- =========================================================
        APPLICATION JAVASCRIPT
        ========================================================= -->
   <script>
@@ -1936,58 +1928,21 @@
     }
 
     /* =========================================================
-       GOOGLE SHEETS DATA SOURCE
-       ========================================================= */
-
-    // Public Google Sheets CSV endpoint.
-    const googleSheetCSVLink =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1iMp8oZ-gM1PlKf2-na0-_9DHw1vEf7VykllRqpvsfabforbC3v97JOFwwlwLBLEIAjHRqiRiHhXM/pub?output=csv";
-
-    // Stores all questions loaded from Google Sheets.
-    let practiceDB = [];
-
-    /* =========================================================
        LOAD QUESTION DATABASE
        ========================================================= */
 
+    let practiceDB = [];
+
     window.onload = function () {
-      Papa.parse(googleSheetCSVLink, {
-        download: true,
-        header: true,
-
-        complete: function (results) {
-          practiceDB = results.data
-            .map((row) => {
-              return {
-                q: row.Question,
-
-                opts: [
-                  row.OptA,
-                  row.OptB,
-                  row.OptC,
-                  row.OptD,
-                ],
-
-                ans: parseInt(row.Ans),
-                topic: row.Topic,
-              };
-            })
-
-            // Remove empty or invalid rows.
-            .filter(
-              (item) =>
-                item.q &&
-                item.q.trim() !== "" &&
-                !isNaN(item.ans)
-            );
-        },
-
-        error: function (error) {
-          console.error(
-            "ગૂગલ શીટ લોડ કરવામાં એરર:",
-            error
-          );
-        },
+      fetch('/api/get-questions')
+      .then(response => response.json())
+      .then(data => {
+        practiceDB = data; // Data seedha array mein aa gaya!
+        console.log("✅ Questions safely loaded:", practiceDB);
+      })
+      .catch(error => {
+        console.error("પ્રશ્નો લોડ કરવામાં એરર:", error);
+        alert("પ્રશ્નો લોડ થઈ શક્યા નથી. કૃપા કરીને પેજ રિફ્રેશ કરો.");
       });
     };
 
