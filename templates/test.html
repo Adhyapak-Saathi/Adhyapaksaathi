@@ -2460,221 +2460,77 @@
       );
     }
 
-    /* =========================================================
-       SUBMIT PRACTICE TEST
-       ========================================================= */
+        /* =========================================================
+          SUBMIT PRACTICE TEST (PYTHON BACKEND SE CONNECTED)
+          ========================================================= */
+        function submitPractice() {
+          // 1. Stop the timer and change the screen
+          clearInterval(timer);
+          document.getElementById("examContainer").style.display = "none";
+          document.getElementById("resultScreen").style.display = "block";
+          
+          // Show a loading message until the result is ready
+          document.getElementById("motivationalQuote").innerText = "પરિણામ તૈયાર થઈ રહ્યું છે... ⏳";
+          document.getElementById("reviewContent").innerHTML = "";
 
-    /**
-     * Calculates the result and displays the scorecard.
-     */
-    function submitPractice() {
-      // Stop timer.
-      clearInterval(timer);
+          // 2. Create a data payload to send to Python
+          let payload = {
+            total_active: activeQs.length,
+            submissions: []
+          };
 
-      // Hide exam screen.
-      document.getElementById(
-        "examContainer"
-      ).style.display = "none";
+          activeQs.forEach((question, index) => {
+            payload.submissions.push({
+              id: question.id, // Backend wala ID
+              selected_opt: answers[index] !== undefined ? answers[index] : null
+            });
+          });
 
-      // Show result screen.
-      document.getElementById(
-        "resultScreen"
-      ).style.display = "block";
+          // 3. Sending parcel to API through Pyhton
+          fetch('/api/submit-test', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+          .then(response => response.json())
+          .then(data => {
+            // 4. Update UI after getting result from Python
+            document.getElementById("resScore").innerText = data.correct;
+            document.getElementById("resTotalText").innerText = "out of " + activeQs.length;
+            document.getElementById("resCorrect").innerText = data.correct;
+            document.getElementById("resWrong").innerText = data.wrong;
+            document.getElementById("resSkip").innerText = data.skipped;
+            document.getElementById("resAcc").innerText = data.accuracy;
 
-      let correct = 0;
-      let wrong = 0;
+            const quote = data.accuracy >= 80 ? "શાનદાર પ્રદર્શન! તમારી તૈયારી એકદમ યોગ્ય દિશામાં છે. 🏆" :
+                          data.accuracy >= 50 ? "સારો પ્રયાસ! થોડી વધુ મહેનતથી તમે ઉત્તમ પરિણામ લાવી શકો છો. 👍" :
+                          "નિરાશ ન થશો! વધુ પ્રેક્ટિસ કરો, સફળતા ચોક્કસ મળશે. 💪";
+            document.getElementById("motivationalQuote").innerText = quote;
 
-      // Calculate correct and wrong answers.
-      activeQs.forEach(
-        (question, index) => {
-          if (
-            answers[index] ===
-            question.ans
-          ) {
-            correct++;
-          } else if (
-            answers[index] !==
-            undefined
-          ) {
-            wrong++;
-          }
+            // 5. List the right answers
+            let reviewHtml = "";
+            data.review_data.forEach((item, i) => {
+              const userAnsColor = item.is_correct ? "var(--green)" : "var(--red)";
+              reviewHtml += `
+                <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border);">
+                  <div style="font-weight: bold; margin-bottom: 8px; color: var(--navy);">${i + 1}. ${item.question}</div>
+                  <div style="font-size: 0.95rem; margin-bottom: 4px;">તમારો જવાબ: <span style="color: ${userAnsColor}; font-weight: bold;">${item.user_ans_text}</span></div>
+                  <div style="font-size: 0.95rem;">સાચો જવાબ: <span style="color: var(--green); font-weight: bold;">${item.correct_ans_text}</span></div>
+                </div>
+              `;
+            });
+
+            if (reviewHtml === "") {
+              reviewHtml = `<div style="text-align: center; color: var(--red); font-weight: bold; font-size: 1.1rem;">તમે કોઈ પણ પ્રશ્નનો જવાબ આપ્યો નથી.</div>`;
+            }
+            document.getElementById("reviewContent").innerHTML = reviewHtml;
+            window.scrollTo(0, 0);
+          })
+          .catch(error => {
+            console.error("Error submitting test:", error);
+            document.getElementById("motivationalQuote").innerText = "❌ પરિણામ લાવવામાં ભૂલ થઈ. કૃપા કરીને ફરી પ્રયાસ કરો.";
+          });
         }
-      );
-
-      // Calculate accuracy.
-      const accuracy =
-        activeQs.length > 0
-          ? (
-              (correct /
-                activeQs.length) *
-              100
-            ).toFixed(0)
-          : 0;
-
-      // Update scorecard.
-      document.getElementById(
-        "resScore"
-      ).innerText = correct;
-
-      document.getElementById(
-        "resTotalText"
-      ).innerText =
-        "out of " +
-        activeQs.length;
-
-      document.getElementById(
-        "resCorrect"
-      ).innerText = correct;
-
-      document.getElementById(
-        "resWrong"
-      ).innerText = wrong;
-
-      document.getElementById(
-        "resSkip"
-      ).innerText =
-        activeQs.length -
-        (correct + wrong);
-
-      document.getElementById(
-        "resAcc"
-      ).innerText = accuracy;
-
-      /* ---------------------------------------------------------
-         Motivational message
-         --------------------------------------------------------- */
-
-      const quote =
-        accuracy >= 80
-          ? "શાનદાર પ્રદર્શન! તમારી તૈયારી એકદમ યોગ્ય દિશામાં છે. 🏆"
-          : accuracy >= 50
-          ? "સારો પ્રયાસ! થોડી વધુ મહેનતથી તમે ઉત્તમ પરિણામ લાવી શકો છો. 👍"
-          : "નિરાશ ન થશો! વધુ પ્રેક્ટિસ કરો, સફળતા ચોક્કસ મળશે. 💪";
-
-      document.getElementById(
-        "motivationalQuote"
-      ).innerText = quote;
-
-      /* ---------------------------------------------------------
-         Generate review answers
-         --------------------------------------------------------- */
-
-      let reviewHtml = "";
-
-      activeQs.forEach(
-        (question, index) => {
-          const userAnsIdx =
-            answers[index];
-
-          // Do not display unanswered questions.
-          if (
-            userAnsIdx ===
-            undefined
-          ) {
-            return;
-          }
-
-          const isCorrect =
-            userAnsIdx ===
-            question.ans;
-
-          const userAnsText =
-            question.opts[
-              userAnsIdx
-            ];
-
-          const correctAnsText =
-            question.opts[
-              question.ans
-            ];
-
-          const userAnsColor =
-            isCorrect
-              ? "var(--green)"
-              : "var(--red)";
-
-          reviewHtml += `
-            <div
-              style="
-                margin-bottom: 15px;
-                padding-bottom: 15px;
-                border-bottom: 1px solid var(--border);
-              "
-            >
-              <div
-                style="
-                  font-weight: bold;
-                  margin-bottom: 8px;
-                  color: var(--navy);
-                "
-              >
-                ${index + 1}. ${
-                  question.q
-                }
-              </div>
-
-              <div
-                style="
-                  font-size: 0.95rem;
-                  margin-bottom: 4px;
-                "
-              >
-                તમારો જવાબ:
-
-                <span
-                  style="
-                    color: ${userAnsColor};
-                    font-weight: bold;
-                  "
-                >
-                  ${userAnsText}
-                </span>
-              </div>
-
-              <div
-                style="
-                  font-size: 0.95rem;
-                "
-              >
-                સાચો જવાબ:
-
-                <span
-                  style="
-                    color: var(--green);
-                    font-weight: bold;
-                  "
-                >
-                  ${correctAnsText}
-                </span>
-              </div>
-            </div>
-          `;
-        }
-      );
-
-      // Handle the case where no answers were submitted.
-      if (reviewHtml === "") {
-        reviewHtml = `
-          <div
-            style="
-              text-align: center;
-              color: var(--red);
-              font-weight: bold;
-              font-size: 1.1rem;
-            "
-          >
-            તમે કોઈ પણ પ્રશ્નનો જવાબ આપ્યો નથી.
-          </div>
-        `;
-      }
-
-      document.getElementById(
-        "reviewContent"
-      ).innerHTML = reviewHtml;
-
-      // Scroll to the top of the result screen.
-      window.scrollTo(0, 0);
-    }
 
     /* =========================================================
        REVIEW ANSWERS TOGGLE

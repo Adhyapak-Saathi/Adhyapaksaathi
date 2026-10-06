@@ -43,4 +43,3 @@ def contact():
         
         return "Form Submited Successfully"
     return render_template("contact.html")
-        
