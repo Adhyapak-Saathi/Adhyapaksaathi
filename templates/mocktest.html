@@ -277,11 +277,21 @@
        ===================================================== -->
   <div id="mainContent">
 
-    <div class="page-hero">
-      <div class="page-hero-inner">
-        <p class="hero-breadcrumb">Home › Mock Test</p>
-        <h1 class="hero-title">Exclusive Premium <span class="text-gold">Mock Tests</span></h1>
+    <div class="page-banner">
+      <div class="wrapper">
+        <h1>Exclusive Premium <span class="text-gold">Mock Tests</span></h1>
         <p class="hero-subtitle">TAT, TET અને GSET માટે સંપૂર્ણ ઓનલાઇન પરીક્ષા. રીયલ ટાઈમ એક્ઝામ અનુભવ અને ઓલ ગુજરાત રેન્ક સાથે તમારી તૈયારી ચકાસો.</p>
+        <!-- HOMEPAGE WALE EXAM BADGE BUTTONS 👇 -->
+        <div id="examFilterBox" class="exam-badge-row" style="margin-top: 30px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+          <span class="exam-badge" onclick="selectExam(this, 'All')" style="cursor: pointer; background: rgba(255,255,255,0.25); border-color: white; color: white;">બધી પરીક્ષાઓ (All)</span>
+          <span class="exam-badge" onclick="selectExam(this, 'TAT-S')" style="cursor: pointer;">TAT (Secondary)</span>
+          <span class="exam-badge" onclick="selectExam(this, 'TAT-HS')" style="cursor: pointer;">TAT (Higher Sec.)</span>
+          <span class="exam-badge" onclick="selectExam(this, 'TET')" style="cursor: pointer;">TET I &amp; II</span>
+          <span class="exam-badge" onclick="selectExam(this, 'GSET')" style="cursor: pointer;">GSET</span>
+          <span class="exam-badge" onclick="selectExam(this, 'NET')" style="cursor: pointer;">UGC NET</span>
+          <span class="exam-badge" onclick="selectExam(this, 'CTET')" style="cursor: pointer;">CTET</span>
+        </div>
+        <!-- EXAM BUTTONS YAHAN KHATAM -->
       </div>
     </div>
 
@@ -1162,6 +1172,32 @@
           navigator.share({ title: title, text: text });
         }
       }
+    }
+
+    /* =========================================================
+       EXAM FILTER LOGIC
+       ========================================================= */
+    let selectedExamCategory = 'All'; // Kal jab data aayega, toh yeh variable kaam aayega
+
+    function selectExam(clickedButton, examCode) {
+      // 1. Sabhi buttons ko normal (transparent) kar do
+      const allButtons = document.querySelectorAll('#examFilterBox .exam-badge');
+      allButtons.forEach(btn => {
+        btn.style.background = '';
+        btn.style.borderColor = '';
+        btn.style.color = '';
+      });
+
+      // 2. Jis button par click hua hai, usko highlight (white glass effect) kar do
+      clickedButton.style.background = 'rgba(255,255,255,0.25)';
+      clickedButton.style.borderColor = 'white';
+      clickedButton.style.color = 'white';
+
+      // 3. Selected exam ko save kar lo
+      selectedExamCategory = examCode;
+      
+      // Future Step: Yahan hum topics filter karne ka code likhenge
+      console.log("Exam selected:", selectedExamCategory);
     }
   </script>
 
