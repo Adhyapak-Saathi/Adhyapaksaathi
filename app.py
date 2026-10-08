@@ -1,6 +1,7 @@
 from flask import Flask
 from routes.page_routes import page_routes
 from routes.test_api import test_api
+from routes import firebase_config
 
 app = Flask(__name__)
 
