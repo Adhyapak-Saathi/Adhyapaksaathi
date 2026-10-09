@@ -4,6 +4,7 @@ import json
 import os    
 from io import StringIO
 from flask import Blueprint, jsonify, request
+from firebase_admin import firestore
 from routes.firebase_config import db
 
 test_api = Blueprint('test_api', __name__)
@@ -155,3 +156,28 @@ def submit_test():
         "accuracy": accuracy,
         "review_data": review_data
     })
+    
+    
+@test_api.route("/api/submit-score", methods=['POST'])
+def submit_score():
+    try:
+        # Get JSON data from frontend
+        data = request.get_json()
+        student_name = data.get("name")
+        score = data.get("score")
+        test_id = data.get('testID')
+        
+        # Save it to firebase
+        doc_ref = db.collection('student_scores').document()
+        doc_ref.set({
+            'student_name': student_name,
+            'score' : score,
+            'test_id' : test_id,
+            'timestamp' : firestore.SERVER_TIMESTAMP
+        })
+        
+        # Success message
+        return jsonify({"message":"Score saved successfully!", "status":"success"}), 200
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
