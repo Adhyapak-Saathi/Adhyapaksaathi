@@ -49,3 +49,27 @@ def get_questions():
     
     except Exception as e:
         return jsonify({"error":str(e)}), 500
+    
+@mocktest_api.route('/api/get-leaderboard', methods=['GET'])
+def get_leaderboard():
+    try:
+        # Get testId from website
+        test_id = request.args.get('testId')
+        
+        docs = db.collection('student_scores').where('test_id', '==', str(test_id)).stream()
+        
+        leaderboard_data = []
+        
+        for doc in docs:
+            score_data = doc.to_dict()
+            leaderboard_data.append({
+                "name": score_data.get('student_name', 'Unknown'),
+                "score" : score_data.get('score', 0)
+            })
+        
+        leaderboard_data = sorted(leaderboard_data, key=lambda x: x['score'], reverse=True)
+        
+        return jsonify({"leaderboard": leaderboard_data})
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

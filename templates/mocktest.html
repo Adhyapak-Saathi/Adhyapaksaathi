@@ -707,7 +707,7 @@
       list.innerHTML = `<div style="text-align: center; padding: 30px 10px; color: #f57f17; font-weight: bold; font-size: 1.1rem;">સ્કોરબોર્ડ લોડ થઈ રહ્યું છે... ⏳</div>`;
       document.getElementById('pagination-controls').style.display = 'none';
 
-      fetch(`${SCRIPT_URL}?action=getLeaderboard&testId=${testId}`)
+      fetch(`/api/get-leaderboard&testId=${testId}`)
         .then(res => res.json())
         .then(data => {
           liveLeaderboard = data.leaderboard || [];
