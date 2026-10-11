@@ -787,7 +787,7 @@
     function fetchRealQuestions(testId) {
       document.getElementById('loadingModal').style.display = 'flex';
 
-      fetch(`${SCRIPT_URL}?action=getQuestions&testId=${testId}`)
+      fetch(`/api/get-questions?testId=${testId}`)
         .then(res => {
           if (!res.ok) throw new Error("HTTP error " + res.status);
           return res.json();
