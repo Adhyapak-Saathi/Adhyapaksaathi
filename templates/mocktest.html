@@ -806,10 +806,10 @@
             mockDB = validQuestions.map(item => ({
               q: item.q || item.Question || item.question,
               opts: [
-                item.a || item.OptA || item.optA || "વિકલ્પ નથી",
-                item.b || item.OptB || item.optB || "વિકલ્પ નથી",
-                item.c || item.OptC || item.optC || "વિકલ્પ નથી",
-                item.d || item.OptD || item.optD || "વિકલ્પ નથી"
+                (item.opts ? item.opts[0] : null) || item.a || item.OptA || item.optA || "વિકલ્પ નથી",
+                (item.opts ? item.opts[1] : null) || item.b || item.OptB || item.optB || "વિકલ્પ નથી",
+                (item.opts ? item.opts[2] : null) || item.c || item.OptC || item.optC || "વિકલ્પ નથી",
+                (item.opts ? item.opts[3] : null) || item.d || item.OptD || item.optD || "વિકલ્પ નથી"
               ],
               ans: parseInt(item.ans !== undefined ? item.ans : (item.Ans !== undefined ? item.Ans : 0)) || 0,
               topic: item.topic || item.Topic || "સામાન્ય જ્ઞાન",
