@@ -792,7 +792,7 @@
     function fetchRealQuestions(testId) {
       document.getElementById('loadingModal').style.display = 'flex';
 
-      fetch(`/api/get-questions?testId=${testId}&examName=${selectedExamCategory}`)
+      fetch(`/api/get-mock-questions?testId=${testId}&examName=${selectedExamCategory}`)
         .then(res => {
           if (!res.ok) throw new Error("HTTP error " + res.status);
           return res.json();

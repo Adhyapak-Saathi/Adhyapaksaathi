@@ -30,25 +30,21 @@ def sync_questions():
         return jsonify({"status":"error","message":str(e)}), 500
     
     
-@mocktest_api.route('/api/get-questions', methods=['GET'])
+@mocktest_api.route('/api/get-mock-questions', methods=['GET'])
 def get_questions():
     try:
-        # The website will tell us which test it needs (for example, Test 1 or Test 2).
         test_id = request.args.get('testId')
-        
         exam_name = request.args.get('examName')
         
-        # Get all Questions from firebase
         docs = db.collection('exam_questions').stream()
-        
         valid_questions = []
+        
         for doc in docs:
             q = doc.to_dict()
-            # Add only the questions whose testNumber matches our test_id to the list
+            # Yahan hum check kar rahe hain
             if str(q.get('testNumber')) == str(test_id) and str(q.get('examName')) == str(exam_name):
                 valid_questions.append(q)
                 
-        # Send the questions back to the website in JSON(list) format
         return jsonify(valid_questions)
     
     except Exception as e:
