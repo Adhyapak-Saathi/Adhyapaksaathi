@@ -283,12 +283,12 @@
         <p class="hero-subtitle">TAT, TET અને GSET માટે સંપૂર્ણ ઓનલાઇન પરીક્ષા. રીયલ ટાઈમ એક્ઝામ અનુભવ અને ઓલ ગુજરાત રેન્ક સાથે તમારી તૈયારી ચકાસો.</p>
         <!-- HOMEPAGE WALE EXAM BADGE BUTTONS 👇 -->
         <div id="examFilterBox" class="exam-badge-row" style="margin-top: 30px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
-          <span class="exam-badge" onclick="selectExam(this, 'All')" style="cursor: pointer; background: rgba(255,255,255,0.25); border-color: white; color: white;">ALL EXAMS</span>
-          <span class="exam-badge" onclick="selectExam(this, 'TAT-S')" style="cursor: pointer;">TAT (Secondary)</span>
-          <span class="exam-badge" onclick="selectExam(this, 'TAT-HS')" style="cursor: pointer;">TAT (Higher Sec.)</span>
-          <span class="exam-badge" onclick="selectExam(this, 'TET')" style="cursor: pointer;">TET I &amp; II</span>
+          <span class="exam-badge" onclick="selectExam(this, 'TAT (Secondary)')" style="cursor: pointer;">TAT (Secondary)</span>
+          <span class="exam-badge" onclick="selectExam(this, 'TAT  (Higher Sec.)')" style="cursor: pointer;">TAT (Higher Sec.)</span>
+          <span class="exam-badge" onclick="selectExam(this, 'TET I')" style="cursor: pointer;">TET I</span>
+          <span class="exam-badge" onclick="selectExam(this, 'TET II')" style="cursor: pointer;">TET II</span>
           <span class="exam-badge" onclick="selectExam(this, 'GSET')" style="cursor: pointer;">GSET</span>
-          <span class="exam-badge" onclick="selectExam(this, 'NET')" style="cursor: pointer;">UGC NET</span>
+          <span class="exam-badge" onclick="selectExam(this, 'UGC NET')" style="cursor: pointer;">UGC NET</span>
           <span class="exam-badge" onclick="selectExam(this, 'CTET')" style="cursor: pointer;">CTET</span>
         </div>
         <!-- EXAM BUTTONS YAHAN KHATAM -->
@@ -386,7 +386,7 @@
       <!-- Live scoreboard -->
       <div class="scoreboard-container">
         <div class="scoreboard-bg-icon">🏆</div>
-        <h2 class="scoreboard-title">🏆 લાઈવ સ્કોરબોર્ડ 🏆</h2>
+        <h2 class="scoreboard-title" id="scoreboard-title">🏆 લાઈવ સ્કોરબોર્ડ 🏆</h2>
         <div class="scoreboard-quote">"તમારો આજનો સંઘર્ષ એ તમારી આવતીકાલની તાકાત છે! 🚩"</div>
 
         <div id="lbTabs" class="lb-tabs">
@@ -1195,6 +1195,9 @@
 
       // 3. Selected exam ko save kar lo
       selectedExamCategory = examCode;
+
+      // Changing score board title
+      document.getElementById('scoreboard-title').innerText = "🏆 " + examCode + " સ્કોરબોર્ડ 🏆 ";
       
       // Future Step: Yahan hum topics filter karne ka code likhenge
       console.log("Exam selected:", selectedExamCategory);
