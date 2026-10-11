@@ -750,6 +750,11 @@
         currentTestId = state.testId;
         document.getElementById('resumeModal').style.display = 'flex';
       }
+
+      const firstExamBadge = document.querySelector('#examFilterBox .exam-badge');
+      if (firstExamBadge){
+        firstExamBadge.click();
+      }
     });
 
     function startPaidTest() {
