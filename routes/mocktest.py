@@ -38,18 +38,24 @@ def sync_questions():
 @mocktest_api.route('/api/get-mock-questions', methods=['GET'])
 def get_questions():
     try:
-        # Get request test details from the webstie URL
-        test_id = request.args.get('testId')
-        exam_name = request.args.get('examName')
+        # Remove extra spaces and convert to lowercase for the requested data
+        test_id = str(request.args.get('testId', '')).strip()
+        exam_name = str(request.args.get('examName', '')).strip().lower()
         
         # Fetch all questions from Firebase
         docs = db.collection('exam_questions').stream()
         valid_questions = []
         
-        # Filter questions that match the exact Exam Name and Test ID
+        # Filter questions (Smart Matching)
         for doc in docs:
             q = doc.to_dict()
-            if str(q.get('testNumber')) == str(test_id) and str(q.get('examName')) == str(exam_name):
+            
+            # Clean the database data to ensure an exact match
+            db_test_num = str(q.get('testNumber', '')).strip()
+            db_exam_name = str(q.get('examName', '')).strip().lower()
+            
+            # Add to the list if both test ID and exam name match perfectly
+            if db_test_num == test_id and db_exam_name == exam_name:
                 valid_questions.append(q)
                 
         # Send the filtered questions back to the website
