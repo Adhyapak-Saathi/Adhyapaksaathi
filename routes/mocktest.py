@@ -26,8 +26,17 @@ def sync_questions():
         
         # Loop through each question and save it to Firebase
         for q in questions_list:
-            doc_id = str(q['id'])
-            db.collection('exam_questions').document(doc_id).set(q)
+            
+            # SMART ID MAKER: Combine Exam Name, Test Number, and Question ID
+            exam_name = str(q.get('examName', 'Unknown')).strip().replace(" ", "_")
+            test_num = str(q.get('testNumber', '1')).strip()
+            q_id = str(q.get('id', '0')).strip()
+            
+            # Naya Unique ID banega (Example: 'GSET_2_1')
+            unique_doc_id = f"{exam_name}_{test_num}_{q_id}"
+            
+            # Save to Firebase with the unique ID
+            db.collection('exam_questions').document(unique_doc_id).set(q)
             
         return jsonify({"status":"success", "message":f"{len(questions_list)} questions saved successfully!"})
                        
