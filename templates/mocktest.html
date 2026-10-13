@@ -1122,8 +1122,14 @@
       if (SCRIPT_URL !== "") {
         fetch(SCRIPT_URL, {
           method: 'POST',
+          headers: {
+            'Content-Type' : 'application/json'
+          },
           body: JSON.stringify({ name: stuName, score: finalScore, testId: currentTestId })
-        }).catch(e => console.log(e));
+        })
+        .then(res => res.json())
+        .then(data => console.log("Server says:", data))
+        .catch(e => console.error("Error:", e))
       }
     }
 
