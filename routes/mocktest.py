@@ -64,8 +64,13 @@ def get_questions():
             db_exam_name = str(q.get('examName', '')).strip().lower()
             
             # Add to the list if both test ID and exam name match perfectly
-            if db_test_num == test_id and db_exam_name == exam_name:
-                valid_questions.append(q)
+            if exam_name == '' or exam_name == 'none':
+                if db_test_num == test_id:
+                    valid_questions.append(q)
+            
+            else:
+                if db_test_num == test_id and db_exam_name == exam_name:
+                    valid_questions.append(q)
                 
         # Send the filtered questions back to the website
         return jsonify(valid_questions)
