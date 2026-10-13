@@ -82,14 +82,18 @@ def get_questions():
 @mocktest_api.route('/api/get-leaderboard', methods=['GET'])
 def get_leaderboard():
     try:
-        # Get testId from website URL
         test_id = request.args.get('testId')
+        print(f"====== LEADERBOARD MANGWA RAHA HAI FOR TEST: {test_id} ======")
         
-        # Get only the scores for this specific test from Firebase
-        docs = db.collection('student_scores').where('test_id', '==', str(test_id)).stream()
+        # SMART QUERY: Firebase mein Number (1) aur String ('1') dono ko ek sath dhoondhega
+        test_id_str = str(test_id)
+        search_ids = [test_id_str]
+        if test_id_str.isdigit():
+            search_ids.append(int(test_id_str))
+            
+        docs = db.collection('student_scores').where('test_id', 'in', search_ids).stream()
         leaderboard_data = []
         
-        # Add each student's name and score to our list
         for doc in docs:
             score_data = doc.to_dict()
             leaderboard_data.append({
@@ -97,13 +101,12 @@ def get_leaderboard():
                 "score" : score_data.get('score', 0)
             })
         
-        # Sort the list from highest score to lowest score (Top Rank first)
+        print(f"====== FIREBASE SE {len(leaderboard_data)} SCORES MILE ======")
         leaderboard_data = sorted(leaderboard_data, key=lambda x: x['score'], reverse=True)
-        
-        # Send the sorted leaderboard back to the website
         return jsonify({"leaderboard": leaderboard_data})
     
     except Exception as e:
+        print(f"!!! LEADERBOARD ERROR !!!: {str(e)}")
         return jsonify({"error": str(e)}), 500
     
 # RAZAORPAY
@@ -137,22 +140,21 @@ def create_order():
 @mocktest_api.route('/api/submit-score', methods=['POST'])
 def submit_score():
     try:
-        # force=True zaroori hai taaki JSON data bina kisi error ke read ho sake
         data = request.get_json(force=True)
+        print("====== NAYA SCORE AAYA ======", data)
         
         name = data.get('name', 'Unknown')
         score = data.get('score', 0)
         test_id = str(data.get('testId', '1'))
         
-        # Data ko Firebase ke 'student_scores' collection mein save karna
         db.collection('student_scores').add({
             'student_name': name,
             'score': float(score),
             'test_id': test_id
         })
-        
+        print("====== SCORE FIREBASE MEIN SAVE HO GAYA! ======")
         return jsonify({"status": "success", "message": "Score saved!"})
     
     except Exception as e:
-        print(f"Score save error: {str(e)}")
+        print(f"!!! SCORE SAVE ERROR !!!: {str(e)}")
         return jsonify({"error": str(e)}), 500
