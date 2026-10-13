@@ -143,16 +143,23 @@ def submit_score():
         data = request.get_json(force=True)
         print("====== NAYA SCORE AAYA ======", data)
         
-        name = data.get('name', 'Unknown')
-        score = data.get('score', 0)
-        test_id = str(data.get('testId', '1'))
+        name = str(data.get('name', 'Unknown')).strip()
+        score = float(data.get('score', 0))
+        
+        # BULLETPROOF LOGIC: test_id kabhi null nahi jayega
+        raw_test_id = data.get('testId') or data.get('test_id')
+        if raw_test_id is None or str(raw_test_id).strip() == '' or str(raw_test_id).strip() == 'null':
+            test_id = "1"  # Default test 1 maan lega
+        else:
+            test_id = str(raw_test_id).strip()
         
         db.collection('student_scores').add({
             'student_name': name,
-            'score': float(score),
+            'score': score,
             'test_id': test_id
         })
-        print("====== SCORE FIREBASE MEIN SAVE HO GAYA! ======")
+        
+        print(f"====== SCORE SAVE HO GAYA! Test ID: {test_id} ======")
         return jsonify({"status": "success", "message": "Score saved!"})
     
     except Exception as e:
