@@ -132,3 +132,24 @@ def create_order():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@mocktest_api.route('api/submit-score', methods=['POST'])
+def submit_score():
+    try:
+        data = request.get_json(force=True)
+        
+        name = data.get('name', 'Unknown')
+        score = data.get('score', 0)
+        test_id = str(data.get('testId', '1'))
+        
+        db.collection('student_scores').add({
+            'student_name' : name,
+            'score' : float(score),
+            'test_id' : test_id
+        })
+        
+        return jsonify({"status":"success", "message":"Score saved!"})
+    
+    except Exception as e:
+        print(f"Score save error: {str(e)}")
+        return jsonify({"error", str(e)})
