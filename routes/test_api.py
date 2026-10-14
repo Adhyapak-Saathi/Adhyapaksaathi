@@ -162,10 +162,12 @@ def submit_test():
 def submit_score():
     try:
         # Get JSON data from frontend
-        data = request.get_json()
-        student_name = data.get("name")
-        score = data.get("score")
-        test_id = data.get('testID')
+        data = request.get_json(force=True)
+        student_name = data.get("student_name") or data.get("name") or "Unknown"
+        score = float(data.get("score", 0))
+        
+        raw_test_id = data.get('testId') or data.get('testID') or data.get('test_id')
+        test_id = str(raw_test_id).strip() if raw_test_id else "1"
         
         # Save it to firebase
         doc_ref = db.collection('student_scores').document()
