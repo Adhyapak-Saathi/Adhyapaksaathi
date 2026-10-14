@@ -82,31 +82,31 @@ def get_questions():
 @mocktest_api.route('/api/get-leaderboard', methods=['GET'])
 def get_leaderboard():
     try:
-        test_id = request.args.get('testId')
-        print(f"====== LEADERBOARD MANGWA RAHA HAI FOR TEST: {test_id} ======")
-        
-        # SMART QUERY: Firebase mein Number (1) aur String ('1') dono ko ek sath dhoondhega
-        test_id_str = str(test_id)
-        search_ids = [test_id_str]
-        if test_id_str.isdigit():
-            search_ids.append(int(test_id_str))
-            
-        docs = db.collection('student_scores').where('test_id', 'in', search_ids).stream()
+        test_id_str = str(request.args.get('testId', '1')).strip()
         leaderboard_data = []
         
-        for doc in docs:
-            score_data = doc.to_dict()
-            leaderboard_data.append({
-                "name": score_data.get('student_name', 'Unknown'),
-                "score" : score_data.get('score', 0)
-            })
+        # 1. Pehle TEXT (String) wala ID dhoondhega (Jaise: "1")
+        docs_str = db.collection('student_scores').where('test_id', '==', test_id_str).stream()
+        for doc in docs_str:
+            d = doc.to_dict()
+            leaderboard_data.append({"name": d.get('student_name', 'Unknown'), "score": d.get('score', 0)})
+            
+        # 2. Phir NUMBER wala ID dhoondhega (Jaise: 1)
+        if test_id_str.isdigit():
+            test_id_num = int(test_id_str)
+            docs_num = db.collection('student_scores').where('test_id', '==', test_id_num).stream()
+            for doc in docs_num:
+                d = doc.to_dict()
+                # Duplicate entries se bachne ke liye check karega
+                if not any(entry['name'] == d.get('student_name', 'Unknown') and entry['score'] == d.get('score', 0) for entry in leaderboard_data):
+                    leaderboard_data.append({"name": d.get('student_name', 'Unknown'), "score": d.get('score', 0)})
         
-        print(f"====== FIREBASE SE {len(leaderboard_data)} SCORES MILE ======")
+        # Sabko Highest Score ke hisaab se sort kar dega
         leaderboard_data = sorted(leaderboard_data, key=lambda x: x['score'], reverse=True)
+        
         return jsonify({"leaderboard": leaderboard_data})
     
     except Exception as e:
-        print(f"!!! LEADERBOARD ERROR !!!: {str(e)}")
         return jsonify({"error": str(e)}), 500
     
 # RAZAORPAY
