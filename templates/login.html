@@ -14,7 +14,7 @@
     --danger: #b42318;
   }
 
-  /* ---------- Modal Overlay ---------- */
+  /* Modal Overlay */
   .modal-overlay { 
     display: none; 
     position: fixed; 
@@ -24,102 +24,179 @@
     align-items: center; 
     justify-content: center; 
     backdrop-filter: blur(4px); 
+    padding: 16px 12px;
+    overflow-y: auto;
+    box-sizing: border-box;
   }
 
   .login-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 370px;
     position: relative;
-    animation: pop 0.3s ease-out;
-    margin: 0 15px;
+    animation: pop 0.25s ease-out;
+    margin: auto;
   }
-  @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes pop { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-  /* ---------- Close Button (100% Fixed to Dark Blue) ---------- */
+  /* Close Button */
   .close-modal-btn {
     position: absolute;
-    top: -12px;
-    right: -12px;
-    background: #ffffff !important;
-    border: 2px solid var(--border);
+    top: 12px;
+    right: 12px;
+    background: #f1f5f9 !important;
+    border: 1px solid var(--border);
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
     z-index: 10;
     transition: 0.2s;
   }
-  .close-modal-btn svg, .close-modal-btn svg path, .close-modal-btn svg line { 
-    width: 18px; 
-    height: 18px; 
+  .close-modal-btn svg { 
+    width: 16px; 
+    height: 16px; 
     stroke: #1d3461 !important; 
-    color: #1d3461 !important; 
   }
-  .close-modal-btn:hover { border-color: var(--danger); transform: scale(1.05); }
-  .close-modal-btn:hover svg, .close-modal-btn:hover svg path, .close-modal-btn:hover svg line { 
+  .close-modal-btn:hover { 
+    background: #fee2e2 !important; 
+    border-color: var(--danger); 
+    transform: scale(1.05); 
+  }
+  .close-modal-btn:hover svg { 
     stroke: var(--danger) !important; 
-    color: var(--danger) !important; 
   }
 
-  /* ---------- CARD & BRAND ---------- */
+  /* Card */
   .login-card { 
     background: var(--white); 
     border: 1px solid var(--border); 
     border-radius: 12px; 
-    padding: 30px; 
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1); 
+    padding: 20px 22px; 
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15); 
+    position: relative;
   }
   
-  .brand { text-align: center; margin-bottom: 15px; }
+  .brand { text-align: center; margin-bottom: 8px; }
   .brand-icon {
     background: #f4f6fb; 
     border: 2px solid var(--border);
     border-radius: 50%; 
-    width: 75px; 
-    height: 75px; 
+    width: 50px; 
+    height: 50px; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    margin: 0 auto 12px;
-    box-shadow: 0 4px 12px rgba(29, 52, 97, 0.08);
+    margin: 0 auto 6px;
+    box-shadow: 0 3px 8px rgba(29, 52, 97, 0.08);
   }
-  .brand-name { font-size: 24px; font-weight: 800; color: var(--primary-blue); font-family: "Georgia", serif; line-height: 1.2; }
-  .brand-subtitle { margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
 
-  .login-heading { margin-bottom: 22px; text-align: center; }
-  .login-heading h1 { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
-  .login-heading p { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+  .login-heading { margin-bottom: 12px; text-align: center; }
+  .login-heading h1 { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+  .login-heading p { font-size: 11.5px; color: var(--text-secondary); line-height: 1.3; margin: 0; }
 
-  /* ---------- Inputs & Buttons ---------- */
-  .btn-google { width: 100%; height: 44px; margin-bottom: 20px; background: white; color: var(--text-main); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; font-size: 13px; border-radius: 8px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+  /* Google Button */
+  .btn-google { 
+    width: 100%; 
+    height: 38px; 
+    margin-bottom: 12px; 
+    background: white; 
+    color: var(--text-main); 
+    border: 1px solid var(--border); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+    font-weight: 600; 
+    font-size: 12.5px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: 0.2s; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03); 
+  }
   .btn-google:hover { background: #f8fafc; border-color: #cbd5e0; }
-  .btn-google img { width: 20px; height: 20px; }
+  .btn-google img { width: 17px; height: 17px; }
   
-  .divider { display: flex; align-items: center; margin-bottom: 20px; }
+  .divider { display: flex; align-items: center; margin-bottom: 12px; }
   .divider-line { flex: 1; height: 1px; background: var(--border); }
-  .divider-text { padding: 0 12px; color: var(--text-secondary); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .divider-text { padding: 0 10px; color: var(--text-secondary); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
   
-  .form-group { margin-bottom: 16px; text-align: left; }
-  .form-group label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: var(--text-main); }
+  /* Form Inputs */
+  .form-group { margin-bottom: 10px; text-align: left; }
+  .form-group label { display: block; margin-bottom: 3px; font-size: 11px; font-weight: 600; color: var(--text-main); }
   .input-wrapper { position: relative; }
-  .input-wrapper svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #9aa4b2; }
-  .form-group input { width: 100%; height: 44px; padding: 0 14px 0 40px; border: 1px solid var(--border); border-radius: 8px; background: #ffffff; color: var(--text-main); font-size: 13px; outline: none; transition: 0.2s; box-sizing: border-box; }
-  .form-group input::placeholder { color: #9aa4b2; }
+  .input-wrapper svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: #9aa4b2; }
+  .form-group input { 
+    width: 100%; 
+    height: 36px; 
+    padding: 0 12px 0 34px; 
+    border: 1px solid var(--border); 
+    border-radius: 7px; 
+    background: #ffffff; 
+    color: var(--text-main); 
+    font-size: 12.5px; 
+    outline: none; 
+    transition: 0.2s; 
+    box-sizing: border-box; 
+  }
   .form-group input:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(29, 52, 97, 0.1); }
   
-  .forgot-link { display: block; text-align: right; color: var(--primary-blue); font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 20px; text-decoration: none; }
+  .forgot-link { display: block; text-align: right; color: var(--primary-blue); font-size: 11px; font-weight: 600; cursor: pointer; margin-bottom: 12px; text-decoration: none; }
   .forgot-link:hover { text-decoration: underline; }
   
-  .login-btn { width: 100%; height: 44px; border: none; border-radius: 8px; background: var(--primary-blue); color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(29, 52, 97, 0.2); }
-  .login-btn:hover { background: var(--primary-blue-hover); transform: translateY(-1px); }
+  .primary-action-btn { 
+    width: 100%; 
+    height: 38px; 
+    border: none; 
+    border-radius: 7px; 
+    background: var(--primary-blue); 
+    color: #ffffff; 
+    font-size: 13.5px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: 0.2s; 
+    box-shadow: 0 3px 8px rgba(29, 52, 97, 0.2); 
+  }
+  .primary-action-btn:hover { background: var(--primary-blue-hover); transform: translateY(-1px); }
 
-  /* ---------- Navbar login dropdown ---------- */
+  /* Switcher Footer */
+  .switch-area {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .switch-text {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+  .switch-btn-link {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--primary-blue);
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.2s;
+  }
+  .switch-btn-link:hover {
+    color: var(--gold);
+    text-decoration: underline;
+  }
+  .switch-btn-link svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* Navbar Dropdown */
   .auth-dropdown { position: relative; display: inline-block; margin-left: 10px; }
-  
   .auth-dropbtn { 
     background: transparent; 
     color: #ffffff; 
@@ -129,61 +206,44 @@
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    gap: 10px; 
+    gap: 8px; 
     font-size: 0.95rem; 
-    transition: color 0.3s ease; 
     white-space: nowrap; 
     padding: 4px 8px;
   }
-  
-  /* Icon ke upar Round (Circle) Design */
   .auth-dropbtn svg { 
-    width: 36px; 
-    height: 36px; 
-    padding: 7px; 
-    stroke-width: 2; 
+    width: 34px; 
+    height: 34px; 
+    padding: 6px; 
     border-radius: 50%; 
-    border: 1.5px solid rgba(255, 255, 255, 0.5); /* White round border */
-    background: rgba(255, 255, 255, 0.05); /* Halka sa transparent background */
-    transition: all 0.3s ease;
+    border: 1.5px solid rgba(255, 255, 255, 0.5); 
+    background: rgba(255, 255, 255, 0.05); 
   }
-  
-  /* Hover karne par icon aur text gold ho jayega */
   .auth-dropbtn:hover { color: #d4a017; }
-  .auth-dropbtn:hover svg { 
-    border-color: #d4a017; 
-    background: rgba(212, 160, 23, 0.1); 
-  }
-  
-  .auth-dropbtn.logged-in { 
-    max-width: 160px; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-  }
+  .auth-dropbtn:hover svg { border-color: #d4a017; background: rgba(212, 160, 23, 0.1); }
+  .auth-dropbtn.logged-in { max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
 
-  .auth-dropdown-content { display: none; position: absolute; right: 0; top: 100%; background-color: #ffffff; min-width: 180px; box-shadow: 0px 10px 25px rgba(0,0,0,0.2); z-index: 2000; border-radius: 10px; overflow: hidden; margin-top: 8px; }
-  .auth-dropdown::before { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 15px; background: transparent; z-index: 2001; }
-  .auth-dropdown-content a { color: #1d3461; padding: 12px 16px; text-decoration: none; display: block; border-bottom: 1px solid #f1f5f9; font-weight: bold; cursor: pointer; transition: 0.2s; }
-  .auth-dropdown-content a:hover { background-color: #f8fafc; color: var(--gold); padding-left: 20px; }
+  .auth-dropdown-content { display: none; position: absolute; right: 0; top: 100%; background-color: #ffffff; min-width: 160px; box-shadow: 0px 10px 25px rgba(0,0,0,0.2); z-index: 2000; border-radius: 8px; overflow: hidden; margin-top: 8px; }
+  .auth-dropdown::before { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 15px; background: transparent; }
+  .auth-dropdown-content a { color: #1d3461; padding: 10px 14px; text-decoration: none; display: block; font-weight: bold; font-size: 13px; cursor: pointer; }
+  .auth-dropdown-content a:hover { background-color: #f8fafc; color: var(--gold); }
   .auth-dropdown:hover .auth-dropdown-content { display: block; }
 </style>
 
-<!-- 2) HTML MODAL -->
+<!-- MODAL OVERLAY -->
 <div class="modal-overlay" id="emailAuthModal">
   <div class="login-container">
-    
-    <!-- Close Button -->
-    <button id="closeLoginBtn" class="close-modal-btn">
-      <i data-lucide="x"></i>
-    </button>
-
-    <!-- LOGIN CARD -->
     <div class="login-card">
         
-        <!-- BRAND -->
+        <!-- Close Button -->
+        <button id="closeLoginBtn" class="close-modal-btn" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+
+        <!-- BRAND ICON -->
         <div class="brand">
             <div class="brand-icon">
-                <svg viewBox="0 0 160 160" style="width: 55px; height: 55px;">
+                <svg viewBox="0 0 160 160" style="width: 36px; height: 36px;">
                   <defs>
                     <linearGradient id="nGrad" x1="0%" y1="100%" x2="100%" y2="0%">
                       <stop offset="0%" stop-color="#0f172a" />
@@ -205,55 +265,108 @@
                   </g>
                 </svg>
             </div>
-            <!-- <div class="brand-name">Adhyapak Saathi</div>
-            <div class="brand-subtitle">Teacher Exam Portal</div> -->
         </div>
 
-        <div class="login-heading">
-            <h1>Sign in</h1>
-            <p>Sign in to access the exam portal and scoreboard.</p>
-        </div>
+        <!-- ================= 1. SIGN IN SECTION ================= -->
+        <div id="signInSection">
+            <div class="login-heading">
+                <h1>Sign in</h1>
+                <p>Sign in to access your exam portal and scoreboard.</p>
+            </div>
 
-        <!-- Google Login -->
-        <button id="modalGoogleLoginBtn" class="btn-google">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"> Sign in with Google
-        </button>
+            <button id="modalGoogleLoginBtn" class="btn-google">
+              <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"> Sign in with Google
+            </button>
 
-        <div class="divider">
-          <div class="divider-line"></div>
-          <span class="divider-text">Or with email</span>
-          <div class="divider-line"></div>
-        </div>
+            <div class="divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">Or with email</span>
+              <div class="divider-line"></div>
+            </div>
 
-        <!-- EMAIL -->
-        <div class="form-group">
-            <label for="emailInput">Email ID</label>
-            <div class="input-wrapper">
-                <i data-lucide="mail"></i>
-                <input type="email" id="emailInput" placeholder="Enter email ID" autocomplete="email">
+            <div class="form-group">
+                <label for="emailInput">Email ID</label>
+                <div class="input-wrapper">
+                    <i data-lucide="mail"></i>
+                    <input type="email" id="emailInput" placeholder="Enter email ID" autocomplete="email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pwdInput">Password</label>
+                <div class="input-wrapper">
+                    <i data-lucide="lock"></i>
+                    <input type="password" id="pwdInput" placeholder="Enter password" autocomplete="current-password">
+                </div>
+            </div>
+
+            <a id="forgotPwdBtn" class="forgot-link">Forgot password?</a>
+            <button id="btnEmailSignIn" class="primary-action-btn">Sign in 🚀</button>
+
+            <div class="switch-area">
+              <div class="switch-text">Don't have an account?</div>
+              <button class="switch-btn-link" onclick="window.toggleAuthView('signup')">
+                <i data-lucide="user-plus"></i> Create Account
+              </button>
             </div>
         </div>
 
-        <!-- PASSWORD -->
-        <div class="form-group">
-            <label for="pwdInput">Password</label>
-            <div class="input-wrapper">
-                <i data-lucide="lock"></i>
-                <input type="password" id="pwdInput" placeholder="Enter password" autocomplete="current-password">
+        <!-- ================= 2. SIGN UP SECTION ================= -->
+        <div id="signUpSection" style="display: none;">
+            <div class="login-heading">
+                <h1>Create Account</h1>
+                <p>Sign up to participate and track your statewide rank.</p>
+            </div>
+
+            <button id="modalGoogleSignUpBtn" class="btn-google">
+              <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"> Sign up with Google
+            </button>
+
+            <div class="divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">Or with email</span>
+              <div class="divider-line"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="regName">Full Name</label>
+                <div class="input-wrapper">
+                    <i data-lucide="user"></i>
+                    <input type="text" id="regName" placeholder="Enter full name" autocomplete="name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="regEmail">Email ID</label>
+                <div class="input-wrapper">
+                    <i data-lucide="mail"></i>
+                    <input type="email" id="regEmail" placeholder="Enter email address" autocomplete="email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="regPassword">Create Password</label>
+                <div class="input-wrapper">
+                    <i data-lucide="lock"></i>
+                    <input type="password" id="regPassword" placeholder="Minimum 6 characters" autocomplete="new-password">
+                </div>
+            </div>
+
+            <button id="btnEmailSignUp" class="primary-action-btn" style="margin-top: 4px;">Create Account 🚀</button>
+
+            <div class="switch-area">
+              <div class="switch-text">Already have an account?</div>
+              <button class="switch-btn-link" onclick="window.toggleAuthView('signin')">
+                <i data-lucide="arrow-left"></i> Back to Sign in
+              </button>
             </div>
         </div>
-
-        <!-- Forgot Password -->
-        <a id="forgotPwdBtn" class="forgot-link">Forgot password?</a>
-
-        <!-- Action Button -->
-        <button id="btnEmailSignIn" class="login-btn">Sign in 🚀</button>
 
     </div>
   </div>
 </div>
 
-<!-- 3) JAVASCRIPT (Firebase init + logic) -->
+<!-- Firebase Logic Script -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
   import {
@@ -263,6 +376,7 @@
     onAuthStateChanged,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    updateProfile,
     sendPasswordResetEmail,
     signOut
   } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -281,22 +395,53 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  function openLoginModal() { document.getElementById("emailAuthModal").style.display = "flex"; }
-  function closeLoginModal() { document.getElementById("emailAuthModal").style.display = "none"; }
+  // Toggle View inside single modal
+  window.toggleAuthView = function(view) {
+    const signInSec = document.getElementById("signInSection");
+    const signUpSec = document.getElementById("signUpSection");
+    if (view === 'signup') {
+      signInSec.style.display = "none";
+      signUpSec.style.display = "block";
+    } else {
+      signUpSec.style.display = "none";
+      signInSec.style.display = "block";
+    }
+    lucide.createIcons();
+  };
+
+  function openLoginModal() { 
+    window.toggleAuthView('signin'); 
+    document.getElementById("emailAuthModal").style.display = "flex"; 
+  }
+  function closeLoginModal() { 
+    document.getElementById("emailAuthModal").style.display = "none"; 
+  }
   window.openLoginModal = openLoginModal;
 
-  function triggerGoogleLogin() {
+  // Google Login / Sign Up
+  function triggerGoogleAuth() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then(() => closeLoginModal())
-      .catch(e => alert("A technical error occurred during login. Please try again."));
+      .then(async (result) => {
+        const user = result.user;
+        await setDoc(doc(db, "users", user.uid), {
+          displayName: user.displayName,
+          email: user.email,
+          lastLogin: new Date().toISOString()
+        }, { merge: true });
+        closeLoginModal();
+      })
+      .catch(() => alert("Google authentication unsuccessful. Please try again."));
   }
 
   const modalGoogleBtn = document.getElementById("modalGoogleLoginBtn");
-  if (modalGoogleBtn) modalGoogleBtn.addEventListener("click", triggerGoogleLogin);
+  if (modalGoogleBtn) modalGoogleBtn.addEventListener("click", triggerGoogleAuth);
+
+  const modalGoogleSignUpBtn = document.getElementById("modalGoogleSignUpBtn");
+  if (modalGoogleSignUpBtn) modalGoogleSignUpBtn.addEventListener("click", triggerGoogleAuth);
 
   const navGoogleBtn = document.getElementById("navGoogleLogin");
-  if (navGoogleBtn) navGoogleBtn.addEventListener("click", triggerGoogleLogin);
+  if (navGoogleBtn) navGoogleBtn.addEventListener("click", triggerGoogleAuth);
 
   const emailLoginBtn = document.getElementById("navEmailLoginBtn");
   if (emailLoginBtn) emailLoginBtn.addEventListener("click", openLoginModal);
@@ -304,41 +449,66 @@
   const closeLoginBtn = document.getElementById("closeLoginBtn");
   if (closeLoginBtn) closeLoginBtn.addEventListener("click", closeLoginModal);
 
+  // Email Sign In
   const btnEmailSignIn = document.getElementById("btnEmailSignIn");
   if (btnEmailSignIn) {
     btnEmailSignIn.addEventListener("click", () => {
       const email = document.getElementById("emailInput").value.trim();
       const pwd = document.getElementById("pwdInput").value;
-      if (!email || !pwd) { alert("Email and password are required!"); return; }
+      if (!email || !pwd) { alert("Please provide both email and password."); return; }
       signInWithEmailAndPassword(auth, email, pwd)
         .then(() => closeLoginModal())
-        .catch(e => alert("Login failed: Please enter the correct details."));
+        .catch(() => alert("Incorrect email or password. Please verify your details."));
     });
   }
 
+  // Email Sign Up
   const btnEmailSignUp = document.getElementById("btnEmailSignUp");
   if (btnEmailSignUp) {
     btnEmailSignUp.addEventListener("click", () => {
-      const email = document.getElementById("emailInput").value.trim();
-      const pwd = document.getElementById("pwdInput").value;
-      if (!email || !pwd || pwd.length < 6) { alert("Email and a password of at least 6 characters are required!"); return; }
+      const name = document.getElementById("regName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const pwd = document.getElementById("regPassword").value;
+
+      if (!name || !email || !pwd) { alert("All fields are mandatory."); return; }
+      if (pwd.length < 6) { alert("Password must have at least 6 characters."); return; }
+
       createUserWithEmailAndPassword(auth, email, pwd)
-        .then(() => closeLoginModal())
-        .catch(e => alert("Registration failed: Email is already registered."));
+        .then(async (userCredential) => {
+          const user = userCredential.user;
+          await updateProfile(user, { displayName: name });
+          await setDoc(doc(db, "users", user.uid), {
+            displayName: name,
+            email: email,
+            createdAt: new Date().toISOString()
+          }, { merge: true });
+          alert("Account created successfully!");
+          closeLoginModal();
+        })
+        .catch((error) => {
+          if (error.code === 'auth/email-already-in-use') {
+            alert("This email is already registered. Please sign in.");
+            window.toggleAuthView('signin');
+          } else {
+            alert("Registration error: " + error.message);
+          }
+        });
     });
   }
 
+  // Password Reset
   const forgotPwdBtn = document.getElementById("forgotPwdBtn");
   if (forgotPwdBtn) {
     forgotPwdBtn.addEventListener("click", () => {
       const email = document.getElementById("emailInput").value.trim();
-      if (!email) { alert("Please enter your Email ID first to reset your password!"); return; }
+      if (!email) { alert("Enter your email address to receive reset instructions."); return; }
       sendPasswordResetEmail(auth, email)
-        .then(() => alert("✅ Password reset link has been sent to your email."))
-        .catch(e => alert("Password reset failed: Email is not registered."));
+        .then(() => alert("Password reset instructions have been dispatched to your email."))
+        .catch(() => alert("Email address not found in our records."));
     });
   }
 
+  // Session Observer
   onAuthStateChanged(auth, async (user) => {
     const mainBtn = document.getElementById("mainUserBtn");
     const dropBox = document.getElementById("loginDropdownBox");
@@ -356,7 +526,7 @@
       try {
         const userRef = doc(db, "users", user.uid);
         await setDoc(userRef, { email: user.email, lastLogin: new Date().toISOString() }, { merge: true });
-      } catch (e) { console.log("Init issue"); }
+      } catch (e) { console.log("Session init sync complete."); }
     } else {
       if (mainBtn) {
         mainBtn.classList.remove("logged-in");
