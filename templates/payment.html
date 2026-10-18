@@ -95,7 +95,7 @@
 
   /* ---------- Razorpay checkout ---------- */
   window.openRazorpay = function (testId, user) {
-    // 1. Pehle Python backend se naya Order ID mangwao
+// 1. Create a secure Order ID from Python Backend
     fetch('/api/create-order', {
       method: 'POST',
       headers: {
@@ -105,16 +105,15 @@
     .then(res => res.json())
     .then(orderData => {
       
-      // 2. Order ID aane ke baad Razorpay ke options set karo
       var options = {
         "key": RAZORPAY_KEY,
         "amount": TEST_PRICE_PAISE,
         "currency": "INR",
         "name": "Adhyapak Saathi",
         "description": `Premium Mock Test ${testId}`,
-        "order_id": orderData.id, // <-- YEH SABSE ZAROORI HAI
+        "order_id": orderData.id, // Secure Order ID from backend
 
-        // 3. Payment details ko Python backend par verification ke liye bhejo
+        // 2. Send payment details to Python backend for verification
         "handler": function (response) {
           fetch('/api/verify-payment', {
             method: 'POST',
@@ -133,7 +132,13 @@
           .then(data => {
             if(data.status === "success") {
               alert(`Mock Test ${testId} has been successfully unlocked!`);
-              location.reload();
+
+              // 3. Instead of reloading the page, instanlty unlock and open the test!
+              unlockCard(testId);
+
+              if (typeof window.openPaidModal == "function"){
+                window.openPaidModal(testId);
+              }
             } else {
               alert("Payment verification failed! Please contact support.");
             }
@@ -148,7 +153,7 @@
         "theme": { "color": "#1d3461" }
       };
 
-      // 4. Ab Razorpay popup kholo
+      // 4. Open Razorpay popup
       var rzp = new Razorpay(options);
       rzp.on("payment.failed", function (response) {
         alert("પેમેન્ટ નિષ્ફળ! કૃપા કરીને ફરીથી પ્રયત્ન કરો.");
