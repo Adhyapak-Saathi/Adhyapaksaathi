@@ -102,22 +102,34 @@
       "name": "Adhyapak Saathi",
       "description": `Premium Mock Test ${testId}`,
 
-      // ⚠️ TODO (security): yeh unlock abhi browser se likha ja raha hai.
-      // Live karne se pehle server par payment verify karke hi flag set karna.
+    // Send payment details to Python backend for secure verification
       "handler": function (response) {
-        const userRef = doc(db, "users", user.uid);
-        let updateData = {};
-        updateData[`paid_test${testId}_new_v2`] = true;
-
-        setDoc(userRef, updateData, { merge: true })
-          .then(() => {
-            alert(`મોક ટેસ્ટ ${testId} સફળતાપૂર્વક અનલૉક થઈ ગયો છે!`);
-            location.reload();
+        fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+            test_id: testId,
+            user_uid: user.uid // Needed to unlock the test for the specific user
           })
-          .catch(err => {
-            console.error(err);
-            alert("પેમેન્ટ પ્રક્રિયામાં તકલીફ છે. કૃપા કરીને થોડી વાર પછી પ્રયત્ન કરો.");
-          });
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.status === "success") {
+            alert(`Mock Test ${testId} has been successfully unlocked!`);
+            location.reload();
+          } else {
+            alert("Payment verification failed! Please contact support.");
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("There was an issue processing the payment. Please try again later.");
+        });
       },
 
       "prefill": { "name": user.displayName || "Student", "email": user.email },

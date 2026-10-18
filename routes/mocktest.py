@@ -165,3 +165,42 @@ def submit_score():
     except Exception as e:
         print(f"!!! SCORE SAVE ERROR !!!: {str(e)}")
         return jsonify({"error": str(e)}), 500
+    
+# Route 7: Securely verify Razorpay Payment and Unlock Test
+@mocktest_api.route("/api/verify-payment", methods = ['POST'])
+def verify_payment():
+    try:
+        # Parse JSON data from frontend
+        data = request.get_json()
+        
+        # 1. Extract payment details and user ID
+        payment_id = data.get("razorpay_payment_id")
+        order_id = data.get("razorpay_order_id")
+        signature = data.get("razorpay_signature")
+        test_id = str(data.get("test_id", '')).strip()
+        user_uid = str(data.get('user_uid', '')).strip()
+        
+        if not user_uid:
+            return jsonify({"status":"error", "message":"User ID missing!"}), 400
+        
+        # 2. Verify Signature with Razorpay
+        params_dict = {
+            'razorpay_order_id' : order_id,
+            'razorpay_payment_id' : payment_id,
+            'razorpay_signature' : signature
+        }
+        
+        # This will raise an error if the payment is fake
+        razorpay_client.utility.verify_payment_signature(params_dict)
+        
+        # 3. Verification PASS! Unlock test in Firebase from the backend
+        db.collection('users').document(user_uid).set({
+            f'paid_test{test_id}_new_v2' : True
+        }, merge=True)
+        
+        return jsonify({"status":"success", "message":"Payment verified and test unlocked!"})
+    except razorpay.errors.SignatureVerificationError:
+        return jsonify({"status":"error", "message":"Payment verification failed!"})
+    
+    except Exception as e:
+        return jsonify({"status":"error", "message": str(e)}), 500
