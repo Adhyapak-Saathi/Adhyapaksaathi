@@ -95,52 +95,71 @@
 
   /* ---------- Razorpay checkout ---------- */
   window.openRazorpay = function (testId, user) {
-    var options = {
-      "key": RAZORPAY_KEY,
-      "amount": TEST_PRICE_PAISE,
-      "currency": "INR",
-      "name": "Adhyapak Saathi",
-      "description": `Premium Mock Test ${testId}`,
+    // 1. Pehle Python backend se naya Order ID mangwao
+    fetch('/api/create-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(orderData => {
+      
+      // 2. Order ID aane ke baad Razorpay ke options set karo
+      var options = {
+        "key": RAZORPAY_KEY,
+        "amount": TEST_PRICE_PAISE,
+        "currency": "INR",
+        "name": "Adhyapak Saathi",
+        "description": `Premium Mock Test ${testId}`,
+        "order_id": orderData.id, // <-- YEH SABSE ZAROORI HAI
 
-    // Send payment details to Python backend for secure verification
-      "handler": function (response) {
-        fetch('/api/verify-payment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_signature: response.razorpay_signature,
-            test_id: testId,
-            user_uid: user.uid // Needed to unlock the test for the specific user
+        // 3. Payment details ko Python backend par verification ke liye bhejo
+        "handler": function (response) {
+          fetch('/api/verify-payment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              test_id: testId,
+              user_uid: user.uid 
+            })
           })
-        })
-        .then(res => res.json())
-        .then(data => {
-          if(data.status === "success") {
-            alert(`Mock Test ${testId} has been successfully unlocked!`);
-            location.reload();
-          } else {
-            alert("Payment verification failed! Please contact support.");
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          alert("There was an issue processing the payment. Please try again later.");
-        });
-      },
+          .then(res => res.json())
+          .then(data => {
+            if(data.status === "success") {
+              alert(`Mock Test ${testId} has been successfully unlocked!`);
+              location.reload();
+            } else {
+              alert("Payment verification failed! Please contact support.");
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert("There was an issue processing the payment. Please try again later.");
+          });
+        },
 
-      "prefill": { "name": user.displayName || "Student", "email": user.email },
-      "theme": { "color": "#1d3461" }
-    };
+        "prefill": { "name": user.displayName || "Student", "email": user.email },
+        "theme": { "color": "#1d3461" }
+      };
 
-    var rzp = new Razorpay(options);
-    rzp.on("payment.failed", function (response) {
-      alert("પેમેન્ટ નિષ્ફળ! કૃપા કરીને ફરીથી પ્રયત્ન કરો.");
+      // 4. Ab Razorpay popup kholo
+      var rzp = new Razorpay(options);
+      rzp.on("payment.failed", function (response) {
+        alert("પેમેન્ટ નિષ્ફળ! કૃપા કરીને ફરીથી પ્રયત્ન કરો.");
+      });
+      rzp.open();
+      
+    })
+    .catch(err => {
+      console.error("Order creation failed:", err);
+      alert("System error: Could not initiate payment.");
     });
-    rzp.open();
   };
 
   /* ---------- Test cards: locked / unlocked UI ---------- */
